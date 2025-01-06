@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIlury Programming Studio</title>
+    <style>
+        body {
+            background: #fff;/*#fcfcfc*/
+	    width: 100vw;
+	    overflow: hidden;
+        }
+        .code-editor-container {
+            height: 70vh;
+            width: 90vw;
+            border-radius: 5px;
+            background: #fff;
+	    padding: 5px 4.5em;/*4.5em*/
+	    overflow-y: scroll;
+	    overflow-x: hidden;
+	    box-shadow: inset 0px 0px 10px #fcfcfc;
+        }
+	@media (max-width: 700px) {
+            .code-editor-container {
+                width: 80vw;
+		padding: 5px 3.5em;
+		height: 60vh;
+            }
+        }
+	@media (max-width: 600px) {
+            .code-editor-container {
+                width: 65vw;
+		padding: 5px 3em;
+		height: 50vh;
+            }
+        }
+        .code-editor-line {
+            display: flex;/*inline-block*/
+            position: relative;
+            border-radius: 5px;
+            background: #fff;
+            color: #000;
+            font-size: 1em;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            letter-spacing: 0.06em;
+            text-align: left;
+            padding: 5px;
+            transition: 0.5s;
+            white-space: pre-wrap;
+            /*width: 70vw;*/
+            box-sizing: border-box;
+            cursor: pointer;
+	    opacity: 1;
+        }
+        .code-editor-line:focus {
+            outline: none;
+            background: #f0f0f0;
+        }
+        .code-editor-line {
+            counter-increment: line-number;
+            position: relative;
+        }
+        .code-editor-line::before {
+            content: counter(line-number) ". ";
+            position: absolute;
+            right: 101%;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 0.7em;
+            border: none;
+            color: #999999;
+        }
+        /* Checkmark style */
+        .code-editor-line.selected::after {
+            content: '✓';
+            position: absolute;
+            left: -3.5em;
+            top: 0;
+            color: #28a745;
+            font-size: 1.2em;
+        }
+        /* Selected line styling */
+        .code-editor-line.selected.topSelected {
+	    border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0; /* Falls du die untere rechte Ecke ebenfalls abgerundet haben möchtest */
+        }
+
+        .code-editor-line.selected.bottomSelected {
+	    border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0; /* Falls du die obere rechte Ecke ebenfalls abgerundet haben möchtest */
+        }
+
+        .code-editor-line.selected.middleSelected {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0; /* Entfernt alle Ecken */
+        }
+
+        .code-editor-line.selected.singleSelected {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px; /* Rundet alle Ecken */
+        }
+	.editor-selected-line-btns{
+	    width: 90vw;
+	    background: #fff;
+	    height: 8vh;
+	    padding: 10px;
+	}
+	.eslbtn{
+	    color: #000;
+	    width: 6vh;
+	    height: 6vh;
+	    min-width: 40px;
+	    min-height: 40px;
+	    background: #fff;
+	    text-align: center;
+	    boder: none;
+	    border-radius: 50%;
+	    font-weight: bold;
+	    font-size: 0.85em;
+	    margin-left: 1%;
+	    transition: 0.5s;
+	}
+	.eslbtn:hover{
+	    background: #f0f0f0;
+	}
+	.disabled{
+	    pointer-events: none;
+            opacity: 0.5;
+	}
+	.disableline{
+	    pointer-events: none;
+            opacity: 0.5;
+	}
+	.importantpin{
+	    background: rgba(255, 0, 0, 0.5);/*#F09286*/
+	}
+	.code-editor-line.selected {
+            background: #e0f7e9;
+            transform: translateX(1.5em); /* Slight movement to the right */
+	    border-radius: 0;
+        }
+	/*.unsleeplines{*/
+	.code-editor-btn{
+	    color: #000;
+	    width: 6vh;
+	    height: 6vh;
+	    min-width: 40px;
+	    min-height: 40px;
+	    background: #fff;
+	    text-align: center;
+	    border: none;
+	    border-radius: 50%;
+	    font-weight: bold;
+	    font-size: 0.85em;
+	    margin-left: 1%;
+	    transition: 0.5s;
+	    
+	}
+	.unsleeplines:hover{
+	    background: #f0f0f0;
+	}
+	.hiddenlinesparent{
+	    transform: translateX(-1.5em);
+	}
+	.hidden{
+	    display: none;
+	    /*animation: Hide 1s forwards;*/
+	}
+	@keyframes Hide {
+	    100%{
+		transform: translateY(-50px);
+		opacity: 0;
+		display: none;
+	    }
+        }
+	.code-editor-btns{
+	    width: 90vw;
+	    background: #fff;
+	    height: 8vh;
+	    padding: 10px;
+	}
+    </style>
+</head>
+<body>
+    <div class="code-editor-btns"><button class="code-editor-btn" id="deletebtn2" onclick="deleteAllLines()">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="importantalllines()">⚠</button><button class="code-editor-btn" id="upbtn" onclick="unselectalllines()">←</button><button class="code-editor-btn" id="downbtn" onclick="unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="unsleepalllines()">☼</button><button class="code-editor-btn" id="copybtn" onclick="copyalllinetexts()">□</button></div>
+    <div class="code-editor-container">
+        <div id="1" class="code-editor-line" contenteditable="true"></div>
+    </div>
+    <div class="editor-selected-line-btns"><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines()">☑</button><button class="eslbtn disabled" id="importantPinbtn" onclick="importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="copyselectedlinetexts()">□</button></div>
+    <script>
+	let correntids = 1;
+	
+	function checkifselectedlines() {
+	    const check = document.querySelector(".code-editor-line.selected");
+	    if (!check) {
+		document.querySelectorAll('.eslbtn').forEach(dline => {
+		    dline.classList.add('disabled');
+		});
+	    }
+	}
+	function deleteSelectedLines() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+		    if (selectedline.previousElementSibling || selectedline.nextElementSibling){
+			selectedline.remove();
+		    }else {
+			selectedline.innerHTML = "";
+		    }
+		    selectedline.classList.remove('selected');
+		    checkifselectedlines();
+                });
+            }
+        }
+
+	function deleteAllLines() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+		    if (selectedline.previousElementSibling || selectedline.nextElementSibling){
+			selectedline.remove();
+		    }else {
+			selectedline.innerHTML = "";
+		    }
+		    checkifselectedlines();
+                });
+            }
+        }
+
+        function importantselectedlines() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+                    selectedline.classList.toggle("importantpin");
+		    selectedline.classList.remove('selected');
+		    checkifselectedlines();
+                });
+            }
+        }
+
+	function unselectalllines() {
+	    const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+                    selectedline.classList.remove('selected');  // Linie abwählen bei links Swipe
+		    if (!document.querySelector('.code-editor-line.selected')){
+		        document.querySelectorAll('.eslbtn').forEach(dline => {
+		            dline.classList.add('disabled');
+		        });
+		    }
+                    updateSelectedClasses();
+                });
+            }
+	}
+
+	function unfoldalllines() {
+	    const allselectedlines = document.querySelectorAll(".hiddenlinesparent");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+                    selectedline.classList.remove('hiddenlinesparent');  // Linie auswählen
+		    showHiddenElements(selectedline);
+                    updateSelectedClasses();
+                });
+            }
+	}
+	
+	function importantalllines() {
+            const allselectedlines = document.querySelectorAll(".importantpin");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+                    selectedline.classList.remove("importantpin");
+		    checkifselectedlines();
+                });
+            }
+        }
+
+        function moveselectedlineup() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+                    const previousLine = selectedline.previousElementSibling;
+                    if (previousLine) {
+                        selectedline.parentNode.insertBefore(selectedline, previousLine);
+                    }
+                });
+            }
+        }
+
+        function moveselectedlinedown() {
+            //const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+	    let allselectedlines = [...document.querySelectorAll('.code-editor-line.selected')];
+            allselectedlines.reverse();
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+                    const nextLine = selectedline.nextElementSibling;
+                    if (nextLine) {
+                        selectedline.parentNode.insertBefore(nextLine, selectedline);
+                    }
+                });
+            }
+        }
+
+        function restselectedline() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+		    selectedline.classList.toggle("disableline");
+		    selectedline.classList.remove('selected');
+		    checkifselectedlines();
+                }); // Korrekte Klammerung hier
+            }
+        }
+
+	function unsleepalllines() {
+            const allselectedlines = document.querySelectorAll(".disableline");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                allselectedlines.forEach(selectedline => {
+		    selectedline.classList.remove('disableline');
+                });
+            }
+        }
+
+	let deletebtnnnn = document.getElementById('deletebtn');
+
+	deletebtnnnn.addEventListener('change', () => {
+	    if (deletebtnnnn.classList.contains('disabled')){
+		deletebtnnnn.textContent = '☑';
+	    }else {
+		deletebtnnnn.textContent = '⌧';
+	    }
+	});
+
+        function copyselectedlinetexts() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                let linetexts = "";
+                allselectedlines.forEach(selectedline => {
+                    linetexts += selectedline.textContent + "\n"; // Füge Zeilenumbruch hinzu
+                }); // Korrekte Klammerung hier
+		
+		try {
+		    const newtextarea = document.createElement('textarea');
+                    newtextarea.value = linetexts;
+                    document.body.appendChild(newtextarea);
+                    newtextarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(newtextarea);
+                } catch (error) {
+                    const thiserrorwascatched = error;
+                }
+
+		selectedline.classList.remove('selected');
+		checkifselectedlines();
+                // Verwende die Clipboard API
+                /*navigator.clipboard.writeText(linetexts)
+                    .then(() => {
+                        console.log('Text copied to clipboard');
+                    })
+                    .catch(err => {
+                        console.error('Error copying text: ', err);
+                    });*/
+            }
+        }
+	function copyalllinetexts() {
+            const allselectedlines = document.querySelectorAll(".code-editor-line");
+            if (allselectedlines.length) {  // Überprüfe, ob es ausgewählte Linien gibt
+                let linetexts = "";
+                allselectedlines.forEach(selectedline => {
+                    linetexts += selectedline.textContent + "\n"; // Füge Zeilenumbruch hinzu
+                }); // Korrekte Klammerung hier
+		
+		try {
+		    const newtextarea = document.createElement('textarea');
+                    newtextarea.value = linetexts;
+                    document.body.appendChild(newtextarea);
+                    newtextarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(newtextarea);
+                } catch (error) {
+                    const thiserrorwascatched = error;
+                }
+
+		selectedline.classList.remove('selected');
+		checkifselectedlines();
+                // Verwende die Clipboard API
+                /*navigator.clipboard.writeText(linetexts)
+                    .then(() => {
+                        console.log('Text copied to clipboard');
+                    })
+                    .catch(err => {
+                        console.error('Error copying text: ', err);
+                    });*/
+            }
+        }
+
+	    
+        let startX, startLine;
+
+        // Allgemeiner Event Listener für Touch-Events
+        document.addEventListener('touchstart', function(event) {
+            // Überprüfen, ob das Element eine Linie ist
+            let target = event.target.closest('.code-editor-line');
+            if (target) {
+                startX = event.touches[0].clientX;  // Startkoordinate speichern
+                startLine = target;  // Die Zeile speichern, auf der der Touch gestartet wurde
+            }
+        });
+
+	let result = {};
+        document.addEventListener('touchend', function(event) {
+            if (!startLine) return;  // Keine Linie gestartet, nichts tun
+
+            let endX = event.changedTouches[0].clientX;  // Endkoordinate speichern
+            let diffX = endX - startX;  // Unterschied zwischen Start und Ende berechnen
+
+            // Wenn nach rechts geswiped wird und auf derselben Zeile geendet wird
+            if (diffX > 50 && !startLine.classList.contains('selected') && !startLine.classList.contains('hiddenlinesparent')) {
+                startLine.classList.add('selected');  // Linie auswählen
+		document.querySelectorAll('.eslbtn.disabled').forEach(dline => {
+		    dline.classList.remove('disabled');
+		});
+                updateSelectedClasses();
+            } else if (diffX > 50 && startLine.classList.contains('hiddenlinesparent')) {
+                startLine.classList.remove('hiddenlinesparent');  // Linie auswählen
+		showHiddenElements(startLine);
+                updateSelectedClasses();
+            } else if (diffX < -50 && startLine.classList.contains('selected')) {
+                startLine.classList.remove('selected');  // Linie abwählen bei links Swipe
+		if (!document.querySelector('.code-editor-line.selected')){
+		    document.querySelectorAll('.eslbtn').forEach(dline => {
+		        dline.classList.add('disabled');
+		    });
+		}
+                updateSelectedClasses();
+            } else if (diffX < -50 && !startLine.classList.contains('selected') && !startLine.classList.contains('hiddenlinesparent')) {
+                //startLine.classList.add('hiddenlinesparent');
+		analyzeAndHideElements(startLine);
+                updateSelectedClasses();
+            } 
+
+            startLine = null;  // Touch-Zustand zurücksetzen
+        });
+		
+        let inputDiv = document.querySelector('.code-editor-container');
+
+        // Paste Event-Listener
+        inputDiv.addEventListener('paste', function(event) {
+            event.preventDefault(); // Verhindert das Standardverhalten des Einfügens
+
+            let celine = document.querySelector('.code-editor-line:focus');
+            if (!celine) return;
+
+	    let spaces = "";
+            let continueSpaces = true;
+            for (let i = 0; i < celine.textContent.length; i++) {
+                let character = celine.textContent[i];
+                if ((character === " " || character === "\u00A0") && continueSpaces) {
+                    spaces += "&nbsp;";
+                } else {
+                    continueSpaces = false;
+                }
+            }
+            // Kopierten Text aus der Zwischenablage holen
+            let pasteText = (event.clipboardData || window.clipboardData).getData('text');
+
+            // Aufteilen des eingefügten Textes bei Zeilenumbrüchen
+            let lines = pasteText.split(/\r\n|\n|\r/);
+
+            let selection = window.getSelection();
+            let range = selection.getRangeAt(0);
+            let cursorOffset = range.startOffset;
+
+            // Text vor dem Cursor behalten und Text nach dem Cursor extrahieren
+            let currentText = celine.textContent;
+            let textAfterCursor = currentText.substring(cursorOffset);
+            celine.textContent = currentText.substring(0, cursorOffset);
+
+            // Verarbeite die erste Linie: Der Text wird in die aktuelle Linie eingefügt
+            celine.innerText += convertToNonBreakingSpaces(lines[0]);
+
+            // Für die folgenden Zeilen, füge sie als neue Linien (divs) hinzu
+            for (let i = 1; i < lines.length; i++) {
+                correntids += 1;
+                const newline = document.createElement('div');
+                newline.setAttribute('contenteditable', 'true');
+                newline.id = correntids;
+                newline.classList.add('code-editor-line');
+		newline.innerHTML = spaces;
+                newline.innerText += convertToNonBreakingSpaces(lines[i]);
+                celine.insertAdjacentElement('afterend', newline);
+                celine = newline;
+            }
+
+            // Text nach dem Cursor in die letzte Linie einfügen
+            celine.innerText += convertToNonBreakingSpaces(textAfterCursor);
+
+            // Setze den Cursor ans Ende der letzten Linie
+            const newRange = document.createRange();
+            newRange.setStart(celine.childNodes[0], celine.childNodes[0].length);
+            newRange.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(newRange);
+        });
+	function analyzeAndHideElements(element) {
+          function countLeadingSpaces(text) {
+              //return text.match(/^ */)[0].length;
+	      let spaces = 0;
+              let continueSpaces = true;
+              for (let i = 0; i < text.length; i++) {
+                  let character = text[i];
+                  if ((character === " " || character === "\u00A0") && continueSpaces) {
+                      spaces += 1;
+                  } else {
+                      continueSpaces = false;
+                  }
+              }
+	      return spaces;
+          }
+
+          // Das empfangene Element und seine führenden Leerzeichen ermitteln
+          const referenceSpaces = countLeadingSpaces(element.textContent);
+          const hiddenElements = [];
+    
+          // Nächstes Element in der DOM-Hierarchie bekommen
+          let nextElement = element.nextElementSibling;
+
+	  if (nextElement){
+	      element.classList.add('hiddenlinesparent');
+	  }else {
+	      return;
+	  }
+          // Schleife durch alle nachfolgenden Geschwister-Elemente
+          while (nextElement) {
+              const nextText = nextElement.textContent;
+              const nextSpaces = countLeadingSpaces(nextText);
+
+              // Überprüfen, ob das nächste Element mehr führende Leerzeichen hat
+              if (nextSpaces > referenceSpaces || nextText.trim() == "") {
+                  // Element in die Liste der versteckten Elemente aufnehmen
+                  hiddenElements.push(nextElement);
+                  nextElement.classList.add('hidden');  // Element verstecken
+              } else {
+                  break;  // Schleife beenden, wenn weniger oder gleich viele Leerzeichen
+              }
+
+              // Zum nächsten Geschwister-Element wechseln
+              nextElement = nextElement.nextElementSibling;
+          }
+
+          // JSON-Struktur erstellen
+          result[element.id] = hiddenElements;
+        }
+	    
+	function showHiddenElements(element) {
+            if (result[element.id]) {
+                const hiddenElements = result[element.id].reverse();
+                hiddenElements.forEach(hiddenElement => {
+		    if (hiddenElement){
+			hiddenElement.classList.remove('hidden');
+			if (hiddenElement.classList.contains('hiddenlinesparent')){
+			    hiddenElement.classList.remove('hiddenlinesparent');
+			    showHiddenElements(hiddenElement);
+			    analyzeAndHideElements(hiddenElement);
+			}
+		    }
+                });
+                delete result[element.id];
+            }
+        }
+
+
+
+        // Hilfsfunktion, um Leerzeichen in &nbsp; zu konvertieren
+        function convertToNonBreakingSpaces(text) {
+            return text.replace(/ /g, ' ').replace(/\t/g, '    '/*'&nbsp;&nbsp;&nbsp;&nbsp;'*/); // Konvertiert Leerzeichen und Tabs in nicht-brechende Leerzeichen
+        }
+
+        // Enter- und Backspace-Event-Listener
+        inputDiv.addEventListener('keydown', function(event) {
+            let celine = document.querySelector('.code-editor-line:focus');
+			
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Verhindert das Standardverhalten der Enter-Taste
+
+                if (celine) {
+                    correntids += 1;
+                    const newid = correntids;
+
+                    let text = celine.textContent;
+                    let selection = window.getSelection();
+                    let range = selection.getRangeAt(0);
+                    let cursorOffset = range.startOffset;
+
+                    let textBehindCursor = text.substring(cursorOffset);
+                    celine.textContent = text.substring(0, cursorOffset);
+
+                    let spaces = "";
+                    let continueSpaces = true;
+                    for (let i = 0; i < celine.textContent.length; i++) {
+                        let character = celine.textContent[i];
+                        if ((character === " " || character === "\u00A0") && continueSpaces) {
+                            spaces += "&nbsp;";
+                        } else {
+                            continueSpaces = false;
+                        }
+                    }
+
+                    const newline = document.createElement('div');
+                    newline.setAttribute('contenteditable', 'true');
+                    newline.id = newid;
+                    newline.classList.add('code-editor-line');
+                    newline.innerHTML = spaces;
+
+                    celine.insertAdjacentElement('afterend', newline);
+                    newline.innerText += textBehindCursor;
+
+                    newline.focus();
+                    range = document.createRange();
+                    range.setStart(newline.childNodes[0], newline.childNodes[0].length - textBehindCursor.length);
+                    range.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+		    updateSelectedClasses();
+                }
+            }
+
+            // Backspace-Taste
+            if (event.key === 'Backspace') {
+                let selection = window.getSelection();
+                let range = selection.getRangeAt(0);
+
+                if (range.startOffset === 0 && celine) {
+                    event.preventDefault();
+
+                    const previousLine = celine.previousElementSibling;
+                    if (previousLine) {
+			updateSelectedClasses();
+                        let currentLineText = celine.textContent;
+
+                        celine.remove();
+                        previousLine.textContent += currentLineText;
+
+                        previousLine.focus();
+                        range = document.createRange();
+                        range.setStart(previousLine.childNodes[0], previousLine.childNodes[0].length - currentLineText.length);
+                        range.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                }
+            }
+			
+	    if (event.key === '>') {
+        	 let selection = window.getSelection();
+        	 let range = selection.getRangeAt(0);
+        	 let cursorOffset = range.startOffset;
+
+      		 // Holen des aktuellen Texts vor dem Cursor
+       		 let text = celine.textContent.substring(0, cursorOffset);
+       		 // Prüfen, ob der Text einen öffnenden Tag enthält
+        	 let openTagMatch = text.match(/<(\w+)([^>]*)$/);
+
+       		 if (openTagMatch) {
+            		 event.preventDefault(); // Verhindert das Standardverhalten
+
+            		 // Tag automatisch schließen
+           		 let tagName = openTagMatch[1];
+           		 let tagEnd = `</${tagName}>`;
+
+          		  // Fügen Sie den schließenden Tag direkt nach dem Cursor ein
+          		  let textAfterCursor = celine.textContent.substring(cursorOffset);
+          		  celine.textContent = text + '>' + tagEnd + textAfterCursor;
+
+           		 // Setzen Sie den Cursor zwischen die Tags
+           		 range.setStart(celine.firstChild, cursorOffset + 1);
+           		 range.collapse(true);
+           		 selection.removeAllRanges();
+          		 selection.addRange(range);
+       		 }
+    	    }
+			
+	    let selection = window.getSelection();
+   
+	    let range = selection.getRangeAt(0);
+	    let cursorOffset = range.startOffset;
+            
+            // Erstellen einer Funktion, die das aktuelle Zeichen schließt
+            function insertClosingCharacter(openingChar, closingChar) {
+                let text = celine.textContent;
+                let textAfterCursor = text.substring(cursorOffset);
+                celine.textContent = text.substring(0, cursorOffset) + openingChar + closingChar + textAfterCursor;
+
+                // Cursor zwischen den Zeichen platzieren
+                range.setStart(celine.firstChild, cursorOffset + 1);
+                range.collapse(true);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+
+            // Automatisches Schließen von '{'
+            if (event.key === '{') {
+                event.preventDefault();
+                insertClosingCharacter('{', '}');
+            }
+			
+	    if (event.key === '[') {
+                event.preventDefault();
+                insertClosingCharacter('[', ']');
+            }
+
+            // Automatisches Schließen von '('
+            if (event.key === '(') {
+                event.preventDefault();
+                insertClosingCharacter('(', ')');
+            }
+
+            // Automatisches Schließen von '`'
+            if (event.key === '`') {
+                event.preventDefault();
+                insertClosingCharacter('`', '`');
+            }
+
+            // Automatisches Schließen von '„'
+            if (event.key === '„') {
+                event.preventDefault();
+                insertClosingCharacter('"', '"');
+            }
+
+            // Automatisches Schließen von '‚'
+            if (event.key === '‚') {
+                event.preventDefault();
+                insertClosingCharacter('\'', '\'');
+            }
+			
+	    if (event.key === '"') {
+                event.preventDefault();
+                insertClosingCharacter('"', '"');
+            }
+
+            // Automatisches Schließen von '‚'
+            if (event.key === "'") {
+                event.preventDefault();
+                insertClosingCharacter('\'', '\'');
+            }
+			
+	    function checkAndSkipClosingCharacter(closingChar) {
+	        let text = celine.textContent;
+		let nextChar = text.charAt(cursorOffset);
+		if (nextChar === closingChar) {
+		    event.preventDefault();
+		    range.setStart(celine.firstChild, cursorOffset + 1);
+		    range.collapse(true);
+		    selection.removeAllRanges();
+		    selection.addRange(range);
+	        }
+	    }
+
+	    if (event.key === ']') {
+	        checkAndSkipClosingCharacter(']');
+	    }
+	    if (event.key === '}') {
+		checkAndSkipClosingCharacter('}');
+	    }
+	    if (event.key === '"') {
+	        checkAndSkipClosingCharacter('"');
+	    }
+	    if (event.key === "'") {
+		checkAndSkipClosingCharacter("'");
+	    }
+	    if (event.key === ')') {
+		checkAndSkipClosingCharacter(')');
+	    }
+	    if (event.key === ';') {
+		checkAndSkipClosingCharacter(';');
+	    }
+	});
+        function updateSelectedClasses() {
+            const lines = document.querySelectorAll('.code-editor-line');
+
+            lines.forEach((line, index) => {
+                const isSelected = line.classList.contains('selected');
+
+                // Überprüfen, ob es über und unter der Zeile selektierte Zeilen gibt
+                const hasAbove = index > 0 && lines[index - 1].classList.contains('selected');
+                const hasBelow = index < lines.length - 1 && lines[index + 1].classList.contains('selected');
+
+                // Entfernen aller relevanten Klassen
+		if (line.classList.contains('topSelected')){
+		    line.classList.remove('topSelected');
+		}
+		if (line.classList.contains('bottomSelected')){
+		    line.classList.remove('bottomSelected');
+		}
+		if (line.classList.contains('middleSelected')){
+		    line.classList.remove('middleSelected');
+		}
+		if (line.classList.contains('singleSelected')){
+		    line.classList.remove('singleSelected');
+		}
+
+                if (isSelected) {
+                    if (!hasAbove && !hasBelow) {
+                        // Single selected
+                        line.classList.add('singleSelected');
+                    } else if (!hasAbove && hasBelow) {
+                        // Top selected
+                        line.classList.add('topSelected');
+                    } else if (hasAbove && !hasBelow) {
+                        // Bottom selected
+                        line.classList.add('bottomSelected');
+                    } else if (hasAbove && hasBelow) {
+                        // Middle selected
+                        line.classList.add('middleSelected');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
