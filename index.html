@@ -1317,7 +1317,7 @@
             border-radius: 0;
             transition: 0.3s;
         }
-        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay{
+        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay{
             position: fixed;
             top: 0;
             left: 0;
@@ -1568,7 +1568,7 @@
                 height: 100vh;
                 max-width: none;
             }
-            .theme-option-container {
+            .theme-option-container, .userregulationsandconditions {
                 width: 100vw;
                 height: 100vh;
                 max-width: none;
@@ -2614,6 +2614,66 @@
                 opacity: 0;
             }
         }
+        .userregulationsandconditionsoverlay{
+            display: flex;
+        }
+        .userregulationsandconditions{
+            width: 100vw;
+            max-width: 800px;
+            display: flex;
+            padding: 10px;
+            box-sizing: border-box;
+            color: var(--black-color);
+            background: var(--background-color);
+            border-radius: 5px;
+            flex-direction: column;
+            border: 1px solid var(--rectangleborder);
+            max-height: 95vh;
+            word-break: break-word;
+            font-size: 1em;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        .userregulationsandconditions ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 20px;
+        }
+        
+        .userregulationsandconditions li {
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            background: var(--background-color);
+            border: 1px solid var(--rectangleborder);
+            border-radius: 5px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .userregulationsandconditions p{
+            margin-left: 5px;
+            margin-top: 20px;
+        }
+        
+        .userregulationsandconditions h2 {
+            color: var(--black-color);
+            margin-top: 20px;
+        }
+        
+        .userregulationsandconditions button {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            background: var(--switchcheckedbackground-color);
+            color: white;
+            text-align: center;
+            border-radius: 100px;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            align-self: center;
+            width: 100%;
+            max-width: 500px;
+        }
     </style>
 </head>
 <body>
@@ -3316,6 +3376,21 @@
     </div>
     <div class="notificationmessage">
         <span class="messagespan" onclick="hidenotificationmessage()">message</span><button class="confirmationbtn">ok</button>
+    </div>
+    <div class="userregulationsandconditionsoverlay">
+        <div class="userregulationsandconditions">
+            <h2>Conditions of Use for AIlury Studio</h2>
+            
+            <p>By using AIlury Studio, you agree to the following terms:</p>
+            <ul>
+                <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform, other users’ data, or any part of the website.</li>
+                <li><strong>No Exploiting Bugs:</strong> Do not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
+                <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
+                <li><strong>No Malicious Activity:</strong> Running or uploading malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
+            </ul>
+            <p>Do you accept all terms and conditions?</p>
+            <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">i accept</button>
+        </div>
     </div>
 
     <script>
