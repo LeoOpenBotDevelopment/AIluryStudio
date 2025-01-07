@@ -2572,6 +2572,48 @@
                 font-size: 1em;
             }
         }
+        #functionsbbdbdb span{
+            margin-right: 10px;
+        }
+        #timeline-container {
+            position: absolute;
+            top: 0;
+            width: 5px;
+            background: var(--rectangleborder);
+            display: none;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        #timeline-line{
+            background: var(--switchcheckedbackground-color);
+            width: 100%;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            transition: 2s;
+        }
+        #functionsbbdbdb.Active{
+            color: var(--switchcheckedbackground-color);
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2579,11 +2621,15 @@
     <div class="divcodeeditor-container sidebarenabled">
         <div class="sidebarbardiv">
             <button id="closemenuforsmallscreen" onclick="togglesidebarbuttonfunction()">← close Menu</button>
-            <h3>functions</h3>
+            <h3>overview</h3>
             <div class="sidebarbardivbuttondiv">
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
                 <button onclick="showallfilescontainer()">files</button>
                 <button onclick="showthemeoverlay()">theme</button>
+            </div>
+            <h3>functions</h3>
+            <div class="sidebarbardivbuttondiv">
+                <button id="functionsbbdbdb" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
             </div>
             <h3>files</h3>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1">
@@ -2597,7 +2643,7 @@
             <div class="container" id="container">
                 <div class="section" id="section0">
                     <div class="editor-selected-line-btns">
-                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
                     <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
                         <div id="1" class="code-editor-line" contenteditable="true"></div>
                     </div>
@@ -2607,7 +2653,7 @@
                 </div>
                 <div class="section" id="section1">
                     <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
                     </div>
                     <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
                         <div id="2" class="code-editor-line" contenteditable="true"></div>
@@ -2619,7 +2665,7 @@
                 </div>
                 <div class="section" id="section2">
                     <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
                     <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
                         <div id="3" class="code-editor-line" contenteditable="true"></div>
                     </div>
@@ -2698,6 +2744,9 @@
                 <div data-index="3" class="nav-dot navdot3" id="view-nav-dot" onclick="dotonclick()">
                     <input class="filePathInput" type="text" value="view" maxlength="20" oninput="viewbottominputoninput(this)">
                 </div>
+            </div>
+            <div id="timeline-container">
+                <div id="timeline-line"></div>
             </div>
             <button id="scrolltopreviousfile" onclick="gotonextorpreviousfile('back')">←</button>
             <button id="scrolltonextfile" onclick="gotonextorpreviousfile('forward')">→</button>
@@ -2780,6 +2829,12 @@
                             <input type="checkbox" class="switchbox" data-checked="leftbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
                         </label> <button class="Symbol-Span">←</button>
+                    </div>
+                    <div class="seccontainer-line" id="search-check">
+                        <label class="switch">
+                            <input type="checkbox" class="switchbox" data-checked="removespacesleftbtn" onchange="updatecheckboxed(this)" checked>
+                            <span class="slider"></span>
+                        </label> <button class="Symbol-Span">◀</button>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
@@ -2931,15 +2986,16 @@
                     <h2>top - (selected)</h2>
                     <br>
                     <ul class="command-list">
-                        <li><button class="Symbol-Span">↺</button><span class="symbolsignspan">Undo</span></li>
+                        <li><button class="Symbol-Span">↺</button><span class="symbolsignspan">Undo previous action</span></li>
                         <li><button class="Symbol-Span">⌧</button><span class="symbolsignspan">Delete</span></li>
-                        <li><button class="Symbol-Span">⚠</button><span class="symbolsignspan">Pin</span></li>
+                        <li><button class="Symbol-Span">⚠</button><span class="symbolsignspan">highlight</span></li>
                         <li><button class="Symbol-Span">↑</button><span class="symbolsignspan">Move up</span></li>
                         <li><button class="Symbol-Span">↓</button><span class="symbolsignspan">Move down</span></li>
                         <li><button class="Symbol-Span">☾</button><span class="symbolsignspan">Disable</span></li>
-                        <li><button class="Symbol-Span">□</button><span class="symbolsignspan">Copy</span></li>
-                        <li><button class="Symbol-Span">●</button><span class="symbolsignspan">Trim</span></li>
-                        <li><button class="Symbol-Span">▶</button><span class="symbolsignspan">Left space</span></li>
+                        <li><button class="Symbol-Span">□</button><span class="symbolsignspan">Copy text Content</span></li>
+                        <li><button class="Symbol-Span">●</button><span class="symbolsignspan">Trim text Content</span></li>
+                        <li><button class="Symbol-Span">◀</button><span class="symbolsignspan">remove space Left</span></li>
+                        <li><button class="Symbol-Span">▶</button><span class="symbolsignspan">add space Left</span></li>
                         <li><button class="Symbol-Span">⌕</button><span class="symbolsignspan">Code Search</span></li>
                     </ul>
                     <br>
@@ -3262,8 +3318,114 @@
         <span class="messagespan" onclick="hidenotificationmessage()">message</span><button class="confirmationbtn">ok</button>
     </div>
 
-
     <script>
+        let timelineRunning = false;
+        let timelineInterval;
+        
+        function showtimelinecontainer() {
+            closeeverything();
+            document.getElementById('timeline-container').style.display = 'block';
+            document.getElementById('timeline-container').style.animation = "none";
+            void document.getElementById('timeline-container').offsetWidth; // Trigger reflow
+            document.getElementById('timeline-container').style.animation = "fadeIn 1s ease-out";
+        }
+        
+        function hidetimelinecontainer() {
+            document.getElementById('timeline-container').style.animation = "none";
+            void document.getElementById('timeline-container').offsetWidth; // Trigger reflow
+            document.getElementById('timeline-container').style.animation = "fadeOut 1s ease-out";
+            
+            setTimeout(() => {
+                document.getElementById('timeline-container').style.display = 'none';
+                stopTimeline();
+            }, 1000);
+        }
+        function removeactoveclassfromfbtn() {
+            document.querySelectorAll('#functionsbbdbdb.Active').forEach(btn => {
+                btn.classList.remove('Active');
+            });
+        }
+        function addactoveclassfromfbtn() {
+            document.querySelectorAll('#functionsbbdbdb').forEach(btn => {
+                btn.classList.add('Active');
+            });
+        }
+        function toggleTineline(thiselementwasclicked) {
+            if (!thiselementwasclicked.classList.contains("Active")) {
+                showPrompt('Enter a time in minutes', (userprompt) => {
+                    if (userprompt != null && !isNaN(userprompt)) {
+                        addactoveclassfromfbtn();
+                        showtimelinecontainer();
+                        runTimeline(userprompt);
+                    }else {
+                        removeactoveclassfromfbtn();
+                        hidetimelinecontainer();
+                    }
+                });
+            } else if (document.getElementById('timeline-container').style.display == 'block') {
+                hidetimelinecontainer();
+                removeactoveclassfromfbtn();
+            }
+        }
+        
+        function stopTimeline() {
+            timelineRunning = false;
+            clearInterval(timelineInterval);
+            document.getElementById('timeline-line').style.height = '0';
+        }
+        
+        function runTimeline(time) {
+            if (timelineRunning) {
+                stopTimeline();
+            }
+        
+            timelineRunning = true;
+            let timeline = document.getElementById('timeline-line');
+            let totalSeconds = time * 60;
+            let currentSecond = 0;
+        
+            timelineInterval = setInterval(() => {
+                if (!timelineRunning) {
+                    clearInterval(timelineInterval);
+                    return;
+                }
+        
+                currentSecond++;
+                timeline.style.height = (currentSecond / totalSeconds) * 100 + '%';
+                
+                if (currentSecond >= totalSeconds) {
+                    clearInterval(timelineInterval);
+                    timelineRunning = false;
+                    timeline.style.height = '100%';
+                    removeactoveclassfromfbtn();
+                    hidetimelinecontainer();
+                    showPrompt(time + ' minutes have passed! Enter a new time in minutes', (userprompt) => {
+                        if (userprompt != null && !isNaN(userprompt)) {
+                            showtimelinecontainer();
+                            addactoveclassfromfbtn();
+                            runTimeline(userprompt);
+                        }else {
+                            hidetimelinecontainer();
+                            removeactoveclassfromfbtn();
+                        }
+                    });
+                }
+            }, 1000);
+        }
+        
+        document.getElementById('timeline-container').addEventListener('click', () => {
+            showPrompt('Enter a new time in minutes', (userprompt) => {
+                if (userprompt != null && !isNaN(userprompt)) {
+                    showtimelinecontainer();
+                    addactoveclassfromfbtn();
+                    runTimeline(userprompt);
+                }else {
+                    hidetimelinecontainer();
+                    removeactoveclassfromfbtn();
+                    removeactoveclassfromfbtn();
+                }
+            });
+        });
         function highlightMatches(text, container, patterns) {
             let lastIndex = 0;
         
@@ -5014,7 +5176,7 @@
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = `section${container.children.length}`;
-            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
+            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
             <div id="1" class="code-editor-line" contenteditable="true"></div>
         </div>
@@ -5141,7 +5303,7 @@
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = `section${container.children.length}`;
-            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕"></div></div>
+            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕"></div></div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
             <div id="1" class="code-editor-line" contenteditable="true"></div>
         </div>
@@ -5255,7 +5417,7 @@
             <button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button>
             <button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button>
             <button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button>
-            <button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button>
+            <button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button>
             <input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕">
         </div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
@@ -7006,6 +7168,37 @@
                         addJsSyntaxHighlighting(selectedline);
                     }
                     checkifselectedlines();
+                });
+            }
+
+            if (newpast.length > 0) {
+                if (!pastevents[lasteventsparentsection.id]) {
+                    pastevents[lasteventsparentsection.id] = [];
+                }
+                pastevents[lasteventsparentsection.id].push(newpast);
+                enablepastbtn();
+            }
+        }
+        
+        function moveAllselectedlinetextsleft() {
+            let newpast = [];
+            lasteventsparentsection = section;
+            const allselectedlines = section.querySelectorAll(".code-editor-line.selected");
+            if (allselectedlines.length) {
+                allselectedlines.forEach(selectedline => {
+                    if (selectedline.textContent.startsWith(' ')){
+                        let pastelement = {
+                            element: selectedline,
+                            type: "text",
+                            text: selectedline.textContent
+                        };
+                        newpast.push(pastelement);
+                        selectedline.textContent = selectedline.textContent.replace(' ', '');
+                        if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
+                            addJsSyntaxHighlighting(selectedline);
+                        }
+                        checkifselectedlines();
+                    }
                 });
             }
 
