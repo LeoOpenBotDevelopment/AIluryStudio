@@ -8574,63 +8574,64 @@
             if (event.key === 'Backspace') {
                 let newpast = [];
                 lasteventsparentsection = section;
+                if (celine.textContent != ""){
+                    let pastelemen3 = {
+                        element: celine,
+                        type: "text",
+                        text: celine.textContent
+                    };
+                    newpast.push(pastelemen3);
+                }
                 function handleBackspaceWithMatchingCharacters(event) {
-                if (event.key !== 'Backspace') return;
-                const selection = window.getSelection();
-                if (!selection.rangeCount) return;
-                const range = selection.getRangeAt(0);
-                const cursorOffset = range.startOffset;
-                const celine = range.startContainer;
-
-                if (!celine || celine.nodeType !== Node.TEXT_NODE) return;
+                    if (event.key !== 'Backspace') return;
+                    const selection = window.getSelection();
+                    if (!selection.rangeCount) return;
+                    const range = selection.getRangeAt(0);
+                    const cursorOffset = range.startOffset;
+                    const celine = range.startContainer;
     
-                let pastelemen3 = {
-                    element: celine,
-                    type: "text",
-                    text: celine.textContent
-                };
-                newpast.push(pastelemen3);
-
-                const text = celine.textContent;
-
-                const matchingPairs = {
-                    '(': ')',
-                    '{': '}',
-                    '[': ']',
-                    '"': '"',
-                    "'": "'",
-                    '`': '`'
-                };
-
-                const previousChar = text.charAt(cursorOffset - 1);
-                const nextChar = text.charAt(cursorOffset);
-
-                if (matchingPairs[previousChar] === nextChar) {
+                    if (!celine || celine.nodeType !== Node.TEXT_NODE) return;
+    
+                    const text = celine.textContent;
+    
+                    const matchingPairs = {
+                        '(': ')',
+                        '{': '}',
+                        '[': ']',
+                        '"': '"',
+                        "'": "'",
+                        '`': '`'
+                    };
+    
+                    const previousChar = text.charAt(cursorOffset - 1);
+                    const nextChar = text.charAt(cursorOffset);
+    
+                    if (matchingPairs[previousChar] === nextChar) {
+                        event.preventDefault();
+                        document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                            suggestioncontainerv.remove();
+                        });
+    
+                        const updatedText = text.slice(0, cursorOffset - 1) + text.slice(cursorOffset + 1);
+                        celine.textContent = updatedText;
+    
+                        const newCursorPosition = cursorOffset - 1;
+                        range.setStart(celine, newCursorPosition);
+                        range.collapse(true);
+    
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                }
+    
+                handleBackspaceWithMatchingCharacters(event);
+                let selection = window.getSelection();
+                let range = selection.getRangeAt(0);
+    
+                if (range.startOffset === 0 && celine) {
                     event.preventDefault();
                     document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
                         suggestioncontainerv.remove();
-                    });
-
-                    const updatedText = text.slice(0, cursorOffset - 1) + text.slice(cursorOffset + 1);
-                    celine.textContent = updatedText;
-
-                    const newCursorPosition = cursorOffset - 1;
-                    range.setStart(celine, newCursorPosition);
-                    range.collapse(true);
-
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                }
-            }
-
-            handleBackspaceWithMatchingCharacters(event);
-            let selection = window.getSelection();
-            let range = selection.getRangeAt(0);
-
-            if (range.startOffset === 0 && celine) {
-                event.preventDefault();
-                document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
-                    suggestioncontainerv.remove();
                 });
 
                     const previousLine = celine.previousElementSibling;
@@ -8796,12 +8797,14 @@
             if (event.key != "'" && event.key != "\"" && event.key != "`" && event.key != "(" && event.key != "{" && event.key != "[" && event.key != "“" && event.key != "‚" && event.key != ">" && event.key != "„" && event.key != "Backspace" && event.key != "‘" && event.key != "Enter" && event.key != "}" && event.key != "]" && event.key != ")" && event.key != ";"){
                 let newpast2 = [];
                 lasteventsparentsection = section;
-                let pastelement2 = {
-                    element: celine,
-                    type: "text",
-                    text: celine.textContent
-                };
-                newpast2.push(pastelement2);
+                if (event.key.length <= 1){
+                    let pastelement2 = {
+                        element: celine,
+                        type: "text",
+                        text: celine.textContent
+                    };
+                    newpast2.push(pastelement2);
+                }
                 if (newpast2.length > 0) {
                     if (!pastevents[lasteventsparentsection.id]) {
                         pastevents[lasteventsparentsection.id] = [];
