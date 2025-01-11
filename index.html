@@ -9256,8 +9256,9 @@
 
             const uniquevalues = extractUniqueValues(inputElement.parentElement.textContent);
 
-
-            const suggestionsList = [...uniquevalues, ...cssKeywordsAndProperties, ...jsKeywords, ...htmlTags];
+            let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
+            
+            const suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywordsAndProperties, ...jsKeywords, ...htmlTags];
             
             if (inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked) {
                 suggestionsList.push(...commandsice);
