@@ -7535,7 +7535,7 @@
                 { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.' },
                 { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.' },
                 { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
-                        ];
+            ];
         
             patterns.forEach(({ regex, prefix }) => {
                 let match;
@@ -7549,14 +7549,33 @@
         }
         
         
-        function extractUniqueClassesAndIds(code) {
+        function extractUniqueIds(code) {
+            const matches = new Set();
+        
+            const patterns = [
+                { regex: /id="([^"]+)"/g, prefix: '#' },
+                { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
+            ];
+        
+            patterns.forEach(({ regex, prefix }) => {
+                let match;
+                while ((match = regex.exec(code)) !== null) {
+                    //matches.add(prefix + match[1]);
+                    matches.add(match[1]);
+                }
+            });
+        
+            return Array.from(matches);
+        }
+
+        function extractUniqueClasses(code) {
             const matches = new Set();
         
             const patterns = [
                 { regex: /class="([^"]+)"/g, prefix: '.' },
-                { regex: /id="([^"]+)"/g, prefix: '#' },
-                { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
-                                ];
+                { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.' },
+                { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.' }
+            ];
         
             patterns.forEach(({ regex, prefix }) => {
                 let match;
@@ -8102,7 +8121,8 @@
             const jstextstring = [
                 { regex: /(?<!\\)`(?![^"]*"(?:[^"\\]*\\.)*[^"]*$)(?![^']*'(?:[^'\\]*\\.)*[^']*$)(?![^/]*\/(?:[^/\\]*\\.)*[^/]*\/[gimsuy]*)(?![^/]*\/\/.*)[^`]*/, className: "syntaxstring" }
             ];
-            let allfilenames = extractUniqueClassesAndIds(div.parentElement.parentElement.querySelector('.code-editor-container').textContent);
+            let allfilenames = extractUniqueIds(div.parentElement.parentElement.querySelector('.code-editor-container').textContent);
+            let allfilenames2 = extractUniqueClasses(div.parentElement.parentElement.querySelector('.code-editor-container').textContent);
 
             let spatterns = [
                 { regex: /(\/\/[^\n]*|\/\*[\s\S]*?(?:\*\/|$)|[^\/]*\*\/)/g, className: "syntaxcomment" },
@@ -8117,6 +8137,12 @@
             if (Array.isArray(allfilenames) && allfilenames.length > 0) {
                 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const escapedFilenames = allfilenames.map(escapeRegex);
+                spatterns.push({ regex: new RegExp(`(?<=#)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
+            }
+
+            if (Array.isArray(allfilenames2) && allfilenames2.length > 0) {
+                const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const escapedFilenames = allfilenames2.map(escapeRegex);
                 spatterns.push({ regex: new RegExp(`(?<=.)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
             }
             
