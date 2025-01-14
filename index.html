@@ -8137,13 +8137,13 @@
             if (Array.isArray(allfilenames) && allfilenames.length > 0) {
                 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const escapedFilenames = allfilenames.map(escapeRegex);
-                spatterns.push({ regex: new RegExp(`(?<=#)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
+                spatterns.push({ regex: new RegExp(`(?<=\\#)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
             }
 
             if (Array.isArray(allfilenames2) && allfilenames2.length > 0) {
                 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const escapedFilenames = allfilenames2.map(escapeRegex);
-                spatterns.push({ regex: new RegExp(`(?<=.)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
+                spatterns.push({ regex: new RegExp(`(?<=\\.)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
             }
             
             let restpatterns = [
