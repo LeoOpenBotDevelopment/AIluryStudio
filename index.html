@@ -2674,6 +2674,145 @@
             width: 100%;
             max-width: 500px;
         }
+        .consoleconteiner{
+            display: none;
+            flex-direction: column;
+            background: var(--background-color);
+            border: 1px solid var(--rectangleborder);
+            width: 100vw;
+            height: calc(40vh - 50px);
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            padding-bottom: 50px;
+        }
+        .consoletopbar{
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid var(--rectangleborder);
+            justify-content: space-between;
+        }
+        .console{
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .consoletitle{
+            font-size: 1em;
+            color: var(--black-color);
+            padding: 10px;
+        }
+        .consolebtn{
+            background: transparent;
+            color: var(--black-color);
+            font-size: 1em;
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+        }
+        .sidebarenabled .consoleconteiner{
+            width: 70vw;
+            right: 0;
+            left: 30vw;
+            border-left: none;
+            border-bottom: none;
+            border-left: none;
+        }
+        .consolebtncontainer {
+            margin-right: 20px;
+        }
+        .consolemessagecontainer {
+            padding: 10px;
+            width: 100%;
+            font-size: 1em;
+            color: var(--black-color);
+            background: var(--background-color);
+            border: none;
+            border-bottom: 1px solid var(--rectangleborder);
+            display: flex;
+        }
+        
+        .consolemessage {
+            overflow-wrap: break-word;
+            margin-left: 10px;
+        }
+        
+        .consolemessageicon {
+            background: transparent;
+            font-size: 1.1em;
+            border: none;
+            color: var(--black-color);
+            padding: 0;
+            font-weight: bold;
+        }
+        .visablegroupelement{
+            display: none;
+        }
+        .consolestatuserror{
+            background: rgba(255, 0, 0, 0.3);
+        }
+        .consolestatuswarn{
+            background: rgba(255, 165, 0, 0.3);
+        }
+        .consolestatusdebug{
+            background: rgba(0, 255, 0, 0.3);
+        }
+        .consolestatuserror .consolemessageicon{
+            color: red;
+        }
+        .consolestatuswarn .consolemessageicon{
+            color: darkorange;
+        }
+        .consolestatusdebug .consolemessageicon{
+            color: green;
+        }
+        .consoleinputcontainer{
+            width: 100%;
+            font-size: 1em;
+            background: var(--background-color);
+            color: var(--background-color);
+            padding: 10px;
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-top: 1px solid var(--rectangleborder);
+        }
+        .consoleinputcontainer .consoletextarea{
+            background: transparent;
+            overflow-y: auto;
+            font-size: 1em;
+            color: var(--black-color);
+            border: none;
+            display: flex;
+            margin-left: 10px;
+            width: 100%;
+        }
+        .consoleinputcontainer .consoletextarea:focus{
+            outline: none;
+        }
+        .consoletextarealabelbtn{
+            background: transparent;
+            font-size: 1.1em;
+            border: none;
+            color: var(--black-color);
+            padding: 0;
+            font-weight: bold;
+        }
+        .showconsolebtn{
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 0;
+            font-size: 1em;
+            color: var(--black-color);
+            background: transparent;
+            border: none;
+            border-radius: 50%;
+        }
+        #section1, #section2, #section3{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -2690,6 +2829,7 @@
             <h3>functions</h3>
             <div class="sidebarbardivbuttondiv">
                 <button id="functionsbbdbdb" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
+                <button id="functionsbbdbdb" class="consoletogglebtn Active" onclick="toggleConsole(this)"><span>▷</span>console</button>
             </div>
             <h3>files</h3>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1">
@@ -2734,6 +2874,7 @@
                     </div>
                 </div>
                 <div class="section viewcontainer" id="section3">
+                    <button class="showconsolebtn" onclick="showconsoleconteiner()">▷</button>
                     <div class="swipe-container">
                         <div class="view">
                             <div class="mobile-container">
@@ -2777,6 +2918,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="consoleconteiner">
+                <div class="consoletopbar">
+                    <span class="consoletitle">console</span>
+                    <div class="consolebtncontainer">
+                        <button class="consolebtn" id="clearconsole" onclick="clearconsole();changedeletebtn(this)">⌧</button>
+                        <button class="consolebtn" id="closeconsole" onclick="hideelement('class', 'consoleconteiner', event)">×</button>
+                    </div>
+                </div>
+                <div class="console">
+            
+                </div>
+                <div class="consoleinputcontainer">
+                    <label for="consoletextarea"><button class="consoletextarealabelbtn">▷</button></label>
+                    <textarea class="consoletextarea" id="consoletextarea" name="consoletextarea" rows="1" cols="10" onkeydown="runcodeincurrentiframe(this, event)"></textarea>
                 </div>
             </div>
         
@@ -3073,7 +3231,7 @@
                 </div>
             </div>
             <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
-                <div class="overlay-container" onclick="hideelement('class', 'overlay-container', event)">
+            <div class="overlay-container" onclick="hideelement('class', 'overlay-container', event)">
                 <!-- Content Container (mit Top Bar drin) -->
                 <div class="content-container">
                     <!-- Top Bar -->
@@ -3394,6 +3552,194 @@
     </div>
 
     <script>
+        function clearconsole() {
+            const consol = document.querySelector('.console');
+            consol.innerHTML = "";
+        }
+        let timers = {};
+
+        function startTimer(timerName) {
+            timers[timerName] = {
+                start: performance.now(),
+                end: null,
+                duration: null
+            };
+        }
+        
+        function checkTimer(timerName) {
+            if (!timers[timerName]) return null;
+            return performance.now() - timers[timerName].start;
+        }
+        
+        function endTimer(timerName) {
+            if (!timers[timerName]) return null;
+            if (timers[timerName].end !== null) return timers[timerName].duration;
+        
+            timers[timerName].end = performance.now();
+            timers[timerName].duration = timers[timerName].end - timers[timerName].start;
+        
+            const duration = timers[timerName].duration;
+            delete timers[timerName]; // Entfernt den Timer
+        
+            return duration;
+        }
+        
+        let counts = {};
+
+        function count(countName) {
+            if (!counts[countName]) {
+                counts[countName] = 1; // Wenn der Count noch nicht existiert, setze ihn auf 1
+            } else {
+                counts[countName] += 1; // Ansonsten erhöhe den Count um 1
+            }
+            return counts[countName];
+        }
+        
+        function resetCount(countName) {
+            if (counts[countName]) {
+                counts[countName] = 0; // Setze den Count auf 1 zurück, wenn er existiert
+            }
+        }
+        
+        let consolegroups = {};
+        let openconsolegroups = {};
+
+        
+        window.addEventListener('message', (event) => {
+            const eds = event.data.status;
+            const consol = document.querySelector('.console');
+            const messagecontainer = document.createElement('div');
+            const icon = document.createElement('button');
+            const message = document.createElement('span');
+            messagecontainer.className = "consolemessagecontainer";
+            messagecontainer.classList.add('consolestatus' + event.data.status);
+            message.textContent = event.data.message;
+            message.className = "consolemessage";
+            icon.className = "consolemessageicon";
+            messagecontainer.appendChild(icon);
+            messagecontainer.appendChild(message);
+            if (eds == "clear") {
+                consol.innerHTML = "";
+                message.textContent = "console was cleared";
+            }
+            const trueKeys = Object.keys(consolegroups).filter(key => consolegroups[key] === true);
+
+            if (eds === "groupEnd" && trueKeys.length > 0) {
+                consolegroups[trueKeys[0]] = false;
+            }
+            
+            if (trueKeys.length > 0) {
+                trueKeys.forEach(key => {
+                    messagecontainer.classList.add('consolegroupitem' + key);
+                    const cgp = document.querySelector('.consolegroupparent' + key + '.consolegroupcollapsed');
+                    if (cgp) {
+                        messagecontainer.classList.add('visablegroupelement');
+                    }
+                    messagecontainer.id = key;
+                });
+            }
+            
+            let edm = `${event.data.message}`;
+            let edm2 = edm.replace(/[^a-zA-Z]/g, '_').replaceAll(' ', '');
+            
+            if (eds === "group" || eds === "groupCollapsed") {
+                if (!event?.data?.message || !messagecontainer || !consol) return;
+            
+                const uniqueId = `${Object.keys(consolegroups).length}_${crypto.randomUUID()}`.replace(/[^\w\s]/g, '').replaceAll(' ', '');
+                consolegroups[edm2 + uniqueId] = true;
+                openconsolegroups[edm2 + uniqueId] = true;
+            
+                messagecontainer.onclick = () => {
+                    const groupElements = consol.querySelectorAll('.consolegroupitem' + edm2 + uniqueId);
+            
+                    if (groupElements.length > 0) {
+                        messagecontainer.classList.toggle('consolegroupcollapsed');
+                        icon.textContent = messagecontainer.classList.contains('consolegroupcollapsed') ? "▶" : "▼";
+                    }
+                    
+                    if (messagecontainer.classList.contains('consolegroupcollapsed')) {
+                        openconsolegroups[edm2 + uniqueId] = false;
+                    } else {
+                        openconsolegroups[edm2 + uniqueId] = true;
+                    }
+            
+                    groupElements.forEach(groupElement => {
+                        if (messagecontainer.classList.contains('consolegroupcollapsed') && !groupElement.classList.contains('visablegroupelement')) {
+                            groupElement.classList.add('visablegroupelement');
+                            groupElement.classList.add('visablegroupelement' + edm2);
+                        } else if (!messagecontainer.classList.contains('consolegroupcollapsed') && groupElement.classList.contains('visablegroupelement') && (groupElement.id == edm2 + uniqueId || !document.querySelector('.consolegroupparent' + groupElement.id + ".consolegroupcollapsed"))) {
+                            groupElement.classList.remove('visablegroupelement');
+                        }
+                        
+                        if (groupElement.classList.contains('consolegroupcollapsed')) {
+                            groupElement.click();
+                            groupElement.click();
+                        }else if (groupElement.classList.contains('consolegroupparenthere')){
+                            groupElement.click();
+                        }
+            
+                        if (openconsolegroups[groupElement.id] === false && !groupElement.classList.contains('visablegroupelement')) {
+                            groupElement.classList.add('visablegroupelement');
+                        }
+                    });
+                };
+            
+                messagecontainer.classList.add('consolegroupparent' + edm2 + uniqueId);
+                messagecontainer.classList.add('consolegroupparenthere');
+            
+                // Automatisch die Gruppe "collapsen" bei initialer Ansicht
+                if (eds === "groupCollapsed") {
+                    setTimeout(() => {
+                        if (typeof messagecontainer.click === "function") {
+                            messagecontainer.click();
+                        }
+                    }, 0);
+                }
+            }
+
+            
+            if (eds == "time"){
+                startTimer(edm2);
+            }
+            if (eds == "timeLog"){
+                message.textContent += ": " + checkTimer(edm2);
+            }
+            if (eds == "timeEnd"){
+                message.textContent += ": " + endTimer(edm2);
+            }
+            if (eds != "time" && eds != "countReset" && eds != "groupEnd"){
+                consol.appendChild(messagecontainer);
+            }
+            if (eds == "count"){
+                message.textContent += ": " + count(edm2);
+            }
+            if (eds == "countReset"){
+                resetCount(edm2);
+            }
+            const allicons = {
+                error: "⚠",
+                clear: "⌧",
+                log: "○",
+                debug: "✓",
+                info: "?",
+                warn: "!",
+                table: "■",
+                dir: "",
+                group: "▼",
+                groupEnd: "∞",
+                groupCollapsed: "▶",
+                time: "◴",
+                timeEnd: "◷",
+                timeLog: "◵",
+                assert: "⚠",
+                //clear
+                count: "•",
+                countReset: ""
+            };
+            if (eds in allicons){
+                icon.textContent = allicons[eds];
+            }
+        });
         let timelineRunning = false;
         let timelineInterval;
         
@@ -3440,6 +3786,16 @@
             } else if (document.getElementById('timeline-container').style.display == 'block') {
                 hidetimelinecontainer();
                 removeactoveclassfromfbtn();
+            }
+        }
+        
+        function toggleConsole(thiselementwasclicked){
+            thiselementwasclicked.classList.toggle("Active");
+            if (thiselementwasclicked.classList.contains('Active')){
+                document.querySelector('.showconsolebtn').style.display = "inline-block";
+            }else {
+                document.querySelector('.showconsolebtn').style.display = "none";
+                hideconsoleconteiner();
             }
         }
         
@@ -3932,6 +4288,7 @@
             }
         }
 
+
         function modifyHTML(htmlCode, additionalCode, type, htmlCodeComtainer) {
             const bodyRegex = /<body[^>]*>([\s\S]*?)<\/body>/i;
             const headRegex = /<head[^>]*>([\s\S]*?)<\/head>/i;
@@ -3957,6 +4314,7 @@
 
             return htmlCode;
         }
+
         function adjustElementPosition(element) {
             const rect = element.getBoundingClientRect();
             const screenHeight = window.innerHeight;
@@ -3993,27 +4351,27 @@
                 { icon: "-", text: "Merge" },
                 { icon: "↓", text: "Download" },
             ];
-
+        
             const overlay = document.createElement("div");
             overlay.className = "overlay";
             document.body.appendChild(overlay);
-
+        
             const container = document.createElement("div");
             container.className = "options-container";
             overlay.appendChild(container);
-
+        
             options.forEach((option) => {
                 const optionItem = document.createElement("div");
                 optionItem.className = "option-item";
-
+        
                 const icon = document.createElement("button");
                 icon.className = "option-icon";
                 icon.textContent = option.icon;
-
+        
                 const text = document.createElement("span");
                 text.className = "option-text";
                 text.textContent = option.text;
-
+        
                 const copyText = (text) => {
                     try {
                         const textarea = document.createElement("textarea");
@@ -4026,7 +4384,7 @@
                         const catchederror = error;
                     }
                 };
-
+        
                 const copyCode = (element) => {
                     let text = "";
                     element.querySelectorAll(".code-editor-line").forEach((line) => {
@@ -4043,7 +4401,7 @@
                         const catchederror = error;
                     }
                 };
-
+        
                 function getalllinestext(element) {
                     let text = "";
                     element.querySelectorAll(".code-editor-line").forEach((line) => {
@@ -4051,6 +4409,7 @@
                     });
                     return text;
                 }
+        
                 function MergeFiles() {
                     showPrompt('merge with file:', (filename) => {
                         let allfilenames = document.querySelectorAll('.filedot .filePathInput');
@@ -4087,7 +4446,7 @@
                                             'css',
                                             document.querySelector(`#section${file.parentElement.getAttribute('data-index')} .code-editor-container`)
                                         );
-                        
+        
                                         htmlfile = document.querySelector(`#section${file.parentElement.getAttribute('data-index')} .code-editor-container`);
                                     } else if (targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.js') && file.value.trim().endsWith('.html') && !file.value.trim().endsWith('.css')) {
                                         mergedcode = modifyHTML(
@@ -4097,7 +4456,7 @@
                                             document.querySelector(`#section${file.parentElement.getAttribute('data-index')} .code-editor-container`)
                                         );
                                         htmlfile = document.querySelector(`#section${file.parentElement.getAttribute('data-index')} .code-editor-container`);
-                                    }else {
+                                    } else {
                                         showAlert('you can only merge javascript and css with html code');
                                     }
                                 } else {
@@ -4133,15 +4492,15 @@
                                             document.querySelector(`#section${file.parentElement.getAttribute('data-index')} .code-editor-container`)
                                         );
                                         htmlfile = document.querySelector(`#section${file.parentElement.getAttribute('data-index')} .code-editor-container`);
-                                    }else {
-                                    showAlert('you can only merge javascript and css with html code');
+                                    } else {
+                                        showAlert('you can only merge javascript and css with html code');
                                     }
                                 }
                             }
                         });
                     });
                 }
-
+        
                 if (option.text == "Delete") {
                     optionItem.onclick = () => {
                         overlay.remove();
@@ -4159,9 +4518,9 @@
                 } else if (option.text == "Copy Path" && targetElement.parentElement) {
                     optionItem.onclick = () => {
                         overlay.remove();
-                        if (targetElement.classList.contains('edit-btn') && targetElement.parentElement.parentElement.querySelector('.notclickable')){
+                        if (targetElement.classList.contains('edit-btn') && targetElement.parentElement.parentElement.querySelector('.notclickable')) {
                             copyText(targetElement.parentElement.parentElement.querySelector('.notclickable').textContent);
-                        }else {
+                        } else {
                             copyText(targetElement.parentElement.textContent.replace("⋮", ""));
                         }
                     };
@@ -4174,43 +4533,43 @@
                         overlay.remove();
                         copyCode(textToCopy);
                     };
-                }else if (option.text == 'Merge' && targetElement.parentElement && document.querySelector(`#section${number} .code-editor-container`)){
+                } else if (option.text == 'Merge' && targetElement.parentElement && document.querySelector(`#section${number} .code-editor-container`)) {
                     optionItem.onclick = () => {
                         overlay.remove();
                         MergeFiles();
                     };
                 }
-
+        
                 if (number == "0" && option.text == "Delete") {
                     return;
                 }
-    
+        
                 if (targetElement.classList.contains('edit-btn') && targetElement.parentElement.parentElement.querySelector('.notclickable')) {
-                    if (option.text == "Merge" && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.html') && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.css') && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.js')){
+                    if (option.text == "Merge" && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.html') && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.css') && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.js')) {
                         return;
                     }
                 } else {
-                    if (option.text == "Merge" && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.html') && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.js') && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.css')){
+                    if (option.text == "Merge" && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.html') && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.js') && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.css')) {
                         return;
                     }
                 }
-
+        
                 optionItem.appendChild(icon);
                 optionItem.appendChild(text);
                 container.appendChild(optionItem);
             });
-
+        
             const targetRect = targetElement.getBoundingClientRect();
             setTimeout(() => {
                 container.style.position = "absolute";
                 container.style.top = `${targetRect.bottom + 5}px`;
                 adjustElementPosition(container);
                 container.style.left = `${
-                    targetRect.left + targetRect.width / 2 - container.offsetWidth / 2
-                }px`;
+                            targetRect.left + targetRect.width / 2 - container.offsetWidth / 2
+                        }px`;
                 adjustElementPositionleft(container);
             }, 0);
-
+        
             overlay.addEventListener("click", (event) => {
                 if (event.target === overlay) {
                     overlay.remove();
@@ -4750,16 +5109,10 @@
             document.querySelector('.overlay-close-btn').click();
             closesidebaronsmallscreensizes();
             hidetestregexoverlay();
+            hidethemeoverlay();
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
-        }
-        function scrollviewintoview() {
-            const view = document.getElementById('view-nav-dot');
-            view.scrollIntoView({ behavior: 'smooth' });
-            document.querySelector('.nav-bar').style.overflow = "scroll";
-            document.querySelector('.nav-bar').style.overflowY = "hidden";
-            closeeverything();
         }
         function viewbottominputoninput(viewelementinputelement){
             document.getElementById('scrollviewintoviewbtn').textContent = viewelementinputelement.value;
@@ -4875,6 +5228,23 @@
             document.querySelector('.theme-overlay').style.animation = "swipeout 0.5s ease-out";
             setTimeout(() => {
                 document.querySelector('.theme-overlay').style.display = "none";
+            }, 500);
+        }
+        function showconsoleconteiner() {
+            if (document.querySelector('.consoleconteiner').style.display == "flex"){
+                return;
+            }
+            document.querySelector('.consoleconteiner').style.display = "flex";
+            document.querySelector('.consoleconteiner').style.animation = "none";
+            void document.querySelector('.consoleconteiner').offsetWidth;
+            document.querySelector('.consoleconteiner').style.animation = "swipein 0.5s ease-out";
+        }
+        function hideconsoleconteiner() {
+            document.querySelector('.consoleconteiner').style.animation = "none";
+            void document.querySelector('.consoleconteiner').offsetWidth;
+            document.querySelector('.consoleconteiner').style.animation = "swipeout 0.5s ease-out";
+            setTimeout(() => {
+                document.querySelector('.consoleconteiner').style.display = "none";
             }, 500);
         }
         const overlay = document.getElementById('custom-overlay');
@@ -5811,6 +6181,16 @@
         let section = document.getElementById('section0');
         let sectionindex = 0;
         let inputDiv = section.querySelector('.code-editor-container');
+        function scrollviewintoview() {
+            if (section.id == document.querySelector('.viewcontainer').id){
+                return;
+            }
+            const view = document.getElementById('view-nav-dot');
+            view.scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.nav-bar').style.overflow = "scroll";
+            document.querySelector('.nav-bar').style.overflowY = "hidden";
+            closeeverything();
+        }
         function gotonextorpreviousfile(vbackorforwardv){
             if (!section){
                 return;
@@ -6246,6 +6626,8 @@
             document.querySelector('.viewcontainer').style.top = "0";
             document.querySelector('.viewcontainer').style.left = "0";
             document.querySelector('.viewcontainer').style.zIndex = "1111";
+            document.querySelector('.consoleconteiner').style.zIndex = "1111";
+            document.querySelector('.consoleconteiner').style.bottom = "0";
             document.querySelector('.viewcontainer').style.display = "flex";
 
             let sidebarenabledviewcontainer = document.querySelector('.sidebarenabled .viewcontainer');
@@ -6266,9 +6648,12 @@
             document.querySelector('.viewcontainer').style.top = initialviewcontainertop;
             document.querySelector('.viewcontainer').style.left = initialviewcontainerleft;
             document.querySelector('.viewcontainer').style.zIndex = initialviewcontainerzindex;
+            document.querySelector('.consoleconteiner').style.zIndex = 'auto';
+            document.querySelector('.consoleconteiner').style.bottom = "50px";
             document.querySelector('.viewcontainer').style.display = initialviewcontainerdisplay;
 
             document.querySelector('.closeviewthisfilebtn').style.display = "none";
+            hideconsoleconteiner();
         }
 
 
@@ -6314,14 +6699,121 @@
                 const fileContent = checkiffile(src);
                 return fileContent ? `<script>\n${fileContent}\n<\/script>` : match;
             });
-
+            if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
+                const extracode = `
+<body>
+    <script>
+        window.addEventListener('message', (event) => {
+            if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
+                const codeToRun = event.data.slice(5); 
+                try {
+                    const result = eval(codeToRun);
+                } catch (error) {
+                    if (error.type){
+                        parent.postMessage({ status: 'error', message: error.type + ': ' +  \`\${error.message}\` }, '*');
+                    }else {
+                        parent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');
+                    }
+                }
+            }
+        });
+    <\/script>
+            `;
+                htmlString = htmlString.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
+                    return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
+                });
+                htmlString = htmlString.replace("<body>", extracode);
+                
+                htmlString = htmlString.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
+                    const keys = [
+                        "error",
+                        "clear",
+                        "log",
+                        "debug",
+                        "info",
+                        "warn",
+                        "table",
+                        "dir",
+                        "group",
+                        "groupEnd",
+                        "groupCollapsed",
+                        "time",
+                        "timeEnd",
+                        "timeLog",
+                        "assert",
+                        "count",
+                        "countReset"
+                    ];
+                    if (!keys.includes(type)){
+                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}' }, '*');\nconsole.${type}(${message});`;
+                    }
+                    let messagetouse = message;
+                    if (messagetouse == ""){
+                        return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: "default" }, '*');`;
+                    }
+                    return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
+                });
+            }
+            
             return htmlString;
         }
 
-
+        let currentiframeid = null;
         function textCode(textcontainerid, iframeid) {
+            if (!iframeid){
+                return;
+            }
+            document.querySelector('.console').innerHTML = "";
+            currentiframeid = iframeid;
+            document.querySelectorAll('iframe').forEach(iframe => {
+                iframe.srcdoc = "";
+            });
+            timers = {};
+            counts = {};
+            consolegroups = {};
+            openconsolegroups = {};
             const code = replaceLinksAndScripts(document.getElementById(textcontainerid).value);
             document.getElementById(iframeid).srcdoc = code;
+        }
+        
+        function runcodeincurrentiframe(inputfield, event){
+            if (event.key == "Enter" && currentiframeid){
+                let texttorun = inputfield.value;
+                texttorun = texttorun.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
+                    return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
+                });
+                texttorun = texttorun.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
+                    const keys = [
+                        "error",
+                        "clear",
+                        "log",
+                        "debug",
+                        "info",
+                        "warn",
+                        "table",
+                        "dir",
+                        "group",
+                        "groupEnd",
+                        "groupCollapsed",
+                        "time",
+                        "timeEnd",
+                        "timeLog",
+                        "assert",
+                        "count",
+                        "countReset"
+                    ];
+                    if (!keys.includes(type)) {
+                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}' }, '*');\nconsole.${type}(${message});`;
+                    }
+                    let messagetouse = message;
+                    if (messagetouse == "") {
+                        return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: "default" }, '*');`;
+                    }
+                    return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
+                });
+                document.getElementById(currentiframeid).contentWindow.postMessage('run: ' + texttorun, '*');
+                inputfield.value = "";
+            }
         }
 
 
@@ -6782,8 +7274,12 @@
                 sectionindex = index;
 
                 section = document.getElementById(`section${index}`);
-                if (!section.classList.contains('viewcontainer')){
+                if (!section){
+                    return;
+                }
+                if (section && !section.classList.contains('viewcontainer')){
                     inputDiv = section.querySelector('.code-editor-container');
+                    hideconsoleconteiner();
                     checkboxupdatefunction();
                 }
                 scrollToSection(index);
@@ -8130,7 +8626,7 @@
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
 
-                { regex: /\b(let|const|var|return|delete|break|continue|in|this|true|false)\b/g, className: "syntaxkeyword" },
+                { regex: /\b(let|const|var|return|delete|break|continue|in|this|true|false|class)\b/g, className: "syntaxkeyword" },
                 { regex: /\b(if|else|try|catch|function|for|while|setTimeout)\b/g, className: "syntaxblock" },
                 { regex: /@(namespace|container|page|supports|keyframes|import|font-face|media)\b/g, className: "syntaxkeyword" }
             ];
@@ -8563,180 +9059,181 @@
                     event.preventDefault();
                     
                     if (celine) {
-                    if (celine.classList.contains('hiddenlinesparent')){
-                        celine.classList.remove('hiddenlinesparent');
-                        showHiddenElements(celine);
-                    }
-                    correntids += 1;
-                    const newid = correntids;
-                    let newpast = [];
-                    lasteventsparentsection = section;
-                    let pastelement = {
-                        element: celine,
-                        type: "text",
-                        text: celine.textContent
-                    };
-                    newpast.push(pastelement);
-                    const text = celine.textContent;
-       
-                    const selection = window.getSelection();
-                    const range = selection.getRangeAt(0);
-                    const cursorOffset = range.startOffset;
-
-                    const textBehindCursor = text.substring(cursorOffset);
-                    celine.textContent = text.substring(0, cursorOffset);
-
-                    let lastsignincelineelement = getLastNonSpaceCharInText(celine.textContent);
-                    let firstsignintextbehindcursor = getFirstNonSpaceCharInTextaftercursor(textBehindCursor);
-                    let spaces = "";
-                    for (let i = 0; i < celine.textContent.length; i++) {
-                        const character = celine.textContent[i];
-                        if (character === " " || character === "\u00A0") {
-                            spaces += "\u00A0";
-                        } else {
-                            break;
+                        if (celine.classList.contains('hiddenlinesparent')){
+                            celine.classList.remove('hiddenlinesparent');
+                            showHiddenElements(celine);
                         }
-                    }
-                    let firstspaces = spaces;
-                    const openingsignsincssandjavascript = ["{", "[", "(", ":"];
-                    const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
-                    if (openingsignsincssandjavascript.includes(lastsignincelineelement)) {
-                        spaces += "\u00A0\u00A0\u00A0\u00A0";
-                    }
-                    const newline = document.createElement('div');
-                    newline.setAttribute('contenteditable', 'true');
-                    newline.id = newid;
-                    newline.classList.add('code-editor-line');
-                    
-                    if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor)){
-                        newline.textContent = spaces;
-                    }else {
-                        newline.textContent = spaces + textBehindCursor;
-                    }
-                    
-                    if (celine.classList.contains('syntaxhtmlcomment')){
-                        newline.classList.add('syntaxhtmlcomment');
-                    }
-                    if (celine.classList.contains('syntaxcomment')) {
-                        newline.classList.add('syntaxcomment');
-                    }
-                    if (celine.classList.contains('syntaxstring')) {
-                        newline.classList.add('syntaxstring');
-                    }
-                    if (celine.nextElementSibling && celine.nextElementSibling.classList.contains('syntaxstring')) {
-                        newline.classList.add('syntaxstring');
-                    }
-                    let regextotest = /\/\*(?!.*\*\/)/g;
-                    if (regextotest.test(celine)){
-                        newline.classList.add('syntaxcomment');
-                    }
-                    let regextotest2 = /(?<!<!--.*)-->$/g;
-                    if (regextotest.test(celine)) {
-                        newline.classList.add('syntaxhtmlcomment');
-                    }
-                    celine.insertAdjacentElement('afterend', newline);
-                    let pastelemen4 = {
-                        element: newline,
-                        type: "create",
-                        index: getElementIndexInParent(newline)
-                    };
-                    newpast.push(pastelemen4);
-                    
-                    if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor)){
-                        const newline2 = document.createElement('div');
-                        newline2.setAttribute('contenteditable', 'true');
-                        newline2.id = parseInt(newid);
-                        newline2.classList.add('code-editor-line');
-                        newline2.textContent = firstspaces + textBehindCursor;
-                        newline.insertAdjacentElement('afterend', newline2);
+                        correntids += 1;
+                        const newid = correntids;
+                        let newpast = [];
+                        lasteventsparentsection = section;
                         let pastelement = {
-                            element: newline2,
-                            type: "create",
-                            index: getElementIndexInParent(newline2)
+                            element: celine,
+                            type: "text",
+                            text: celine.textContent
                         };
                         newpast.push(pastelement);
-                    }
-                    newline.focus();
-                    const newRange = document.createRange();
-                    newRange.setStart(newline.firstChild || newline, spaces.length);
-                    newRange.collapse(true);
-                    selection.removeAllRanges();
-                    selection.addRange(newRange);
-                    addJsSyntaxHighlighting(celine);
-                    if (newpast.length > 0) {
-                        if (!pastevents[lasteventsparentsection.id]) {
-                            pastevents[lasteventsparentsection.id] = [];
+                        const text = celine.textContent;
+           
+                        const selection = window.getSelection();
+                        const range = selection.getRangeAt(0);
+                        const cursorOffset = range.startOffset;
+    
+                        const textBehindCursor = text.substring(cursorOffset);
+                        celine.textContent = text.substring(0, cursorOffset);
+    
+                        let lastsignincelineelement = getLastNonSpaceCharInText(celine.textContent);
+                        let firstsignintextbehindcursor = getFirstNonSpaceCharInTextaftercursor(textBehindCursor);
+                        let spaces = "";
+                        for (let i = 0; i < celine.textContent.length; i++) {
+                            const character = celine.textContent[i];
+                            if (character === " " || character === "\u00A0") {
+                                spaces += "\u00A0";
+                            } else {
+                                break;
+                            }
                         }
-                        pastevents[lasteventsparentsection.id].push(newpast);
-                        enablepastbtn();
+                        let firstspaces = spaces;
+                        const openingsignsincssandjavascript = ["{", "[", "(", ":"];
+                        const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
+                        if (openingsignsincssandjavascript.includes(lastsignincelineelement)) {
+                            spaces += "\u00A0\u00A0\u00A0\u00A0";
+                        }
+                        const newline = document.createElement('div');
+                        newline.setAttribute('contenteditable', 'true');
+                        newline.id = newid;
+                        newline.classList.add('code-editor-line');
+                        
+                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor)){
+                            newline.textContent = spaces;
+                        }else {
+                            newline.textContent = spaces + textBehindCursor;
+                        }
+                        
+                        if (celine.classList.contains('syntaxhtmlcomment')){
+                            newline.classList.add('syntaxhtmlcomment');
+                        }
+                        if (celine.classList.contains('syntaxcomment')) {
+                            newline.classList.add('syntaxcomment');
+                        }
+                        if (celine.classList.contains('syntaxstring')) {
+                            newline.classList.add('syntaxstring');
+                        }
+                        if (celine.nextElementSibling && celine.nextElementSibling.classList.contains('syntaxstring')) {
+                            newline.classList.add('syntaxstring');
+                        }
+                        let regextotest = /\/\*(?!.*\*\/)/g;
+                        if (regextotest.test(celine)){
+                            newline.classList.add('syntaxcomment');
+                        }
+                        let regextotest2 = /(?<!<!--.*)-->$/g;
+                        if (regextotest.test(celine)) {
+                            newline.classList.add('syntaxhtmlcomment');
+                        }
+                        celine.insertAdjacentElement('afterend', newline);
+                        let pastelemen4 = {
+                            element: newline,
+                            type: "create",
+                            index: getElementIndexInParent(newline)
+                        };
+                        newpast.push(pastelemen4);
+                        
+                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor)){
+                            const newline2 = document.createElement('div');
+                            newline2.setAttribute('contenteditable', 'true');
+                            newline2.id = parseInt(newid);
+                            newline2.classList.add('code-editor-line');
+                            newline2.textContent = firstspaces + textBehindCursor;
+                            newline.insertAdjacentElement('afterend', newline2);
+                            addJsSyntaxHighlighting(newline2);
+                            let pastelement = {
+                                element: newline2,
+                                type: "create",
+                                index: getElementIndexInParent(newline2)
+                            };
+                            newpast.push(pastelement);
+                        }
+                        newline.focus();
+                        const newRange = document.createRange();
+                        newRange.setStart(newline.firstChild || newline, spaces.length);
+                        newRange.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(newRange);
+                        addJsSyntaxHighlighting(celine);
+                        if (newpast.length > 0) {
+                            if (!pastevents[lasteventsparentsection.id]) {
+                                pastevents[lasteventsparentsection.id] = [];
+                            }
+                            pastevents[lasteventsparentsection.id].push(newpast);
+                            enablepastbtn();
+                        }
+                        updateSelectedClasses();
                     }
-                    updateSelectedClasses();
                 }
-            }
-
-
-            if (event.key === 'Backspace') {
-                let newpast = [];
-                lasteventsparentsection = section;
-                if (celine.textContent != ""){
-                    let pastelemen3 = {
-                        element: celine,
-                        type: "text",
-                        text: celine.textContent
-                    };
-                    newpast.push(pastelemen3);
-                }
-                function handleBackspaceWithMatchingCharacters(event) {
-                    if (event.key !== 'Backspace') return;
-                    const selection = window.getSelection();
-                    if (!selection.rangeCount) return;
-                    const range = selection.getRangeAt(0);
-                    const cursorOffset = range.startOffset;
-                    const celine = range.startContainer;
     
-                    if (!celine || celine.nodeType !== Node.TEXT_NODE) return;
     
-                    const text = celine.textContent;
-    
-                    const matchingPairs = {
-                        '(': ')',
-                        '{': '}',
-                        '[': ']',
-                        '"': '"',
-                        "'": "'",
-                        '`': '`'
-                    };
-    
-                    const previousChar = text.charAt(cursorOffset - 1);
-                    const nextChar = text.charAt(cursorOffset);
-    
-                    if (matchingPairs[previousChar] === nextChar) {
+                if (event.key === 'Backspace') {
+                    let newpast = [];
+                    lasteventsparentsection = section;
+                    if (celine.textContent != ""){
+                        let pastelemen3 = {
+                            element: celine,
+                            type: "text",
+                            text: celine.textContent
+                        };
+                        newpast.push(pastelemen3);
+                    }
+                    function handleBackspaceWithMatchingCharacters(event) {
+                        if (event.key !== 'Backspace') return;
+                        const selection = window.getSelection();
+                        if (!selection.rangeCount) return;
+                        const range = selection.getRangeAt(0);
+                        const cursorOffset = range.startOffset;
+                        const celine = range.startContainer;
+        
+                        if (!celine || celine.nodeType !== Node.TEXT_NODE) return;
+        
+                        const text = celine.textContent;
+        
+                        const matchingPairs = {
+                            '(': ')',
+                            '{': '}',
+                            '[': ']',
+                            '"': '"',
+                            "'": "'",
+                            '`': '`'
+                        };
+        
+                        const previousChar = text.charAt(cursorOffset - 1);
+                        const nextChar = text.charAt(cursorOffset);
+        
+                        if (matchingPairs[previousChar] === nextChar) {
+                            event.preventDefault();
+                            document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                                suggestioncontainerv.remove();
+                            });
+        
+                            const updatedText = text.slice(0, cursorOffset - 1) + text.slice(cursorOffset + 1);
+                            celine.textContent = updatedText;
+        
+                            const newCursorPosition = cursorOffset - 1;
+                            range.setStart(celine, newCursorPosition);
+                            range.collapse(true);
+        
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }
+        
+                    handleBackspaceWithMatchingCharacters(event);
+                    let selection = window.getSelection();
+                    let range = selection.getRangeAt(0);
+        
+                    if (range.startOffset === 0 && celine) {
                         event.preventDefault();
                         document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
                             suggestioncontainerv.remove();
-                        });
-    
-                        const updatedText = text.slice(0, cursorOffset - 1) + text.slice(cursorOffset + 1);
-                        celine.textContent = updatedText;
-    
-                        const newCursorPosition = cursorOffset - 1;
-                        range.setStart(celine, newCursorPosition);
-                        range.collapse(true);
-    
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                    }
-                }
-    
-                handleBackspaceWithMatchingCharacters(event);
-                let selection = window.getSelection();
-                let range = selection.getRangeAt(0);
-    
-                if (range.startOffset === 0 && celine) {
-                    event.preventDefault();
-                    document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
-                        suggestioncontainerv.remove();
-                });
+                    });
 
                     const previousLine = celine.previousElementSibling;
                     if (previousLine) {
@@ -9190,7 +9687,7 @@
                 ":first-child", ":last-child", ":nth-child()", ":not()", ":root", ":before", ":after",
     
                 "::before", "::after", "::first-letter", "::first-line", "::selection", 
-                "::placeholder"
+                "::placeholder", "accent-color"
             ];
 
             const jsKeywords = [
@@ -9218,7 +9715,9 @@
                 "borderColor", "outline", "outlineWidth", "outlineColor", "flex", 
                 "flexDirection", "alignItems", "justifyContent", "gap", "gridTemplateColumns", 
                 "gridTemplateRows", "gridGap", "order", "alignSelf", "overflowX", 
-                "overflowY", "whiteSpace", "wordBreak", "wordSpacing", "letterSpacing"
+                "overflowY", "whiteSpace", "wordBreak", "wordSpacing", "letterSpacing", "accentColor",
+                
+                "count", "countReset", "time", "timeLog", "timeEnd", "group", "groupEnd", "log", "debug", "warn"
             ];
 
             const htmlTags = [
