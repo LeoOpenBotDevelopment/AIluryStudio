@@ -9036,9 +9036,9 @@
                                 pastevents[lasteventsparentsection.id].push(newpast);
                                 enablepastbtn();
                             }
+                            event.preventDefault();
                         }
                         range.deleteContents();
-                        event.preventDefault();
                     }
                     const preCaretRange = range.cloneRange();
                     preCaretRange.selectNodeContents(element);
