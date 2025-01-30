@@ -3625,7 +3625,7 @@
             const trueKeys = Object.keys(consolegroups).filter(key => consolegroups[key] === true);
 
             if (eds === "groupEnd" && trueKeys.length > 0) {
-                consolegroups[trueKeys[trueKeys.length]] = false;
+                consolegroups[trueKeys[trueKeys.length - 1]] = false;
             }
             
             if (trueKeys.length > 0) {
