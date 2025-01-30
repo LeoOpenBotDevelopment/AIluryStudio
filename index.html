@@ -9012,11 +9012,15 @@
                 hidenotificationmessage();
             }
             let celine = section.querySelector('.code-editor-line:focus');
+            let nodelete = false;
             function getCursorPosition(element) {
                 const selection = window.getSelection();
                 if (!selection.rangeCount) return null;
                     const range = selection.getRangeAt(0);
-                    if (event.key != "Shift" && event.key != "Tab"){
+                    const selectedText = range.toString();
+                    if (selectedText != "" && event.key != "Shift" && event.key != "Tab"){
+                        event.preventDefault();
+                        nodelete = true;
                         range.deleteContents();
                     }
                     const preCaretRange = range.cloneRange();
@@ -9179,7 +9183,7 @@
                 }
     
     
-                if (event.key === 'Backspace') {
+                if (event.key === 'Backspace' && nodelete == false) {
                     let newpast = [];
                     lasteventsparentsection = section;
                     if (celine.textContent != ""){
