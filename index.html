@@ -6650,7 +6650,11 @@
             document.querySelector('.viewcontainer').style.zIndex = initialviewcontainerzindex;
             document.querySelector('.consoleconteiner').style.zIndex = 'auto';
             document.querySelector('.consoleconteiner').style.bottom = "50px";
-            document.querySelector('.viewcontainer').style.display = initialviewcontainerdisplay;
+            if (section && section.classList.contains('viewcontainer')){
+                document.querySelector('.viewcontainer').style.display = "flex";
+            }else {
+                document.querySelector('.viewcontainer').style.display = initialviewcontainerdisplay;
+            }
 
             document.querySelector('.closeviewthisfilebtn').style.display = "none";
             hideconsoleconteiner();
@@ -9012,6 +9016,9 @@
                 const selection = window.getSelection();
                 if (!selection.rangeCount) return null;
                     const range = selection.getRangeAt(0);
+                    if (event.key != "Shift" && event.key != "Tab"){
+                        range.deleteContents();
+                    }
                     const preCaretRange = range.cloneRange();
                     preCaretRange.selectNodeContents(element);
                     preCaretRange.setEnd(range.startContainer, range.startOffset);
