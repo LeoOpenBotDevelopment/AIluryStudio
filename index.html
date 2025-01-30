@@ -9019,9 +9019,26 @@
                     const range = selection.getRangeAt(0);
                     const selectedText = range.toString();
                     if (selectedText != "" && event.key != "Shift" && event.key != "Tab"){
-                        event.preventDefault();
                         nodelete = true;
                         range.deleteContents();
+                        if (event.key == "Backspace" && celine){
+                            let newpast = [];
+                            lasteventsparentsection = section;
+                            let pastelement = {
+                                element: celine,
+                                type: "text",
+                                text: celine.textContent
+                            };
+                            newpast.push(pastelement);
+                            if (newpast.length > 0) {
+                                if (!pastevents[lasteventsparentsection.id]) {
+                                    pastevents[lasteventsparentsection.id] = [];
+                                }
+                                pastevents[lasteventsparentsection.id].push(newpast);
+                                enablepastbtn();
+                            }
+                        }
+                        event.preventDefault();
                     }
                     const preCaretRange = range.cloneRange();
                     preCaretRange.selectNodeContents(element);
