@@ -9020,7 +9020,6 @@
                     const selectedText = range.toString();
                     if (selectedText != "" && event.key != "Shift" && event.key != "Tab"){
                         nodelete = true;
-                        range.deleteContents();
                         if (event.key == "Backspace" && celine){
                             let newpast = [];
                             lasteventsparentsection = section;
@@ -9038,6 +9037,7 @@
                                 enablepastbtn();
                             }
                         }
+                        range.deleteContents();
                         event.preventDefault();
                     }
                     const preCaretRange = range.cloneRange();
