@@ -9074,6 +9074,27 @@
                     selection.addRange(range);
                 }
 
+                if (event.key != "'" && event.key != "\"" && event.key != "`" && event.key != "(" && event.key != "{" && event.key != "[" && event.key != "“" && event.key != "‚" && event.key != ">" && event.key != "„" && event.key != "Backspace" && event.key != "‘" && event.key != "Enter" && event.key != "}" && event.key != "]" && event.key != ")" && event.key != ";" && event.key.length <= 1) {
+                    let newpast2 = [];
+                    lasteventsparentsection = section;
+                    if (event.key.length <= 1) {
+                        let pastelement2 = {
+                            element: celine,
+                            type: "text",
+                            text: celine.textContent
+                        };
+                        newpast2.push(pastelement2);
+                    }
+                    if (newpast2.length > 0) {
+                        if (!pastevents[lasteventsparentsection.id]) {
+                            pastevents[lasteventsparentsection.id] = [];
+                        }
+                        pastevents[lasteventsparentsection.id].push(newpast2);
+                        enablepastbtn();
+                    }
+                    return;
+                }
+
                 const cursorPosition = getCursorPosition(celine);
                 const ctext = celine.textContent;
                 if (ctext.trim() != ""){
@@ -9423,26 +9444,6 @@
             if (event.key === '(') {
                 event.preventDefault();
                 insertClosingCharacter('(', ')');
-            }
-
-            if (event.key != "'" && event.key != "\"" && event.key != "`" && event.key != "(" && event.key != "{" && event.key != "[" && event.key != "“" && event.key != "‚" && event.key != ">" && event.key != "„" && event.key != "Backspace" && event.key != "‘" && event.key != "Enter" && event.key != "}" && event.key != "]" && event.key != ")" && event.key != ";"){
-                let newpast2 = [];
-                lasteventsparentsection = section;
-                if (event.key.length <= 1){
-                    let pastelement2 = {
-                        element: celine,
-                        type: "text",
-                        text: celine.textContent
-                    };
-                    newpast2.push(pastelement2);
-                }
-                if (newpast2.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
-                    pastevents[lasteventsparentsection.id].push(newpast2);
-                    enablepastbtn();
-                }
             }
 
             function checkAndSkipClosingCharacter(closingChar) {
