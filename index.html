@@ -9074,7 +9074,7 @@
                     selection.addRange(range);
                 }
 
-                if (event.key != "'" && event.key != "\"" && event.key != "`" && event.key != "(" && event.key != "{" && event.key != "[" && event.key != "“" && event.key != "‚" && event.key != ">" && event.key != "„" && event.key != "Backspace" && event.key != "‘" && event.key != "Enter" && event.key != "}" && event.key != "]" && event.key != ")" && event.key != ";" && event.key.length <= 1) {
+                if (event.key != "'" && event.key != "\"" && event.key != "`" && event.key != "(" && event.key != "{" && event.key != "[" && event.key != "“" && event.key != "‚" && event.key != ">" && event.key != "„" && (event.key != "Backspace" || nodelete == false) && event.key != "‘" && event.key != "Enter" && event.key != "}" && event.key != "]" && event.key != ")" && event.key != ";" && event.key.length <= 1) {
                     let newpast2 = [];
                     lasteventsparentsection = section;
                     if (event.key.length <= 1) {
