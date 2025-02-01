@@ -8276,7 +8276,7 @@
 
             let nextElement = element.nextElementSibling;
             let nextElementValid = false;
-            if (nextElement){
+            if (nextElement && element.textContent.trim() != ""){
                 element.classList.add('hiddenlinesparent');
             }else {
                 return;
