@@ -6709,50 +6709,13 @@
         window.addEventListener('message', (event) => {
             if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
                 try {
-                    const codeToRun = event.data.slice(5).trim();
-                    const tosearch = codeToRun.trim().split('\\n')[0].replace(/[^a-zA-Z0-9-_]/g, '_');
-        
-                    const element = document.querySelector('.' + tosearch);
-                    const element2 = document.querySelector('#' + tosearch);
-                    if (element) {
-                        parent.postMessage({
-                            status: 'groupCollapsed',
-                            message: '.' + tosearch
-                        }, '*');
-                        parent.postMessage({
-                            status: 'log',
-                            message: element.outerHTML
-                        }, '*');
-                        parent.postMessage({
-                            status: 'groupEnd',
-                            message: 'default'
-                        }, '*');
-                    } else if (element2) {
-                        parent.postMessage({
-                            status: 'groupCollapsed',
-                            message: '#' + tosearch
-                        }, '*');
-                        parent.postMessage({
-                            status: 'log',
-                            message: element2.outerHTML
-                        }, '*');
-                        parent.postMessage({
-                            status: 'groupEnd',
-                            message: 'default'
-                        }, '*');
-                    } else {
-                        try {
-                            const func = new Function(codeToRun);
-                            const result = func();
-                        } catch (error) {
-                            parent.postMessage({ 
-                                status: 'error', 
-                                message: error.name + ': ' + error.message 
-                            }, '*');
-                        }
-                    }
+                    const func = new Function(event.data.slice(5).trim());
+                    const result = func();
                 } catch (error) {
-                    
+                    parent.postMessage({ 
+                        status: 'error', 
+                        message: error.name + ': ' + error.message 
+                    }, '*');
                 }
             }
         });
