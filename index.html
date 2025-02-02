@@ -6705,28 +6705,64 @@
             });
             if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
                 const extracode = `
-<body>
     <script>
         window.addEventListener('message', (event) => {
             if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
-                const codeToRun = event.data.slice(5); 
                 try {
-                    const result = eval(codeToRun);
-                } catch (error) {
-                    if (error.type){
-                        parent.postMessage({ status: 'error', message: error.type + ': ' +  \`\${error.message}\` }, '*');
-                    }else {
-                        parent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');
+                    const codeToRun = event.data.slice(5).trim();
+                    const tosearch = codeToRun.trim().split('\\n')[0].replace(/[^a-zA-Z0-9-_]/g, '_');
+        
+                    const element = document.querySelector('.' + tosearch);
+                    const element2 = document.querySelector('#' + tosearch);
+                    if (element) {
+                        parent.postMessage({
+                            status: 'groupCollapsed',
+                            message: '.' + tosearch
+                        }, '*');
+                        parent.postMessage({
+                            status: 'log',
+                            message: element.outerHTML
+                        }, '*');
+                        parent.postMessage({
+                            status: 'groupEnd',
+                            message: 'default'
+                        }, '*');
+                    } else if (element2) {
+                        parent.postMessage({
+                            status: 'groupCollapsed',
+                            message: '#' + tosearch
+                        }, '*');
+                        parent.postMessage({
+                            status: 'log',
+                            message: element2.outerHTML
+                        }, '*');
+                        parent.postMessage({
+                            status: 'groupEnd',
+                            message: 'default'
+                        }, '*');
+                    } else {
+                        try {
+                            const func = new Function(codeToRun);
+                            const result = func();
+                        } catch (error) {
+                            parent.postMessage({ 
+                                status: 'error', 
+                                message: error.name + ': ' + error.message 
+                            }, '*');
+                        }
                     }
+                } catch (error) {
+                    
                 }
             }
         });
     <\/script>
+</body>
             `;
                 htmlString = htmlString.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
                     return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
                 });
-                htmlString = htmlString.replace("<body>", extracode);
+                htmlString = htmlString.replace(/<\/body>(?![\s\S]*<\/body>)/, extracode);
                 
                 htmlString = htmlString.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
                     const keys = [
