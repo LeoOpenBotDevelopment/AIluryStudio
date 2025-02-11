@@ -7776,14 +7776,14 @@
             const allselectedlines = section.querySelectorAll(".code-editor-line.selected");
             if (allselectedlines.length) {
                 allselectedlines.forEach(selectedline => {
-                    if (selectedline.textContent.startsWith(' ')){
+                    if (/^[ \u00A0]/.test(selectedline.textContent)){
                         let pastelement = {
                             element: selectedline,
                             type: "text",
                             text: selectedline.textContent
                         };
                         newpast.push(pastelement);
-                        selectedline.textContent = selectedline.textContent.replace(' ', '');
+                        selectedline.textContent = selectedline.textContent.replace(/^[ \u00A0]/, '');
                         if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
                             addJsSyntaxHighlighting(selectedline);
                         }
