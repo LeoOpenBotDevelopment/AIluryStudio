@@ -4079,6 +4079,7 @@
                         });
                     }
                     if (element.element) scrolltolinenumber(getElementIndexInParent(element.element));
+                    updateSelectedClasses();
                 }else if (element.type == "text"){
                     element.element.textContent = element.text;
                     addJsSyntaxHighlighting(element.element);
@@ -4093,6 +4094,7 @@
                         });
                     }
                     element.element.remove();
+                    updateSelectedClasses();
                 }else if (element.type == "addclass"){
                     if (element.element) scrolltolinenumber(getElementIndexInParent(element.element));
                     element.element.classList.add(element.text);
@@ -7418,25 +7420,26 @@
             if (allselectedlines.length) {
                 allselectedlines.forEach(selectedline => {
                     
-                if (selectedline.previousElementSibling || selectedline.nextElementSibling){
-                    let pastelement = {
-                        element: selectedline,
-                        type: "delete",
-                        index: getElementIndexInParent(selectedline)
-                    };
-                    newpast.push(pastelement);
-                    selectedline.remove();
-                }else {
-                    let pastelement = {
-                        element: selectedline,
-                        type: "text",
-                        text: selectedline.textContent
-                    };
-                    newpast.push(pastelement);
-                    selectedline.innerHTML = "";
-                }
-                checkifselectedlines();
+                    if (selectedline.previousElementSibling || selectedline.nextElementSibling){
+                        let pastelement = {
+                            element: selectedline,
+                            type: "delete",
+                            index: getElementIndexInParent(selectedline)
+                        };
+                        newpast.push(pastelement);
+                        selectedline.remove();
+                    }else {
+                        let pastelement = {
+                            element: selectedline,
+                            type: "text",
+                            text: selectedline.textContent
+                        };
+                        newpast.push(pastelement);
+                        selectedline.innerHTML = "";
+                    }
+                    checkifselectedlines();
                 });
+                updateSelectedClasses();
             }
             if (newpast.length > 0) {
                 if (!pastevents[lasteventsparentsection.id]) {
