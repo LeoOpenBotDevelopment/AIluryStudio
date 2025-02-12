@@ -4200,6 +4200,8 @@
                 spaces += "\u00A0\u00A0\u00A0\u00A0";
             }else if (celine.textContent.trim().endsWith('<body>') || celine.textContent.trim().startsWith('<body>')){
                 spaces += "\u00A0\u00A0\u00A0\u00A0";
+            }else if (celine.textContent.trim().endsWith('<script>') || celine.textContent.trim().startsWith('<body>')) {
+                spaces += "\u00A0\u00A0\u00A0\u00A0";
             }
 
             let pasteText = additionalCode;
@@ -4301,14 +4303,17 @@
 
         function modifyHTML(htmlCode, additionalCode, type, htmlCodeComtainer) {
             const bodyRegex = /<body[^>]*>([\s\S]*?)<\/body>/i;
+            const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/i;
             const headRegex = /<head[^>]*>([\s\S]*?)<\/head>/i;
             const styleTagRegex = /<style[^>]*>([\s\S]*?)<\/style>/i;
 
             if (type == 'js') {
                 if (bodyRegex.test(htmlCode)){
                     mergecode(htmlCodeComtainer, '\n<script>\n' + additionalCode + '\n<\/script>', '</body>');
+                }else if (scriptRegex.test(htmlCode)){
+                    mergecode(htmlCodeComtainer, '\n' + additionalCode + '\n', '<\/script>');
                 }else {
-                    showAlert('make sure that you have a body tag in your html code');
+                    showAlert('make sure that you have a body or script tag in your html code');
                 }
             } else if (type == 'css') {
                 if (styleTagRegex.test(htmlCode)) {
