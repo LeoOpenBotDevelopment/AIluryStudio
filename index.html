@@ -6778,8 +6778,10 @@
             }
             document.querySelector('.console').innerHTML = "";
             currentiframeid = iframeid;
-            document.querySelectorAll('iframe').forEach(iframe => {
-                iframe.srcdoc = "";
+            document.querySelector('#computer-frame').srcdoc = "";
+            document.querySelector('#mobile-frame').srcdoc = "";
+            document.querySelectorAll('.iframe-container').forEach(iframe => {
+                iframe.style.backgroundColor = "var(--browseriframebackgroundcolor-color)";
             });
             timers = {};
             counts = {};
@@ -6787,6 +6789,7 @@
             openconsolegroups = {};
             const code = replaceLinksAndScripts(document.getElementById(textcontainerid).value);
             document.getElementById(iframeid).srcdoc = code;
+            document.getElementById(iframeid).parentElement.style.background = "white";
         }
         
         function runcodeincurrentiframe(inputfield, event){
