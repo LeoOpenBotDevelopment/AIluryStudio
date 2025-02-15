@@ -6751,14 +6751,16 @@
     <script>
         const imageReplacements = ${JSON.stringify(allimages)};
         
-        self.addEventListener("fetch", (event) => {
-            const url = new URL(event.request.url);
-            const fileName = url.pathname.split("/").pop();
-        
-            if (imageReplacements[fileName]) {
-                event.respondWith(fetch(imageReplacements[fileName]));
-            }
-        });
+        if ('serviceWorker' in navigator) {
+            self.addEventListener("fetch", (event) => {
+                const url = new URL(event.request.url);
+                const fileName = url.pathname.split("/").pop();
+            
+                if (imageReplacements[fileName]) {
+                    event.respondWith(fetch(imageReplacements[fileName]));
+                }
+            });
+        }
 
     <\/script>
 </body>
