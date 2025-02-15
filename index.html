@@ -5397,6 +5397,9 @@
             }
             updateStep();
         }
+        
+        let allimages = { "Image.png": "Image.png" };
+        
         function startLoadingImages() {
             const overlay = document.getElementById('overlay');
             const progressBar = document.getElementById('progress-bar');
@@ -5490,12 +5493,17 @@
         }
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const files = event.target.files;
+            let loadimageiffti = true;
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const filePath = file.name;
                 if (file.type.startsWith('image/')) {
                     isloadingimages = true;
-                    addNewImage(filePath, URL.createObjectURL(file), file);
+                    if (!allimages[filePath]) {
+                        addNewImage(filePath, URL.createObjectURL(file), file);
+                    } else {
+                        loadimageiffti = false;
+                    }
                 } else if (file.type === 'text/plain' || file.type === 'text/css' || file.type === 'application/javascript' || file.type === 'text/html') {
                     let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
                     if (!allfilenames.includes(filePath)) {
@@ -5508,7 +5516,7 @@
                 isloadingfiles = false;
                 isloadingimages = false;
                 startLoading();
-            }else if (isloadingfiles == false && isloadingimages == true) {
+            }else if (isloadingfiles == false && isloadingimages == true && loadimageiffti == true) {
                 isloadingfiles = false;
                 isloadingimages = false;
                 startLoadingImages();
@@ -5534,6 +5542,8 @@
         });
 
         function addNewImage(imagePath, imageUrl, file) {
+            allimages[imagePath] = imageUrl;
+            
             const fileName = imagePath.split('/').pop();
 
             const contentContainer = document.querySelector('.content-container');
@@ -5593,7 +5603,11 @@
 
         function deleteImage(element) {
             const rectangle = element.closest('.rectangle');
+            if (allimages[rectangle.querySelector('.image-name').textContent]){
+                delete allimages[rectangle.querySelector('.image-name').textContent];
+            }
             rectangle.remove();
+            
         }
 
         function downloadImage(file) {
@@ -6696,9 +6710,7 @@
             });
             return fileContent;
         }
-
-
-
+        
         function replaceLinksAndScripts(values) {
             let htmlString = checkiffile(values);
             const fileCache = new Map();
@@ -6735,6 +6747,19 @@
                 }
             }
         });
+    <\/script>
+    <script>
+        const imageReplacements = ${JSON.stringify(allimages)};
+        
+        self.addEventListener("fetch", (event) => {
+            const url = new URL(event.request.url);
+            const fileName = url.pathname.split("/").pop();
+        
+            if (imageReplacements[fileName]) {
+                event.respondWith(fetch(imageReplacements[fileName]));
+            }
+        });
+
     <\/script>
 </body>
             `;
