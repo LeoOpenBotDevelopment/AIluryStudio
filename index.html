@@ -6750,7 +6750,7 @@
         });
     <\/script>
     <script>
-        const imageReplacements = ${JSON.stringify(allimages)};
+        const fileReplacements = ${JSON.stringify(allimages)};
         
         if ('fetch' in window) {
           const originalFetch = window.fetch;
@@ -6761,14 +6761,37 @@
             const fileName = urlObj.pathname.split("/").pop();
         
             // Falls ein Ersatz für den angefragten Dateinamen existiert, leite den Request um
-            if (imageReplacements[fileName]) {
-              return originalFetch(imageReplacements[fileName], options);
+            if (fileReplacements[fileName]) {
+              return originalFetch(fileReplacements[fileName], options);
             }
         
             // Andernfalls führe den ursprünglichen Request aus
             return originalFetch(url, options);
           };
         }
+
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === "attributes" && mutation.attributeName === "src") {
+              const img = mutation.target;
+              const fileName = img.src.split("/").pop();
+              if (fileReplacements[fileName]) {
+                img.src = fileReplacements[fileName];
+              }
+            }
+          });
+        });
+        
+        // Beobachtet das ganze Dokument nach <img>-Änderungen
+        observer.observe(document, { attributes: true, subtree: true, attributeFilter: ["src"] });
+        
+        // Bereits existierende <img>-Tags direkt ersetzen
+        document.querySelectorAll("img").forEach((img) => {
+          const fileName = img.src.split("/").pop();
+          if (fileReplacements[fileName]) {
+            img.src = fileReplacements[fileName];
+          }
+        });
 
     <\/script>
             `;
