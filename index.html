@@ -6751,15 +6751,22 @@
     <script>
         const imageReplacements = ${JSON.stringify(allimages)};
         
-        if ('serviceWorker' in navigator) {
-            self.addEventListener("fetch", (event) => {
-                const url = new URL(event.request.url);
-                const fileName = url.pathname.split("/").pop();
-            
-                if (imageReplacements[fileName]) {
-                    event.respondWith(fetch(imageReplacements[fileName]));
-                }
-            });
+        if ('fetch' in window) {
+          const originalFetch = window.fetch;
+          window.fetch = function(url, options) {
+            // Bestimme die URL, egal ob als String oder Request-Objekt übergeben
+            let requestUrl = (typeof url === 'string') ? url : url.url;
+            const urlObj = new URL(requestUrl, location.href);
+            const fileName = urlObj.pathname.split("/").pop();
+        
+            // Falls ein Ersatz für den angefragten Dateinamen existiert, leite den Request um
+            if (imageReplacements[fileName]) {
+              return originalFetch(imageReplacements[fileName], options);
+            }
+        
+            // Andernfalls führe den ursprünglichen Request aus
+            return originalFetch(url, options);
+          };
         }
 
     <\/script>
