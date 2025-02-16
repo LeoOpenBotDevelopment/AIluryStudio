@@ -6733,6 +6733,7 @@
             });
             if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
                 const extracode = `
+    <\/script>
     <script>
         window.addEventListener('message', (event) => {
             if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
@@ -6770,12 +6771,11 @@
         }
 
     <\/script>
-</body>
             `;
                 htmlString = htmlString.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
                     return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
                 });
-                htmlString = htmlString.replace(/<\/body>(?![\s\S]*<\/body>)/, extracode);
+                htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, extracode);
                 
                 htmlString = htmlString.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
                     const keys = [
