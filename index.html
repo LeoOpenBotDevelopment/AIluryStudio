@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="faviconico" rel="icon" href="AIlurylogo.ico" type="image/x-icon">
+    <link id="faviconico" rel="icon" href="AIluryLogo.ico" type="image/x-icon">
     <meta name="description" content="Discover powerful tools for developers and creators at AIlury.com" />
     <meta property="og:title" content="AIlury Studio - Innovative Developer Tools" />
     <meta property="og:description" content="Discover powerful tools for developers and creators at AIlury.com." />
-    <meta property="og:image" content="https://ailury.com/AYLogo.png" />
+    <meta property="og:image" content="https://ailury.com/AIluryLogo.ico" />
     <meta property="og:url" content="https://ailury.com" />
     <title>AIlury</title>
     <style>
@@ -6689,8 +6689,11 @@
             document.querySelector('.closeviewthisfilebtn').style.display = "none";
             hideconsoleconteiner();
         }
-
-
+        
+        function normalizeSpaces(text) {
+            return text.replace(/\s/g, ' ');
+        }
+        
         function checkiffile(filename) {
             let fileContent = "";
             document.querySelectorAll('.filedot').forEach(fd => {
@@ -6701,7 +6704,7 @@
                         let container = sectionv.querySelector('.code-editor-container');
                         if (container) {
                             container.querySelectorAll('.code-editor-line').forEach(line => {
-                                fileContent += line.textContent + "\n";
+                                fileContent += normalizeSpaces(line.textContent) + "\n";
                             });
                             return;
                         }
@@ -7872,7 +7875,7 @@
             if (allselectedlines.length) {
                 let linetexts = "";
                 allselectedlines.forEach(selectedline => {
-                    linetexts += selectedline.textContent + "\n";
+                    linetexts += normalizeSpaces(selectedline.textContent) + "\n";
                 });
 
                 try {
@@ -7898,7 +7901,7 @@
             if (allselectedlines.length) {
                 let linetexts = "";
                 allselectedlines.forEach(selectedline => {
-                    linetexts += selectedline.textContent + "\n";
+                    linetexts += normalizeSpaces(selectedline.textContent) + "\n";
                 });
 
                 try {
@@ -8156,21 +8159,49 @@
             patterns.forEach(({ regex, prefix }) => {
                 let match;
                 while ((match = regex.exec(code)) !== null) {
-                    //matches.add(prefix + match[1]);
                     matches.add(match[1]);
                 }
             });
         
             return Array.from(matches);
         }
-
-
-
-
-
-
+        
         function handlePaste(event) {
             event.preventDefault();
+            function getCursorPosition(element) {
+                const selection = window.getSelection();
+                if (!selection.rangeCount) return null;
+                const range = selection.getRangeAt(0);
+                const selectedText = range.toString();
+                if (selectedText != "" && event.key != "Shift" && event.key != "Tab") {
+                    nodelete = true;
+                    if (event.key == "Backspace" && celine) {
+                        let newpast = [];
+                        lasteventsparentsection = section;
+                        let pastelement = {
+                            element: celine,
+                            type: "text",
+                            text: celine.textContent
+                        };
+                        newpast.push(pastelement);
+                        if (newpast.length > 0) {
+                            if (!pastevents[lasteventsparentsection.id]) {
+                                pastevents[lasteventsparentsection.id] = [];
+                            }
+                            pastevents[lasteventsparentsection.id].push(newpast);
+                            enablepastbtn();
+                        }
+                        event.preventDefault();
+                    }
+                    range.deleteContents();
+                }
+                const preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(element);
+                preCaretRange.setEnd(range.startContainer, range.startOffset);
+                const startOffset = preCaretRange.toString().length;
+                return startOffset;
+            }
+            
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
@@ -8182,13 +8213,13 @@
             let pastelement2 = {
                 element: celine,
                 type: "text",
-                text: celine.textContent
+                text: replaceNormalSpaces(celine.textContent)
             };
             newpast2.push(pastelement2);
             let spaces = "";
             let continueSpaces = true;
             for (let i = 0; i < celine.textContent.length; i++) {
-                let character = celine.textContent[i];
+                let character = replaceNormalSpaces(celine.textContent)[i];
                 if ((character === " " || character === "\u00A0") && continueSpaces) {
                     spaces += "\u00A0";
                 } else {
@@ -8202,10 +8233,10 @@
             if (selection.rangeCount === 0) return;
             
             let range = selection.getRangeAt(0);
-            let cursorOffset = range.startOffset;
-            let currentText = celine.textContent;
-            let textAfterCursor = currentText.substring(cursorOffset);
-            celine.textContent = currentText.substring(0, cursorOffset);
+            let cursorOffset = getCursorPosition(celine);
+            let currentText = replaceNormalSpaces(celine.textContent);
+            let textAfterCursor = currentText.slice(cursorOffset);
+            celine.textContent = currentText.slice(0, cursorOffset);
             let firstreferencespacesforspacecoun = convertToNonBreakingSpaces(lines[0]);
 
             let space2 = "";
@@ -8260,7 +8291,7 @@
                     adjustedLine = lines[i].slice(firstLineLeadingSpacesCount);
                 }
                 
-                newline.textContent = spaces + convertToNonBreakingSpaces(adjustedLine);
+                newline.textContent = replaceNormalSpaces(spaces + convertToNonBreakingSpaces(adjustedLine));
                 celine.insertAdjacentElement('afterend', newline);
                 celine = newline;
                 addJsSyntaxHighlighting(celine);
@@ -8305,7 +8336,7 @@
             if (lastChild) {
                 newRange.setStart(lastChild, lastChild.length - textAfterCursor.length);
             } else {
-                newRange.setStart(celine, celine.textContent.length - textAfterCursor.length);
+                newRange.setStart(celine, replaceNormalSpaces(celine.textContent).length - textAfterCursor.length);
             }
             
             if (newpast2.length > 0) {
@@ -8395,7 +8426,7 @@
         }
 
         function convertToNonBreakingSpaces(text) {
-            return text.replace(/ /g, ' ').replace(/\t/g, '    ');
+            return replaceNormalSpaces(text.replace(/ /g, ' ').replace(/\t/g, '    '));
         }
         
         function replaceCommandsWithSymbols(textelement) {
@@ -8407,15 +8438,20 @@
             let cursorOffset = range.startOffset;
             function insertClosingCharacter(replacetext, openingChar, closingChar) {
                 let text = celine.textContent;
-                if (!text.includes(replacetext)) return;
+                let index = text.indexOf(replacetext);
+                
+                if (index === -1) return;
+            
                 let newpast2 = [];
                 lasteventsparentsection = section;
+            
                 let pastelement2 = {
                     element: celine,
                     type: "text",
-                    text: celine.textContent
+                    text: replaceNormalSpaces(text)
                 };
                 newpast2.push(pastelement2);
+            
                 if (newpast2.length > 0) {
                     if (!pastevents[lasteventsparentsection.id]) {
                         pastevents[lasteventsparentsection.id] = [];
@@ -8423,16 +8459,28 @@
                     pastevents[lasteventsparentsection.id].push(newpast2);
                     enablepastbtn();
                 }
-
-                let textAfterCursor = text.substring(cursorOffset);
-                celine.textContent = text.substring(0, cursorOffset).replace(replacetext, '') + openingChar + closingChar + textAfterCursor;
-
-                const newCursorOffset = cursorOffset + (openingChar.length - replacetext.length);
-                range.setStart(celine.firstChild, newCursorOffset);
-                range.collapse(true);
-                selection.removeAllRanges();
-                selection.addRange(range);
+                
+                let textBefore = text.slice(0, index);
+                let textAfter = text.slice(index + replacetext.length);
+                
+                celine.textContent = textBefore + openingChar + closingChar + textAfter;
+                
+                const newCursorOffset = index + openingChar.length + replacetext.length;
+                
+                if (window.getSelection) {
+                    let selection = window.getSelection();
+                    let range = document.createRange();
+            
+                    if (celine.firstChild) {
+                        range.setStart(celine.firstChild, newCursorOffset - replacetext.length);
+                        range.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                }
             }
+
+
             const commandToSymbol = {
                 "/alert": "⚠",
                 "/arrowbottomleft": "↙",
@@ -9082,13 +9130,18 @@
                 checkcomments2(div, code);
             }
         }
-
+        
+        function replaceNormalSpaces(text) {
+            return text.replace(/ /g, '\u00A0');
+        }
+        
         function handleKeyDown(event) {
             if (document.querySelector('.notificationmessage').style.display != "none"){
                 hidenotificationmessage();
             }
             let celine = section.querySelector('.code-editor-line:focus');
             let nodelete = false;
+
             function getCursorPosition(element) {
                 const selection = window.getSelection();
                 if (!selection.rangeCount) return null;
@@ -9149,15 +9202,17 @@
                     traverseNodes(element);
                     selection.addRange(range);
                 }
+                
+                const invalidKeys = ["'", "\"", "`", "(", "{", "[", "“", "‚", ">", "„", "Backspace", "‘", "Enter", "}", "]", ")", ";"];
 
-                if (event.key != "'" && event.key != "\"" && event.key != "`" && event.key != "(" && event.key != "{" && event.key != "[" && event.key != "“" && event.key != "‚" && event.key != ">" && event.key != "„" && event.key != "Backspace" && event.key != "‘" && event.key != "Enter" && event.key != "}" && event.key != "]" && event.key != ")" && event.key != ";" && event.key.length <= 1) {
+                if (!invalidKeys.includes(event.key) && event.key.length <= 1) {
                     let newpast2 = [];
                     lasteventsparentsection = section;
                     if (event.key.length <= 1) {
                         let pastelement2 = {
                             element: celine,
                             type: "text",
-                            text: celine.textContent
+                            text: replaceNormalSpaces(celine.textContent)
                         };
                         newpast2.push(pastelement2);
                     }
@@ -9172,13 +9227,11 @@
                 }
 
                 const cursorPosition = getCursorPosition(celine);
-                const ctext = celine.textContent;
-                if (ctext.trim() != ""){
-                    celine.innerHTML = "";
-                    celine.textContent = ctext;
-                    if (cursorPosition !== null) {
-                        setCursorPosition(celine, cursorPosition);
-                    }
+                const ctext = replaceNormalSpaces(celine.textContent);
+                celine.innerHTML = "";
+                celine.textContent = ctext;
+                if (cursorPosition !== null) {
+                    setCursorPosition(celine, cursorPosition);
                 }
                 if (event.key === 'Enter') {
                     event.preventDefault();
@@ -10030,7 +10083,7 @@
                         inputElement.textContent = updatedTextBeforeCursor + inputElement.textContent.slice(cursorPos);
                         container.innerHTML = "";
                         container.remove();
-                        if (!document.querySelector('.commandsswitch')?.checked) {
+                        if (!document.querySelector('.commandsswitch')?.checked || !commandsice.includes(suggestion)) {
                             addJsSyntaxHighlighting(inputElement);
                             inputElement.focus();
                         }
