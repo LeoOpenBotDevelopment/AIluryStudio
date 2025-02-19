@@ -591,7 +591,7 @@
             letter-spacing: 0.06em;
             text-align: left;
             padding: 5px;
-            transition: 0.5s;
+            transition: opacity 0.01s ease, all 0.5s ease;
             white-space: pre-wrap;
             flex-wrap: wrap;
             box-sizing: border-box;
@@ -2822,6 +2822,10 @@
                 opacity: 0;
             }
         }
+        .invisible{
+            visibility: hidden;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -3561,6 +3565,23 @@
     </div>
 
     <script>
+        let correntids = 2;
+        
+        const lineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('invisible');
+                } else {
+                    entry.target.classList.add('invisible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.code-editor-line').forEach(line => {
+            lineObserver.observe(line);
+        });
+        
+        
         function clearconsole() {
             const consol = document.querySelector('.console');
             consol.innerHTML = "";
@@ -5647,13 +5668,15 @@
             }
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
-
+            
+            correntids++;
+            
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = `section${container.children.length}`;
             newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
-            <div id="1" class="code-editor-line" contenteditable="true"></div>
+            <div id="${correntids}" class="code-editor-line" contenteditable="true"></div>
         </div>
         <div class="code-editor-btns"><button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
@@ -5666,11 +5689,14 @@
             reader.onload = (e) => {
                 const lines = e.target.result.split('\n');
                 lines.forEach((lineText) => {
+                    correntids += 1;
                     const line = document.createElement('div');
                     line.classList.add('code-editor-line');
                     line.setAttribute('contenteditable', 'true');
                     line.textContent = lineText;
+                    line.id = correntids;
                     editorContainer.appendChild(line);
+                    lineObserver.observe(line);
                 });
                 editorContainer.querySelectorAll('.code-editor-line').forEach(line => {
                     addJsSyntaxHighlighting(line)
@@ -5776,16 +5802,20 @@
         async function createNewFile(filename) {
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
-
+            
+            correntids += 1;
+            
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = `section${container.children.length}`;
             newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕"></div></div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
-            <div id="1" class="code-editor-line" contenteditable="true"></div>
+            <div id="${correntids}" class="code-editor-line" contenteditable="true"></div>
         </div>
         <div class="code-editor-btns"><button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
+            
+            lineObserver.observe(newSection.querySelector('.code-editor-line'));
 
             lineoptioncontainerupdate(newSection.querySelector('.code-editor-container'));
 
@@ -6001,11 +6031,14 @@
             const lines = optionalText.split('\n');
             const editorContainer = newSection.querySelector('.code-editor-container');
             lines.forEach((lineText) => {
+                correntids += 1;
                 const line = document.createElement('div');
                 line.classList.add('code-editor-line');
                 line.setAttribute('contenteditable', 'true');
                 line.textContent = lineText;
+                line.id = correntids;
                 editorContainer.appendChild(line);
+                lineObserver.observe(line);
             });
             
             editorContainer.querySelectorAll('.code-editor-line').forEach(line => {
@@ -7420,7 +7453,6 @@
         }
 
         highlightDot(0);
-        let correntids = 2;
 
 
         function checkifselectedlines() {
@@ -8294,6 +8326,7 @@
                 
                 newline.textContent = replaceNormalSpaces(spaces + convertToNonBreakingSpaces(adjustedLine));
                 celine.insertAdjacentElement('afterend', newline);
+                lineObserver.observe(newline);
                 celine = newline;
                 addJsSyntaxHighlighting(celine);
                 let pastelement = {
@@ -9313,6 +9346,7 @@
                             newline.classList.add('syntaxhtmlcomment');
                         }
                         celine.insertAdjacentElement('afterend', newline);
+                        lineObserver.observe(newline);
                         let pastelemen4 = {
                             element: newline,
                             type: "create",
@@ -9321,12 +9355,14 @@
                         newpast.push(pastelemen4);
                         
                         if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch){
+                            correntids++;
                             const newline2 = document.createElement('div');
                             newline2.setAttribute('contenteditable', 'true');
-                            newline2.id = parseInt(newid);
+                            newline2.id = correntids;
                             newline2.classList.add('code-editor-line');
                             newline2.textContent = firstspaces + textBehindCursor;
                             newline.insertAdjacentElement('afterend', newline2);
+                            lineObserver.observe(newline2);
                             addJsSyntaxHighlighting(newline2);
                             let pastelement = {
                                 element: newline2,
