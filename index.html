@@ -9275,15 +9275,18 @@
                         let firstspaces = spaces;
                         const openingsignsincssandjavascript = ["{", "[", "(", ":"];
                         const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
-                        if (openingsignsincssandjavascript.includes(lastsignincelineelement)) {
+                        let openTagMatch = celine.textContent.trim().match(/<(\w+)([^>]*)>$/);
+                        if (openingsignsincssandjavascript.includes(lastsignincelineelement) || openTagMatch) {
                             spaces += "\u00A0\u00A0\u00A0\u00A0";
                         }
                         const newline = document.createElement('div');
                         newline.setAttribute('contenteditable', 'true');
                         newline.id = newid;
                         newline.classList.add('code-editor-line');
+
+                        let closingTagMatch = textBehindCursor.match(/^<\/(\w+)>/);
                         
-                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor)){
+                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch){
                             newline.textContent = spaces;
                         }else {
                             newline.textContent = spaces + textBehindCursor;
@@ -9317,7 +9320,7 @@
                         };
                         newpast.push(pastelemen4);
                         
-                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor)){
+                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch){
                             const newline2 = document.createElement('div');
                             newline2.setAttribute('contenteditable', 'true');
                             newline2.id = parseInt(newid);
