@@ -7499,6 +7499,9 @@
                         selectedline.remove();
                     }else {
                         selectedline.innerHTML = "";
+                        selectedline.classList.remove('syntaxcomment');
+                        selectedline.classList.remove('syntaxstring');
+                        selectedline.classList.remove('syntaxhtmlcomment');
                     }
                     selectedline.classList.remove('selected');
                     checkifselectedlines();
@@ -7537,6 +7540,9 @@
                         };
                         newpast.push(pastelement);
                         selectedline.innerHTML = "";
+                        selectedline.classList.remove('syntaxcomment');
+                        selectedline.classList.remove('syntaxstring');
+                        selectedline.classList.remove('syntaxhtmlcomment');
                     }
                     checkifselectedlines();
                 });
@@ -8350,7 +8356,7 @@
                 const filteredLines = Array.from(lines).filter(line => {
                     const text = line.textContent;
 
-                    const hasCommentSyntax = text.includes('<!--') || text.includes('/*');
+                    const hasCommentSyntax = /(?<!['`"][^'"\n]*?)<!--(?![^>]*-->)/.test(text) || /(?<!\\)(?<![/`'"][^'"\n]*?)\/\*(?![^*]*\*\/)(?!(?:(?=[^'"\n]*['"`])[^'"\n]*['"`]))/.test(text);
                     const hasCommentClass = line.classList.contains('syntaxcomment') || line.classList.contains('syntaxstring') || line.classList.contains('syntaxhtmlcomment');
                     const withinQuotes = /["'`].*?(<!--|\/\*).*?["'`]/.test(text);
 
@@ -8966,7 +8972,7 @@
       
       
             function checkifcontinuedcomment() {
-                const testthisregex = /\/\*[^*]*$/g;
+                const testthisregex = /(?<!\\)(?<![/`'"][^'"\n]*?)\/\*(?![^*]*\*\/)(?!(?:(?=[^'"\n]*['"`])[^'"\n]*['"`]))/;
                 if (!testthisregex.test(code)) {
                     return;
                 }
@@ -9053,7 +9059,7 @@
             }
 
             function checkifcontinuedcomment2() {
-                const testthisregex = /<!--[^-]*$/g;
+                const testthisregex = /(?<!['`"][^'"\n]*?)<!--(?![^>]*-->)/;
                 if (!testthisregex.test(code)) {
                     return;
                 }
