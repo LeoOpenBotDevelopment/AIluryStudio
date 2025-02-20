@@ -9710,9 +9710,16 @@
                 return;
             }
             
+            if (section.querySelectorAll('.code-editor-line.selected').length <= 0) {
+                return;
+            }
+            
             updateimportantpinClasses();
+            
+            let allselectedlines = section.querySelectorAll('.code-editor-line.selected');
 
-            lines.forEach((line, index) => {
+            allselectedlines.forEach(line => {
+                let index = getElementIndexInParent(line);
                 const isSelected = line.classList.contains('selected');
 
                 const hasAbove = index > 0 && lines[index - 1].classList.contains('selected');
@@ -9750,8 +9757,15 @@
             if (!section.querySelectorAll('.code-editor-line.importantpin')) {
                 return;
             }
+            
+            if (section.querySelectorAll('.code-editor-line.importantpin').length <= 0) {
+                return;
+            }
+            
+            let allselectedlines = section.querySelectorAll('.code-editor-line.selected');
 
-            lines.forEach((line, index) => {
+            allselectedlines.forEach(line => {
+                let index = getElementIndexInParent(line);
                 const isSelected = line.classList.contains('importantpin');
 
                 const hasAbove = index > 0 && lines[index - 1].classList.contains('importantpin') && !lines[index - 1].classList.contains('selected');
