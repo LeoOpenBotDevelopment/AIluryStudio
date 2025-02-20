@@ -3566,6 +3566,51 @@
 
     <script>
         let correntids = 2;
+
+        function addstartercodetofiles() {
+            const section0 = document.getElementById('section0');
+            const section1 = document.getElementById('section1');
+            const section2 = document.getElementById('section2');
+            
+            const sec0text = `<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">
+</style>
+<body>
+    <h1>Header</h1>
+    <script src="script.js"><\/script>
+</body>
+</html>\n`;
+            const sec1text = `body {
+    height: 100vh;
+    width: 100vw;
+}
+`;
+            const sec2text = `console.log('Hello World');\n`;
+            
+            const sec0lines = sec0text.split('\n');
+            const sec1lines = sec1text.split('\n');
+            const sec2lines = sec2text.split('\n');
+            
+            const allsections = [section0, section1, section2];
+            const allsectionstext = [sec0lines, sec1lines, sec2lines];
+            allsectionstext.forEach((text, index) => {
+                text.forEach(line => {
+                    correntids += 1;
+                    const newline = document.createElement('div');
+                    newline.setAttribute('contenteditable', 'true');
+                    newline.id = correntids;
+                    newline.classList.add('code-editor-line');
+                    newline.textContent = replaceNormalSpaces(line);
+                    allsections[index].querySelector('.code-editor-container').appendChild(newline);
+                    addJsSyntaxHighlighting(newline);
+                });
+            });
+        }
         
         const lineObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
