@@ -8794,7 +8794,7 @@
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
 
-                { regex: /\b(let|const|var|return|delete|break|continue|in|this|true|false|class)\b/g, className: "syntaxkeyword" },
+                { regex: /\b(let|const|var|return|delete|break|continue|in|this|true|false|class(?!=))\b/g, className: "syntaxkeyword" },
                 { regex: /\b(if|else|try|catch|function|for|while|setTimeout)\b/g, className: "syntaxblock" },
                 { regex: /@(namespace|container|page|supports|keyframes|import|font-face|media)\b/g, className: "syntaxkeyword" }
             ];
