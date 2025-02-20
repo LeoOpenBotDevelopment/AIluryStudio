@@ -7861,7 +7861,7 @@
                         text: selectedline.textContent
                     };
                     newpast.push(pastelement);
-                    selectedline.textContent = " " + selectedline.textContent;
+                    selectedline.textContent = "\u00A0" + selectedline.textContent;
                     if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
                         addJsSyntaxHighlighting(selectedline);
                     }
