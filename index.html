@@ -1318,7 +1318,7 @@
             border-radius: 0;
             transition: 0.3s;
         }
-        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay{
+        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay, .replaceoverlay{
             position: fixed;
             top: 0;
             left: 0;
@@ -1333,7 +1333,7 @@
             backdrop-filter: blur(5px);
             transition: 0.3s;
         }
-        .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay {
+        .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay, .sidebarenabled .replaceoverlay {
             width: 70vw;
             height: 100dvh;
             overflow-y: auto;
@@ -1341,7 +1341,7 @@
             left: 30vw;
             transition: 0.3s;
         }
-       .theme-option-container, .topandbottomsignsdisplay-container, .commandsdisplay-container, #testregexcontainer {
+       .theme-option-container, .topandbottomsignsdisplay-container, .commandsdisplay-container, #testregexcontainer, .replacecontainer {
             border: 1px solid var(--rectangleborder);
             background-color: var(--contentcontainer-color);
             padding: 20px;
@@ -1355,7 +1355,7 @@
             transition: 0.3s;
        }
 
-       .sidebarenabled .theme-option-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled .commandsdisplay-container, .sidebarenabled #testregexcontainer{
+       .sidebarenabled .theme-option-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled .commandsdisplay-container, .sidebarenabled #testregexcontainer, .sidebarenabled .replacecontainer{
             width: 70vw;
             height: 100dvh;
             overflow-y: auto;
@@ -1559,7 +1559,7 @@
         }
 
         @media (max-width: 900px) {
-            .commandsdisplay-container, #testregexcontainer {
+            .commandsdisplay-container, #testregexcontainer, .replacecontainer {
                 width: 100vw;
                 height: 100dvh;
                 max-width: none;
@@ -2429,13 +2429,13 @@
             background-size: 15px 15px;
             background-image: radial-gradient(var(--griddot-color) 1px, transparent 1px);
         }
-        .testregexcontainer label {
+        .testregexcontainer label, .replacecontainer label {
             display: block;
             margin: 10px 0 5px;
             font-weight: bold;
             color: var(--black-color);
         }
-        .testregexcontainer h3 {
+        .testregexcontainer h3, .replacecontainer h3 {
             font-family: Arial, sans-serif;
             font-size: 1.3em;
             font-weight: bold;
@@ -2445,7 +2445,7 @@
             transition: 0.3s;
             text-align: center;
         }
-        .testregexcontainer input, .testregexcontainer textarea {
+        .testregexcontainer input, .testregexcontainer textarea, .replacecontainer input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -2455,10 +2455,10 @@
             background: var(--background-color);
             color: var(--black-color);
         }
-        .testregexcontainer input:focus, .testregexcontainer textarea:focus {
+        .testregexcontainer input:focus, .testregexcontainer textarea:focus, .replacecontainer input:focus {
             outline: none;
         }
-        .testregexcontainer #testButton,  .testregexcontainer #useButton{
+        .testregexcontainer #testButton, .testregexcontainer #useButton, .replacecontainer #replacebtn {
             padding: 12px 20px;
             font-size: 16px;
             color: var(--black-color);
@@ -2856,34 +2856,34 @@
             <div class="container" id="container">
                 <div class="section" id="section0">
                     <div class="editor-selected-line-btns">
-                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
                     <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
                         <div id="1" class="code-editor-line" contenteditable="true"></div>
                     </div>
                     <div class="code-editor-btns">
-                        <button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                        <button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
                 </div>
                 <div class="section" id="section1">
                     <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
                     </div>
                     <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
                         <div id="2" class="code-editor-line" contenteditable="true"></div>
                     </div>
                     <div class="code-editor-btns">
-                        <button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                        <button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
         
                 </div>
                 <div class="section" id="section2">
                     <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
                     <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
                         <div id="3" class="code-editor-line" contenteditable="true"></div>
                     </div>
                     <div class="code-editor-btns">
-                        <button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                        <button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
                 </div>
                 <div class="section viewcontainer" id="section3">
@@ -3227,6 +3227,7 @@
                         <li><button class="Symbol-Span">●</button><span class="symbolsignspan">Trim text Content</span></li>
                         <li><button class="Symbol-Span">◀</button><span class="symbolsignspan">remove space Left</span></li>
                         <li><button class="Symbol-Span">▶</button><span class="symbolsignspan">add space Left</span></li>
+                        <li><button class="Symbol-Span">⤻</button><span class="symbolsignspan">replace</span></li>
                         <li><button class="Symbol-Span">⌕</button><span class="symbolsignspan">Code Search</span></li>
                     </ul>
                     <br>
@@ -3239,6 +3240,7 @@
                         <li><button class="Symbol-Span">○</button><span class="symbolsignspan">Enable</span></li>
                         <li><button class="Symbol-Span">□</button><span class="symbolsignspan">Copy</span></li>
                         <li><button class="Symbol-Span">⌘</button><span class="symbolsignspan">Commands</span></li>
+                        <li><button class="Symbol-Span">⤻</button><span class="symbolsignspan">replace</span></li>
                         <li><button class="Symbol-Span">⌕</button><span class="symbolsignspan">Teleport</span></li>
                     </ul>
                 </div>
@@ -3525,6 +3527,22 @@
                     <button id="useButton">Use Regex</button>
                 </div>
             </div>
+            <div id="replaceoverlay" class="replaceoverlay" onclick="hideelement('class', 'replaceoverlay', event)">
+                <div id="replacecontainer" class="replacecontainer">
+                    <button class="closecommandoverlaybtn" onclick="hidereplaceoverlay()">×</button>
+                    <br>
+                    <h3>replace all</h3>
+                    <br>
+                    <div class="replacereplacecontainer">
+                        <label for="replaceinput">replace:</label>
+                        <input type="text" id="replaceinput" placeholder="this text">
+                        
+                        <label for="replacementinput">with:</label>
+                        <input type="text" id="replacementinput" placeholder="this text">
+                    </div>
+                    <button id="replacebtn" onclick="replacetext('replaceinput', 'replacementinput')">replace</button>
+                </div>
+            </div>
             <div id="custom-overlay" style="display: none;">
                 <div id="custom-dialog">
                     <span id="close-dialog">&times;</span>
@@ -3565,6 +3583,12 @@
     </div>
 
     <script>
+        let replacing = "all";
+        function replacetextinlines(allorsl) {
+            replacing = allorsl;
+            showreplaceoverlay();
+        }
+        
         let correntids = 2;
 
         function addstartercodetofiles() {
@@ -5194,6 +5218,7 @@
             closesidebaronsmallscreensizes();
             hidetestregexoverlay();
             hidethemeoverlay();
+            hidereplaceoverlay();
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
@@ -5331,6 +5356,23 @@
                 document.querySelector('.consoleconteiner').style.display = "none";
             }, 500);
         }
+        function showreplaceoverlay() {
+            if (document.querySelector('.replaceoverlay').style.display == "flex"){
+                return;
+            }
+            document.querySelector('.replaceoverlay').style.display = "flex";
+            document.querySelector('.replaceoverlay').style.animation = "none";
+            void document.querySelector('.replaceoverlay').offsetWidth;
+            document.querySelector('.replaceoverlay').style.animation = "swipein 0.5s ease-out";
+        }
+        function hidereplaceoverlay() {
+            document.querySelector('.replaceoverlay').style.animation = "none";
+            void document.querySelector('.replaceoverlay').offsetWidth;
+            document.querySelector('.replaceoverlay').style.animation = "swipeout 0.5s ease-out";
+            setTimeout(() => {
+                document.querySelector('.replaceoverlay').style.display = "none";
+            }, 500);
+        }
         const overlay = document.getElementById('custom-overlay');
         const messageBox = document.getElementById('custom-message');
         const closeAlertButton = document.getElementById('close-alert');
@@ -5380,6 +5422,16 @@
         let isloadingfiles = false;
         let isloadingimages = false;
         function startLoading() {
+            const steps = [
+                { percent: 0, text: 'Reserving' },
+                { percent: 25, text: 'Creating environment' },
+                { percent: 50, text: 'Linking' },
+                { percent: 75, text: 'Formatting' },
+                { percent: 100, text: 'Loading complete' },
+            ];
+            startLoadingThis(steps, 'Analyzing');
+        }
+        function startLoadingThis(steps, initialtext) {
             const overlay = document.getElementById('overlay');
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
@@ -5389,15 +5441,7 @@
             progressBar.style.width = '0%';
             progressContainer.style.display = 'block';
             checkmark.classList.remove('visible');
-            progressText.textContent = 'Analyzing';
-
-            const steps = [
-                { percent: 0, text: 'Reserving' },
-                { percent: 25, text: 'Creating environment' },
-                { percent: 50, text: 'Linking' },
-                { percent: 75, text: 'Formatting' },
-                { percent: 100, text: 'Loading complete' },
-            ];
+            progressText.textContent = initialtext;
 
             let stepIndex = 0;
 
@@ -5413,7 +5457,7 @@
                     }
 
                     stepIndex++;
-                    setTimeout(updateStep, 1000);
+                    setTimeout(updateStep, 700);
                 } else {
                     setTimeout(() => {
                         overlay.classList.remove('active');
@@ -5424,104 +5468,27 @@
             updateStep();
         }
         function startLoadingMerge() {
-            const overlay = document.getElementById('overlay');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            const checkmark = document.getElementById('checkmark');
-            const progressContainer = document.getElementById('progress-container');
-
-            overlay.classList.add('active');
-            progressBar.style.width = '0%';
-            progressContainer.style.display = 'block';
-            checkmark.classList.remove('visible');
-            progressText.textContent = 'Reserving';
-
             const steps = [
                 { percent: 0, text: 'Processing' },
                 { percent: 50, text: 'Adding' },
                 { percent: 100, text: 'Merge complete' },
             ];
 
-            let stepIndex = 0;
-
-            function updateStep() {
-                if (stepIndex < steps.length) {
-                    const step = steps[stepIndex];
-                    progressBar.style.width = `${step.percent}%`;
-                    progressText.textContent = step.text;
-
-                    if (step.percent === 100) {
-                        progressContainer.style.display = 'none';
-                        checkmark.classList.add('visible');
-                    }
-
-                    stepIndex++;
-                    setTimeout(updateStep, 1000);
-                } else {
-                    setTimeout(() => {
-                        overlay.classList.remove('active');
-                    }, 500);
-                }
-            }
-            updateStep();
+            startLoadingThis(steps, 'Reserving');
         }
         
         let allimages = { "Image.png": "Image.png" };
         
         function startLoadingImages() {
-            const overlay = document.getElementById('overlay');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            const checkmark = document.getElementById('checkmark');
-            const progressContainer = document.getElementById('progress-container');
-            overlay.classList.add('active');
-            progressBar.style.width = '0%';
-            progressContainer.style.display = 'block';
-            checkmark.classList.remove('visible');
-            progressText.textContent = 'Reserving';
-
             const steps = [
                 { percent: 0, text: 'Processing' },
                 { percent: 50, text: 'Adding' },
                 { percent: 100, text: 'Loading complete' },
             ];
 
-            let stepIndex = 0;
-
-            function updateStep() {
-                if (stepIndex < steps.length) {
-                    const step = steps[stepIndex];
-                    progressBar.style.width = `${step.percent}%`;
-                    progressText.textContent = step.text;
-
-                    if (step.percent === 100) {
-                        progressContainer.style.display = 'none';
-                        checkmark.classList.add('visible');
-                    }
-
-                    stepIndex++;
-                    setTimeout(updateStep, 1000);
-                } else {
-                    setTimeout(() => {
-                        overlay.classList.remove('active');
-                    }, 500);
-                }
-            }
-            updateStep();
+            startLoadingThis(steps, 'Reserving');
         }
         function startLoadingImagesAndFiles() {
-            const overlay = document.getElementById('overlay');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            const checkmark = document.getElementById('checkmark');
-            const progressContainer = document.getElementById('progress-container');
-
-            overlay.classList.add('active');
-            progressBar.style.width = '0%';
-            progressContainer.style.display = 'block';
-            checkmark.classList.remove('visible');
-            progressText.textContent = 'Analyzing files';
-
             const steps = [
                 { percent: 0, text: 'Reserving' },
                 { percent: 25, text: 'Creating environment' },
@@ -5530,28 +5497,7 @@
                 { percent: 100, text: 'Loading complete' },
             ];
 
-            let stepIndex = 0;
-
-            function updateStep() {
-                if (stepIndex < steps.length) {
-                    const step = steps[stepIndex];
-                    progressBar.style.width = `${step.percent}%`;
-                    progressText.textContent = step.text;
-
-                    if (step.percent === 100) {
-                        progressContainer.style.display = 'none';
-                        checkmark.classList.add('visible');
-                    }
-
-                    stepIndex++;
-                    setTimeout(updateStep, 1000);
-                } else {
-                    setTimeout(() => {
-                        overlay.classList.remove('active');
-                    }, 500);
-                }
-            }
-            updateStep();
+            startLoadingThis(steps, 'Analyzing files');
         }
         function hidecodesearchresults() {
             setTimeout(() => {
@@ -5721,11 +5667,11 @@
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = `section${container.children.length}`;
-            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
+            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
             <div id="${correntids}" class="code-editor-line" contenteditable="true"></div>
         </div>
-        <div class="code-editor-btns"><button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
+        <div class="code-editor-btns"><button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
 
             lineoptioncontainerupdate(newSection.querySelector('.code-editor-container'));
@@ -5855,11 +5801,11 @@
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = `section${container.children.length}`;
-            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕"></div></div>
+            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕"></div></div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
             <div id="${correntids}" class="code-editor-line" contenteditable="true"></div>
         </div>
-        <div class="code-editor-btns"><button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
+        <div class="code-editor-btns"><button class="code-editor-btn" id="showsignexplenationoverlay-btn-element" onclick="showsignexplenationoverlay()">?</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
             
             lineObserver.observe(newSection.querySelector('.code-editor-line'));
@@ -5972,6 +5918,7 @@
             <button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button>
             <button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button>
             <button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">◀</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">▶</button>
+            <button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button>
             <input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕">
         </div>
         <div class="code-editor-container" id="linenumberingon" onkeydown="handleKeyDown(event)" onkeyup="handleKeyUpEvent(event)" onpaste="handlePaste(event)">
@@ -5985,6 +5932,7 @@
             <button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button>
             <button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button>
             <button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showcommandoverlay()">⌘</button>
+            <button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button>
             <input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
         </div>`;
             container.appendChild(newSection);
@@ -6291,6 +6239,45 @@
         let section = document.getElementById('section0');
         let sectionindex = 0;
         let inputDiv = section.querySelector('.code-editor-container');
+        
+        function replacetext(replacethis, replacement) {
+            let replacementtext = document.getElementById(replacement)?.value || "";
+            let replacethistext = document.getElementById(replacethis)?.value || "";
+        
+            if (!replacementtext || !replacethistext) return;
+            if (!section) return;
+            
+            let newpast = [];
+        
+            let lines = replacing === "all" 
+                ? section.querySelectorAll(".code-editor-line") 
+                : section.querySelectorAll(".code-editor-line.selected");
+                
+            Array.from(lines)
+                .filter(el => el.textContent.includes(replacethistext))
+                .reverse() // .reverse() korrekt angewendet
+                .forEach(line => {
+                    let pastelement = {
+                        element: line,
+                        type: "text",
+                        text: line.textContent
+                    };
+                    newpast.push(pastelement);
+                    line.textContent = line.textContent.replaceAll(replacethistext, replacementtext);
+                    addJsSyntaxHighlighting(line);
+                });
+            if (newpast.length > 0) {
+                if (!pastevents[lasteventsparentsection.id]) {
+                    pastevents[lasteventsparentsection.id] = [];
+                }
+                futureevents[lasteventsparentsection.id] = [];
+                pastevents[lasteventsparentsection.id].push(newpast);
+                enablepastbtn();
+            }
+            hidereplaceoverlay();
+        }
+
+        
         function scrollviewintoview() {
             if (section.id == document.querySelector('.viewcontainer').id){
                 return;
@@ -6338,6 +6325,13 @@
                     if (lineIndex >= 0 && lineIndex < lines.length) {
                         let line = lines[lineIndex];
 
+                        line.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                        });
+                    }else if (lineIndex >= 0 && lineIndex > lines.length){
+                        let line = lines[lines.length - 1];
+                        
                         line.scrollIntoView({
                             behavior: 'smooth',
                             block: 'center',
@@ -7534,15 +7528,11 @@
                         index: getElementIndexInParent(selectedline)
                     };
                     newpast.push(pastelement);
-                    let pastelement2 = {
-                        element: selectedline,
-                        type: "text",
-                        text: selectedline.textContent
-                    };
-                    newpast.push(pastelement2);
                     if (selectedline.previousElementSibling || selectedline.nextElementSibling){
+                        let selectedlineprevioustext = selectedline.textContent;
                         selectedline.innerHTML = "";
                         addJsSyntaxHighlighting(selectedline);
+                        selectedline.textContent = selectedlineprevioustext;
                         selectedline.remove();
                     }else {
                         selectedline.innerHTML = "";
