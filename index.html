@@ -9211,13 +9211,15 @@
         function replaceNormalSpaces(text) {
             return text.replace(/ /g, '\u00A0');
         }
-        
+
         function handleKeyDown(event) {
             if (document.querySelector('.notificationmessage').style.display != "none"){
                 hidenotificationmessage();
             }
             let celine = section.querySelector('.code-editor-line:focus');
             let nodelete = false;
+            
+            let newpast = [];
 
             function getCursorPosition(element) {
                 const selection = window.getSelection();
@@ -9226,8 +9228,7 @@
                     const selectedText = range.toString();
                     if (selectedText != "" && event.key != "Shift" && event.key != "Tab"){
                         nodelete = true;
-                        if (event.key == "Backspace" && celine){
-                            let newpast = [];
+                        if (celine){
                             lasteventsparentsection = section;
                             let pastelement = {
                                 element: celine,
@@ -9235,13 +9236,6 @@
                                 text: celine.textContent
                             };
                             newpast.push(pastelement);
-                            if (newpast.length > 0) {
-                                if (!pastevents[lasteventsparentsection.id]) {
-                                    pastevents[lasteventsparentsection.id] = [];
-                                }
-                                pastevents[lasteventsparentsection.id].push(newpast);
-                                enablepastbtn();
-                            }
                             event.preventDefault();
                         }
                         range.deleteContents();
@@ -9283,7 +9277,6 @@
                 const invalidKeys = ["'", "\"", "`", "(", "{", "[", "“", "‚", ">", "„", "Backspace", "‘", "Enter", "}", "]", ")", ";"];
 
                 if (!invalidKeys.includes(event.key) && event.key.length <= 1) {
-                    let newpast2 = [];
                     lasteventsparentsection = section;
                     if (event.key.length <= 1) {
                         let pastelement2 = {
@@ -9291,18 +9284,18 @@
                             type: "text",
                             text: replaceNormalSpaces(celine.textContent)
                         };
-                        newpast2.push(pastelement2);
+                        newpast.push(pastelement2);
                     }
-                    if (newpast2.length > 0) {
+                    if (newpast.length > 0) {
                         if (!pastevents[lasteventsparentsection.id]) {
                             pastevents[lasteventsparentsection.id] = [];
                         }
-                        pastevents[lasteventsparentsection.id].push(newpast2);
+                        pastevents[lasteventsparentsection.id].push(newpast);
                         enablepastbtn();
                     }
                     return;
                 }
-
+                
                 const cursorPosition = getCursorPosition(celine);
                 const ctext = replaceNormalSpaces(celine.textContent);
                 celine.innerHTML = "";
@@ -9310,6 +9303,7 @@
                 if (cursorPosition !== null) {
                     setCursorPosition(celine, cursorPosition);
                 }
+                
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     
@@ -9320,7 +9314,6 @@
                         }
                         correntids += 1;
                         const newid = correntids;
-                        let newpast = [];
                         lasteventsparentsection = section;
                         let pastelement = {
                             element: celine,
@@ -9421,20 +9414,12 @@
                         selection.removeAllRanges();
                         selection.addRange(newRange);
                         addJsSyntaxHighlighting(celine);
-                        if (newpast.length > 0) {
-                            if (!pastevents[lasteventsparentsection.id]) {
-                                pastevents[lasteventsparentsection.id] = [];
-                            }
-                            pastevents[lasteventsparentsection.id].push(newpast);
-                            enablepastbtn();
-                        }
                         updateSelectedClasses();
                     }
                 }
     
     
                 if (event.key === 'Backspace' && nodelete == false) {
-                    let newpast = [];
                     lasteventsparentsection = section;
                     if (celine.textContent != ""){
                         let pastelemen3 = {
@@ -9498,7 +9483,6 @@
 
                     const previousLine = celine.previousElementSibling;
                     if (previousLine) {
-                        newpast = [];
                         updateSelectedClasses();
 
                         const currentLineText = celine.textContent;
@@ -9542,17 +9526,9 @@
                         selection.addRange(newRange);
                     }
                 }
-                if (newpast.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
-                    pastevents[lasteventsparentsection.id].push(newpast);
-                    enablepastbtn();
-                }
             }
 
             if (event.key === '>') {
-                let newpast = [];
                 lasteventsparentsection = section;
                 let pastelement = {
                     element: celine,
@@ -9560,13 +9536,6 @@
                     text: celine.textContent
                 };
                 newpast.push(pastelement);
-                if (newpast.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
-                    pastevents[lasteventsparentsection.id].push(newpast);
-                    enablepastbtn();
-                }
                 const selfClosingTags = [
                     "br",
                     "img",
@@ -9618,21 +9587,13 @@
             let cursorOffset = range.startOffset;
 
             function insertClosingCharacter(openingChar, closingChar) {
-                let newpast2 = [];
                 lasteventsparentsection = section;
                 let pastelement2 = {
                     element: celine,
                     type: "text",
                     text: celine.textContent
                 };
-                newpast2.push(pastelement2);
-                if (newpast2.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
-                    pastevents[lasteventsparentsection.id].push(newpast2);
-                    enablepastbtn();
-                }
+                newpast.push(pastelement2);
                 let text = celine.textContent;
                 let textAfterCursor = text.substring(cursorOffset);
                 celine.textContent = text.substring(0, cursorOffset) + openingChar + closingChar + textAfterCursor;
@@ -9668,21 +9629,13 @@
                     selection.removeAllRanges();
                     selection.addRange(range);
                 }else {
-                    let newpast2 = [];
                     lasteventsparentsection = section;
                     let pastelement2 = {
                         element: celine,
                         type: "text",
                         text: celine.textContent
                     };
-                    newpast2.push(pastelement2);
-                    if (newpast2.length > 0) {
-                        if (!pastevents[lasteventsparentsection.id]) {
-                            pastevents[lasteventsparentsection.id] = [];
-                        }
-                        pastevents[lasteventsparentsection.id].push(newpast2);
-                        enablepastbtn();
-                    }
+                    newpast.push(pastelement2);
                 }
             }
 
@@ -9696,21 +9649,13 @@
                     selection.removeAllRanges();
                     selection.addRange(range);
                 } else {
-                    let newpast2 = [];
                     lasteventsparentsection = section;
                     let pastelement2 = {
                         element: celine,
                         type: "text",
                         text: celine.textContent
                     };
-                    newpast2.push(pastelement2);
-                    if (newpast2.length > 0) {
-                        if (!pastevents[lasteventsparentsection.id]) {
-                            pastevents[lasteventsparentsection.id] = [];
-                        }
-                        pastevents[lasteventsparentsection.id].push(newpast2);
-                        enablepastbtn();
-                    }
+                    newpast.push(pastelement2);
                     event.preventDefault();
                     insertClosingCharacter(closingChar, closingChar);
                 }
@@ -9745,7 +9690,15 @@
             if (event.key === "‚") {
                 checkAndSkipornotClosingCharacter('\'');
             }
+            if (newpast.length > 0) {
+                if (!pastevents[lasteventsparentsection.id]) {
+                    pastevents[lasteventsparentsection.id] = [];
+                }
+                pastevents[lasteventsparentsection.id].push(newpast);
+                enablepastbtn();
+            }
         }
+        
         function updateSelectedClasses() {
             const lines = section.querySelectorAll('.code-editor-line');
             
