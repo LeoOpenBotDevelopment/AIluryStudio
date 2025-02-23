@@ -6938,7 +6938,10 @@
             } else if (requestedfilename.endsWith(".html")){
                 code = replaceLinksAndScripts(requestedfilename);
                 document.getElementById(iframeid).srcdoc = code;
-            }else {
+            } else if (requestedfilename.endsWith(".htm")){
+                code = replaceLinksAndScripts(requestedfilename);
+                document.getElementById(iframeid).srcdoc = code;
+            } else {
                 code = checkiffile(requestedfilename);
                 document.getElementById(iframeid).srcdoc = "<pre><code>" + escapeHTML(code) + "</code></pre>";
             }
