@@ -6927,9 +6927,25 @@
             counts = {};
             consolegroups = {};
             openconsolegroups = {};
-            const code = replaceLinksAndScripts(document.getElementById(textcontainerid).value);
-            document.getElementById(iframeid).srcdoc = code;
+            let code = "";
+            const requestedfilename = document.getElementById(textcontainerid).value;
+            if (requestedfilename.endsWith(".tsx")){
+                code = checkiffile(requestedfilename);
+                document.getElementById(iframeid).srcdoc = code;
+            }else if (requestedfilename.endsWith(".jsx")) {
+                code = checkiffile(requestedfilename);
+                document.getElementById(iframeid).srcdoc = code;
+            } else if (requestedfilename.endsWith(".html")){
+                code = replaceLinksAndScripts(requestedfilename);
+                document.getElementById(iframeid).srcdoc = code;
+            }else {
+                code = checkiffile(requestedfilename);
+                document.getElementById(iframeid).srcdoc = "<pre><code>" + escapeHTML(code) + "</code></pre>";
+            }
             document.getElementById(iframeid).parentElement.style.background = "white";
+            function escapeHTML(str) {
+                return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
         }
         
         function runcodeincurrentiframe(inputfield, event){
