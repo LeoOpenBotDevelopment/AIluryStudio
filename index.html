@@ -9384,7 +9384,7 @@
                         const openingsignsincssandjavascript = ["{", "[", "(", ":"];
                         const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
                         let openTagMatch = celine.textContent.trim().match(/<(\w+)([^>]*)>$/);
-                        if (openingsignsincssandjavascript.includes(lastsignincelineelement) || (openTagMatch && !selfClosingTags.includes(openTagMatch)) {
+                        if (openingsignsincssandjavascript.includes(lastsignincelineelement) || (openTagMatch && !selfClosingTags.includes(openTagMatch[1]))) {
                             spaces += "\u00A0\u00A0\u00A0\u00A0";
                         }
                         const newline = document.createElement('div');
