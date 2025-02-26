@@ -964,6 +964,18 @@
             width: 68vw;
         }
 
+        .browser-container.fullscreen {
+            width: 100vw;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1999;
+            border-radius: 0;
+            border: 1em solid var(--background-color);
+            background: var(--background-color);
+        }
+
         .browser-header {
             background-color: var(--safariheaderbackground-color);
             height: 40px;
@@ -2916,7 +2928,7 @@
                                     <div class="browser-buttons">
                                         <div class="close-btn"></div>
                                         <div class="minimize-btn"></div>
-                                        <div class="maximize-btn"></div>
+                                        <div class="maximize-btn" onclick="toggleClass('.browser-container', 'fullscreen')"></div>
                                     </div>
                                     <div class="url-bar">
                                         <input type="text" id="computer-url-input" placeholder="file..." list="filenameoptions">
@@ -3583,6 +3595,10 @@
     </div>
 
     <script>
+        function toggleClass(elementclass, classtt) {
+            document.querySelector(elementclass).classList.toggle(classtt);
+        }
+        
         let replacing = "all";
         function replacetextinlines(allorsl) {
             replacing = allorsl;
