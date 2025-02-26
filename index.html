@@ -8233,6 +8233,7 @@
             const matches = new Set();
         
             const patterns = [
+                { regex: /\-\-[\w-]+(?=\:)/g, prefix: '' },
                 { regex: /class="([^"]+)"/g, prefix: '.' },
                 { regex: /id="([^"]+)"/g, prefix: '#' },
                 { regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
