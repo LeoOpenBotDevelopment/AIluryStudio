@@ -8867,7 +8867,7 @@
             }
             
             let restpatterns = [
-                { regex: /\-\-\w+\-\w+(?=\:)/g, className: "syntaxvariable" },
+                { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable" },
                 { regex: /(?<=<\/?)([^\s>/]+)(?=[\s>])/g, className: "syntaxhtmltagcontent" },
                 { regex: /(\+|-|\*|\/|%|=|>|<|!|\^|:)/g, className: "syntaxoperator" },
                 { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" },
