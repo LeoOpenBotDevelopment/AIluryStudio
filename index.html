@@ -8231,9 +8231,8 @@
         
         function extractUniqueValues(code) {
             const matches = new Set();
-        
+            
             const patterns = [
-                { regex: /\-\-[\w-]+(?=\:)/g, prefix: '' },
                 { regex: /class="([^"]+)"/g, prefix: '.' },
                 { regex: /id="([^"]+)"/g, prefix: '#' },
                 { regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
@@ -8244,7 +8243,7 @@
                 { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.' },
                 { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
             ];
-        
+            
             patterns.forEach(({ regex, prefix }) => {
                 let match;
                 while ((match = regex.exec(code)) !== null) {
@@ -8252,7 +8251,7 @@
                     matches.add(match[1]);
                 }
             });
-        
+            
             return Array.from(matches);
         }
         
@@ -8902,7 +8901,7 @@
             
             let restpatterns = [
                 { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable", goto: "def" },
-                { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: true },
+                { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
                 { regex: /(?<=<\/?)([^\s>/]+)(?=[\s>])/g, className: "syntaxhtmltagcontent" },
                 { regex: /(\+|-|\*|\/|%|=|>|<|!|\^|:)/g, className: "syntaxoperator" },
                 { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" },
@@ -9007,7 +9006,7 @@
                                 };
                             }else if (className == "syntaxvariable" && goto == "def") {
                                 span.classList.add('cssvardef');
-                            }else if (goto == true) {
+                            }else if (goto == "true") {
                                 span.onclick = () => {
                                     let definition = null;
                                     if (section) {
