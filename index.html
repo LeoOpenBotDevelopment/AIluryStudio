@@ -8900,8 +8900,8 @@
             }
             
             let restpatterns = [
-                { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable" },
-                { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable" },
+                { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable", goto: "def" },
+                { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: true },
                 { regex: /(?<=<\/?)([^\s>/]+)(?=[\s>])/g, className: "syntaxhtmltagcontent" },
                 { regex: /(\+|-|\*|\/|%|=|>|<|!|\^|:)/g, className: "syntaxoperator" },
                 { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" },
@@ -8926,7 +8926,7 @@
                 while (lastIndex < text.length) {
                     let matched = false;
           
-                    for (const { regex, className } of patterns) {
+                    for (const { regex, className, goto = false } of patterns) {
                         regex.lastIndex = lastIndex;
                         const match = regex.exec(text);
 
@@ -9003,6 +9003,25 @@
                                             }
                                         });
                                     });
+                                };
+                            }else if (className == "syntaxvariable" && goto == "def") {
+                                span.classList.add('cssvardef');
+                            }else if (goto == true) {
+                                span.onclick = () => {
+                                    let definition = null;
+                                    if (section) {
+                                        for (let sv of section.querySelectorAll('.syntaxvariable.cssvardef')) {
+                                            if (sv.parentElement && sv.parentElement.classList.contains('code-editor-line') && sv.textContent == span.textContent) {
+                                                definition = sv;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (definition) {
+                                        notify("go to definition", "go", () => {
+                                            scrolltolinenumber(getElementIndexInParent(definition.parentElement));
+                                        });
+                                    }
                                 };
                             }else if (className == "syntaxkeyword" && (span.textContent == "true" || span.textContent == "false")){
                                 function addcheckboxtoelement(span){
