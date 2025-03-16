@@ -2840,6 +2840,37 @@
             visibility: hidden;
             opacity: 0;
         }
+        #replaceinput, #replacementinput {
+            background: var(--lightgrey-color);
+            color: var(--black-color);
+        }
+        .replaceorderarrowcontainer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .replaceorderarrowcontainer button {
+            padding-top: 10px;
+            font-size: 1.3em;
+            color: var(--overlaycolor-color);
+            background: transparent;
+            border: transparent;
+            font-weight: bold;
+        }
+        #replaceoptions {
+            width: 100%;
+            height: 2.5em;
+            font-size: 1em;
+            background: var(--lightgrey-color);
+            color: var(--black-color);
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        #replaceoptions:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -3548,9 +3579,13 @@
                     <h3>replace all</h3>
                     <br>
                     <div class="replacereplacecontainer">
+                        <select id="replaceoptions">
+                            <option value="1">regex</option>
+                            <option value="2" selected>text</option>
+                        </select>
                         <label for="replaceinput">replace:</label>
                         <input type="text" id="replaceinput" placeholder="this text">
-                        
+                        <div class="replaceorderarrowcontainer"><button>↓</button></div>
                         <label for="replacementinput">with:</label>
                         <input type="text" id="replacementinput" placeholder="this text">
                     </div>
@@ -3604,6 +3639,11 @@
         let replacing = "all";
         function replacetextinlines(allorsl) {
             replacing = allorsl;
+            if (replacing == "all") {
+                document.querySelector('.replacecontainer h3').textContent = "replace all";
+            } else {
+                document.querySelector('.replacecontainer h3').textContent = "replace in selected lines";
+            }
             showreplaceoverlay();
         }
         
@@ -6270,20 +6310,41 @@
             let lines = replacing === "all" 
                 ? section.querySelectorAll(".code-editor-line") 
                 : section.querySelectorAll(".code-editor-line.selected");
-                
-            Array.from(lines)
-                .filter(el => el.textContent.includes(replacethistext))
-                .reverse() // .reverse() korrekt angewendet
-                .forEach(line => {
-                    let pastelement = {
-                        element: line,
-                        type: "text",
-                        text: line.textContent
-                    };
-                    newpast.push(pastelement);
-                    line.textContent = line.textContent.replaceAll(replacethistext, replacementtext);
-                    addJsSyntaxHighlighting(line);
-                });
+            const regexortext = document.getElementById('replaceoptions').value;
+            if (regexortext == "1" && replacethistext.trim() != "") {
+                try {
+                    const regexforreplacing = new RegExp(replacethistext, "g");
+                    Array.from(lines)
+                        .filter(el => regexforreplacing.test(el.textContent))
+                        .reverse()
+                        .forEach(line => {
+                            let pastelement = {
+                                element: line,
+                                type: "text",
+                                text: line.textContent
+                            };
+                            newpast.push(pastelement);
+                            line.textContent = line.textContent.replace(regexforreplacing, replacementtext);
+                            addJsSyntaxHighlighting(line);
+                        });
+                } catch(err){
+                    let error = err;
+                }
+            } else {
+                Array.from(lines)
+                    .filter(el => el.textContent.includes(replacethistext))
+                    .reverse() // .reverse() korrekt angewendet
+                    .forEach(line => {
+                        let pastelement = {
+                            element: line,
+                            type: "text",
+                            text: line.textContent
+                        };
+                        newpast.push(pastelement);
+                        line.textContent = line.textContent.replaceAll(replacethistext, replacementtext);
+                        addJsSyntaxHighlighting(line);
+                    });
+            }
             if (newpast.length > 0) {
                 if (!pastevents[lasteventsparentsection.id]) {
                     pastevents[lasteventsparentsection.id] = [];
