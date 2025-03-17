@@ -2871,6 +2871,28 @@
         #replaceoptions:focus {
             outline: none;
         }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: var(--lightgrey-color);
+            border-radius: 10%;
+            opacity: 1;
+            animation: dissolve 2s forwards;
+            z-index: 1000;
+            box-shadow: 0px 0px 10px var(--background-color), 0px 0px 40px var(--black-color);
+        }
+
+        @keyframes dissolve {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(calc(var(--x) * 40px), calc(var(--y) * 40px));
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3632,6 +3654,48 @@
     </div>
 
     <script>
+        function dissolve(element) {
+            let rect = element.getBoundingClientRect();
+            let numParticles = 150;
+            
+            element.style.transition = "1s";
+            
+            element.style.opacity = "0";
+            element.style.height = "0";
+            element.style.fontSize = "0";
+            element.style.padding = "0";
+            element.style.margin = "0";
+            element.style.filter = "blur(5px)";
+            
+            
+            for (let i = 0; i < numParticles; i++) {
+                let particle = document.createElement("div");
+                
+                particle.classList.add("particle");
+                
+                document.body.appendChild(particle);
+                
+                let x = Math.random() * rect.width + rect.left;
+                let y = Math.random() * rect.height + rect.top;
+                
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                
+                let moveX = (Math.random() - 0.5) * 2;
+                let moveY = (Math.random() - 1.2) * 2;
+                
+                particle.style.setProperty("--x", moveX);
+                particle.style.setProperty("--y", moveY);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 2000);
+            }
+            element.style.visibility = "hidden";
+            setTimeout(() => {
+                element.remove();
+            }, 2000);
+        }
         function toggleClass(elementclass, classtt) {
             document.querySelector(elementclass).classList.toggle(classtt);
         }
@@ -6458,7 +6522,7 @@
             }
             let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
             if (sidebarfilelinklink){
-                sidebarfilelinklink.remove();
+                dissolve(sidebarfilelinklink);
                 document.querySelectorAll(".sidebarfilelinklink").forEach((sidebarfilelink, index) => {
                     sidebarfilelink.id = 'sidebarfilelinklink' + index;
                     sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
