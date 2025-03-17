@@ -6500,7 +6500,7 @@
         function deletethisfile(number) {
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
-                rectangleToDelete.remove();
+                dissolve(rectangleToDelete);
                 document.querySelectorAll('.rectangle').forEach((rect, index) => {
                     const sectionKey = rect.id.replace('rectangle', 'section');
                     if (pastevents[sectionKey]) {
