@@ -6669,6 +6669,39 @@
                 if (targetElementv) {
                     performLongPressAction(targetElementv);
                 }
+                if (document.querySelector('.suggestioncontainer')){
+                    const container = document.querySelector('.suggestioncontainer');
+                    function updateCaretPosition() {
+                        const selection = window.getSelection();
+                        if (selection.rangeCount === 0) return;
+            
+                        const range = selection.getRangeAt(0);
+                        const rect = range.getBoundingClientRect();
+            
+                        if (rect.height === 0) return; // Falls der Cursor unsichtbar ist
+            
+                        container.style.left = `${rect.left + window.scrollX}px`;
+                        container.style.top = `${rect.bottom + window.scrollY}px`;
+                        adjustElementPositionleft(container);
+                        
+                        const rect2 = container.getBoundingClientRect();
+                        const screenHeight = window.innerHeight;
+                        
+                        const distanceToBottom = rect2.bottom - screenHeight;
+                        
+                        if (distanceToBottom > 0) {
+                            container.remove();
+                        }
+                        
+                        const rect3 = container.getBoundingClientRect();
+                        const distanceToTop = rect3.top;
+                        
+                        if (distanceToTop < 0) {
+                            container.remove();
+                        }
+                    }
+                    updateCaretPosition();
+                }
             });
 
 
@@ -10219,17 +10252,7 @@
                     container = document.createElement("div");
                     container.className = "options-container";
                     container.classList.add('suggestioncontainer');
-                    container.style.position = "absolute";
-                    container.style.backgroundColor = "var(--background-color)";
-                    container.style.border = "1px solid var(--rectangleborder)";
-                    container.style.padding = "5px";
-                    container.style.borderLeft = "none";
-                    container.style.borderRight = "none";
-                    container.style.maxHeight = "100px";
-                    container.style.borderRadius = "0";
-                    container.style.boxShadow = "none";
-                    positionoptionsElementBelow(container, section.querySelector('.editor-selected-line-btns'));
-            
+                    container.style.maxHeight = "200px";
                     container.style.overflowY = "scroll";
                     document.body.appendChild(container);
                 }
@@ -10258,6 +10281,12 @@
                     option.style.cursor = "pointer";
                     option.style.padding = "5px";
                     option.addEventListener("click", () => {
+                        if (!inputElement && !inputElement.parentElement) {
+                            if (container) {
+                                container.remove();
+                            }
+                            return;
+                        }
                         const cursorPos = cursorPosition;
                         const textBeforeCursor = inputElement.textContent.slice(0, cursorPos);
                         const regex = /[a-zA-Z0-9äöüßÄÖÜ/:-@]+$/g;
@@ -10269,13 +10298,15 @@
                         container.innerHTML = "";
                         container.remove();
                         if (!document.querySelector('.commandsswitch')?.checked || !commandsice.includes(suggestion)) {
-                            addJsSyntaxHighlighting(inputElement);
-                            inputElement.focus();
+                            if (inputElement){
+                                addJsSyntaxHighlighting(inputElement);
+                                inputElement.focus();
+                            }
                         }
                         if (cursorPosition !== null) {
                             setCursorPosition(inputElement, cursorPosition + suggestion.replace(lastword, '').length);
                         }
-                        if (inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked) {
+                        if (inputElement && inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked) {
                             replaceCommandsWithSymbols(inputElement);
                             preserveCursorAndHighlight(inputElement);
                         }
@@ -10283,9 +10314,31 @@
 
                     container.appendChild(option);
                 });
+                section.onclick = () => {
+                    if (document.querySelector('.suggestioncontainer')) {
+                        document.querySelector('.suggestioncontainer').remove();
+                    }
+                };
                 if (container.textContent == "") {
                     container.remove();
                     return;
+                }else {
+                    const inputDiv = inputElement;
+                    function updateCaretPosition() {
+                        const selection = window.getSelection();
+                        if (selection.rangeCount === 0) return;
+            
+                        const range = selection.getRangeAt(0);
+                        const rect = range.getBoundingClientRect();
+            
+                        if (rect.height === 0) return; // Falls der Cursor unsichtbar ist
+            
+                        container.style.left = `${rect.left + window.scrollX}px`;
+                        container.style.top = `${rect.bottom + window.scrollY}px`;
+                        adjustElementPositionleft(container);
+                        adjustElementPosition(container);
+                    }
+                    updateCaretPosition();
                 }
             }
             updateSuggestions();
