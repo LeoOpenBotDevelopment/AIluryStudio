@@ -3654,9 +3654,14 @@
     </div>
 
     <script>
-        function dissolve(element) {
+        function dissolve(element, numParticles) {
+            if (!element) {
+                return;
+            }
+            if (!element.parentElement) {
+                return;
+            }
             let rect = element.getBoundingClientRect();
-            let numParticles = 150;
             
             element.style.transition = "1s";
             
@@ -3673,7 +3678,7 @@
                 
                 particle.classList.add("particle");
                 
-                document.body.appendChild(particle);
+                element.parentElement.appendChild(particle);
                 
                 let x = Math.random() * rect.width + rect.left;
                 let y = Math.random() * rect.height + rect.top;
@@ -6500,7 +6505,7 @@
         function deletethisfile(number) {
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
-                dissolve(rectangleToDelete);
+                dissolve(rectangleToDelete, 250);
                 document.querySelectorAll('.rectangle').forEach((rect, index) => {
                     const sectionKey = rect.id.replace('rectangle', 'section');
                     if (pastevents[sectionKey]) {
@@ -6522,7 +6527,7 @@
             }
             let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
             if (sidebarfilelinklink){
-                dissolve(sidebarfilelinklink);
+                dissolve(sidebarfilelinklink, 150);
                 document.querySelectorAll(".sidebarfilelinklink").forEach((sidebarfilelink, index) => {
                     sidebarfilelink.id = 'sidebarfilelinklink' + index;
                     sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
