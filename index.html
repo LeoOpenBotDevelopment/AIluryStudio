@@ -3668,6 +3668,7 @@
                 element.classList.remove('rectangle');
                 element.classList.add('rectanglep');
             }
+            element.style.pointerEvents = "none";
             let rect = element.getBoundingClientRect();
 
             if (rect.width === 0 || rect.height === 0) {
