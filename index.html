@@ -1428,7 +1428,7 @@
         }
 
 
-        .rectangle {
+        .rectangle, .rectanglep {
             background-color: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
             display: flex;
@@ -3664,6 +3664,9 @@
             if (element.classList.contains('sidebarfilelinklink')){
                 element.classList.remove('sidebarfilelinklink');
                 element.classList.add('sidebarfilelinklinkp');
+            } else if (element.classList.contains('rectangle')){
+                element.classList.remove('rectangle');
+                element.classList.add('rectanglep');
             }
             let rect = element.getBoundingClientRect();
 
