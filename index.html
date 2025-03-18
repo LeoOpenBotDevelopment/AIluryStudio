@@ -2271,7 +2271,7 @@
         .result.importantsearchresult{
             background: rgba(255, 0, 0, 0.5);
         }
-        .sidebarfilelinklink {
+        .sidebarfilelinklink, sidebarfilelinklinkp {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -3661,6 +3661,8 @@
             if (!element.parentElement) {
                 return;
             }
+            element.classList.remove('sidebarfilelinklink');
+            element.classList.add('sidebarfilelinklinkp');
             let rect = element.getBoundingClientRect();
 
             if (rect.width === 0 || rect.height === 0) {
