@@ -3662,6 +3662,11 @@
                 return;
             }
             let rect = element.getBoundingClientRect();
+
+            if (rect.width === 0 || rect.height === 0) {
+                element.remove();
+                return;
+            }
             
             element.style.transition = "1s";
             
@@ -3678,7 +3683,7 @@
                 
                 particle.classList.add("particle");
                 
-                element.parentElement.appendChild(particle);
+                document.body.appendChild(particle);
                 
                 let x = Math.random() * rect.width + rect.left;
                 let y = Math.random() * rect.height + rect.top;
