@@ -3661,8 +3661,10 @@
             if (!element.parentElement) {
                 return;
             }
-            element.classList.remove('sidebarfilelinklink');
-            element.classList.add('sidebarfilelinklinkp');
+            if (element.classList.contains('sidebarfilelinklink')){
+                element.classList.remove('sidebarfilelinklink');
+                element.classList.add('sidebarfilelinklinkp');
+            }
             let rect = element.getBoundingClientRect();
 
             if (rect.width === 0 || rect.height === 0) {
