@@ -6577,6 +6577,7 @@
             }
 
             let container = document.getElementById('container');
+            let sid = document.getElementById("section" + number)?.id;
             if (container) {
                 let deletethissection = container.querySelector('.section[id="section' + number + '"]');
                 if (deletethissection) {
@@ -6585,6 +6586,9 @@
                         sectionv.id = "section" + index;
                     });
                 }
+            }
+            if (document.getElementById("section" + number) && sid && sid == section.id){
+                scrollToSection(parseInt(number));
             }
         }
 
