@@ -1919,7 +1919,7 @@
             border-radius: 8px;
             overflow: hidden;
         }
-        .seccontainer-line-container{
+        .seccontainer-line-container, .fileinfo{
             list-style: none;
             padding: 0;
             margin: 0 auto;
@@ -1928,6 +1928,13 @@
             border-radius: 8px;
             overflow-y: scroll;
             overflow-x: hidden;
+        }
+        .seccontainer-line-container {
+            height: 70%;
+        }
+        
+        .fileinfo {
+            margin-bottom: 10px;
         }
 
         .command-list li {
@@ -1941,7 +1948,7 @@
             color: var(--commandlistcolor-color);
         }
 
-        .seccontainer-line{
+        .seccontainer-line, .oneinfoc{
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1953,7 +1960,7 @@
             width: 70vw;
         }
 
-        .sidebarenabled .seccontainer-line{
+        .sidebarenabled .seccontainer-line, .sidebarenabled .oneinfoc{
             width: 68vw;
         }
 
@@ -1961,7 +1968,7 @@
             border-bottom: none;
         }
 
-        .seccontainer-line-container seccontainer-line:last-child{
+        .seccontainer-line-container .seccontainer-line:last-child, .fileinfo .oneinfoc:last-child{
             border-bottom: none;
         }
 
@@ -1995,8 +2002,9 @@
             .command-list li {
                 font-size: 10px;
             }
-            .seccontainer-line-container seccontainer-line{
-                font-size: 10px;
+            .seccontainer-line-container .seccontainer-line, .fileinfo .oneinfoc, #specialbtn{
+                font-size: 15px;
+                width: 90vw;
             }
             .Symbol-Span {
                 font-size: 12px;
@@ -3052,6 +3060,16 @@
             <button id="scrolltopreviousfile" onclick="gotonextorpreviousfile('back')">←</button>
             <button id="scrolltonextfile" onclick="gotonextorpreviousfile('forward')">→</button>
             <div class="seccontainer">
+                <div class="fileinfo">
+                    <div class="oneinfoc">
+                        <span>lines:</span>
+                        <span id="fileinfolineamount">15</span>
+                    </div>
+                    <div class="oneinfoc">
+                        <span>file type:</span>
+                        <span id="fileinfofiletype">html</span>
+                    </div>
+                </div>
                 <div class="seccontainer-line-container">
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -5616,7 +5634,6 @@
                 { percent: 50, text: 'Adding' },
                 { percent: 100, text: 'Merge complete' },
             ];
-
             startLoadingThis(steps, 'Reserving');
         }
         
@@ -6291,6 +6308,21 @@
 
             sidebarfilelinklink.textContent = safeValue;
             sidebarfilelinklink.innerHTML += `<div class="threedots">⋮</div>`;
+            const seccontainer = document.querySelector('.seccontainer');
+            if (seccontainer.style.display != "none" && seccontainer.querySelector('#fileinfofiletype')) {
+                let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
+                if (filetype) {
+                    let filetypes = ['html', 'css', 'jsx', 'tsx', 'json', 'txt', 'js', 'htm'];
+                    for (i = 0; i < filetypes.length; i++) {
+                        if (filetype.value.endsWith('.' + filetypes[i])) {
+                            seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[i];
+                            break;
+                        } else {
+                            seccontainer.querySelector('#fileinfofiletype').textContent = "unsupported";
+                        }
+                    }
+                }
+            }
             if (downloadBtn){
                 downloadBtn.onclick = () => downloadFile(safeValue);
             }
@@ -6628,6 +6660,16 @@
         }
         function deleteAllEmptyLines() {
             const sectionlinecontainer = section.querySelector(".code-editor-container");
+            if (!sectionlinecontainer) {
+                showAlert('we did not find the files content');
+                return;
+            }
+            const steps = [
+                { percent: 0, text: 'Processing...' },
+                { percent: 50, text: 'removing...' },
+                { percent: 100, text: 'empty lines removed' },
+            ];
+            startLoadingThis(steps, 'checking...');
             const allsectionlines = sectionlinecontainer.querySelectorAll(".code-editor-line");
             let newpast = [];
             lasteventsparentsection = section;
@@ -6651,11 +6693,25 @@
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                const seccontainer = document.querySelector('.seccontainer');
+                if (seccontainer.querySelector('#fileinfolineamount')) {
+                    seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                }
             }
         }
         function deleteAllCommentsInLines() {
             const sectionlinecontainer = section.querySelector(".code-editor-container");
-            if (!sectionlinecontainer) return;
+            if (!sectionlinecontainer) {
+                showAlert('we did not find the files content');
+                return;
+            }
+            
+            const steps = [
+                { percent: 0, text: 'Processing...' },
+                { percent: 50, text: 'removing...' },
+                { percent: 100, text: 'comments removed' },
+            ];
+            startLoadingThis(steps, 'checking...');
 
             const allsectionlines = sectionlinecontainer.querySelectorAll(".code-editor-line");
             let newpast = [];
@@ -6682,6 +6738,10 @@
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                const seccontainer = document.querySelector('.seccontainer');
+                if (seccontainer.querySelector('#fileinfolineamount')) {
+                    seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                }
             }
         }
 
@@ -7578,6 +7638,21 @@
                     navBar.style.height = '100dvh';
                     navBar.classList.add('expanded');
                     seccontainer.style.display = 'flex';
+                    if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
+                        seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                        let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
+                        if (filetype) {
+                            let filetypes = ['html', 'css', 'jsx', 'tsx', 'json', 'txt', 'js', 'htm'];
+                            for (i = 0; i < filetypes.length; i++) {
+                                if (filetype.value.endsWith('.' + filetypes[i])) {
+                                    seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[i];
+                                    break;
+                                } else {
+                                    seccontainer.querySelector('#fileinfofiletype').textContent = "unsupported";
+                                }
+                            }
+                        }
+                    }
                 } else {
                     navBar.style.height = '50px';
                     navBar.classList.remove('expanded');
@@ -7593,6 +7668,21 @@
                     navBar.style.height = '100dvh';
                     navBar.classList.add('expanded');
                     seccontainer.style.display = 'flex';
+                    if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
+                        seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                        let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
+                        if (filetype) {
+                            let filetypes = ['html', 'css', 'jsx', 'tsx', 'json', 'txt', 'js', 'htm'];
+                            for (i = 0; i < filetypes.length; i++) {
+                                if (filetype.value.endsWith('.' + filetypes[i])) {
+                                    seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[i];
+                                    break;
+                                } else {
+                                    seccontainer.querySelector('#fileinfofiletype').textContent = "unsupported";
+                                }
+                            }
+                        }
+                    }
                 } else {
                     navBar.style.height = '50px';
                     navBar.classList.remove('expanded');
