@@ -46,7 +46,7 @@
             --leftarrow-color: #28a745;
             --loadingbarbackground-color: rgba(0, 0, 0, 0.2);
             --loadingbarloadedbackground-color: #007aff;
-            --fileloadingoverlaybackground-color: rgba(0, 0, 0, 0.5);
+            --fileloadingoverlaybackground-color: rgba(255, 255, 255, 0.5);
             --commandlistbackground-color: #F2F2F7;
             --commandlistcolor-color: #555;
             --codeeditoreditbtn-color: #000;
@@ -1743,6 +1743,7 @@
             z-index: 1500;
             visibility: hidden;
             opacity: 0;
+            backdrop-filter: blur(10px);
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
@@ -1755,7 +1756,7 @@
             width: 80%;
             max-width: 400px;
             background: var(--loadingbarbackground-color);
-            border-radius: 5px;
+            border-radius: 100px;
             overflow: hidden;
             margin-bottom: 10px;
         }
@@ -1763,12 +1764,13 @@
         .progress-bar {
             height: 20px;
             width: 0;
+            border-radius: 100px;
             background: var(--loadingbarloadedbackground-color);
             transition: width 0.5s ease;
         }
 
         .progress-text {
-            color: #fff;
+            color: var(--black-color);
             text-align: center;
             margin-top: 10px;
             font-size: 16px;
@@ -1776,7 +1778,8 @@
 
         .checkmark {
             font-size: 50px;
-            color: white;
+            color: var(--loadingbarloadedbackground-color);
+            font-weight: bold;
             display: none;
             margin-bottom: 10px;
         }
