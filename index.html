@@ -6312,14 +6312,23 @@
             if (seccontainer.style.display != "none" && seccontainer.querySelector('#fileinfofiletype')) {
                 let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
                 if (filetype) {
-                    let filetypes = ['html', 'css', 'jsx', 'tsx', 'json', 'txt', 'js', 'htm'];
-                    for (i = 0; i < filetypes.length; i++) {
-                        if (filetype.value.endsWith('.' + filetypes[i])) {
-                            seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[i];
-                            break;
-                        } else {
-                            seccontainer.querySelector('#fileinfofiletype').textContent = "unsupported";
-                        }
+                    let filetypes = {
+                        "html": "HyperText Markup Language",
+                        "css": "Cascading Style Sheets",
+                        "jsx": "JavaScript XML",
+                        "tsx": "TypeScript XML",
+                        "json": "JavaScript Object Notation",
+                        "txt": "Text File",
+                        "js": "JavaScript",
+                        "htm": "HyperText Markup"
+                    };
+                
+                    let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
+                
+                    if (filetypes[extension]) {
+                        seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
+                    } else {
+                        seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
                     }
                 }
             }
@@ -7642,14 +7651,23 @@
                         seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
                         let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
                         if (filetype) {
-                            let filetypes = ['html', 'css', 'jsx', 'tsx', 'json', 'txt', 'js', 'htm'];
-                            for (i = 0; i < filetypes.length; i++) {
-                                if (filetype.value.endsWith('.' + filetypes[i])) {
-                                    seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[i];
-                                    break;
-                                } else {
-                                    seccontainer.querySelector('#fileinfofiletype').textContent = "unsupported";
-                                }
+                            let filetypes = {
+                                "html": "HyperText Markup Language",
+                                "css": "Cascading Style Sheets",
+                                "jsx": "JavaScript XML",
+                                "tsx": "TypeScript XML",
+                                "json": "JavaScript Object Notation",
+                                "txt": "Text File",
+                                "js": "JavaScript",
+                                "htm": "HyperText Markup"
+                            };
+                        
+                            let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
+                        
+                            if (filetypes[extension]) {
+                                seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
+                            } else {
+                                seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
                             }
                         }
                     }
@@ -7672,14 +7690,23 @@
                         seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
                         let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
                         if (filetype) {
-                            let filetypes = ['html', 'css', 'jsx', 'tsx', 'json', 'txt', 'js', 'htm'];
-                            for (i = 0; i < filetypes.length; i++) {
-                                if (filetype.value.endsWith('.' + filetypes[i])) {
-                                    seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[i];
-                                    break;
-                                } else {
-                                    seccontainer.querySelector('#fileinfofiletype').textContent = "unsupported";
-                                }
+                            let filetypes = {
+                                "html": "HyperText Markup Language",
+                                "css": "Cascading Style Sheets",
+                                "jsx": "JavaScript XML",
+                                "tsx": "TypeScript XML",
+                                "json": "JavaScript Object Notation",
+                                "txt": "Text File",
+                                "js": "JavaScript",
+                                "htm": "HyperText Markup"
+                            };
+                        
+                            let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
+                        
+                            if (filetypes[extension]) {
+                                seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
+                            } else {
+                                seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
                             }
                         }
                     }
