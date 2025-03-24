@@ -1788,7 +1788,7 @@
             display: block;
         }
 
-        #custom-overlay {
+        #custom-overlay, .timeinputoverlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -1803,7 +1803,7 @@
             animation: fadeInOverlay 0.3s ease-in-out;
         }
 
-        #custom-dialog {
+        #custom-dialog, .timeinputcontainer {
             background: var(--background-color);
             padding: 30px;
             border: 1px solid var(--rectangleborder);
@@ -1816,7 +1816,7 @@
             animation: fadeInDialog 0.4s ease-in-out;
         }
 
-        #close-dialog {
+        #close-dialog, #closetimeinputoverlay {
             position: absolute;
             top: 15px;
             right: 15px;
@@ -1826,7 +1826,7 @@
             transition: color 0.2s;
         }
 
-        #custom-message {
+        #custom-message, .timeinputdtext {
             font-size: 18px;
             color: var(--black-color);
             margin-bottom: 20px;
@@ -1854,7 +1854,7 @@
             outline: none;
         }
 
-        #close-alert, #submit-prompt {
+        #close-alert, #submit-prompt, .submitTimeButton {
             margin-top: 10px;
             padding: 12px;
             width: 100%;
@@ -2904,6 +2904,59 @@
                 opacity: 0;
             }
         }
+        
+        .Tscontainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .scroll-picker {
+            width: 80px;
+            height: 150px;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            border-radius: 10px;
+            background: var(--background-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scrollbar-width: none;
+        }
+        .scroll-picker::-webkit-scrollbar {
+            display: none;
+        }
+        .Tsoption {
+            height: 50px;
+            line-height: 50px;
+            font-size: 1.3em;
+            text-align: center;
+            scroll-snap-align: center;
+            user-select: none;
+            transition: all 0.2s ease;
+            opacity: 0.5;
+            transform: scale(0.8);
+            filter: blur(2px);
+            color: var(--black-color);
+        }
+        .Tsselected {
+            font-size: 1.5em;
+            font-weight: bold;
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+            color: var(--black-color);
+        }
+        #Tscspan {
+            font-size: 1.8em;
+            color: var(--black-color);
+            font-weight: bold;
+        }
+        
+        #timeinputdtext {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -3646,6 +3699,18 @@
                     <button id="close-alert">OK</button>
                 </div>
             </div>
+            <div class="timeinputoverlay" style="display: none;">
+                <div class="timeinputcontainer">
+                    <span id="closetimeinputoverlay" onclick="closetimeinputoverlay()">&times;</span>
+                    <p id="timeinputdtext" class="timeinputdtext"></p>
+                    <div class="Tscontainer">
+                        <div class="scroll-picker" id="hourPicker"></div>
+                        <span id="Tscspan">:</span>
+                        <div class="scroll-picker" id="minutePicker"></div>
+                    </div>
+                    <button class="submitTimeButton">start</button>
+                </div>
+            </div>
             <div id="overlay">
                 <div class="progress-bar-container" id="progress-container">
                     <div class="progress-bar" id="progress-bar"></div>
@@ -3675,6 +3740,73 @@
     </div>
 
     <script>
+        function closetimeinputoverlay() {
+            document.querySelector('.timeinputoverlay').style.display = "none";
+        }
+        let timeDisplay = 0;
+        function timeinputsetup() {
+            const hourPicker = document.getElementById("hourPicker");
+            const minutePicker = document.getElementById("minutePicker");
+        
+            function createInfiniteList(container) {
+                for (let i = -60; i < 120; i++) {
+                    let realValue = (i + 60) % 60;
+                    let option = document.createElement("div");
+                    option.classList.add("Tsoption");
+                    option.textContent = realValue.toString().padStart(2, '0');
+                    container.appendChild(option);
+                }
+                container.scrollTop = container.scrollHeight / 2 - container.clientHeight / 2;
+            }
+        
+            createInfiniteList(hourPicker);
+            createInfiniteList(minutePicker);
+        
+            function updateTime() {
+                let hourIndex = Math.round((hourPicker.scrollTop + 25) / 50) % 60;
+                let minuteIndex = Math.round((minutePicker.scrollTop + 25) / 50) % 60;
+                timeDisplay = parseInt(hourIndex) * 60 + parseInt(minuteIndex);
+                
+                updateSelection(hourPicker);
+                updateSelection(minutePicker);
+            }
+        
+            function updateSelection(container) {
+                let options = container.children;
+                let center = container.scrollTop + container.clientHeight / 2;
+        
+                for (let option of options) {
+                    let optionCenter = option.offsetTop + option.clientHeight / 2;
+                    let distance = Math.abs(center - optionCenter);
+        
+                    if (distance < 25) {
+                        option.classList.add("Tsselected");
+                    } else {
+                        option.classList.remove("Tsselected");
+                    }
+                }
+            }
+        
+            function checkLoop(container) {
+                if (container.scrollTop < 50) {
+                    container.scrollTop += 60 * 50;
+                } else if (container.scrollTop > 110 * 50) {
+                    container.scrollTop -= 60 * 50;
+                }
+            }
+        
+            hourPicker.addEventListener("scroll", () => {
+                checkLoop(hourPicker);
+                setTimeout(updateTime, 100);
+            });
+            
+            minutePicker.addEventListener("scroll", () => {
+                checkLoop(minutePicker);
+                setTimeout(updateTime, 100);
+            });
+            updateTime();
+        }
+        timeinputsetup();
         function dissolve(element, numParticles) {
             if (!element) {
                 return;
@@ -4035,7 +4167,7 @@
         }
         function toggleTineline(thiselementwasclicked) {
             if (!thiselementwasclicked.classList.contains("Active")) {
-                showPrompt('Enter a time in minutes', (userprompt) => {
+                showtimeinput('enter a time', (userprompt) => {
                     if (userprompt != null && !isNaN(userprompt)) {
                         addactoveclassfromfbtn();
                         showtimelinecontainer();
@@ -4050,6 +4182,13 @@
                 removeactoveclassfromfbtn();
             }
         }
+        
+        function convertToHoursAndMinutes(timeInMinutes) {
+            const hours = Math.floor(timeInMinutes / 60); // Ganze Stunden
+            const minutes = Math.round(timeInMinutes % 60); // Restliche Minuten
+            return { hours, minutes };
+        }
+
         
         function toggleConsole(thiselementwasclicked){
             thiselementwasclicked.classList.toggle("Active");
@@ -4092,7 +4231,8 @@
                     timeline.style.height = '100%';
                     removeactoveclassfromfbtn();
                     hidetimelinecontainer();
-                    showPrompt(time + ' minutes have passed! Enter a new time in minutes', (userprompt) => {
+                    const { hours, minutes } = convertToHoursAndMinutes(parseFloat(time));
+                    showtimeinput(hours + ` hour${hours > 1 ? 's' : ''} and ` + minutes + ` minute${minutes > 1 ? 's' : ''} have passed! Enter a new time`, (userprompt) => {
                         if (userprompt != null && !isNaN(userprompt)) {
                             showtimelinecontainer();
                             addactoveclassfromfbtn();
@@ -4107,7 +4247,7 @@
         }
         
         document.getElementById('timeline-container').addEventListener('click', () => {
-            showPrompt('Enter a new time in minutes', (userprompt) => {
+            showtimeinput('enter a new time', (userprompt) => {
                 if (userprompt != null && !isNaN(userprompt)) {
                     showtimelinecontainer();
                     addactoveclassfromfbtn();
@@ -5561,6 +5701,19 @@
                 const inputValue = promptInput.value;
                 callback(inputValue);
                 closeCustomDialog();
+            };
+        }
+        
+        function showtimeinput(texttsotit = "enter a time", callback) {
+            document.querySelector('.timeinputoverlay').style.display = 'flex';
+            
+            const submitTimeButton = document.querySelector('.submitTimeButton');
+            
+            document.querySelector('.timeinputdtext').textContent = texttsotit;
+            
+            submitTimeButton.onclick = () => {
+                callback(timeDisplay);
+                document.querySelector('.timeinputoverlay').style.display = 'none';
             };
         }
 
