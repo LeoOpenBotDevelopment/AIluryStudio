@@ -2972,7 +2972,7 @@
             </div>
             <h3>functions</h3>
             <div class="sidebarbardivbuttondiv">
-                <button id="functionsbbdbdb" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
+                <button id="functionsbbdbdb" class="toggletimelinebtn" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
                 <button id="functionsbbdbdb" class="consoletogglebtn Active" onclick="toggleConsole(this)"><span>▷</span>console</button>
             </div>
             <h3>files</h3>
@@ -3743,6 +3743,21 @@
         function closetimeinputoverlay() {
             document.querySelector('.timeinputoverlay').style.display = "none";
         }
+        function updateSelection(container) {
+            let options = container.children;
+            let center = container.scrollTop + container.clientHeight / 2;
+            
+            for (let option of options) {
+                let optionCenter = option.offsetTop + option.clientHeight / 2;
+                let distance = Math.abs(center - optionCenter);
+                
+                if (distance < 25) {
+                    option.classList.add("Tsselected");
+                } else {
+                    option.classList.remove("Tsselected");
+                }
+            }
+        }
         let timeDisplay = 0;
         function timeinputsetup() {
             const hourPicker = document.getElementById("hourPicker");
@@ -3769,22 +3784,6 @@
                 
                 updateSelection(hourPicker);
                 updateSelection(minutePicker);
-            }
-        
-            function updateSelection(container) {
-                let options = container.children;
-                let center = container.scrollTop + container.clientHeight / 2;
-        
-                for (let option of options) {
-                    let optionCenter = option.offsetTop + option.clientHeight / 2;
-                    let distance = Math.abs(center - optionCenter);
-        
-                    if (distance < 25) {
-                        option.classList.add("Tsselected");
-                    } else {
-                        option.classList.remove("Tsselected");
-                    }
-                }
             }
         
             function checkLoop(container) {
@@ -4156,9 +4155,7 @@
             }, 1000);
         }
         function removeactoveclassfromfbtn() {
-            document.querySelectorAll('#functionsbbdbdb.Active').forEach(btn => {
-                btn.classList.remove('Active');
-            });
+            document.querySelector('.toggletimelinebtn').classList.remove('Active');
         }
         function addactoveclassfromfbtn() {
             document.querySelectorAll('#functionsbbdbdb').forEach(btn => {
@@ -4199,6 +4196,8 @@
                 hideconsoleconteiner();
             }
         }
+        
+        toggleConsole(document.querySelector('.consoletogglebtn'));
         
         function stopTimeline() {
             timelineRunning = false;
@@ -5715,6 +5714,10 @@
                 callback(timeDisplay);
                 document.querySelector('.timeinputoverlay').style.display = 'none';
             };
+            const hourPicker = document.getElementById("hourPicker");
+            const minutePicker = document.getElementById("minutePicker");
+            updateSelection(hourPicker);
+            updateSelection(minutePicker);
         }
 
         function closeCustomDialog() {
@@ -8336,7 +8339,7 @@
             setTimeout(() => {
                 deletebtnnnn.style.animation = "none";
                 void deletebtnnnn.offsetWidth;
-                deletebtnnnn.style.animation = "rotatesign 0.5s ease-out";
+                deletebtnnnn.style.animation = "rotatesign 0.5s ease-out";.
                 setTimeout(() => {
                     deletebtnnnn.textContent = initialsign;
                     deletebtnnnn.disabled = false;
@@ -8686,28 +8689,31 @@
             const matches = new Set();
             
             const patterns = [
-                { regex: /class="([^"]+)"/g, prefix: '.' },
+                { regex: /class="([^"]+)"/g, prefix: '.', split: true },
                 { regex: /id="([^"]+)"/g, prefix: '#' },
                 { regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
                 { regex: /const\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
                 { regex: /var\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
                 { regex: /let\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
-                { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.' },
-                { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.' },
+                { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.', split: true },
+                { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.', split: true },
                 { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
             ];
             
-            patterns.forEach(({ regex, prefix }) => {
+            patterns.forEach(({ regex, prefix, split }) => {
+                regex.lastIndex = 0;
                 let match;
                 while ((match = regex.exec(code)) !== null) {
-                    //matches.add(prefix + match[1]);
-                    matches.add(match[1]);
+                    if (split) {
+                        match[1].split(/(\s+|\u00A0)/).forEach(value => matches.add(value));
+                    } else {
+                        matches.add(match[1]);
+                    }
                 }
             });
             
             return Array.from(matches);
         }
-        
         
         function extractUniqueIds(code) {
             const matches = new Set();
@@ -10595,7 +10601,7 @@
             function getLastWordBeforeCursor() {
                 const cursorPos = getCursorPosition();
                 const textBeforeCursor = inputElement.textContent.slice(0, cursorPos);
-                const match = textBeforeCursor.match(/[a-zA-Z0-9äöüßÄÖÜ/:-@]+$/);
+                const match = textBeforeCursor.match(/[a-zA-Z0-9äöüßÄÖÜ/:\-@]+$/);
                 return match ? match[0] : "";
             }
 
@@ -10648,7 +10654,7 @@
                         }
                         const cursorPos = cursorPosition;
                         const textBeforeCursor = inputElement.textContent.slice(0, cursorPos);
-                        const regex = /[a-zA-Z0-9äöüßÄÖÜ/:-@]+$/g;
+                        const regex = /[a-zA-Z0-9äöüßÄÖÜ/:\-@]+$/g;
                         const match = textBeforeCursor.match(regex);
                         let lastword = match ? match[0] : "";
                     
