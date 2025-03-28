@@ -1332,7 +1332,7 @@
             border-radius: 0;
             transition: 0.3s;
         }
-        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay, .replaceoverlay{
+        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay, .replaceoverlay, .codefunctionssettingsoverlay{
             position: fixed;
             top: 0;
             left: 0;
@@ -1347,7 +1347,7 @@
             backdrop-filter: blur(5px);
             transition: 0.3s;
         }
-        .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay, .sidebarenabled .replaceoverlay {
+        .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay, .sidebarenabled .replaceoverlay, .sidebarenabled .codefunctionssettingsoverlay {
             width: 70vw;
             height: 100dvh;
             overflow-y: auto;
@@ -1355,7 +1355,7 @@
             left: 30vw;
             transition: 0.3s;
         }
-       .theme-option-container, .topandbottomsignsdisplay-container, .commandsdisplay-container, #testregexcontainer, .replacecontainer {
+       .theme-option-container, .topandbottomsignsdisplay-container, .commandsdisplay-container, #testregexcontainer, .replacecontainer, .codefunctionssettingscontainer {
             border: 1px solid var(--rectangleborder);
             background-color: var(--contentcontainer-color);
             padding: 20px;
@@ -1369,7 +1369,7 @@
             transition: 0.3s;
        }
 
-       .sidebarenabled .theme-option-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled .commandsdisplay-container, .sidebarenabled #testregexcontainer, .sidebarenabled .replacecontainer{
+       .sidebarenabled .theme-option-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled .commandsdisplay-container, .sidebarenabled #testregexcontainer, .sidebarenabled .replacecontainer, .sidebarenabled .codefunctionssettingscontainer{
             width: 70vw;
             height: 100dvh;
             overflow-y: auto;
@@ -1573,7 +1573,7 @@
         }
 
         @media (max-width: 900px) {
-            .commandsdisplay-container, #testregexcontainer, .replacecontainer {
+            .commandsdisplay-container, #testregexcontainer, .replacecontainer, .codefunctionssettingscontainer {
                 width: 100vw;
                 height: 100dvh;
                 max-width: none;
@@ -2460,7 +2460,7 @@
             font-weight: bold;
             color: var(--black-color);
         }
-        .testregexcontainer h3, .replacecontainer h3 {
+        .testregexcontainer h3, .replacecontainer h3, .codefunctionssettingscontainer h3 {
             font-family: Arial, sans-serif;
             font-size: 1.3em;
             font-weight: bold;
@@ -2483,7 +2483,7 @@
         .testregexcontainer input:focus, .testregexcontainer textarea:focus, .replacecontainer input:focus {
             outline: none;
         }
-        .testregexcontainer #testButton, .testregexcontainer #useButton, .replacecontainer #replacebtn {
+        .testregexcontainer #testButton, .testregexcontainer #useButton, .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn {
             padding: 12px 20px;
             font-size: 16px;
             color: var(--black-color);
@@ -2957,14 +2957,207 @@
         #timeinputdtext {
             text-align: center;
         }
+        
+        .cldeeditfunctionsettings {
+            color: var(--rectangleborder);
+            font-size: 1.5em;
+            font-weight: bold;
+            background: transparent;
+            border: none;
+            margin-left: 20px;
+            padding: 5px;
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            transform: scaleX(0.7) scaleY(1.5);
+        }
+        
+        .cfsinfo {
+            color: var(--black-color);
+            font-size: 1em;
+        }
+        
+        .cfscscf {
+            width: 100%;
+            padding: 10px;
+            color: var(--black-color);
+            border: 1px solid var(--rectangleborder);
+            background: transparent;
+            display: flex;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        
+        .cfscscswitchdesname {
+            color: var(--black-color);
+            font-size: 1.3em;
+            text-align: right;
+            width: 90%;
+        }
+        
+        .commandtosearchregex {
+            color: var(--black-color);
+            font-size: 1.1em;
+        }
+        
+        .commandtosearchregex:focus {
+            outline: none;
+        }
+        
+        .cfscountervalue {
+            color: var(--black-color);
+            font-size: 1.2em;
+            padding: 10px;
+        }
+        
+        .cfscounter button {
+            font-size: 1em;
+            color: var(--black-color);
+            background: var(--lightgrey-color);
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-left: 10px;
+        }
+        
+        .cfscounter {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        
+        .cfscounterbtnc {
+            margin-right: 10px;
+        }
+        
+        .cfsch2 {
+            color: var(--overlaycolor-color);
+            font-size: 1.5em;
+            text-align: left;
+            font-weight: bold;
+            border: none;
+            padding: 0;
+        }
+        
+        .cfsinfo {
+            padding: 10px;
+            border: 1px solid var(--rectangleborder);
+            font-size: 1em;
+            color: var(--black-color);
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .leidresult{
+            width: 100%;
+            border-bottom: 1px solid var(--rectangleborder);
+            color: var(--black-color);
+            font-size: 1.1em;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        
+        .cfscscf .leidresult:last-of-type {
+            border-bottom: none;
+        }
+        
+        .leidresult span {
+            overflow: hidden;
+            padding: 10px;
+        }
+        
+        .leidresult button {
+            padding: 10px;
+            font-weight: bold;
+            background: var(--lightgrey-color);
+            border: none;
+            margin-left: 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .cfsch2 {
+            color: var(--overlaycolor-color);
+            font-size: 1.2em;
+            text-align: left;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .gridop {
+            height: 150px;
+            min-width: 200px;
+            display: flex;
+            border: 1px solid var(--rectangleborder);
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .gridoptions {
+            display: block;
+        }
+        
+        .gridop.cyselected {
+            border: 2px solid var(--switchcheckedbackground-color);
+        }
+        
+        .gridop1 {
+            background-size: 15px 15px;
+            background-image: radial-gradient(var(--griddot-color) 1px, transparent 1px);
+        }
+        .gridop2 {
+            background-size: 15px 15px;
+            background-image: linear-gradient(90deg, var(--griddot-color) 1px, transparent 1px);
+        }
+        .gridop3 {
+            background-size: 40px 40px;
+            background-image: radial-gradient(circle, transparent 90%, var(--griddot-color) 2%);
+        }
+        .gridop4 {
+            background-size: 15px 15px;
+            background-image: linear-gradient(var(--griddot-color) 1px, transparent 1px);
+        }
+        .gridop5 {
+            background-size: 20px 20px;
+            background-image: linear-gradient(var(--griddot-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--griddot-color) 1px, transparent 1px);
+        }
+        .gridop6 {
+            background-size: 50px 50px;
+            background-image: radial-gradient(var(--griddot-color) 10%, transparent 10%);
+        }
+        .sidebarbardiv h1 {
+            font-size: 2em;
+            font-weight: bold:
+            color: var(--black-color);
+            margin-top: 10px;
+            padding: 10px;
+            padding-left: 15px;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        @media(max-width: 750px){
+            .sidebarbardiv h1 {
+                display: none;
+            }
+        }
+        .sidebarfilelinklink.currentfile {
+            color: var(--switchcheckedbackground-color);
+        }
+        .sidebarfilelinklink.currentfile .threedots {
+            color: var(--black-color);
+        }
     </style>
 </head>
 <body>
   <!-- ☼ -->
     <div class="divcodeeditor-container sidebarenabled">
         <div class="sidebarbardiv">
+            <h1>AIlury</h1>
             <button id="closemenuforsmallscreen" onclick="togglesidebarbuttonfunction()">← close Menu</button>
-            <h3>overview</h3>
             <div class="sidebarbardivbuttondiv">
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
                 <button onclick="showallfilescontainer()">files</button>
@@ -2977,7 +3170,7 @@
             </div>
             <h3>files</h3>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1">
-                <button id="sidebarfilelinklink0" class="sidebarfilelinklink" onclick="editthisfile('0', event)">index.html<div class="threedots">⋮</div></button>
+                <button id="sidebarfilelinklink0" class="sidebarfilelinklink currentfile" onclick="editthisfile('0', event)">index.html<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink1" class="sidebarfilelinklink" onclick="editthisfile('1', event)">styles.css<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink2" class="sidebarfilelinklink" onclick="editthisfile('2', event)">script.js<div class="threedots">⋮</div></button>
             </div>
@@ -3128,91 +3321,103 @@
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="copybtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">□</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">□</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('copy')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="deletebtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">⌧</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⌧</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('delete')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="downbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">↓</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">↓</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('movedown')">></button></div>
                     </div> 
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="upbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">↑</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">↑</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('moveup')">></button></div>
                     </div> 
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="importantPinbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">⚠</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⚠</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('pin')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="sleapbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">☾</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">☾</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('disable')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="unsleeplines" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">○</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">○</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('enable')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="code-search-input" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">⌕</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⌕</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('search')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="line-number-input" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">⌕</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⌕</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('teleport')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox commandsswitch" data-checked="showcommandlist-btn-element" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">⌘</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⌘</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('commands')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="trimbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">●</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">●</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('trim')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="rightbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">→</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">→</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('unfold')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="leftbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">←</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">←</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('unselect')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="removespacesleftbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">◀</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">◀</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('removespaceleft')">></button></div>
                     </div>
                     <div class="seccontainer-line" id="search-check">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="addspacesleftbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
-                        </label> <button class="Symbol-Span">▶</button>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">▶</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('addspaceleft')">></button></div>
+                    </div>
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="switchbox" data-checked="replaceaslbtn" onchange="updatecheckboxed(this)" checked>
+                            <span class="slider"></span>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⤻</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('replaceselectedlines')">></button></div>
+                    </div>
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="switchbox" data-checked="replacealbtn" onchange="updatecheckboxed(this)" checked>
+                            <span class="slider"></span>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">⤻</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('replacealllines')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -3224,7 +3429,7 @@
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-update-class="gridenabled" onchange="updategridenabledordisabledcheckbox(this)" checked>
                             <span class="slider"></span>
-                        </label> grid
+                        </label> <div class="symbolspancontainer"> grid <button class="cldeeditfunctionsettings" onclick="openfunctionsettings('grid')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -3246,7 +3451,7 @@
                     <br>
                     <h2>commands</h2>
                     <br>
-                    <ul class="command-list">
+                    <ul class="command-list cammandcommandlist">
                         <li><span class="command">/alert</span>  <button class="Symbol-Span">⚠</button></li>
                         <li><span class="command">/arrowbottomleft</span>  <button class="Symbol-Span">↙</button></li>
                         <li><span class="command">/arrowbottomright</span>  <button class="Symbol-Span">↘</button></li>
@@ -3313,7 +3518,7 @@
                     <br>
                     <h2>short-cuts</h2>
                     <br>
-                    <ul class="command-list">
+                    <ul class="command-list shortcutcommandlist">
                         <li><span class="command">/:func</span>  <button class="Symbol-Span">function</button></li>
                         <li><span class="command">/:if</span>  <button class="Symbol-Span">if statement</button></li>
                         <li><span class="command">/:for</span>  <button class="Symbol-Span">for loop</button></li>
@@ -3688,6 +3893,95 @@
                     <button id="replacebtn" onclick="replacetext('replaceinput', 'replacementinput')">replace</button>
                 </div>
             </div>
+            <div id="codefunctionssettingsoverlay" class="codefunctionssettingsoverlay" onclick="hideelement('class', 'codefunctionssettingsoverlay', event)">
+                <div id="codefunctionssettingscontainer" class="codefunctionssettingscontainer">
+                    <button class="closecommandoverlaybtn" onclick="hidecodefunctionssettingsoverlay()">×</button>
+                    <br>
+                    <h3 class="cfsch3">(function name)</h3>
+                    <br>
+                    <div class="cfscsc">
+                        <h2 class="cfsch2">description</h2>
+                        <div class="cfsinfo"></div>
+                        <h2 class="cfscscmoveup cfscscmovedown cfscscf cfscscmoveuplabel cfsch2">jump size</h2>
+                        <h2 class="cfscscremovespaceleft cfscscaddspaceleft cfscscf cfscscremovespaceleftlabel cfscscaddspaceleftlabel cfsch2">Amount of spaces</h2>
+                        <div class="cfscscmoveup cfscscmovedown cfscscremovespaceleft cfscscaddspaceleft cfscscf cfscounter"><span class="cfscountervalue">1</span><div class="cfscounterbtnc"><button class="cfscounteradd">+</button><button class="cfscounterremove">-</button></div></div>
+                        <div class="cfscscpin cfscscf pinedlinestopsearchresult">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="pinedlinestopsearchresult" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname">pined lines are top search results</span>
+                        </div>
+                        <h2 class="cfscscpin cfscscf cfscscpinlabel cfsch2">all pined lines</h2>
+                        <div class="cfscscpin cfscscf unpinlinesmanuallyorteleport">
+                            no pined lines yet
+                        </div>
+                        <div class="cfscsccommands cfscscf commandassuggestion">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="commandassuggestion" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname">cammands in suggestions</span>
+                        </div>
+                        <button class="cfscsccommands cfscscf addcommandbtn" id="addcommandbtn" onclick="addacommand()">add a command</button>
+                        <div class="cfscsccommands cfscscf createcommandcontainer">
+                            no custom commands yet
+                        </div>
+                        <button class="cfscsccommands cfscscf addshortcutbtn" id="addshortcutbtn" onclick="addashortcut()">add a short-cut</button>
+                        <div class="cfscsccommands cfscscf createshortcutcontainer">
+                            no custom short-cuts yet
+                        </div>
+                        <h2 class="cfscscgrid cfscscf cfscscgridlabel cfsch2">grid options</h2>
+                        <div class="cfscscgrid cfscscf gridoptions">
+                            <div class="gridop gridop1 cyselected" onclick="selectthisgrid(this)"></div>
+                            <div class="gridop gridop2" onclick="selectthisgrid(this)"></div>
+                            <div class="gridop gridop3" onclick="selectthisgrid(this)"></div>
+                            <div class="gridop gridop4" onclick="selectthisgrid(this)"></div>
+                            <div class="gridop gridop5" onclick="selectthisgrid(this)"></div>
+                            <div class="gridop gridop6" onclick="selectthisgrid(this)"></div>
+                        </div>
+                        <div class="cfscscsearch cfscscf commandforregexsearch">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="commandforregexsearch" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname commandtosearchregexswitchtext">/r to search with regex</span>
+                        </div>
+                        <input type="text" class="cfscscsearch cfscscf commandtosearchregex" oninput="changecommandtosearchregexswitchtext(this)" value="/r">
+                        <div class="cfscscdelete cfscscf onlydeletelinecontent">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="onlydeletelinecontent">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname">only delete lines content</span>
+                        </div>
+                        <h2 class="cfscscdelete cfscscf cfscscdeletelabel cfsch2">All selected lines in this File</h2>
+                        <div class="cfscscdelete cfscscf deleteselectedlinesmanually">
+                            
+                        </div>
+                        <h2 class="cfscsccopy cfscscf cfscsccopylabel cfsch2">AIlury Clipboard</h2>
+                        <div class="cfscsccopy cfscscf addfullcodecopytoclipboardpast">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="addfullcodecopytoclipboardpast">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname addfullcodecopytoclipboardpastswitchtext">add full code copy to clipboard past</span>
+                        </div>
+                        <button class="cfscsccopy cfscscf clearclipboardbtn" id="clearclipboardbtn" onclick="clearclipboard()">clear clipboard</button>
+                        <div class="cfscsccopy cfscscf copiedtexthistory">
+                            nothing has been copied yet
+                        </div>
+                        <h2 class="cfscscunselect cfscscf cfscscselectedlabel cfsch2">All selected lines</h2>
+                        <div class="cfscscunselect cfscscf unselectlinesmanually">
+                            no lines selected
+                        </div>
+                        <h2 class="cfscscenable cfscscdisable cfscscf cfscscenabledlabel cfsch2">all disabled lines</h2>
+                        <div class="cfscscenable cfscscdisable cfscscf enabledisabledlonesmanually">
+                            no disabled lines yet
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="custom-overlay" style="display: none;">
                 <div id="custom-dialog">
                     <span id="close-dialog">&times;</span>
@@ -3740,6 +4034,586 @@
     </div>
 
     <script>
+        const commandToSymbol = {
+            "/alert": "⚠",
+            "/arrowbottomleft": "↙",
+            "/arrowbottomright": "↘",
+            "/arrowdown": "↓",
+            "/arrowgoleft": "↤",
+            "/arrowgoright": "↦",
+            "/arrowleft": "←",
+            "/arrowright": "→",
+            "/arrowtopleft": "↖",
+            "/arrowtopright": "↗",
+            "/arrowup": "↑",
+            "/bigspark": "✶",
+            "/bottomleftedge": "◣",
+            "/bottomrightedge": "◢",
+            "/smallcheckmark": "✓",
+            "/emptycircle": "◯",
+            "/copyright": "©",
+            "/bigcross": "✘",
+            "/crossincirkle": "⊗",
+            "/crossinsquare": "⌧",
+            "/crossnotinsquare": "×",
+            "/cutoutcircle": "◌",
+            "/diamond": "◆",
+            "/emptyspark": "✧",
+            "/emptysquare": "□",
+            "/emptystar": "☆",
+            "/emptytriangleleft": "◁",
+            "/emptytriangledown": "▽",
+            "/emptytriangleright": "▷",
+            "/emptytriangletop": "△",
+            "/filledcircle": "●",
+            "/heart": "♥",
+            "/infinite": "∞",
+            "/magnifyingglass": "⌕",
+            "/minus": "−",
+            "/moonleft": "☽",
+            "/moonright": "☾",
+            "/movable": "✣",
+            "/eighthnote": "♪",
+            "/beamednote": "♫",
+            "/chordsymbol": "♬",
+            "/quarternote": "♩",
+            "/paperplane": "➤",
+            "/pencil": "✎",
+            "/plus": "+",
+            "/refreshright": "↻",
+            "/refreshleft": "↺",
+            "/registered": "®",
+            "/sidebar": "≡",
+            "/smallcross": "×",
+            "/filledspark": "✦",
+            "/filledsquare": "■",
+            "/filledstar": "★",
+            "/sun": "☼",
+            "/toprightedge": "◥",
+            "/topleftedge": "◤",
+            "/trademark": "™",
+            "/triangleleft": "◀",
+            "/triangleright": "▶",
+            "/triangledown": "▼",
+            "/triangletop": "▲",
+            "/updownleftarrow": "↵",
+        };
+        const shortCutCommands = {
+            "/:func": {
+                firstpart: "function definition() {",
+                seccondpart: "}"
+            },
+            "/:if": {
+                firstpart: "if (condition) {",
+                seccondpart: "}"
+            },
+            "/:for": {
+                firstpart: "for (let i = 0; i < array.length; i++) {",
+                seccondpart: "}"
+            },
+            "/:try": {
+                firstpart: 'try {',
+                seccondpart: "} catch (error) { console.error(error); }"
+            },
+            "/:div": {
+                firstpart: '<div class="className">',
+                seccondpart: "</div>"
+            },
+            "/:btn": {
+                firstpart: '<button id="buttonId">',
+                seccondpart: "</button>"
+            },
+            "/:span": {
+                firstpart: '<span id="spanId">',
+                seccondpart: "</span>"
+            },
+            "/:img": {
+                firstpart: '<image src="',
+                seccondpart: '">'
+            },
+            "/:p": {
+                "firstpart": "<p id=\"pId\">",
+                "seccondpart": "</p>"
+            },
+            "/:h1": {
+                firstpart: "<h1 id=\"h1Id\">",
+                seccondpart: "</h1>"
+            },
+            "/:h2": {
+                firstpart: "<h2 id=\"h2Id\">",
+                seccondpart: "</h2>"
+            },
+            "/:h3": {
+                firstpart: "<h3 id=\"h3Id\">",
+                seccondpart: "</h3>"
+            },
+            "/:h4": {
+                firstpart: "<h4 id=\"h4Id\">",
+                seccondpart: "</h4>"
+            },
+            "/:h5": {
+                firstpart: "<h5 id=\"h5Id\">",
+                seccondpart: "</h5>"
+            },
+            "/:h6": {
+                firstpart: "<h6 id=\"h6Id\">",
+                seccondpart: "</h6>"
+            },
+            "/:at": {
+                firstpart: "<a href=\"\" id=\"aId\">",
+                seccondpart: "</a>"
+            },
+            "/:ul": {
+                firstpart: "<ul id=\"ulId\">",
+                seccondpart: "</ul>"
+            },
+            "/:ol": {
+                firstpart: "<ol id=\"olId\">",
+                seccondpart: "</ol>"
+            },
+            "/:li": {
+                firstpart: "<li id=\"liId\">",
+                seccondpart: "</li>"
+            },
+            "/:table": {
+                firstpart: "<table id=\"tableId\">",
+                seccondpart: "</table>"
+            },
+            "/:tr": {
+                firstpart: "<tr id=\"trId\">",
+                seccondpart: "</tr>"
+            },
+            "/:td": {
+                firstpart: "<td id=\"tdId\">",
+                seccondpart: "</td>"
+            },
+            "/:th": {
+                firstpart: "<th id=\"thId\">",
+                seccondpart: "</th>"
+            },
+            "/:input": {
+                firstpart: "<input type=\"",
+                seccondpart: "\" id=\"inputId\">"
+            },
+            "/:form": {
+                firstpart: "<form id=\"formId\">",
+                seccondpart: "</form>"
+            },
+            "/:label": {
+                firstpart: "<label id=\"labelId\">",
+                seccondpart: "</label>"
+            },
+            "/:iframe": {
+                firstpart: "<iframe src=\"\" id=\"iframeId\">",
+                seccondpart: "</iframe>"
+            },
+            "/:nav": {
+                firstpart: "<nav id=\"navId\">",
+                seccondpart: "</nav>"
+            },
+            "/:header": {
+                firstpart: "<header id=\"headerId\">",
+                seccondpart: "</header>"
+            },
+            "/:footer": {
+                firstpart: "<footer id=\"footerId\">",
+                seccondpart: "</footer>"
+            },
+            "/:sec": {
+                firstpart: "<section id=\"sectionId\">",
+                seccondpart: "</section>"
+            },
+            "/:article": {
+                firstpart: "<article id=\"articleId\">",
+                seccondpart: "</article>"
+            },
+            "/:aside": {
+                firstpart: "<aside id=\"asideId\">",
+                seccondpart: "</aside>"
+            },
+            "/:main": {
+                firstpart: "<main id=\"mainId\">",
+                seccondpart: "</main>"
+            }
+        }
+        function addacommand() {
+            const copypastcontainer = document.querySelector('.createcommandcontainer');
+            if (!copypastcontainer) return;
+            showPrompt('enter a new command with under 20 characters (a command must start with a "/"):', (command) => {
+                if (!command.startsWith('/') || commandToSymbol[command.toUpperCase().trim().replace(/\s+/g, '')] || command.trim().replace(/\s+/g, '').length > 20 || command.trim() == ""){
+                    setTimeout(() => {
+                        addacommand();
+                    }, 100);
+                    return;
+                }
+                setTimeout(() => {
+                    showPrompt('enter the command result text:', (result) => {
+                        if (result.length > 50 || result == "") {
+                            setTimeout(() => {
+                                addacommand();
+                            }, 100);
+                            return;
+                        }
+                        if (!copypastcontainer.querySelector('.leidresult')) {
+                            copypastcontainer.innerHTML = "";
+                        }
+                        const leidresult = document.createElement('div');
+                        leidresult.className = "leidresult";
+                        const leidresultspan = document.createElement('span');
+                        leidresultspan.textContent = command.toUpperCase().trim().replace(/\s+/g, '') + ": " + result;
+                        leidresult.appendChild(leidresultspan);
+                        const leidresultdiv = document.createElement('div');
+                        leidresult.appendChild(leidresultdiv);
+                        const leidresultbtn1 = document.createElement('button');
+                        leidresultbtn1.textContent = "remove";
+                        leidresultdiv.appendChild(leidresultbtn1);
+                        const leidresultbtn2 = document.createElement('button');
+                        leidresultbtn2.textContent = "copy";
+                        leidresultdiv.appendChild(leidresultbtn2);
+                        copypastcontainer.appendChild(leidresult);
+                        
+                        commandToSymbol[command.toUpperCase().trim().replace(/\s+/g, '')] = result;
+                        
+                        const cammandcommandlist = document.querySelector('.cammandcommandlist');
+                        const li = document.createElement('li');
+                        const lispan = document.createElement('span');
+                        lispan.className = "command";
+                        lispan.textContent = command.toUpperCase().trim().replace(/\s+/g, '');
+                        li.appendChild(lispan);
+                        const libutton = document.createElement('button');
+                        libutton.className = "Symbol-Span";
+                        libutton.textContent = result;
+                        li.appendChild(libutton);
+                        cammandcommandlist.appendChild(li);
+                        
+                        
+                        leidresultbtn1.onclick = () => {
+                            leidresult.remove();
+                            li.remove();
+                            delete commandToSymbol[command.toUpperCase().trim().replace(/\s+/g, '')];
+                            if (!copypastcontainer.querySelector('.leidresult')) {
+                                copypastcontainer.innerHTML = "no custom commands yet";
+                            }
+                        };
+                        
+                        leidresultbtn2.onclick = () => {
+                            try {
+                                const newtextarea = document.createElement('textarea');
+                                newtextarea.value = command.toUpperCase().trim().replace(/\s+/g, '');
+                                document.body.appendChild(newtextarea);
+                                newtextarea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(newtextarea);
+                            } catch (error) {
+                                const thiserrorwascatched = error;
+                            }
+                        };
+                    });
+                }, 100);
+            });
+        }
+        function addashortcut() {
+            const copypastcontainer = document.querySelector('.createshortcutcontainer');
+            if (!copypastcontainer) return;
+            showPrompt('enter a new shortcut with under 20 characters (a command must start with a "/:"):', (command) => {
+                if (!command.trim().startsWith('/:') || shortCutCommands[command.toLowerCase().trim().replace(/\s+/g, '')] || command.trim().replace(/\s+/g, '').length > 20 || command.trim() == "") {
+                    setTimeout(() => {
+                        addashortcut();
+                    }, 100);
+                    return;
+                }
+                setTimeout(() => {
+                    showPrompt('enter the shortcut result text before the cursor:', (result) => {
+                        if (result.length > 50 || result.trim() == "") {
+                            setTimeout(() => {
+                                addashortcut();
+                            }, 100);
+                            return;
+                        }
+                        setTimeout(() => {
+                            showPrompt('enter the shortcut result text after the cursor:', (result2) => {
+                                if (result2.length > 50 || result2.trim() == "") {
+                                    setTimeout(() => {
+                                        addashortcut();
+                                    }, 100);
+                                    return;
+                                }
+                                
+                                setTimeout(() => {
+                                    showPrompt('enter the shortcut result description with up to 20 characters:', (shortcutresultdescriptioncr) => {
+                                        if (shortcutresultdescriptioncr.trim().length < 20 && shortcutresultdescriptioncr.trim() != "") {
+                                            let shortcutresultdescription = shortcutresultdescriptioncr.trim();
+                                            if (!copypastcontainer.querySelector('.leidresult')) {
+                                                copypastcontainer.innerHTML = "";
+                                            }
+                                            const leidresult = document.createElement('div');
+                                            leidresult.className = "leidresult";
+                                            const leidresultspan = document.createElement('span');
+                                            leidresultspan.textContent = command.toLowerCase().trim().replace(/\s+/g, '') + ": " + result + "(cursor)" + result2;
+                                            leidresult.appendChild(leidresultspan);
+                                            const leidresultdiv = document.createElement('div');
+                                            leidresult.appendChild(leidresultdiv);
+                                            const leidresultbtn1 = document.createElement('button');
+                                            leidresultbtn1.textContent = "remove";
+                                            leidresultdiv.appendChild(leidresultbtn1);
+                                            const leidresultbtn2 = document.createElement('button');
+                                            leidresultbtn2.textContent = "copy";
+                                            leidresultdiv.appendChild(leidresultbtn2);
+                                            copypastcontainer.appendChild(leidresult);
+                                            
+                                            shortCutCommands[command.toLowerCase().trim().replace(/\s+/g, '')] = {
+                                                firstpart: result,
+                                                seccondpart: result2
+                                            };
+                                            
+                                            const shortcutcommandlist = document.querySelector('.shortcutcommandlist');
+                                            const li = document.createElement('li');
+                                            const lispan = document.createElement('span');
+                                            lispan.className = "command";
+                                            lispan.textContent = command.toLowerCase().trim().replace(/\s+/g, '');
+                                            li.appendChild(lispan);
+                                            const libutton = document.createElement('button');
+                                            libutton.className = "Symbol-Span";
+                                            libutton.textContent = shortcutresultdescription;
+                                            li.appendChild(libutton);
+                                            shortcutcommandlist.appendChild(li);
+                                            
+                                            
+                                            leidresultbtn1.onclick = () => {
+                                                leidresult.remove();
+                                                li.remove();
+                                                delete shortCutCommands[command.toLowerCase().trim().replace(/\s+/g, '')];
+                                                if (!copypastcontainer.querySelector('.leidresult')) {
+                                                    copypastcontainer.innerHTML = "no custom short-cuts yet";
+                                                }
+                                            };
+                                            
+                                            leidresultbtn2.onclick = () => {
+                                                try {
+                                                    const newtextarea = document.createElement('textarea');
+                                                    newtextarea.value = command.toLowerCase().trim().replace(/\s+/g, '');
+                                                    document.body.appendChild(newtextarea);
+                                                    newtextarea.select();
+                                                    document.execCommand('copy');
+                                                    document.body.removeChild(newtextarea);
+                                                } catch (error) {
+                                                    const thiserrorwascatched = error;
+                                                }
+                                            };
+                                        }
+                                    });
+                                }, 100);
+                            });
+                        }, 100);
+                    });
+                }, 100);
+            });
+        }
+        function clearclipboard() {
+            const copiedtexthistory = document.querySelector('.copiedtexthistory');
+            copiedtexthistory.innerHTML = "clipboard is cleared...";
+        }
+        function selectthisgrid(gridop) {
+            let gridSections = document.querySelectorAll('.section.gridenabled');
+            
+            if (gridSections.length === 0) {
+                showAlert('Make sure you have "grid" enabled');
+                return;
+            }
+            
+            document.querySelectorAll('.gridop.cyselected').forEach(op => {
+                op.classList.remove('cyselected');
+            });
+            
+            gridop.classList.add('cyselected');
+            
+            let computedStyle = getComputedStyle(gridop);
+            
+            gridSections.forEach(sg => {
+                sg.style.backgroundSize = computedStyle.backgroundSize;
+                sg.style.backgroundImage = computedStyle.backgroundImage;
+            });
+            
+            gridSections.forEach(sg => {
+                new MutationObserver((mutations, observer) => {
+                    mutations.forEach(mutation => {
+                        if (mutation.attributeName === "class" && !sg.classList.contains('gridenabled')) {
+                            sg.style.backgroundSize = "";
+                            sg.style.backgroundImage = "";
+                            observer.disconnect();
+                        }
+                    });
+                }).observe(sg, { attributes: true });
+            });
+        }
+        let m__up = 1;
+        let m__down = 1;
+        let m__right = 1;
+        let m__left = 1;
+        
+        const functiondescriptions = {
+            "copy": {
+                title: "copy",
+                description: "copy the text content of selected lines or all lines, at ones."
+            },
+            "delete": {
+                title: "delete",
+                description: "delete selected lines or all lines, at ones."
+            },
+            "movedown": {
+                title: "move down",
+                description: "move selected lines down."
+            },
+            "moveup": {
+                title: "move up",
+                description: "move selected lines up."
+            },
+            "pin": {
+                title: "pin",
+                description: "pin or unpin selected lines or unpin all pined lines."
+            },
+            "disable": {
+                title: "disable",
+                description: "disable all selected lines."
+            },
+            "enable": {
+                title: "enable",
+                description: "enable all lines."
+            },
+            "search": {
+                title: "code search",
+                description: "search for code, with text or regex."
+            },
+            "teleport": {
+                title: "teleport",
+                description: "teleport to a line number."
+            },
+            "commands": {
+                title: "commands & shortcuts",
+                description: "use commands for symbols or shortcuts."
+            },
+            "trim": {
+                title: "trim",
+                description: "trim all selected lines."
+            },
+            "unfold": {
+                title: "unfold",
+                description: "unfold all folded code blocks."
+            },
+            "unselect": {
+                title: "unselect",
+                description: "unselect all selected lines."
+            },
+            "removespaceleft": {
+                title: "remove spaces",
+                description: "delete a space left, in every selected line."
+            },
+            "addspaceleft": {
+                title: "insert spaces",
+                description: "insert a space left, in every selected line."
+            },
+            "replaceselectedlines": {
+                title: "replace",
+                description: "Replace text in selected lines using regex or plain text."
+            },
+            "replacealllines": {
+                title: "replace all",
+                description: "Replace text in all lines using either regex or plain text."
+            }
+        };
+        
+        function openfunctionsettings(type) {
+            if (functiondescriptions[type]){
+                document.querySelector('.cfsinfo').textContent = functiondescriptions[type].description;
+                document.querySelector('.cfsch3').textContent = functiondescriptions[type].title;
+                if (type == "delete") {
+                    addallselectedlinestodeleteselectedlinesmanually();
+                } else if (type == "moveup") {
+                    document.querySelector('.cfscountervalue').textContent = m__up;
+                    document.querySelector('.cfscounteradd').onclick = () => {
+                        m__up++;
+                        document.querySelector('.cfscountervalue').textContent = m__up;
+                    };
+                    document.querySelector('.cfscounterremove').onclick = () => {
+                        if (m__up > 1) {
+                            m__up--;
+                            document.querySelector('.cfscountervalue').textContent = m__up;
+                        }
+                    };
+                } else if (type == "movedown") {
+                    document.querySelector('.cfscountervalue').textContent = m__down;
+                    document.querySelector('.cfscounteradd').onclick = () => {
+                        m__down++;
+                        document.querySelector('.cfscountervalue').textContent = m__down;
+                    };
+                    document.querySelector('.cfscounterremove').onclick = () => {
+                        if (m__down > 1) {
+                            m__down--;
+                            document.querySelector('.cfscountervalue').textContent = m__down;
+                        }
+                    };
+                } else if (type == "addspaceleft") {
+                    document.querySelector('.cfscountervalue').textContent = m__right;
+                    document.querySelector('.cfscounteradd').onclick = () => {
+                        m__right++;
+                        document.querySelector('.cfscountervalue').textContent = m__right;
+                    };
+                    document.querySelector('.cfscounterremove').onclick = () => {
+                        if (m__right > 1) {
+                            m__right--;
+                            document.querySelector('.cfscountervalue').textContent = m__right;
+                        }
+                    };
+                } else if (type == "removespaceleft") {
+                    document.querySelector('.cfscountervalue').textContent = m__left;
+                    document.querySelector('.cfscounteradd').onclick = () => {
+                        m__left++;
+                        document.querySelector('.cfscountervalue').textContent = m__left;
+                    };
+                    document.querySelector('.cfscounterremove').onclick = () => {
+                        if (m__left > 1) {
+                            m__left--;
+                            document.querySelector('.cfscountervalue').textContent = m__left;
+                        }
+                    };
+                } else if (type == "pin") {
+                    addreidresulttounpinlinesmanuallyorteleport();
+                } else if (type == "enable" || type == "disable") {
+                    addleidresulttounpinlinesmanuallyorteleport();
+                } else if (type == "unselect") {
+                    addleidresulttounselectlinesmanually();
+                }
+            }
+            document.querySelectorAll('.cfscscf').forEach(element => {
+                element.style.display = "none";
+            });
+            document.querySelectorAll('.cfscsc' + type).forEach(element => {
+                const excludedClasses = [
+                    "gridoptions",
+                    "copiedtexthistory",
+                    "deleteselectedlinesmanually",
+                    "unpinlinesmanuallyorteleport",
+                    "enabledisabledlonesmanually",
+                    "unselectlinesmanually",
+                    "clearclipboardbtn",
+                    "addcommandbtn",
+                    "createshortcutcontainer",
+                    "addshortcutbtn",
+                    "createcommandcontainer"
+                ];
+                
+                if (!excludedClasses.some(cls => element.classList.contains(cls))) {
+                    element.style.display = "flex";
+                } else {
+                    element.style.display = "block";
+                }
+            });
+            showcodefunctionssettingsoverlay();
+        }
+        
+        function changecommandtosearchregexswitchtext(tehtv) {
+            document.querySelector('.commandtosearchregexswitchtext').textContent = tehtv.value + " to search with regex";
+        }
         function closetimeinputoverlay() {
             document.querySelector('.timeinputoverlay').style.display = "none";
         }
@@ -5090,6 +5964,7 @@
     
             return brightness > 128 ? "light" : "dark";
         }
+        
         function updateColorColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -5508,6 +6383,7 @@
             }
         }
         function closeeverything() {
+            hidecodefunctionssettingsoverlay();
             hidecommandoverlay();
             hidesignexplenationoverlay();
             closeviewthisfile();
@@ -5571,6 +6447,20 @@
             setTimeout(() => {
                 document.querySelector('.commandsoverlay-container').style.display = "none";
             }, 500);
+        }
+        function hidecodefunctionssettingsoverlay() {
+            document.querySelector('.codefunctionssettingsoverlay').style.animation = "none";
+            void document.querySelector('.codefunctionssettingsoverlay').offsetWidth;
+            document.querySelector('.codefunctionssettingsoverlay').style.animation = "swipeout 0.5s ease-out";
+            setTimeout(() => {
+                document.querySelector('.codefunctionssettingsoverlay').style.display = "none";
+            }, 500);
+        }
+        function showcodefunctionssettingsoverlay() {
+            document.querySelector('.codefunctionssettingsoverlay').style.display = "flex";
+            document.querySelector('.codefunctionssettingsoverlay').style.animation = "none";
+            void document.querySelector('.codefunctionssettingsoverlay').offsetWidth;
+            document.querySelector('.codefunctionssettingsoverlay').style.animation = "swipein 0.5s ease-out";
         }
         function shownotificationmessage() {
             if (document.querySelector('.notificationmessage').style.display == "flex"){
@@ -6097,6 +6987,7 @@
             let sidebarfilelink = document.createElement('button');
             sidebarfilelink.textContent = filename;
             sidebarfilelink.innerHTML += `<div class="threedots">⋮</div>`;
+            sidebarfilelink.className = 'sidebarfilelinklink';
             sidebarfilelink.id = 'sidebarfilelinklink' + newNavDot.getAttribute('data-index');
             sidebarfilelink.setAttribute('onclick', `editthisfile(${newNavDot.getAttribute('data-index')}, event)`);
 
@@ -6205,6 +7096,7 @@
 
             let sidebarfilelink = document.createElement('button');
             sidebarfilelink.textContent = filename;
+            sidebarfilelink.className = 'sidebarfilelinklink';
             sidebarfilelink.innerHTML += `<div class="threedots">⋮</div>`;
             sidebarfilelink.id = 'sidebarfilelinklink' + newNavDot.getAttribute('data-index');
             sidebarfilelink.setAttribute('onclick', `editthisfile(${newNavDot.getAttribute('data-index')}, event)`);
@@ -6331,6 +7223,7 @@
 
             let sidebarfilelink = document.createElement('button');
             sidebarfilelink.textContent = filename;
+            sidebarfilelink.className = 'sidebarfilelinklink';
             sidebarfilelink.innerHTML += `<div class="threedots">⋮</div>`;
             sidebarfilelink.id = 'sidebarfilelinklink' + newNavDot.getAttribute('data-index');
             sidebarfilelink.setAttribute('onclick', `editthisfile(${newNavDot.getAttribute('data-index')}, event)`);
@@ -6714,6 +7607,11 @@
         }
 
         function deletethisfile(number) {
+            let sid = document.getElementById("section" + number)?.id;
+            let sidesid = sid && sid == section.id;
+            if (sidesid) {
+                document.getElementById('sidebarfilelinklink0').click();
+            }
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
                 dissolve(rectangleToDelete, 250);
@@ -6775,7 +7673,6 @@
             }
 
             let container = document.getElementById('container');
-            let sid = document.getElementById("section" + number)?.id;
             if (container) {
                 let deletethissection = container.querySelector('.section[id="section' + number + '"]');
                 if (deletethissection) {
@@ -6784,9 +7681,6 @@
                         sectionv.id = "section" + index;
                     });
                 }
-            }
-            if (document.getElementById("section" + number) && sid && sid == section.id){
-                scrollToSection(parseInt(number));
             }
         }
 
@@ -7506,10 +8400,16 @@
             if (inputvalue) {
                 const parentSection = thiselementhasthevalue.closest(".section");
                 const sectionlinecontainer = parentSection.querySelector('.code-editor-container');
-
-                const importantElements = sectionlinecontainer.querySelectorAll('.code-editor-line.importantpin');
-                const nonImportantElements = sectionlinecontainer.querySelectorAll('.code-editor-line:not(.importantpin)');
-                const combinedList = [...importantElements, ...nonImportantElements];
+                
+                let combinedList = [];
+                if (document.querySelector('.pinedlinestopsearchresult input[type="checkbox"]').checked) {
+                    const importantElements = sectionlinecontainer.querySelectorAll('.code-editor-line.importantpin');
+                    const nonImportantElements = sectionlinecontainer.querySelectorAll('.code-editor-line:not(.importantpin)');
+                    combinedList = [...importantElements, ...nonImportantElements];
+                } else {
+                    const nonImportantAndImportantElements = sectionlinecontainer.querySelectorAll('.code-editor-line');
+                    combinedList = [...nonImportantAndImportantElements];
+                }
 
                 let resultsnumber = 0;
 
@@ -7518,8 +8418,29 @@
 
                     for (let i = startIndex; i < combinedList.length; i++) {
                         const lineelement = combinedList[i];
-
-                        if (lineelement.textContent.toLowerCase().includes(inputvalue)) {
+                        let commandSearchValue = document.querySelector('.commandtosearchregex').value;
+                        let commandCheckbox = document.querySelector('.commandforregexsearch input[type="checkbox"]').checked;
+                        let inputLower = inputvalue.toLowerCase();
+                        let lineText = normalizeSpaces(lineelement.textContent.toLowerCase());
+                        
+                        let rfsregex;
+                        
+                        if (commandSearchValue.length > 0 && thiselementhasthevalue.value.trim().startsWith(commandSearchValue) && commandCheckbox) {
+                            let regexPattern = thiselementhasthevalue.value.trim().slice(commandSearchValue.length);
+                            
+                            if (regexPattern.trim()) {
+                                try {
+                                    rfsregex = new RegExp(regexPattern);
+                                } catch (e) {
+                                    let error = e;
+                                }
+                            }
+                        }
+                        
+                        let con1 = lineText.includes(inputLower);
+                        let con2 = commandSearchValue.length > 0 && thiselementhasthevalue.value.trim().startsWith(commandSearchValue) && rfsregex && rfsregex.test(lineText);
+                        
+                        if (con2 || !con2 && con1) {
                             if (resultsnumber2 >= 50) {
                                 const newcomtiniuebtn = document.createElement('button');
                                 newcomtiniuebtn.className = "comtiniueresultsbtn";
@@ -7609,6 +8530,9 @@
                     } else if (checkbox.checked == true) {
                         if(!section.classList.contains('gridenabled')){
                             section.classList.add('gridenabled');
+                            if (document.querySelector('.gridop.cyselected')){
+                                selectthisgrid(document.querySelector('.gridop.cyselected'));
+                            }
                         }
                     }
                 });
@@ -7699,6 +8623,9 @@
                     document.querySelectorAll('.section').forEach(section => {
                         if (!section.classList.contains('gridenabled')) {
                             section.classList.add('gridenabled');
+                            if (document.querySelector('.gridop.cyselected')) {
+                                selectthisgrid(document.querySelector('.gridop.cyselected'));
+                            }
                         }
                     });
                     checkbox0.checked = true;
@@ -7706,6 +8633,9 @@
                     document.querySelectorAll('.section').forEach(section => {
                         if (!section.classList.contains('gridenabled')) {
                             section.classList.add('gridenabled');
+                            if (document.querySelector('.gridop.cyselected')) {
+                                selectthisgrid(document.querySelector('.gridop.cyselected'));
+                            }
                         }
                     });
                     checkbox0.checked = true;
@@ -7798,6 +8728,9 @@
             if (isDragging) {
                 isDragging = false;
                 if (parseInt(navBar.style.height) > 75 && !section.classList.contains('viewcontainer')) {
+                    document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                        suggestioncontainerv.remove();
+                    });
                     navBar.style.height = '100dvh';
                     navBar.classList.add('expanded');
                     seccontainer.style.display = 'flex';
@@ -7837,6 +8770,9 @@
             if (isDragging) {
                 isDragging = false;
                 if (section && parseInt(navBar.style.height) > 75 && !section.classList.contains('viewcontainer')) {
+                    document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                        suggestioncontainerv.remove();
+                    });
                     navBar.style.height = '100dvh';
                     navBar.classList.add('expanded');
                     seccontainer.style.display = 'flex';
@@ -7877,6 +8813,15 @@
         let currentIndex = 0;
 
         let previoussectionfsts = section;
+        function closeseccontainer() {
+            if (section) {
+                if (navBar.classList.contains('expanded')) {
+                    navBar.style.height = '50px';
+                    navBar.classList.remove('expanded');
+                    seccontainer.style.display = 'none';
+                }
+            }
+        }
         function scrollToSection(index) {
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
@@ -7903,18 +8848,24 @@
                 if (sec.id != `section${index}`){
                     sec.style.animation = "none";
                     void sec.offsetWidth;
-                    sec.style.animation = "swipeout 0.5s ease-out";
+                    sec.style.animation = "swipeout 0.3s ease-out";
                     setTimeout(() => {
                         sec.style.display = 'none';
-                    }, 400);
+                    }, 300);
                 }
             });
+            if (document.querySelector('.sidebarfilelinklink.currentfile')){
+                document.querySelector('.sidebarfilelinklink.currentfile').classList.remove('currentfile');
+            }
+            if (document.querySelector('#sidebarfilelinklink' + index)) {
+                document.querySelector('#sidebarfilelinklink' + index).classList.add('currentfile');
+            }
             setTimeout(() => {
                 document.querySelector(`#section${index}`).style.display = 'flex';
                 document.querySelector(`#section${index}`).style.animation = "none";
                 void document.querySelector(`#section${index}`).offsetWidth;
-                document.querySelector(`#section${index}`).style.animation = "swipein 0.5s ease-out";
-            }, 400);
+                document.querySelector(`#section${index}`).style.animation = "swipein 0.3s ease-out";
+            }, 300);
         }
         function highlightDot(index) {
             navDots.forEach(dot => {
@@ -8027,19 +8978,36 @@
             lasteventsparentsection = section;
 
             if (allselectedlines.length) {
+                let ddslaltc = false;
+                if (document.querySelector('.onlydeletelinecontent input[type="checkbox"]').checked){
+                    ddslaltc = true;
+                }
                 allselectedlines.forEach(selectedline => {
-                    let pastelement = {
-                        element: selectedline,
-                        type: "delete",
-                        index: getElementIndexInParent(selectedline)
-                    };
-                    newpast.push(pastelement);
+                    if (ddslaltc == false) {
+                        let pastelement = {
+                            element: selectedline,
+                            type: "delete",
+                            index: getElementIndexInParent(selectedline)
+                        };
+                        newpast.push(pastelement);
+                    } else {
+                        let pastelement = {
+                            element: selectedline,
+                            type: "text",
+                            text: selectedline.textContent
+                        };
+                        newpast.push(pastelement);
+                    }
                     if (selectedline.previousElementSibling || selectedline.nextElementSibling){
                         let selectedlineprevioustext = selectedline.textContent;
                         selectedline.innerHTML = "";
                         addJsSyntaxHighlighting(selectedline);
                         selectedline.textContent = selectedlineprevioustext;
-                        selectedline.remove();
+                        if (ddslaltc == false) {
+                            selectedline.remove();
+                        } else {
+                            selectedline.innerHTML = "";
+                        }
                     }else {
                         selectedline.innerHTML = "";
                         selectedline.classList.remove('syntaxcomment');
@@ -8155,67 +9123,69 @@
             const allselectedlines = section.querySelectorAll(".code-editor-line.selected");
             if (allselectedlines.length) {
                 let newpast = [];
-                allselectedlines.forEach(selectedline => {
-                    const previousLine = selectedline.previousElementSibling;
-                    if (previousLine) {
-                        let pastelement = {
-                            element: selectedline,
-                            type: "delete",
-                            index: getElementIndexInParent(selectedline)
-                        };
-                        newpast.push(pastelement);
-                        selectedline.parentNode.insertBefore(selectedline, previousLine);
-                        if (previousLine.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxcomment')) {
-                            let pastelement3 = {
-                                element: previousLine,
-                                type: "addclass",
-                                text: "syntaxcomment"
+                for (i = 0; i < m__up; i++) {
+                    allselectedlines.forEach(selectedline => {
+                        const previousLine = selectedline.previousElementSibling;
+                        if (previousLine) {
+                            let pastelement = {
+                                element: selectedline,
+                                type: "delete",
+                                index: getElementIndexInParent(selectedline)
                             };
-                            newpast.push(pastelement3);
-                            previousLine.classList.remove('syntaxcomment');
-                            addJsSyntaxHighlighting(previousLine);
-                        }
-                        if (previousLine.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxhtmlcomment')) {
-                            let pastelement3 = {
-                                element: previousLine,
-                                type: "addclass",
-                                text: "syntaxcomment"
-                            };
-                            newpast.push(pastelement3);
-                            previousLine.classList.remove('syntaxhtmlcomment');
-                            addJsSyntaxHighlighting(previousLine);
-                        }
-                        if (selectedline.nextElementSibling) {
-                            if (!selectedline.nextElementSibling.classList.contains('syntaxcomment') && !previousLine.classList.contains('syntaxcomment') && selectedline.classList.contains('syntaxcomment')) {
+                            newpast.push(pastelement);
+                            selectedline.parentNode.insertBefore(selectedline, previousLine);
+                            if (previousLine.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxcomment')) {
                                 let pastelement3 = {
-                                    element: selectedline,
+                                    element: previousLine,
                                     type: "addclass",
                                     text: "syntaxcomment"
                                 };
                                 newpast.push(pastelement3);
-                                selectedline.classList.remove('syntaxcomment');
+                                previousLine.classList.remove('syntaxcomment');
                                 addJsSyntaxHighlighting(previousLine);
                             }
-                            if (!selectedline.nextElementSibling.classList.contains('syntaxcomment') && !previousLine.classList.contains('syntaxhtmlcomment') && selectedline.classList.contains('syntaxhtmlcomment')) {
+                            if (previousLine.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxhtmlcomment')) {
                                 let pastelement3 = {
-                                    element: selectedline,
+                                    element: previousLine,
                                     type: "addclass",
                                     text: "syntaxcomment"
                                 };
                                 newpast.push(pastelement3);
-                                selectedline.classList.remove('syntaxhtmlcomment');
-                                addJsSyntaxHighlighting(nextLine);
+                                previousLine.classList.remove('syntaxhtmlcomment');
+                                addJsSyntaxHighlighting(previousLine);
                             }
+                            if (selectedline.nextElementSibling) {
+                                if (!selectedline.nextElementSibling.classList.contains('syntaxcomment') && !previousLine.classList.contains('syntaxcomment') && selectedline.classList.contains('syntaxcomment')) {
+                                    let pastelement3 = {
+                                        element: selectedline,
+                                        type: "addclass",
+                                        text: "syntaxcomment"
+                                    };
+                                    newpast.push(pastelement3);
+                                    selectedline.classList.remove('syntaxcomment');
+                                    addJsSyntaxHighlighting(previousLine);
+                                }
+                                if (!selectedline.nextElementSibling.classList.contains('syntaxcomment') && !previousLine.classList.contains('syntaxhtmlcomment') && selectedline.classList.contains('syntaxhtmlcomment')) {
+                                    let pastelement3 = {
+                                        element: selectedline,
+                                        type: "addclass",
+                                        text: "syntaxcomment"
+                                    };
+                                    newpast.push(pastelement3);
+                                    selectedline.classList.remove('syntaxhtmlcomment');
+                                    addJsSyntaxHighlighting(nextLine);
+                                }
+                            }
+                            addJsSyntaxHighlighting(selectedline);
+                            let pastelement2 = {
+                                element: selectedline,
+                                type: "create",
+                                index: getElementIndexInParent(selectedline)
+                            };
+                            newpast.push(pastelement2);
                         }
-                        addJsSyntaxHighlighting(selectedline);
-                        let pastelement2 = {
-                            element: selectedline,
-                            type: "create",
-                            index: getElementIndexInParent(selectedline)
-                        };
-                        newpast.push(pastelement2);
-                    }
-                });
+                    });
+                }
                 if (newpast.length > 0) {
                     if (!pastevents[lasteventsparentsection.id]) {
                         pastevents[lasteventsparentsection.id] = [];
@@ -8232,68 +9202,70 @@
             allselectedlines.reverse();
             if (allselectedlines.length) {
                 let newpast = [];
-                allselectedlines.forEach(selectedline => {
-                    const nextLine = selectedline.nextElementSibling;
-                    if (nextLine) {
-                        let pastelement = {
-                            element: selectedline,
-                            type: "delete",
-                            index: getElementIndexInParent(selectedline)
-                        };
-                        newpast.push(pastelement);
-                        selectedline.parentNode.insertBefore(nextLine, selectedline);
-                        if (nextLine.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxcomment')){
-                            let pastelement3 = {
-                                element: nextLine,
-                                type: "addclass",
-                                text: "syntaxcomment"
+                for (i = 0; i < m__down; i++) {
+                    allselectedlines.forEach(selectedline => {
+                        const nextLine = selectedline.nextElementSibling;
+                        if (nextLine) {
+                            let pastelement = {
+                                element: selectedline,
+                                type: "delete",
+                                index: getElementIndexInParent(selectedline)
                             };
-                            newpast.push(pastelement3);
-                            nextLine.classList.remove('syntaxcomment');
-                            addJsSyntaxHighlighting(nextLine);
-                        }
-                        if (nextLine.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxhtmlcomment')) {
-                            let pastelement3 = {
-                                element: nextLine,
-                                type: "addclass",
-                                text: "syntaxcomment"
-                            };
-                            newpast.push(pastelement3);
-                            nextLine.classList.remove('syntaxhtmlcomment');
-                            addJsSyntaxHighlighting(nextLine);
-                        }
-                        
-                        if (selectedline.previousElementSibling){
-                            if (!selectedline.previousElementSibling.classList.contains('syntaxcomment') && !nextLine.classList.contains('syntaxcomment') && selectedline.classList.contains('syntaxcomment')) {
+                            newpast.push(pastelement);
+                            selectedline.parentNode.insertBefore(nextLine, selectedline);
+                            if (nextLine.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxcomment')) {
                                 let pastelement3 = {
-                                    element: selectedline,
+                                    element: nextLine,
                                     type: "addclass",
                                     text: "syntaxcomment"
                                 };
                                 newpast.push(pastelement3);
-                                selectedline.classList.remove('syntaxcomment');
+                                nextLine.classList.remove('syntaxcomment');
                                 addJsSyntaxHighlighting(nextLine);
                             }
-                            if (!selectedline.previousElementSibling.classList.contains('syntaxcomment') && !nextLine.classList.contains('syntaxhtmlcomment') && selectedline.classList.contains('syntaxhtmlcomment')) {
+                            if (nextLine.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxhtmlcomment')) {
                                 let pastelement3 = {
-                                    element: selectedline,
+                                    element: nextLine,
                                     type: "addclass",
                                     text: "syntaxcomment"
                                 };
                                 newpast.push(pastelement3);
-                                selectedline.classList.remove('syntaxhtmlcomment');
+                                nextLine.classList.remove('syntaxhtmlcomment');
                                 addJsSyntaxHighlighting(nextLine);
                             }
+                            
+                            if (selectedline.previousElementSibling) {
+                                if (!selectedline.previousElementSibling.classList.contains('syntaxcomment') && !nextLine.classList.contains('syntaxcomment') && selectedline.classList.contains('syntaxcomment')) {
+                                    let pastelement3 = {
+                                        element: selectedline,
+                                        type: "addclass",
+                                        text: "syntaxcomment"
+                                    };
+                                    newpast.push(pastelement3);
+                                    selectedline.classList.remove('syntaxcomment');
+                                    addJsSyntaxHighlighting(nextLine);
+                                }
+                                if (!selectedline.previousElementSibling.classList.contains('syntaxcomment') && !nextLine.classList.contains('syntaxhtmlcomment') && selectedline.classList.contains('syntaxhtmlcomment')) {
+                                    let pastelement3 = {
+                                        element: selectedline,
+                                        type: "addclass",
+                                        text: "syntaxcomment"
+                                    };
+                                    newpast.push(pastelement3);
+                                    selectedline.classList.remove('syntaxhtmlcomment');
+                                    addJsSyntaxHighlighting(nextLine);
+                                }
+                            }
+                            addJsSyntaxHighlighting(selectedline);
+                            let pastelement2 = {
+                                element: selectedline,
+                                type: "create",
+                                index: getElementIndexInParent(selectedline)
+                            };
+                            newpast.push(pastelement2);
                         }
-                        addJsSyntaxHighlighting(selectedline);
-                        let pastelement2 = {
-                            element: selectedline,
-                            type: "create",
-                            index: getElementIndexInParent(selectedline)
-                        };
-                        newpast.push(pastelement2);
-                    }
-                });
+                    });
+                }
                 if (newpast.length > 0) {
                     if (!pastevents[lasteventsparentsection.id]) {
                         pastevents[lasteventsparentsection.id] = [];
@@ -8404,7 +9376,11 @@
                         text: selectedline.textContent
                     };
                     newpast.push(pastelement);
-                    selectedline.textContent = "\u00A0" + selectedline.textContent;
+                    let additionalspaces = "";
+                    for (i = 0; i < m__right; i++){
+                        additionalspaces += "\u00A0";
+                    }
+                    selectedline.textContent = additionalspaces + selectedline.textContent;
                     if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
                         addJsSyntaxHighlighting(selectedline);
                     }
@@ -8434,9 +9410,13 @@
                             text: selectedline.textContent
                         };
                         newpast.push(pastelement);
-                        selectedline.textContent = selectedline.textContent.replace(/^[ \u00A0]/, '');
-                        if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
-                            addJsSyntaxHighlighting(selectedline);
+                        for (i = 0; i < m__left; i++) {
+                            if (/^[ \u00A0]/.test(selectedline.textContent)) {
+                                selectedline.textContent = selectedline.textContent.replace(/^[ \u00A0]/, '');
+                                if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
+                                    addJsSyntaxHighlighting(selectedline);
+                                }
+                            }
                         }
                         checkifselectedlines();
                     }
@@ -8450,6 +9430,298 @@
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
             }
+        }
+        
+        function addreidresulttounpinlinesmanuallyorteleport() {
+            const copypastcontainer = document.querySelector('.unpinlinesmanuallyorteleport');
+            copypastcontainer.innerHTML = "";
+            section.querySelectorAll('.importantpin').forEach(pin => {
+                addpinleidresult(pin);
+            });
+            if (!copypastcontainer.querySelector('.leidresult')) {
+                copypastcontainer.innerHTML = "no pined lines yet";
+            }
+        }
+        function addleidresulttounpinlinesmanuallyorteleport() {
+            const allselectedlines = section.querySelectorAll(".code-editor-line.disableline");
+            const copypastcontainer = document.querySelector('.enabledisabledlonesmanually');
+            copypastcontainer.innerHTML = "";
+            if (allselectedlines.length) {
+                allselectedlines.forEach(selectedline => {
+                    adddisabledleidresult(selectedline);
+                });
+            } else {
+                copypastcontainer.innerHTML = "no disabled lines yet";
+            }
+        }
+        function adddisabledleidresult(element) {
+            const copypastcontainer = document.querySelector('.enabledisabledlonesmanually');
+            if (!copypastcontainer || !element.parentElement) return;
+            if (!copypastcontainer.querySelector('.leidresult')) {
+                copypastcontainer.innerHTML = "";
+            }
+            const leidresult = document.createElement('div');
+            leidresult.className = "leidresult";
+            const leidresultspan = document.createElement('span');
+            leidresultspan.textContent = getElementIndexInParent(element) + 1 + ". " + element.textContent.trim();
+            leidresult.appendChild(leidresultspan);
+            const leidresultdiv = document.createElement('div');
+            leidresult.appendChild(leidresultdiv);
+            const leidresultbtn1 = document.createElement('button');
+            leidresultbtn1.textContent = "enable";
+            leidresultdiv.appendChild(leidresultbtn1);
+            const leidresultbtn2 = document.createElement('button');
+            leidresultbtn2.textContent = "teleport";
+            leidresultdiv.appendChild(leidresultbtn2);
+            copypastcontainer.appendChild(leidresult);
+            
+            leidresultbtn1.onclick = () => {
+                leidresult.remove();
+                element.classList.remove('disableline');
+                if (!copypastcontainer.querySelector('.leidresult')) {
+                    copypastcontainer.innerHTML = "no disabled lines yet";
+                }
+            };
+            
+            leidresultbtn2.onclick = () => {
+                if (element.parentElement) {
+                    closeeverything();
+                    closeseccontainer();
+                    scrolltolinenumber(getElementIndexInParent(element));
+                }
+            };
+        }
+        
+        function addpinleidresult(element) {
+            const copypastcontainer = document.querySelector('.unpinlinesmanuallyorteleport');
+            if (!copypastcontainer || !element.parentElement) return;
+            if (!copypastcontainer.querySelector('.leidresult')) {
+                copypastcontainer.innerHTML = "";
+            }
+            const leidresult = document.createElement('div');
+            leidresult.className = "leidresult"; 
+            const leidresultspan = document.createElement('span');
+            leidresultspan.textContent = getElementIndexInParent(element) + 1 + ". " + element.textContent.trim();
+            leidresult.appendChild(leidresultspan);
+            const leidresultdiv = document.createElement('div');
+            leidresult.appendChild(leidresultdiv);
+            const leidresultbtn1 = document.createElement('button');
+            leidresultbtn1.textContent = "unpin";
+            leidresultdiv.appendChild(leidresultbtn1);
+            const leidresultbtn2 = document.createElement('button');
+            leidresultbtn2.textContent = "teleport";
+            leidresultdiv.appendChild(leidresultbtn2);
+            copypastcontainer.appendChild(leidresult);
+            
+            leidresultbtn1.onclick = () => {
+                leidresult.remove();
+                element.classList.remove('importantpin');
+                const copypastcontainer2 = document.querySelector('.unpinlinesmanuallyorteleport');
+                if (!copypastcontainer2.querySelector('.leidresult')) {
+                    copypastcontainer2.innerHTML = "no pined lines yet";
+                }
+            };
+            
+            leidresultbtn2.onclick = () => {
+                if (element.parentElement) {
+                    closeeverything();
+                    closeseccontainer();
+                    scrolltolinenumber(getElementIndexInParent(element));
+                }
+            };
+        }
+        
+        function addleidresulttounselectlinesmanually() {
+            const allselectedlines = section.querySelectorAll(".code-editor-line.selected");
+            const copypastcontainer = document.querySelector('.unselectlinesmanually');
+            copypastcontainer.innerHTML = "";
+            if (allselectedlines.length) {
+                allselectedlines.forEach(selectedline => {
+                    addselectedleidresult(selectedline);
+                });
+            } else {
+                copypastcontainer.innerHTML = "no lines selected";
+            }
+        }
+        
+        function addselectedleidresult(element) {
+            const copypastcontainer = document.querySelector('.unselectlinesmanually');
+            if (!copypastcontainer || !element.parentElement) return;
+            if (!copypastcontainer.querySelector('.leidresult')) {
+                copypastcontainer.innerHTML = "";
+            }
+            const leidresult = document.createElement('div');
+            leidresult.className = "leidresult";
+            const leidresultspan = document.createElement('span');
+            leidresultspan.textContent = getElementIndexInParent(element) + 1 + ". " + element.textContent.trim();
+            leidresult.appendChild(leidresultspan);
+            const leidresultdiv = document.createElement('div');
+            leidresult.appendChild(leidresultdiv);
+            const leidresultbtn1 = document.createElement('button');
+            leidresultbtn1.textContent = "unselect";
+            leidresultdiv.appendChild(leidresultbtn1);
+            const leidresultbtn2 = document.createElement('button');
+            leidresultbtn2.textContent = "teleport";
+            leidresultdiv.appendChild(leidresultbtn2);
+            copypastcontainer.appendChild(leidresult);
+            
+            leidresultbtn1.onclick = () => {
+                leidresult.remove();
+                element.classList.remove('selected');
+                checkifselectedlines();
+                updateSelectedClasses();
+                const copypastcontainer2 = document.querySelector('.unselectlinesmanually');
+                if (!copypastcontainer2.querySelector('.leidresult')) {
+                    copypastcontainer2.innerHTML = "no selected lines";
+                }
+            };
+            
+            leidresultbtn2.onclick = () => {
+                if (element.parentElement) {
+                    closeeverything();
+                    closeseccontainer();
+                    scrolltolinenumber(getElementIndexInParent(element));
+                }
+            };
+        }
+        
+        function addcopyleidresult(linetexts) {
+            const copypastcontainer = document.querySelector('.copiedtexthistory');
+            if (!copypastcontainer) return;
+            if (!copypastcontainer.querySelector('.leidresult')) {
+                copypastcontainer.innerHTML = "";
+            }
+            const leidresult = document.createElement('div');
+            leidresult.className = "leidresult";
+            const leidresultspan = document.createElement('span');
+            leidresultspan.textContent = linetexts;
+            leidresult.appendChild(leidresultspan);
+            const leidresultdiv = document.createElement('div');
+            leidresult.appendChild(leidresultdiv);
+            const leidresultbtn1 = document.createElement('button');
+            leidresultbtn1.textContent = "remove";
+            leidresultdiv.appendChild(leidresultbtn1);
+            const leidresultbtn2 = document.createElement('button');
+            leidresultbtn2.textContent = "copy";
+            leidresultdiv.appendChild(leidresultbtn2);
+            copypastcontainer.appendChild(leidresult);
+            
+            leidresultbtn1.onclick = () => {
+                leidresult.remove();
+                const copypastcontainer = document.querySelector('.copiedtexthistory');
+                if (!copypastcontainer.querySelector('.leidresult')) {
+                    copypastcontainer.innerHTML = "nothing has been copied yet";
+                }
+            };
+            
+            leidresultbtn2.onclick = () => {
+                try {
+                    const newtextarea = document.createElement('textarea');
+                    newtextarea.value = linetexts;
+                    document.body.appendChild(newtextarea);
+                    newtextarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(newtextarea);
+                } catch (error) {
+                    const thiserrorwascatched = error;
+                }
+            };
+        }
+        
+        function addallselectedlinestodeleteselectedlinesmanually() {
+            const copypastcontainer = document.querySelector('.deleteselectedlinesmanually');
+            copypastcontainer.innerHTML = "no lines selected";
+            if (section.querySelector('.code-editor-line.selected')) {
+                copypastcontainer.innerHTML = "";
+            }
+            section.querySelectorAll('.code-editor-line.selected').forEach(line => {
+                adddeleteleidresult(line);
+            });
+        }
+        
+        function adddeleteleidresult(element) {
+            const copypastcontainer = document.querySelector('.deleteselectedlinesmanually');
+            if (!copypastcontainer || !element.parentElement) return;
+            const leidresult = document.createElement('div');
+            leidresult.className = "leidresult";
+            const leidresultspan = document.createElement('span');
+            leidresultspan.textContent = getElementIndexInParent(element) + 1 + ". " + element.textContent.trim();
+            leidresult.appendChild(leidresultspan);
+            const leidresultdiv = document.createElement('div');
+            leidresult.appendChild(leidresultdiv);
+            const leidresultbtn1 = document.createElement('button');
+            leidresultbtn1.textContent = "delete";
+            leidresultdiv.appendChild(leidresultbtn1);
+            const leidresultbtn2 = document.createElement('button');
+            leidresultbtn2.textContent = "teleport";
+            leidresultdiv.appendChild(leidresultbtn2);
+            copypastcontainer.appendChild(leidresult);
+            
+            leidresultbtn1.onclick = () => {
+                leidresult.remove();
+                let newpast = [];
+                lasteventsparentsection = section;
+            
+                let ddslaltc = false;
+                if (document.querySelector('.onlydeletelinecontent input[type="checkbox"]').checked) {
+                    ddslaltc = true;
+                }
+                if (ddslaltc == false) {
+                    let pastelement = {
+                        element: element,
+                        type: "delete",
+                        index: getElementIndexInParent(element)
+                    };
+                    newpast.push(pastelement);
+                } else {
+                    let pastelement = {
+                        element: element,
+                        type: "text",
+                        text: element.textContent
+                    };
+                    newpast.push(pastelement);
+                }
+                if (element.previousElementSibling || element.nextElementSibling) {
+                    let selectedlineprevioustext = element.textContent;
+                    element.innerHTML = "";
+                    addJsSyntaxHighlighting(element);
+                    element.textContent = selectedlineprevioustext;
+                    if (ddslaltc == false) {
+                        element.remove();
+                        if (!copypastcontainer.querySelector('.leidresult')){
+                            copypastcontainer.innerHTML = "no lines selected";
+                        }
+                    } else {
+                        element.innerHTML = "";
+                        if (!copypastcontainer.querySelector('.leidresult')) {
+                            copypastcontainer.innerHTML = "no lines selected";
+                        }
+                    }
+                } else {
+                    element.innerHTML = "";
+                    element.classList.remove('syntaxcomment');
+                    element.classList.remove('syntaxstring');
+                    element.classList.remove('syntaxhtmlcomment');
+                }
+                element.classList.remove('selected');
+                checkifselectedlines();
+                if (newpast.length > 0) {
+                    if (!pastevents[lasteventsparentsection.id]) {
+                        pastevents[lasteventsparentsection.id] = [];
+                    }
+                    futureevents[lasteventsparentsection.id] = [];
+                    pastevents[lasteventsparentsection.id].push(newpast);
+                    enablepastbtn();
+                }
+            };
+            
+            leidresultbtn2.onclick = () => {
+                if (element.parentElement) {
+                    closeeverything();
+                    closeseccontainer();
+                    scrolltolinenumber(getElementIndexInParent(element));
+                }
+            };
         }
 
         function copyselectedlinetexts() {
@@ -8467,6 +9739,7 @@
                     newtextarea.select();
                     document.execCommand('copy');
                     document.body.removeChild(newtextarea);
+                    addcopyleidresult(linetexts);
                 } catch (error) {
                     const thiserrorwascatched = error;
                 }
@@ -8493,10 +9766,12 @@
                     newtextarea.select();
                     document.execCommand('copy');
                     document.body.removeChild(newtextarea);
+                    if (document.querySelector('.addfullcodecopytoclipboardpast input[type="checkbox"]').checked) {
+                        addcopyleidresult(linetexts);
+                    }
                 } catch (error) {
                     const thiserrorwascatched = error;
                 }
-
                 allselectedlines.forEach(selectedline => {
                     selectedline.classList.remove('selected');
                 });
@@ -9065,211 +10340,7 @@
                     }
                 }
             }
-
-
-            const commandToSymbol = {
-                "/alert": "⚠",
-                "/arrowbottomleft": "↙",
-                "/arrowbottomright": "↘",
-                "/arrowdown": "↓",
-                "/arrowgoleft": "↤",
-                "/arrowgoright": "↦",
-                "/arrowleft": "←",
-                "/arrowright": "→",
-                "/arrowtopleft": "↖",
-                "/arrowtopright": "↗",
-                "/arrowup": "↑",
-                "/bigspark": "✶",
-                "/bottomleftedge": "◣",
-                "/bottomrightedge": "◢",
-                "/smallcheckmark": "✓",
-                "/emptycircle": "◯",
-                "/copyright": "©",
-                "/bigcross": "✘",
-                "/crossincirkle": "⊗",
-                "/crossinsquare": "⌧",
-                "/crossnotinsquare": "×",
-                "/cutoutcircle": "◌",
-                "/diamond": "◆",
-                "/emptyspark": "✧",
-                "/emptysquare": "□",
-                "/emptystar": "☆",
-                "/emptytriangleleft": "◁",
-                "/emptytriangledown": "▽",
-                "/emptytriangleright": "▷",
-                "/emptytriangletop": "△",
-                "/filledcircle": "●",
-                "/heart": "♥",
-                "/infinite": "∞",
-                "/magnifyingglass": "⌕",
-                "/minus": "−",
-                "/moonleft": "☽",
-                "/moonright": "☾",
-                "/movable": "✣",
-                "/eighthnote": "♪",
-                "/beamednote": "♫",
-                "/chordsymbol": "♬",
-                "/quarternote": "♩",
-                "/paperplane": "➤",
-                "/pencil": "✎",
-                "/plus": "+",
-                "/refreshright": "↻",
-                "/refreshleft": "↺",
-                "/registered": "®",
-                "/sidebar": "≡",
-                "/smallcross": "×",
-                "/filledspark": "✦",
-                "/filledsquare": "■",
-                "/filledstar": "★",
-                "/sun": "☼",
-                "/toprightedge": "◥",
-                "/topleftedge": "◤",
-                "/trademark": "™",
-                "/triangleleft": "◀",
-                "/triangleright": "▶",
-                "/triangledown": "▼",
-                "/triangletop": "▲",
-                "/updownleftarrow": "↵",
-            };
-
-            const shortCutCommands = {
-                "/:func": {
-                    firstpart: "function definition() {",
-                    seccondpart: "}"
-                },
-                "/:if": {
-                    firstpart: "if (condition) {",
-                    seccondpart: "}"
-                },
-                "/:for": {
-                    firstpart: "for (let i = 0; i < array.length; i++) {",
-                    seccondpart: "}"
-                },
-                "/:try": {
-                    firstpart: 'try {',
-                    seccondpart: "} catch (error) { console.error(error); }"
-                },
-                "/:div": {
-                    firstpart: '<div class="className">',
-                    seccondpart: "</div>"
-                },
-                "/:btn": {
-                    firstpart: '<button id="buttonId">',
-                    seccondpart: "</button>"
-                },
-                "/:span": {
-                    firstpart: '<span id="spanId">',
-                    seccondpart: "</span>"
-                },
-                "/:img": {
-                    firstpart: '<image src="',
-                    seccondpart: '">'
-                },
-                "/:p": {
-                    "firstpart": "<p id=\"pId\">",
-                    "seccondpart": "</p>"
-                },
-                "/:h1": {
-                    firstpart: "<h1 id=\"h1Id\">",
-                    seccondpart: "</h1>"
-                },
-                "/:h2": {
-                    firstpart: "<h2 id=\"h2Id\">",
-                    seccondpart: "</h2>"
-                },
-                "/:h3": {
-                    firstpart: "<h3 id=\"h3Id\">",
-                    seccondpart: "</h3>"
-                },
-                "/:h4": {
-                    firstpart: "<h4 id=\"h4Id\">",
-                    seccondpart: "</h4>"
-                },
-                "/:h5": {
-                    firstpart: "<h5 id=\"h5Id\">",
-                    seccondpart: "</h5>"
-                },
-                "/:h6": {
-                    firstpart: "<h6 id=\"h6Id\">",
-                    seccondpart: "</h6>"
-                },
-                "/:at": {
-                    firstpart: "<a href=\"\" id=\"aId\">",
-                    seccondpart: "</a>"
-                },
-                "/:ul": {
-                    firstpart: "<ul id=\"ulId\">",
-                    seccondpart: "</ul>"
-                },
-                "/:ol": {
-                    firstpart: "<ol id=\"olId\">",
-                    seccondpart: "</ol>"
-                },
-                "/:li": {
-                    firstpart: "<li id=\"liId\">",
-                    seccondpart: "</li>"
-                },
-                "/:table": {
-                    firstpart: "<table id=\"tableId\">",
-                    seccondpart: "</table>"
-                },
-                "/:tr": {
-                    firstpart: "<tr id=\"trId\">",
-                    seccondpart: "</tr>"
-                },
-                "/:td": {
-                    firstpart: "<td id=\"tdId\">",
-                    seccondpart: "</td>"
-                },
-                "/:th": {
-                    firstpart: "<th id=\"thId\">",
-                    seccondpart: "</th>"
-                },
-                "/:input": {
-                    firstpart: "<input type=\"",
-                    seccondpart: "\" id=\"inputId\">"
-                },
-                "/:form": {
-                    firstpart: "<form id=\"formId\">",
-                    seccondpart: "</form>"
-                },
-                "/:label": {
-                    firstpart: "<label id=\"labelId\">",
-                    seccondpart: "</label>"
-                },
-                "/:iframe": {
-                    firstpart: "<iframe src=\"\" id=\"iframeId\">",
-                    seccondpart: "</iframe>"
-                },
-                "/:nav": {
-                    firstpart: "<nav id=\"navId\">",
-                    seccondpart: "</nav>"
-                },
-                "/:header": {
-                    firstpart: "<header id=\"headerId\">",
-                    seccondpart: "</header>"
-                },
-                "/:footer": {
-                    firstpart: "<footer id=\"footerId\">",
-                    seccondpart: "</footer>"
-                },
-                "/:sec": {
-                    firstpart: "<section id=\"sectionId\">",
-                    seccondpart: "</section>"
-                },
-                "/:article": {
-                    firstpart: "<article id=\"articleId\">",
-                    seccondpart: "</article>"
-                },
-                "/:aside": {
-                    firstpart: "<aside id=\"asideId\">",
-                    seccondpart: "</aside>"
-                },
-                "/:main": {
-                    firstpart: "<main id=\"mainId\">",
-                    seccondpart: "</main>"
-                }
-            }
+            
             for (const command in commandToSymbol) {
                 const symbol = commandToSymbol[command];
                 insertClosingCharacter(command.toUpperCase(), symbol, '');
@@ -10431,147 +11502,129 @@
                 "::placeholder", "accent-color",
                 "@keyframes ", "@media", "@font-face", "@supports", "@import", "@namespace", "@container"
             ];
-
+            
             const jsKeywords = [
-                "function", "const", "let", "var", "if", "else", "return", "for", "while", "switch", "case", "break", 
-                "continue", "class", "extends", "constructor", "super", "import", "export", "default", "try", "catch", 
-                "finally", "throw", "debugger", "this", "new", "delete", "typeof", "instanceof", "in", "of", "void", 
-                "yield", "await", "async", "true", "false", "null", "undefined", "NaN", "Infinity", "eval", "arguments", 
-                "with", "eval", "alert", "confirm", "prompt", "Date", "Math", "JSON", "RegExp", "Function", "Object", 
-                "Array", "String", "Number", "Boolean", "Symbol", "Set", "Map", "WeakSet", "WeakMap", "Promise", 
-                "Iterator", "Generator", "GeneratorFunction", "Reflect", "Proxy", "Intl", "console", "document", "window",
-    
-                "getElementById", "getElementsByClassName", "getElementsByTagName", "querySelector", "querySelectorAll", 
-                "createElement", "createTextNode", "appendChild", "removeChild", "replaceChild", "insertBefore", "cloneNode", 
-                "setAttribute", "getAttribute", "removeAttribute", "hasAttribute", "focus", "blur", "scrollTo", "scrollIntoView", 
-                "addEventListener", "removeEventListener", "dispatchEvent", "setInterval", "setTimeout", "clearInterval", "clearTimeout",
-    
-                "style", "cssText", "getComputedStyle", "setProperty", "getPropertyValue", "removeProperty", "getBoundingClientRect",
-                "visibility", "display", "position", "width", "height", "margin", "padding", 
-                "border", "backgroundColor", "color", 
-                "fontSize", "fontWeight", "fontFamily", "textAlign", "textDecoration", 
-                "lineHeight", "textTransform", "borderRadius", "overflow", "zIndex", 
-                "boxShadow", "opacity", "cursor", "clipPath", "transition", 
-                "animation", "transform", "backgroundImage", "backgroundSize", 
-                "backgroundRepeat", "backgroundPosition", "borderWidth", "borderStyle", 
-                "borderColor", "outline", "outlineWidth", "outlineColor", "flex", 
-                "flexDirection", "alignItems", "justifyContent", "gap", "gridTemplateColumns", 
-                "gridTemplateRows", "gridGap", "order", "alignSelf", "overflowX", 
-                "overflowY", "whiteSpace", "wordBreak", "wordSpacing", "letterSpacing", "accentColor",
-                
-                "count", "countReset", "time", "timeLog", "timeEnd", "group", "groupEnd", "log", "debug", "warn"
-            ];
-
-            const htmlTags = [
-                "<div>", "<span>", "<input>", "<button>", "<form>", "<select>", "<option>", "<table>", "<thead>", 
-                "<tbody>", "<tr>", "<td>", "<ul>", "<ol>", "<li>", "<a>", "<p>", "<h1>", "<h2>", "<h3>", "<h4>", 
-                "<h5>", "<h6>", "<article>", "<section>", "<header>", "<footer>", "<nav>", "<aside>", "<main>", "<mark>", 
-                "<small>", "<strong>", "<em>", "<i>", "<b>", "<u>", "<code>", "<pre>", "<blockquote>", "<cite>", "<time>", 
-                "<abbr>", "<address>", "<del>", "<ins>", "<sub>", "<sup>", "<figure>", "<figcaption>", "<details>", "<summary>", 
-                "<progress>", "<meter>", "<canvas>", "<svg>", "<path>", "<g>", "<circle>", "<rect>", "<line>", "<polygon>", 
-                "<polyline>", "<text>", "<style>", "<link>", "<meta>", "<title>", "<base>", "<script>", "<noscript>", "<iframe>", 
-                "<audio>", "<video>", "<source>", "<track>", "<object>", "<param>", "<embed>", "<picture>", "<map>", "<area>", 
-                "<canvas>", "<iframe>", "<iframe>", "<svg>", "<use>", "<iframe>", "<style>", "<link>", "<input>", "<form>"
+              "await", "break", "case", "catch", "class", "const", "continue", "debugger", "default",
+              "delete", "do", "else", "enum", "export", "extends", "false", "finally", "for", "function",
+              "if", "import", "in", "instanceof", "new", "null", "return", "super", "switch", "this",
+              "throw", "true", "try", "typeof", "var", "void", "while", "with", "yield", "let", "static",
+              "implements", "interface", "package", "private", "protected", "public", "async"
             ];
             
-            const commandsice = [
-                "/ALERT",
-                "/ARROWBOTTOMLEFT",
-                "/ARROWBOTTOMRIGHT",
-                "/ARROWDOWN",
-                "/ARROWGOLEFT",
-                "/ARROWGORIGHT",
-                "/ARROWLEFT",
-                "/ARROWRIGHT",
-                "/ARROWTOPLEFT",
-                "/ARROWTOPRIGHT",
-                "/ARROWUP",
-                "/BIGSPARK",
-                "/BOTTOMLEFTEDGE",
-                "/BOTTOMRIGHTEDGE",
-                "/SMALLCHECKMARK",
-                "/EMPTYCIRCLE",
-                "/COPYRIGHT",
-                "/BIGCROSS",
-                "/CROSSINCIRKLE",
-                "/CROSSINSQUARE",
-                "/CROSSNOTINSQUARE",
-                "/CUTOUTCIRCLE",
-                "/DIAMOND",
-                "/EMPTYSPARK",
-                "/EMPTYSQUARE",
-                "/EMPTYSTAR",
-                "/EMPTYTRIANGLELEFT",
-                "/EMPTYTRIANGLEDOWN",
-                "/EMPTYTRIANGLERIGHT",
-                "/EMPTYTRIANGLETOP",
-                "/FILLEDCIRCLE",
-                "/HEART",
-                "/INFINITE",
-                "/MAGNIFYINGGLASS",
-                "/MINUS",
-                "/MOONLEFT",
-                "/MOONRIGHT",
-                "/MOVABLE",
-                "/EIGHTHNOTE",
-                "/BEAMEDNOTE",
-                "/CHORDSYMBOL",
-                "/QUARTERNOTE",
-                "/PAPERPLANE",
-                "/PENCIL",
-                "/PLUS",
-                "/REFRESHRIGHT",
-                "/REFRESHLEFT",
-                "/REGISTERED",
-                "/SIDEBAR",
-                "/SMALLCROSS",
-                "/FILLEDSPARK",
-                "/FILLEDSQUARE",
-                "/FILLEDSTAR",
-                "/SUN",
-                "/TOPRIGHTEDGE",
-                "/TOPLEFTEDGE",
-                "/TRADEMARK",
-                "/TRIANGLELEFT",
-                "/TRIANGLERIGHT",
-                "/TRIANGLEDOWN",
-                "/TRIANGLETOP",
-                "/UPDOWNLEFTARROW",
-                "/:func",
-                "/:if",
-                "/:for",
-                "/:try",
-                "/:div",
-                "/:btn",
-                "/:span",
-                "/:img",
-                "/:p",
-                "/:h1",
-                "/:h2",
-                "/:h3",
-                "/:h4",
-                "/:h5",
-                "/:h6",
-                "/:at",
-                "/:ul",
-                "/:ol",
-                "/:li",
-                "/:table",
-                "/:tr",
-                "/:td",
-                "/:th",
-                "/:input",
-                "/:form",
-                "/:label",
-                "/:iframe",
-                "/:nav",
-                "/:header",
-                "/:footer",
-                "/:sec",
-                "/:article",
-                "/:aside",
-                "/:main"
+            const supportedConsoleMethods = [
+                "count", "countReset", "time", "timeLog", "timeEnd", "group", "groupEnd", "log", "debug", "warn"
             ];
+            
+            const jsGlobals = [
+              "undefined", "NaN", "Infinity", "eval", "isFinite", "isNaN", "parseFloat", "parseInt",
+              "decodeURI", "decodeURIComponent", "encodeURI", "encodeURIComponent",
+              "Object", "Function", "Boolean", "Symbol", "Error", "EvalError", "InternalError", "RangeError",
+              "ReferenceError", "SyntaxError", "TypeError", "URIError", "Number", "BigInt", "Math", "Date",
+              "String", "RegExp", "Array", "Int8Array", "Uint8Array", "Uint8ClampedArray", "Int16Array",
+              "Uint16Array", "Int32Array", "Uint32Array", "Float32Array", "Float64Array", "BigInt64Array",
+              "BigUint64Array", "Map", "Set", "WeakMap", "WeakSet", "ArrayBuffer", "SharedArrayBuffer",
+              "Atomics", "DataView", "JSON", "Promise", "Generator", "GeneratorFunction", "AsyncFunction",
+              "Reflect", "Proxy", "Intl", "WebAssembly",
+            
+              "console", "arguments"
+            ];
+            const domAPIs = [
+              "window", "document",
+              "getElementById", "getElementsByClassName", "getElementsByTagName", "querySelector", "querySelectorAll",
+              "createElement", "createTextNode", "cloneNode",
+              "appendChild", "removeChild", "replaceChild", "insertBefore",
+              "setAttribute", "getAttribute", "removeAttribute", "hasAttribute",
+              "addEventListener", "removeEventListener", "dispatchEvent",
+              "getBoundingClientRect", "scrollTo", "scrollIntoView",
+              "focus", "blur",
+              "setTimeout", "setInterval", "clearTimeout", "clearInterval"
+            ];
+            const cssProperties = [
+              "accentColor", "alignContent", "alignItems", "alignSelf", "all", "animation", "animationDelay",
+              "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount",
+              "animationName", "animationPlayState", "animationTimingFunction", "backfaceVisibility",
+              "background", "backgroundAttachment", "backgroundBlendMode", "backgroundClip", "backgroundColor",
+              "backgroundImage", "backgroundOrigin", "backgroundPosition", "backgroundPositionX", "backgroundPositionY",
+              "backgroundRepeat", "backgroundSize", "border", "borderBottom", "borderBottomColor",
+              "borderBottomLeftRadius", "borderBottomRightRadius", "borderBottomStyle", "borderBottomWidth",
+              "borderCollapse", "borderColor", "borderImage", "borderImageOutset", "borderImageRepeat",
+              "borderImageSlice", "borderImageSource", "borderImageWidth", "borderLeft", "borderLeftColor",
+              "borderLeftStyle", "borderLeftWidth", "borderRadius", "borderRight", "borderRightColor",
+              "borderRightStyle", "borderRightWidth", "borderSpacing", "borderStyle", "borderTop",
+              "borderTopColor", "borderTopLeftRadius", "borderTopRightRadius", "borderTopStyle",
+              "borderTopWidth", "borderWidth", "bottom", "boxDecorationBreak", "boxShadow", "boxSizing",
+              "captionSide", "clear", "clip", "color", "columnCount", "columnFill", "columnGap", "columnRule",
+              "columnRuleColor", "columnRuleStyle", "columnRuleWidth", "columns", "columnSpan", "columnWidth",
+              "content", "counterIncrement", "counterReset", "cursor", "direction", "display", "emptyCells",
+              "filter", "flex", "flexBasis", "flexDirection", "flexFlow", "flexGrow", "flexShrink", "flexWrap",
+              "float", "font", "fontFamily", "fontFeatureSettings", "fontKerning", "fontSize", "fontSizeAdjust",
+              "fontStretch", "fontStyle", "fontVariant", "fontVariantCaps", "fontVariantEastAsian",
+              "fontVariantLigatures", "fontVariantNumeric", "fontWeight", "gap", "grid", "gridArea",
+              "gridAutoColumns", "gridAutoFlow", "gridAutoRows", "gridColumn", "gridColumnEnd", "gridColumnGap",
+              "gridColumnStart", "gridGap", "gridRow", "gridRowEnd", "gridRowGap", "gridRowStart", "gridTemplate",
+              "gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows", "hangingPunctuation", "height",
+              "hyphens", "imageRendering", "isolation", "justifyContent", "left", "letterSpacing", "lineHeight",
+              "listStyle", "listStyleImage", "listStylePosition", "listStyleType", "margin", "marginBottom",
+              "marginLeft", "marginRight", "marginTop", "maxHeight", "maxWidth", "minHeight", "minWidth",
+              "objectFit", "objectPosition", "opacity", "order", "outline", "outlineColor", "outlineOffset",
+              "outlineStyle", "outlineWidth", "overflow", "overflowWrap", "overflowX", "overflowY", "padding",
+              "paddingBottom", "paddingLeft", "paddingRight", "paddingTop", "pageBreakAfter", "pageBreakBefore",
+              "pageBreakInside", "perspective", "perspectiveOrigin", "pointerEvents", "position", "quotes",
+              "resize", "right", "scrollBehavior", "tableLayout", "textAlign", "textAlignLast", "textDecoration",
+              "textDecorationColor", "textDecorationLine", "textDecorationStyle", "textIndent", "textJustify",
+              "textOverflow", "textShadow", "textTransform", "top", "transform", "transformOrigin",
+              "transformStyle", "transition", "transitionDelay", "transitionDuration", "transitionProperty",
+              "transitionTimingFunction", "unicodeBidi", "userSelect", "verticalAlign", "visibility",
+              "whiteSpace", "width", "wordBreak", "wordSpacing", "wordWrap", "writingMode", "zIndex"
+            ];
+            const vendorCSSProperties = [
+              "WebkitAlignContent", "WebkitAlignItems", "WebkitAlignSelf", "WebkitAnimation", "WebkitAnimationDelay",
+              "WebkitAnimationDirection", "WebkitAnimationDuration", "WebkitAnimationFillMode",
+              "WebkitAnimationIterationCount", "WebkitAnimationName", "WebkitAnimationPlayState",
+              "WebkitAnimationTimingFunction", "WebkitAppearance", "WebkitBackfaceVisibility", "WebkitBackgroundClip",
+              "WebkitBackgroundOrigin", "WebkitBackgroundSize", "WebkitBorderBottomLeftRadius",
+              "WebkitBorderBottomRightRadius", "WebkitBorderRadius", "WebkitBorderTopLeftRadius",
+              "WebkitBorderTopRightRadius", "WebkitBoxShadow", "WebkitBoxSizing", "WebkitFilter", "WebkitFlex",
+              "WebkitFlexBasis", "WebkitFlexDirection", "WebkitFlexFlow", "WebkitFlexGrow", "WebkitFlexShrink",
+              "WebkitFlexWrap", "WebkitJustifyContent", "WebkitOrder", "WebkitPerspective", "WebkitPerspectiveOrigin",
+              "WebkitTransform", "WebkitTransformOrigin", "WebkitTransformStyle", "WebkitTransition",
+              "WebkitTransitionDelay", "WebkitTransitionDuration", "WebkitTransitionProperty", "WebkitTransitionTimingFunction",
+              "MozAnimation", "MozAnimationDelay", "MozAnimationDirection", "MozAnimationDuration", "MozAnimationFillMode",
+              "MozAnimationIterationCount", "MozAnimationName", "MozAnimationPlayState", "MozAnimationTimingFunction",
+              "MozAppearance", "MozBoxShadow", "MozBoxSizing", "MozFlex", "MozFlexBasis", "MozFlexDirection", "MozFlexFlow",
+              "MozFlexGrow", "MozFlexShrink", "MozFlexWrap", "MozJustifyContent", "MozOrder", "MozPerspective",
+              "MozPerspectiveOrigin", "MozTransform", "MozTransformOrigin", "MozTransformStyle", "MozTransition",
+              "MozTransitionDelay", "MozTransitionDuration", "MozTransitionProperty", "MozTransitionTimingFunction",
+              "msFlex", "msFlexDirection", "msFlexFlow", "msFlexGrow", "msFlexShrink", "msFlexWrap", "msGridColumns",
+              "msGridRows", "msGridColumn", "msGridColumnAlign", "msGridColumnSpan", "msGridRow", "msGridRowAlign",
+              "msGridRowSpan", "msGridRowOverflow", "msGridColumnOverflow", "msTransform", "msTransformOrigin",
+              "msTransition", "msTransitionDelay", "msTransitionDuration", "msTransitionProperty", "msTransitionTimingFunction",
+              "OAnimation", "OAnimationDelay", "OAnimationDirection", "OAnimationDuration", "OAnimationFillMode",
+              "OAnimationIterationCount", "OAnimationName", "OAnimationPlayState", "OAnimationTimingFunction",
+              "OTransition", "OTransitionDelay", "OTransitionDuration", "OTransitionProperty", "OTransitionTimingFunction"
+            ];
+            const jsSyntax = [
+              ...jsKeywords,
+              ...supportedConsoleMethods,
+              ...jsGlobals,
+              ...domAPIs,
+              ...cssProperties,
+              ...vendorCSSProperties
+            ];
+            
+            const htmlTags = [
+                "<div>", "<span>", "<input>", "<button>", "<form>", "<select>", "<option>", "<table>", "<thead>",  
+                "<tbody>", "<tr>", "<td>", "<ul>", "<ol>", "<li>", "<a>", "<p>", "<h1>", "<h2>", "<h3>", "<h4>",  
+                "<h5>", "<h6>", "<article>", "<section>", "<header>", "<footer>", "<nav>", "<aside>", "<main>", "<mark>",  
+                "<small>", "<strong>", "<em>", "<i>", "<b>", "<u>", "<code>", "<pre>", "<blockquote>", "<cite>", "<time>",  
+                "<abbr>", "<address>", "<del>", "<ins>", "<sub>", "<sup>", "<figure>", "<figcaption>", "<details>", "<summary>",  
+                "<progress>", "<meter>", "<canvas>", "<svg>", "<path>", "<g>", "<circle>", "<rect>", "<line>", "<polygon>",  
+                "<polyline>", "<text>", "<style>", "<link>", "<meta>", "<title>", "<base>", "<script>", "<noscript>", "<iframe>",  
+                "<audio>", "<video>", "<source>", "<track>", "<object>", "<param>", "<embed>", "<picture>", "<map>", "<area>",  
+                "<use>"
+            ];
+            
+            const commandsice = [...Object.keys(commandToSymbol), ...Object.keys(shortCutCommands)];
 
             const uniquevalues = extractUniqueValues(inputElement.parentElement.textContent);
 
@@ -10582,9 +11635,9 @@
                 allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
             }
             
-            const suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywordsAndProperties, ...jsKeywords, ...htmlTags];
+            const suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywordsAndProperties, ...jsSyntax, ...htmlTags];
             
-            if (inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked) {
+            if (inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked && document.querySelector('.commandassuggestion input[type="checkbox"]')?.checked) {
                 suggestionsList.push(...commandsice);
             }
 
