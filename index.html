@@ -5654,7 +5654,6 @@
         
             const overlay = document.createElement("div");
             overlay.className = "overlay";
-            document.body.appendChild(overlay);
         
             const container = document.createElement("div");
             container.className = "options-container";
@@ -5861,6 +5860,7 @@
         
             const targetRect = targetElement.getBoundingClientRect();
             setTimeout(() => {
+                document.body.appendChild(overlay);
                 container.style.position = "absolute";
                 container.style.top = `${targetRect.bottom + 5}px`;
                 adjustElementPosition(container);
