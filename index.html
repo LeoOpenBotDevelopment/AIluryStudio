@@ -9536,6 +9536,7 @@
             leidresultbtn1.onclick = () => {
                 leidresult.remove();
                 element.classList.remove('importantpin');
+                updateimportantpinClasses();
                 const copypastcontainer2 = document.querySelector('.unpinlinesmanuallyorteleport');
                 if (!copypastcontainer2.querySelector('.leidresult')) {
                     copypastcontainer2.innerHTML = "no pined lines yet";
