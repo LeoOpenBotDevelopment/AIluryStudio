@@ -11322,6 +11322,7 @@
         }
         
         function updateSelectedClasses() {
+            updateimportantpinClasses();
             const lines = section.querySelectorAll('.code-editor-line');
             
             if (!section.querySelectorAll('.code-editor-line.selected')){
@@ -11380,7 +11381,7 @@
                 return;
             }
             
-            let allselectedlines = section.querySelectorAll('.code-editor-line.selected');
+            let allselectedlines = section.querySelectorAll('.code-editor-line.importantpin');
 
             allselectedlines.forEach(line => {
                 let index = getElementIndexInParent(line);
