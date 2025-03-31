@@ -1268,9 +1268,20 @@
            transition: 0.3s;
         }
         .sidebarenabled .overlay-container {
-            width: 70vw;
+            position: fixed;
+            top: 0;
             left: 30vw;
             right: 0;
+            width: 70vw;
+            height: 100dvh;
+            background-color: rgba(0, 0, 0, 0);
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 1000;
+            animation: swipein 0.5s;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
         }
         .content-container {
             border: 1px solid var(--rectangleborder);
@@ -1294,7 +1305,6 @@
 
         .sidebarenabled .content-container{
             width: 70vw;
-            height: 100dvh;
             grid-template-columns: repeat(2, 1fr);
             overflow-y: auto;
             right: 0;
