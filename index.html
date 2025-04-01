@@ -6018,6 +6018,9 @@
             const alpha = document.getElementById('gridColorAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
             themetoedit.style.setProperty('--griddot-color', rgba);
+            if (document.querySelector('.gridop.cyselected')) {
+                selectthisgrid(document.querySelector('.gridop.cyselected'));
+            }
             generateCustomThemeCode();
         }
         function updatesyntaxhtmltagcontentcolor() {
