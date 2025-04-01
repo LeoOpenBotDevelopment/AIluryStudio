@@ -10492,10 +10492,24 @@
                             span.textContent = match[0];
                             span.className = className;
                             if (className == "syntaxhex"){
+                                function expandHex(shortHex) {
+                                    shortHexR = shortHex.replace(/^#/, '');
+                                    if (shortHexR.length !== 3) {
+                                        return shortHex;
+                                    }
+                                    const fullHex = shortHexR.split('').map(char => char + char).join('');
+                                    
+                                    return `#${fullHex}`;
+                                }
+                                const spanspan = document.createElement('span');
+                                spanspan.className = "ajshspanspan";
+                                spanspan.textContent = match[0];
                                 const colorInput = document.createElement('input');
                                 colorInput.type = 'color';
-                                colorInput.value = span.textContent;
+                                colorInput.value = expandHex(span.textContent);
                                 colorInput.className = "syntaxcolorinput";
+                                span.textContent = "";
+                                span.appendChild(spanspan);
                                 function colorinputoninput(colorInput) {
                                     if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
                                         let newpast = [];
@@ -10506,6 +10520,7 @@
                                         };
                                         newpast.push(pastelement);
                                         if (newpast.length > 0) {
+                                            updatepast();
                                             if (!pastevents[lasteventsparentsection.id]) {
                                                 pastevents[lasteventsparentsection.id] = [];
                                             }
@@ -10513,15 +10528,7 @@
                                             enablepastbtn();
                                         }
                                     }
-                                    span.textContent = colorInput.value;
-                                    const colorInput2 = document.createElement('input');
-                                    colorInput2.type = 'color';
-                                    colorInput2.className = "syntaxcolorinput";
-                                    colorInput2.value = span.textContent;
-                                    colorInput2.addEventListener('input', (event) => {
-                                        colorinputoninput(colorInput2);
-                                    });
-                                    span.appendChild(colorInput2);
+                                    spanspan.textContent = colorInput.value;
                                 }
                                 colorInput.addEventListener('input', (event) => {
                                     colorinputoninput(colorInput);
