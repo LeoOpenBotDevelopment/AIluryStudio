@@ -3443,7 +3443,7 @@
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
-                            <input type="checkbox" class="switchbox" data-update-class="gridenabled" onchange="updategridenabledordisabledcheckbox(this)" checked>
+                            <input type="checkbox" class="switchbox" data-update-class="gridenabled" onchange="updategridenabledordisabledcheckbox(this)" id="enablegridcheckbox" checked>
                             <span class="slider"></span>
                         </label> <div class="symbolspancontainer"> grid <button class="cldeeditfunctionsettings" onclick="openfunctionsettings('grid')">></button></div>
                     </div>
@@ -6018,7 +6018,7 @@
             const alpha = document.getElementById('gridColorAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
             themetoedit.style.setProperty('--griddot-color', rgba);
-            if (document.querySelector('.gridop.cyselected')) {
+            if (document.querySelector('.gridop.cyselected') && document.getElementById('enablegridcheckbox').checked) {
                 selectthisgrid(document.querySelector('.gridop.cyselected'));
             }
             generateCustomThemeCode();
