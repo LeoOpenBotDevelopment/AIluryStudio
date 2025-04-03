@@ -2493,7 +2493,7 @@
         .testregexcontainer input:focus, .testregexcontainer textarea:focus, .replacecontainer input:focus {
             outline: none;
         }
-        .testregexcontainer #testButton, .testregexcontainer #useButton, .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn {
+        .testregexcontainer #testButton, .testregexcontainer #useButton, .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn, .codefunctionssettingscontainer #clearpasttoundobtn {
             padding: 12px 20px;
             font-size: 16px;
             color: var(--black-color);
@@ -2608,7 +2608,7 @@
                 font-size: 1em;
             }
         }
-        #functionsbbdbdb span{
+        #functionsbbdbdb span, #nontotfunctionbtn span{
             margin-right: 10px;
         }
         #timeline-container {
@@ -3166,6 +3166,10 @@
         .sidebarfilelinklink.currentfile .threedots {
             color: var(--black-color);
         }
+        .showfilesettingsbtn.disabledbtn {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -3180,6 +3184,9 @@
                 <button onclick="showthemeoverlay()">theme</button>
             </div>
             <h3>functions</h3>
+            <div class="sidebarbardivbuttondiv">
+                <button onclick="togglefilesettings()" class="showfilesettingsbtn" id="nontotfunctionbtn"><span>✎</span>file settings</button>
+            </div>
             <div class="sidebarbardivbuttondiv">
                 <button id="functionsbbdbdb" class="toggletimelinebtn" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
                 <button id="functionsbbdbdb" class="consoletogglebtn Active" onclick="toggleConsole(this)"><span>▷</span>console</button>
@@ -3333,6 +3340,12 @@
                     </div>
                 </div>
                 <div class="seccontainer-line-container">
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="switchbox" data-checked="pastbtn" onchange="updatecheckboxed(this)" checked>
+                            <span class="slider"></span>
+                        </label> <div class="symbolspancontainer"><button class="Symbol-Span">↺</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('undo')">></button></div>
+                    </div>
                     <div class="seccontainer-line">
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-checked="copybtn" onchange="updatecheckboxed(this)" checked>
@@ -3995,6 +4008,14 @@
                         <div class="cfscscenable cfscscdisable cfscscf enabledisabledlonesmanually">
                             no disabled lines yet
                         </div>
+                        <div class="cfscscundo cfscscf undoanimation">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="undoanimation" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname">undo button animation</span>
+                        </div>
+                        <button class="cfscscundo cfscscf clearpasttoundobtn" id="clearpasttoundobtn" onclick="clearpasttoundo()">clear file past</button>
                     </div>
                 </div>
             </div>
@@ -4539,6 +4560,10 @@
             "grid": {
                 title: "grid",
                 description: "add a grid to the background."
+            },
+            "undo": {
+                title: "undo",
+                description: "undo changes in your file."
             }
         };
         
@@ -4619,7 +4644,8 @@
                     "addcommandbtn",
                     "createshortcutcontainer",
                     "addshortcutbtn",
-                    "createcommandcontainer"
+                    "createcommandcontainer",
+                    "clearpasttoundobtn"
                 ];
                 
                 if (!excludedClasses.some(cls => element.classList.contains(cls))) {
@@ -5032,19 +5058,21 @@
         
         function showtimelinecontainer() {
             closeeverything();
-            document.getElementById('timeline-container').style.display = 'block';
-            document.getElementById('timeline-container').style.animation = "none";
-            void document.getElementById('timeline-container').offsetWidth; // Trigger reflow
-            document.getElementById('timeline-container').style.animation = "fadeIn 1s ease-out";
+            const timelinecontainer = document.getElementById('timeline-container');
+            timelinecontainer.style.display = 'block';
+            timelinecontainer.style.animation = "none";
+            void timelinecontainer.offsetWidth; // Trigger reflow
+            timelinecontainer.style.animation = "fadeIn 1s ease-out";
         }
         
         function hidetimelinecontainer() {
-            document.getElementById('timeline-container').style.animation = "none";
-            void document.getElementById('timeline-container').offsetWidth; // Trigger reflow
-            document.getElementById('timeline-container').style.animation = "fadeOut 1s ease-out";
+            const timelinecontainer = document.getElementById('timeline-container');
+            timelinecontainer.style.animation = "none";
+            void timelinecontainer.offsetWidth; // Trigger reflow
+            timelinecontainer.style.animation = "fadeOut 1s ease-out";
             
             setTimeout(() => {
-                document.getElementById('timeline-container').style.display = 'none';
+                timelinecontainer.style.display = 'none';
                 stopTimeline();
             }, 1000);
         }
@@ -5287,14 +5315,17 @@
         document.getElementById('testButton').onclick = testRegex;
 
         function gobackrotateanimation(deletebtnnnn) {
+            if (document.querySelector('.undoanimation input[type="checkbox"]').checked == false) {
+                return;
+            }
             const initialsign = deletebtnnnn.textContent;
             deletebtnnnn.style.animation = "none";
             void deletebtnnnn.offsetWidth;
-            deletebtnnnn.style.animation = "rotatesignleft 0.5s ease-out";
+            deletebtnnnn.style.animation = "rotatesignleft 0.4s ease-out";
             deletebtnnnn.disabled = true;
             setTimeout(() => {
                 deletebtnnnn.disabled = false;
-            }, 500);
+            }, 400);
         }
         let lasteventsparentsection = document.getElementById('section0');
         let pastevents = {};
@@ -6455,134 +6486,106 @@
                 }
             }
         });
-
-
+        
+        function hideelementwithswipe(relement) {
+            if (relement.style.display == "none") {
+                return;
+            }
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            relement.style.animation = "swipeout 0.5s ease-out";
+            setTimeout(() => {
+                relement.style.display = "none";
+            }, 500);
+        }
+        
+         function showelementwithswipe(relement) {
+            if (relement.style.display == "flex"){
+                return;
+            }
+            relement.style.display = "flex";
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            relement.style.animation = "swipein 0.5s ease-out";
+        }
+        
         function showcommandoverlay() {
-            document.querySelector('.commandsoverlay-container').style.display = "flex";
-            document.querySelector('.commandsoverlay-container').style.animation = "none";
-            void document.querySelector('.commandsoverlay-container').offsetWidth;
-            document.querySelector('.commandsoverlay-container').style.animation = "swipein 0.5s ease-out";
+            const sohcommandsoverlaycontainer = document.querySelector('.commandsoverlay-container');
+            showelementwithswipe(sohcommandsoverlaycontainer);
         }
         function hidecommandoverlay() {
-            document.querySelector('.commandsoverlay-container').style.animation = "none";
-            void document.querySelector('.commandsoverlay-container').offsetWidth;
-            document.querySelector('.commandsoverlay-container').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('.commandsoverlay-container').style.display = "none";
-            }, 500);
+            const sohcommandsoverlaycontainer = document.querySelector('.commandsoverlay-container');
+            hideelementwithswipe(sohcommandsoverlaycontainer);
         }
         function hidecodefunctionssettingsoverlay() {
-            document.querySelector('.codefunctionssettingsoverlay').style.animation = "none";
-            void document.querySelector('.codefunctionssettingsoverlay').offsetWidth;
-            document.querySelector('.codefunctionssettingsoverlay').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('.codefunctionssettingsoverlay').style.display = "none";
-            }, 500);
+            const sohcodefunctionssettingsoverlay = document.querySelector('.codefunctionssettingsoverlay');
+            hideelementwithswipe(sohcodefunctionssettingsoverlay);
         }
         function showcodefunctionssettingsoverlay() {
-            document.querySelector('.codefunctionssettingsoverlay').style.display = "flex";
-            document.querySelector('.codefunctionssettingsoverlay').style.animation = "none";
-            void document.querySelector('.codefunctionssettingsoverlay').offsetWidth;
-            document.querySelector('.codefunctionssettingsoverlay').style.animation = "swipein 0.5s ease-out";
+            const sohcodefunctionssettingsoverlay = document.querySelector('.codefunctionssettingsoverlay');
+            showelementwithswipe(sohcodefunctionssettingsoverlay);
         }
         function shownotificationmessage() {
-            if (document.querySelector('.notificationmessage').style.display == "flex"){
+            const sohnotificationmessage = document.querySelector('.notificationmessage');
+            if (sohnotificationmessage.style.display == "flex"){
                 return;
             }
-            document.querySelector('.notificationmessage').style.display = "flex";
-            document.querySelector('.notificationmessage').style.animation = "none";
-            void document.querySelector('.notificationmessage').offsetWidth;
-            document.querySelector('.notificationmessage').style.animation = "shownotifucationmessageanimation 0.5s ease-out";
+            sohnotificationmessage.style.display = "flex";
+            sohnotificationmessage.style.animation = "none";
+            void sohnotificationmessage.offsetWidth;
+            sohnotificationmessage.style.animation = "shownotifucationmessageanimation 0.5s ease-out";
         }
         function hidenotificationmessage() {
-            if (document.querySelector('.notificationmessage').style.animation == "hidenotifucationmessageanimation 0.5s ease-out"){
+            const sohnotificationmessage = document.querySelector('.notificationmessage');
+            if (sohnotificationmessage.style.animation == "hidenotifucationmessageanimation 0.5s ease-out"){
                 return;
             }
-            document.querySelector('.notificationmessage').style.animation = "none";
-            void document.querySelector('.notificationmessage').offsetWidth;
-            document.querySelector('.notificationmessage').style.animation = "hidenotifucationmessageanimation 0.5s ease-out";
+            sohnotificationmessage.style.animation = "none";
+            void sohnotificationmessage.offsetWidth;
+            sohnotificationmessage.style.animation = "hidenotifucationmessageanimation 0.5s ease-out";
             setTimeout(() => {
-                document.querySelector('.notificationmessage').style.display = "none";
+                sohnotificationmessage.style.display = "none";
             }, 500);
         }
         function showtestregexoverlay() {
-            document.querySelector('#testregexoverlay').style.display = "flex";
-            document.querySelector('#testregexoverlay').style.animation = "none";
-            void document.querySelector('#testregexoverlay').offsetWidth;
-            document.querySelector('#testregexoverlay').style.animation = "swipein 0.5s ease-out";
+            const sohtestregexoverlay = document.querySelector('#testregexoverlay');
+            showelementwithswipe(sohtestregexoverlay);
         }
         function hidetestregexoverlay() {
-            document.querySelector('#testregexoverlay').style.animation = "none";
-            void document.querySelector('#testregexoverlay').offsetWidth;
-            document.querySelector('#testregexoverlay').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('#testregexoverlay').style.display = "none";
-            }, 500);
+            const sohtestregexoverlay = document.querySelector('#testregexoverlay');
+            hideelementwithswipe(sohtestregexoverlay);
         }
         function showsignexplenationoverlay() {
-            document.querySelector('.singsoverlay-container').style.display = "flex";
-            document.querySelector('.singsoverlay-container').style.animation = "none";
-            void document.querySelector('.singsoverlay-container').offsetWidth;
-            document.querySelector('.singsoverlay-container').style.animation = "swipein 0.5s ease-out";
+            const sohsingsoverlaycontainer = document.querySelector('.singsoverlay-container');
+            showelementwithswipe(sohsingsoverlaycontainer);
         }
         function hidesignexplenationoverlay() {
-            document.querySelector('.singsoverlay-container').style.animation = "none";
-            void document.querySelector('.singsoverlay-container').offsetWidth;
-            document.querySelector('.singsoverlay-container').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('.singsoverlay-container').style.display = "none";
-            }, 500);
+            const sohsingsoverlaycontainer = document.querySelector('.singsoverlay-container');
+            hideelementwithswipe(sohsingsoverlaycontainer);
         }
         function showthemeoverlay() {
-            if (document.querySelector('.theme-overlay').style.display == "flex"){
-                return;
-            }
-            document.querySelector('.theme-overlay').style.display = "flex";
-            document.querySelector('.theme-overlay').style.animation = "none";
-            void document.querySelector('.theme-overlay').offsetWidth;
-            document.querySelector('.theme-overlay').style.animation = "swipein 0.5s ease-out";
+            const sohthemeoverlay = document.querySelector('.theme-overlay');
+            showelementwithswipe(sohthemeoverlay);
         }
         function hidethemeoverlay() {
-            document.querySelector('.theme-overlay').style.animation = "none";
-            void document.querySelector('.theme-overlay').offsetWidth;
-            document.querySelector('.theme-overlay').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('.theme-overlay').style.display = "none";
-            }, 500);
+            const sohthemeoverlay = document.querySelector('.theme-overlay');
+            hideelementwithswipe(sohthemeoverlay);
         }
         function showconsoleconteiner() {
-            if (document.querySelector('.consoleconteiner').style.display == "flex"){
-                return;
-            }
-            document.querySelector('.consoleconteiner').style.display = "flex";
-            document.querySelector('.consoleconteiner').style.animation = "none";
-            void document.querySelector('.consoleconteiner').offsetWidth;
-            document.querySelector('.consoleconteiner').style.animation = "swipein 0.5s ease-out";
+            const sohconsoleconteiner = document.querySelector('.consoleconteiner');
+            showelementwithswipe(sohconsoleconteiner);
         }
         function hideconsoleconteiner() {
-            document.querySelector('.consoleconteiner').style.animation = "none";
-            void document.querySelector('.consoleconteiner').offsetWidth;
-            document.querySelector('.consoleconteiner').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('.consoleconteiner').style.display = "none";
-            }, 500);
+            const sohconsoleconteiner = document.querySelector('.consoleconteiner');
+            hideelementwithswipe(sohconsoleconteiner);
         }
         function showreplaceoverlay() {
-            if (document.querySelector('.replaceoverlay').style.display == "flex"){
-                return;
-            }
-            document.querySelector('.replaceoverlay').style.display = "flex";
-            document.querySelector('.replaceoverlay').style.animation = "none";
-            void document.querySelector('.replaceoverlay').offsetWidth;
-            document.querySelector('.replaceoverlay').style.animation = "swipein 0.5s ease-out";
+            const sohreplaceoverlay = document.querySelector('.replaceoverlay');
+            showelementwithswipe(sohreplaceoverlay);
         }
         function hidereplaceoverlay() {
-            document.querySelector('.replaceoverlay').style.animation = "none";
-            void document.querySelector('.replaceoverlay').offsetWidth;
-            document.querySelector('.replaceoverlay').style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
-                document.querySelector('.replaceoverlay').style.display = "none";
-            }, 500);
+            const sohreplaceoverlay = document.querySelector('.replaceoverlay');
+            hideelementwithswipe(sohreplaceoverlay);
         }
         const overlay = document.getElementById('custom-overlay');
         const messageBox = document.getElementById('custom-message');
@@ -7471,18 +7474,20 @@
                 return;
             }
             if (type == 'class'){
-                document.querySelector('.' + name).style.animation = "none";
-                void document.querySelector('.' + name).offsetWidth;
-                document.querySelector('.' + name).style.animation = "swipeout 0.5s ease-out";
+                const ewcname = document.querySelector('.' + name);
+                ewcname.style.animation = "none";
+                void ewcname.offsetWidth;
+                ewcname.style.animation = "swipeout 0.5s ease-out";
                 setTimeout(() => {
-                    document.querySelector('.' + name).style.display = 'none';
+                    ewcname.style.display = 'none';
                 }, 500);
             }else if (type == 'id'){
-                document.querySelector('#' + name).style.animation = "none";
-                void document.querySelector('#' + name).offsetWidth;
-                document.querySelector('#' + name).style.animation = "swipeout 0.5s ease-out";
+                const ewidname = document.getElementById(name);
+                ewidname.style.animation = "none";
+                void ewidname.offsetWidth;
+                ewidname.style.animation = "swipeout 0.5s ease-out";
                 setTimeout(() => {
-                    document.querySelector('#' + name).style.display = 'none';
+                    ewidname.style.display = 'none';
                 }, 500);
             }
         }
@@ -7493,6 +7498,21 @@
         let section = document.getElementById('section0');
         let sectionindex = 0;
         let inputDiv = section.querySelector('.code-editor-container');
+        
+        function clearpasttoundo() {
+            if (pastevents[section.id]) {
+                delete pastevents[section.id];
+                const steps = [
+                    { percent: 0, text: 'deleting past' },
+                    { percent: 90, text: 'past deleted' },
+                    { percent: 100, text: 'Clearing complete' },
+                ];
+                startLoadingThis(steps, 'getting past');
+                disablepastbtn();
+            }else {
+                showAlert('this file does not have a past');
+            }
+        }
         
         function replacetext(replacethis, replacement) {
             let replacementtext = document.getElementById(replacement)?.value || "";
@@ -8745,42 +8765,59 @@
                 navBar.style.height = `${newHeight}dvh`;
             }
         });
+        
+        function togglefilesettings() {
+            if (navBar.classList.contains('expanded')) {
+                closeseccontainer();
+            }else {
+                showfilesettings();
+            }
+        }
+        
+        function showfilesettings() {
+            if (section && section.classList.contains('viewcontainer')) {
+                return;
+            }
+            closeeverything();
+            document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                suggestioncontainerv.remove();
+            });
+            navBar.style.height = '100dvh';
+            navBar.classList.add('expanded');
+            navBar.style.overflow = "hidden";
+            seccontainer.style.display = 'flex';
+            if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
+                seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
+                if (filetype) {
+                    let filetypes = {
+                        "html": "HyperText Markup Language",
+                        "css": "Cascading Style Sheets",
+                        "jsx": "JavaScript XML",
+                        "tsx": "TypeScript XML",
+                        "json": "JavaScript Object Notation",
+                        "txt": "Text File",
+                        "js": "JavaScript",
+                        "htm": "HyperText Markup"
+                    };
+                    
+                    let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
+                    
+                    if (filetypes[extension]) {
+                        seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
+                    } else {
+                        seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
+                    }
+                }
+            }
+        }
 
         const seccontainer = document.querySelector('.seccontainer');
         window.addEventListener('mouseup', () => {
             if (isDragging) {
                 isDragging = false;
                 if (parseInt(navBar.style.height) > 75 && !section.classList.contains('viewcontainer')) {
-                    document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
-                        suggestioncontainerv.remove();
-                    });
-                    navBar.style.height = '100dvh';
-                    navBar.classList.add('expanded');
-                    seccontainer.style.display = 'flex';
-                    if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
-                        seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
-                        let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
-                        if (filetype) {
-                            let filetypes = {
-                                "html": "HyperText Markup Language",
-                                "css": "Cascading Style Sheets",
-                                "jsx": "JavaScript XML",
-                                "tsx": "TypeScript XML",
-                                "json": "JavaScript Object Notation",
-                                "txt": "Text File",
-                                "js": "JavaScript",
-                                "htm": "HyperText Markup"
-                            };
-                        
-                            let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
-                        
-                            if (filetypes[extension]) {
-                                seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
-                            } else {
-                                seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
-                            }
-                        }
-                    }
+                    showfilesettings();
                 } else {
                     navBar.style.height = '50px';
                     navBar.classList.remove('expanded');
@@ -8793,36 +8830,7 @@
             if (isDragging) {
                 isDragging = false;
                 if (section && parseInt(navBar.style.height) > 75 && !section.classList.contains('viewcontainer')) {
-                    document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
-                        suggestioncontainerv.remove();
-                    });
-                    navBar.style.height = '100dvh';
-                    navBar.classList.add('expanded');
-                    seccontainer.style.display = 'flex';
-                    if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
-                        seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
-                        let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
-                        if (filetype) {
-                            let filetypes = {
-                                "html": "HyperText Markup Language",
-                                "css": "Cascading Style Sheets",
-                                "jsx": "JavaScript XML",
-                                "tsx": "TypeScript XML",
-                                "json": "JavaScript Object Notation",
-                                "txt": "Text File",
-                                "js": "JavaScript",
-                                "htm": "HyperText Markup"
-                            };
-                        
-                            let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
-                        
-                            if (filetypes[extension]) {
-                                seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
-                            } else {
-                                seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
-                            }
-                        }
-                    }
+                    showfilesettings();
                 } else {
                     navBar.style.height = '50px';
                     navBar.classList.remove('expanded');
@@ -8842,6 +8850,8 @@
                     navBar.style.height = '50px';
                     navBar.classList.remove('expanded');
                     seccontainer.style.display = 'none';
+                    navBar.style.overflow = "scroll";
+                    navBar.style.overflowY = "hidden";
                 }
             }
         }
@@ -8853,15 +8863,6 @@
                 suggestioncontainerv.remove();
             });
             lasteventsparentsection = document.getElementById('section' + index);
-            if (section){
-                if (section.classList.contains('viewcontainer')){
-                    if (navBar.classList.contains('expanded')) {
-                        navBar.style.height = '50px';
-                        navBar.classList.remove('expanded');
-                        seccontainer.style.display = 'none';
-                    }
-                }
-            }
 
             const codesearchresults = document.querySelector('.codesearchresults');
             codesearchresults.style.display = "none";
@@ -8877,6 +8878,11 @@
                     }, 300);
                 }
             });
+            if (section.classList.contains('viewcontainer')) {
+                document.querySelector('.showfilesettingsbtn').classList.add('disabledbtn');
+            }else {
+                document.querySelector('.showfilesettingsbtn').classList.remove('disabledbtn');
+            }
             if (document.querySelector('.sidebarfilelinklink.currentfile')){
                 document.querySelector('.sidebarfilelinklink.currentfile').classList.remove('currentfile');
             }
@@ -8908,11 +8914,13 @@
             if (index !== currentIndex) {
                 previoussectionfsts = section;
                 sectionindex = index;
-
-                section = document.getElementById(`section${index}`);
-                if (!section){
+                let newsection = document.getElementById(`section${index}`);
+                if (!newsection) {
                     return;
                 }
+                closeseccontainer();
+                section = newsection;
+                
                 if (section && !section.classList.contains('viewcontainer')){
                     inputDiv = section.querySelector('.code-editor-container');
                     hideconsoleconteiner();
