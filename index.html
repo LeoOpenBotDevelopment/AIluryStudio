@@ -11814,7 +11814,7 @@
                 "<use>"
             ];
             
-            const commandsice = [...Object.keys(commandToSymbol), ...Object.keys(shortCutCommands)];
+            const commandsice = [...Object.keys(commandToSymbol).map(key => key.toUpperCase()), ...Object.keys(shortCutCommands)];
 
             const uniquevalues = extractUniqueValues(inputElement.parentElement.textContent);
 
@@ -11849,7 +11849,7 @@
 
             function filterSuggestions(word) {
                 if (!word) return [];
-                return suggestionsList.filter(item => item.startsWith(word) && item != word);
+                return suggestionsList.filter(item => item.toLowerCase().startsWith(word.toLowerCase()) && item.toLowerCase() != word.toLowerCase());
             }
 
             function createSuggestionsContainer() {
