@@ -477,9 +477,19 @@
             position: absolute;
             left: -3.5em;
             top: 0;
-            color: var(--checkmark-color);
+            color: var(--lightgrey-color);
             font-size: 1.2em;
             transition: 0.3s;
+            font-weight: bold;
+        }
+        .code-editor-line.selected.bottomSelected::after {
+            content: '└─';
+        }
+        .code-editor-line.selected.middleSelected::after {
+            content: '│';
+        }
+        .code-editor-line.selected.topSelected::after {
+            content: '┌─';
         }
         
         .code-editor-line.importantpin.topimportantpin {
