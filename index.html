@@ -482,6 +482,9 @@
             transition: 0.3s;
             font-weight: bold;
         }
+        .section.gridenabled .code-editor-line.selected::after {
+            color: var(--checkmark-color);
+        }
         .code-editor-line.selected.bottomSelected::after {
             content: '└─';
         }
