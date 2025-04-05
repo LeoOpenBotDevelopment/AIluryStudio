@@ -3336,6 +3336,12 @@
                             <span class="slider"></span>
                         </label> auto complete
                     </div>
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="zoomenabledbtn" onchange="toggleZoom(this)" checked>
+                            <span class="slider"></span>
+                        </label> zoom enabled
+                    </div>
                 </div>
                 <div class="seccontainer-line" id="specialbtn" onclick="deleteAllEmptyLines()">
                     delete empty lines
@@ -3932,6 +3938,22 @@
     </div>
 
     <script>
+        function toggleZoom(preventZoom) {
+            let meta = document.querySelector('meta[name="viewport"]');
+        
+            if (!meta) {
+                meta = document.createElement('meta');
+                meta.name = "viewport";
+                document.head.appendChild(meta);
+            }
+        
+            if (!preventZoom.checked) {
+                meta.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+            } else {
+                meta.setAttribute("content", "width=device-width, initial-scale=1.0");
+            }
+        }
+        
         const commandToSymbol = {
             "/alert": "⚠",
             "/arrowbottomleft": "↙",
@@ -5542,6 +5564,7 @@
                 { icon: "□", text: "Copy Path" },
                 { icon: "-", text: "Merge" },
                 { icon: "↓", text: "Download" },
+                { icon: "■", text: "Duplicate" }
             ];
         
             const overlay = document.createElement("div");
@@ -5691,44 +5714,60 @@
                         });
                     });
                 }
+                
+                let thisfilepath = document.querySelector('#rectangle' + number + " .notclickable")?.textContent;
         
                 if (option.text == "Delete") {
                     optionItem.onclick = () => {
                         overlay.remove();
                         deletethisfile(number);
                     };
-                } else if (option.text == "Download" && targetElement.parentElement) {
-                    optionItem.onclick = () => {
-                        overlay.remove();
-                        if (targetElement.classList.contains('edit-btn') && targetElement.parentElement.parentElement.querySelector('.notclickable')) {
-                            downloadFile(targetElement.parentElement.parentElement.querySelector('.notclickable').textContent);
-                        } else {
-                            downloadFile(targetElement.parentElement.textContent.replace("⋮", ""));
-                        }
-                    };
-                } else if (option.text == "Copy Path" && targetElement.parentElement) {
-                    optionItem.onclick = () => {
-                        overlay.remove();
-                        if (targetElement.classList.contains('edit-btn') && targetElement.parentElement.parentElement.querySelector('.notclickable')) {
-                            copyText(targetElement.parentElement.parentElement.querySelector('.notclickable').textContent);
-                        } else {
-                            copyText(targetElement.parentElement.textContent.replace("⋮", ""));
-                        }
-                    };
-                } else if (
-                    option.text == "Copy Code" &&
-                    document.querySelector(`#section${number} .code-editor-container`)
-                ) {
-                    const textToCopy = document.querySelector(`#section${number} .code-editor-container`);
-                    optionItem.onclick = () => {
-                        overlay.remove();
-                        copyCode(textToCopy);
-                    };
-                } else if (option.text == 'Merge' && targetElement.parentElement && document.querySelector(`#section${number} .code-editor-container`)) {
-                    optionItem.onclick = () => {
-                        overlay.remove();
-                        MergeFiles();
-                    };
+                } else if (option.text == "Download") {
+                    if (thisfilepath){
+                        optionItem.onclick = () => {
+                            overlay.remove();
+                            downloadFile(thisfilepath);
+                        };
+                    } else {
+                        return;
+                    }
+                } else if (option.text == "Copy Path") {
+                    if (thisfilepath) {
+                        optionItem.onclick = () => {
+                            overlay.remove();
+                            copyText(thisfilepath);
+                        };
+                    } else {
+                        return;
+                    }
+                } else if (option.text == "Copy Code") {
+                    if (document.querySelector(`#section${number} .code-editor-container`)){
+                        const textToCopy = document.querySelector(`#section${number} .code-editor-container`);
+                        optionItem.onclick = () => {
+                            overlay.remove();
+                            copyCode(textToCopy);
+                        };
+                    } else {
+                        return;
+                    }
+                } else if (option.text == 'Merge') {
+                    if (targetElement.parentElement && document.querySelector(`#section${number} .code-editor-container`)){
+                        optionItem.onclick = () => {
+                            overlay.remove();
+                            MergeFiles();
+                        };
+                    } else {
+                        return;
+                    }
+                } else if (option.text == "Duplicate") {
+                    if (document.querySelector(`#section${number} .code-editor-container`) && thisfilepath){
+                        optionItem.onclick = () => {
+                            overlay.remove();
+                            duplicatefile(thisfilepath, document.querySelector(`#section${number}`));
+                        };
+                    } else {
+                        return;
+                    }
                 }
         
                 if (number == "0" && option.text == "Delete") {
@@ -6381,6 +6420,7 @@
         
          function showelementwithswipe(relement) {
             if (relement.style.display == "flex"){
+                hideelementwithswipe(relement);
                 return;
             }
             relement.style.display = "flex";
@@ -6534,7 +6574,7 @@
         let isloadingimages = false;
         function startLoading() {
             const steps = [
-                { percent: 0, text: 'Reserving' },
+                { percent: 0, text: 'Receiving' },
                 { percent: 25, text: 'Creating environment' },
                 { percent: 50, text: 'Linking' },
                 { percent: 75, text: 'Formatting' },
@@ -6568,7 +6608,7 @@
                     }
 
                     stepIndex++;
-                    setTimeout(updateStep, 700);
+                    setTimeout(updateStep, 400);
                 } else {
                     setTimeout(() => {
                         overlay.classList.remove('active');
@@ -6584,7 +6624,7 @@
                 { percent: 50, text: 'Adding' },
                 { percent: 100, text: 'Merge complete' },
             ];
-            startLoadingThis(steps, 'Reserving');
+            startLoadingThis(steps, 'Receiving');
         }
         
         let allimages = { "Image.png": "Image.png" };
@@ -6596,11 +6636,11 @@
                 { percent: 100, text: 'Loading complete' },
             ];
 
-            startLoadingThis(steps, 'Reserving');
+            startLoadingThis(steps, 'Receiving');
         }
         function startLoadingImagesAndFiles() {
             const steps = [
-                { percent: 0, text: 'Reserving' },
+                { percent: 0, text: 'Receiving' },
                 { percent: 25, text: 'Creating environment' },
                 { percent: 50, text: 'Linking' },
                 { percent: 75, text: 'Formatting' },
@@ -6904,6 +6944,10 @@
             navBarremoveeventlistenerscrollandadditagain();
         }
         async function createNewFile(filename) {
+            let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
+            if (allfilenames.includes(filename)) {
+                return;
+            }
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
             
@@ -7015,6 +7059,11 @@
             navBarremoveeventlistenerscrollandadditagain();
         }
         async function createNewFilefortemplatecode(filename, optionalText = '') {
+            let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
+            if (allfilenames.includes(filename)) {
+                showAlert('you have a file with the name ' + filename + ' please change the file name and try again');
+                return;
+            }
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
 
@@ -7550,19 +7599,11 @@
                     if (rect.id !== 'image-rectangle') {
                         rect.id = "rectangle" + index;
                         if (rect.querySelector('.rectangle-buttons .delete-btn') && rect.querySelector('.rectangle-buttons .edit-btn')){
-                        rect.querySelector('.rectangle-buttons .delete-btn').setAttribute('onclick', `deletethisfile(${index})`);
-                        rect.querySelector('.rectangle-buttons .edit-btn').setAttribute('onclick', `editthisfile(${index})`);
+                            rect.querySelector('.rectangle-buttons .delete-btn').setAttribute('onclick', `deletethisfile(${index})`);
+                            rect.querySelector('.rectangle-buttons .edit-btn').setAttribute('onclick', `editthisfile(${index})`);
                         }
                         rect.setAttribute('onclick', `editthisfile(${index}, event)`);
                     }
-                });
-            }
-            let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
-            if (sidebarfilelinklink){
-                dissolve(sidebarfilelinklink, 150);
-                document.querySelectorAll(".sidebarfilelinklink").forEach((sidebarfilelink, index) => {
-                    sidebarfilelink.id = 'sidebarfilelinklink' + index;
-                    sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
                 });
             }
 
@@ -7604,6 +7645,18 @@
                         sectionv.id = "section" + index;
                     });
                 }
+            }
+            
+            let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
+            if (sidebarfilelinklink) {
+                dissolve(sidebarfilelinklink, 150);
+                document.querySelectorAll(".sidebarfilelinklink").forEach((sidebarfilelink, index) => {
+                    if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
+                        index++;
+                    }
+                    sidebarfilelink.id = 'sidebarfilelinklink' + index;
+                    sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
+                });
             }
         }
 
@@ -9689,9 +9742,47 @@
                 } catch (error) {
                     const thiserrorwascatched = error;
                 }
+                checkifselectedlines();
+            }
+        }
+        
+        function duplicatefile(filename, sectionhtmlelement) {
+            const allselectedlines = sectionhtmlelement.querySelectorAll(".code-editor-line");
+            if (allselectedlines.length) {
+                let linetexts = "";
                 allselectedlines.forEach(selectedline => {
-                    selectedline.classList.remove('selected');
+                    linetexts += normalizeSpaces(selectedline.textContent) + "\n";
                 });
+                let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
+                if (allfilenames.includes('acopy' + filename)) {
+                    showPrompt('Enter a file name for the duplicate', (newfilename) => {
+                        if (!allfilenames.includes(newfilename)) {
+                            const steps = [
+                                { percent: 0, text: 'Receiving' },
+                                { percent: 25, text: 'Creating environment' },
+                                { percent: 50, text: 'Linking' },
+                                { percent: 75, text: 'Formatting' },
+                                { percent: 100, text: 'Loading complete' },
+                            ];
+                            
+                            startLoadingThis(steps, 'Analyzing');
+                            createNewFilefortemplatecode(newfilename, linetexts);
+                        } else {
+                            showAlert('you have a file with the name ' + newfilename + ' please change the file name and try again');
+                        }
+                    });
+                }else {
+                    const steps = [
+                        { percent: 0, text: 'Receiving' },
+                        { percent: 25, text: 'Creating environment' },
+                        { percent: 50, text: 'Linking' },
+                        { percent: 75, text: 'Formatting' },
+                        { percent: 100, text: 'Loading complete' },
+                    ];
+                    
+                    startLoadingThis(steps, 'Analyzing');
+                    createNewFilefortemplatecode('acopy' + filename, linetexts);
+                }
                 checkifselectedlines();
             }
         }
@@ -11318,6 +11409,306 @@
                 }
             });
         }
+        const cssKeywordsAndProperties = [
+            "color", "background", "font-size", "margin", "padding", "border", "display", "position",
+            "grid", "flex", "none", "inline", "inline-block", "block", "align-items", "justify-content", "z-index", "width", "height", "max-width",
+            "max-height", "min-width", "min-height", "box-sizing", "border-radius", "overflow", "opacity",
+            "visibility", "box-shadow", "text-shadow", "font-family", "font-weight", "font-style", "line-height",
+            "letter-spacing", "word-spacing", "text-align", "text-decoration", "text-transform", "white-space",
+            "vertical-align", "list-style", "cursor", "filter", "transition", "animation", "background-color",
+            "background-image", "background-position", "background-size", "background-repeat", "background-attachment",
+            "border-top", "border-right", "border-bottom", "border-left", "border-color", "border-style",
+            "border-width", "border-collapse", "border-spacing", "position", "top", "right", "bottom", "left",
+            "float", "clear", "clip", "resize", "box-align", "align-content", "justify-items", "align-self",
+            "grid-template-columns", "grid-template-rows", "grid-column", "grid-row", "grid-gap", "grid-template-areas",
+            "gap", "column-gap", "row-gap", "order", "flex-wrap", "flex-direction", "flex-basis", "flex-grow", "flex-shrink",
+            "justify-self", "align-items", "align-content", "object-fit", "object-position", "clip-path", "filter",
+            "transform", "transform-origin", "perspective", "backface-visibility", "z-index", "box-sizing", "border-box",
+            "content", "counter-reset", "counter-increment", "quotes", "writing-mode", "direction", "text-orientation",
+            "scroll-behavior", "resize", "user-select", "contain", "will-change", "pointer-events", "clip-path", "object-fit",
+            
+            "@import", "@media", "@font-face", "@keyframes", "@supports", "@page",
+            "@charset", "@namespace", "@document", "@viewport", "@counter-style",
+            
+            ":hover", ":focus", ":active", ":visited", ":link", ":checked", ":disabled",
+            ":first-child", ":last-child", ":nth-child()", ":not()", ":root", ":before", ":after",
+            
+            "::before", "::after", "::first-letter", "::first-line", "::selection",
+            "::placeholder", "accent-color",
+            "@keyframes ", "@media", "@font-face", "@supports", "@import", "@namespace", "@container"
+        ];
+        
+        const jsKeywords = [
+            "await", "break", "case", "catch", "class", "const", "continue", "debugger", "default",
+            "delete", "do", "else", "enum", "export", "extends", "false", "finally", "for", "function",
+            "if", "import", "in", "instanceof", "new", "null", "return", "super", "switch", "this",
+            "throw", "true", "try", "typeof", "var", "void", "while", "with", "yield", "let", "static",
+            "implements", "interface", "package", "private", "protected", "public", "async"
+        ];
+        
+        const supportedConsoleMethods = [
+            "count", "countReset", "time", "timeLog", "timeEnd", "group", "groupEnd", "log", "debug", "warn"
+        ];
+        
+        const jsGlobals = [
+            "undefined", "NaN", "Infinity", "eval", "isFinite", "isNaN", "parseFloat", "parseInt",
+            "decodeURI", "decodeURIComponent", "encodeURI", "encodeURIComponent",
+            "Object", "Function", "Boolean", "Symbol", "Error", "EvalError", "InternalError", "RangeError",
+            "ReferenceError", "SyntaxError", "TypeError", "URIError", "Number", "BigInt", "Math", "Date",
+            "String", "RegExp", "Array", "Int8Array", "Uint8Array", "Uint8ClampedArray", "Int16Array",
+            "Uint16Array", "Int32Array", "Uint32Array", "Float32Array", "Float64Array", "BigInt64Array",
+            "BigUint64Array", "Map", "Set", "WeakMap", "WeakSet", "ArrayBuffer", "SharedArrayBuffer",
+            "Atomics", "DataView", "JSON", "Promise", "Generator", "GeneratorFunction", "AsyncFunction",
+            "Reflect", "Proxy", "Intl", "WebAssembly",
+            
+            "console", "arguments"
+        ];
+        const domAPIs = [
+            "window", "document",
+            "getElementById", "getElementsByClassName", "getElementsByTagName", "querySelector", "querySelectorAll",
+            "createElement", "createTextNode", "cloneNode",
+            "appendChild", "removeChild", "replaceChild", "insertBefore",
+            "setAttribute", "getAttribute", "removeAttribute", "hasAttribute",
+            "addEventListener", "removeEventListener", "dispatchEvent",
+            "getBoundingClientRect", "scrollTo", "scrollIntoView",
+            "focus", "blur", "designMode",
+            "setTimeout", "setInterval", "clearTimeout", "clearInterval"
+        ];
+        const cssProperties = [
+            "accentColor", "alignContent", "alignItems", "alignSelf", "all", "animation", "animationDelay",
+            "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount",
+            "animationName", "animationPlayState", "animationTimingFunction", "backfaceVisibility",
+            "background", "backgroundAttachment", "backgroundBlendMode", "backgroundClip", "backgroundColor",
+            "backgroundImage", "backgroundOrigin", "backgroundPosition", "backgroundPositionX", "backgroundPositionY",
+            "backgroundRepeat", "backgroundSize", "border", "borderBottom", "borderBottomColor",
+            "borderBottomLeftRadius", "borderBottomRightRadius", "borderBottomStyle", "borderBottomWidth",
+            "borderCollapse", "borderColor", "borderImage", "borderImageOutset", "borderImageRepeat",
+            "borderImageSlice", "borderImageSource", "borderImageWidth", "borderLeft", "borderLeftColor",
+            "borderLeftStyle", "borderLeftWidth", "borderRadius", "borderRight", "borderRightColor",
+            "borderRightStyle", "borderRightWidth", "borderSpacing", "borderStyle", "borderTop",
+            "borderTopColor", "borderTopLeftRadius", "borderTopRightRadius", "borderTopStyle",
+            "borderTopWidth", "borderWidth", "bottom", "boxDecorationBreak", "boxShadow", "boxSizing",
+            "captionSide", "clear", "clip", "color", "columnCount", "columnFill", "columnGap", "columnRule",
+            "columnRuleColor", "columnRuleStyle", "columnRuleWidth", "columns", "columnSpan", "columnWidth",
+            "content", "counterIncrement", "counterReset", "cursor", "direction", "display", "emptyCells",
+            "filter", "flex", "flexBasis", "flexDirection", "flexFlow", "flexGrow", "flexShrink", "flexWrap",
+            "float", "font", "fontFamily", "fontFeatureSettings", "fontKerning", "fontSize", "fontSizeAdjust",
+            "fontStretch", "fontStyle", "fontVariant", "fontVariantCaps", "fontVariantEastAsian",
+            "fontVariantLigatures", "fontVariantNumeric", "fontWeight", "gap", "grid", "gridArea",
+            "gridAutoColumns", "gridAutoFlow", "gridAutoRows", "gridColumn", "gridColumnEnd", "gridColumnGap",
+            "gridColumnStart", "gridGap", "gridRow", "gridRowEnd", "gridRowGap", "gridRowStart", "gridTemplate",
+            "gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows", "hangingPunctuation", "height",
+            "hyphens", "imageRendering", "isolation", "justifyContent", "left", "letterSpacing", "lineHeight",
+            "listStyle", "listStyleImage", "listStylePosition", "listStyleType", "margin", "marginBottom",
+            "marginLeft", "marginRight", "marginTop", "maxHeight", "maxWidth", "minHeight", "minWidth",
+            "objectFit", "objectPosition", "opacity", "order", "outline", "outlineColor", "outlineOffset",
+            "outlineStyle", "outlineWidth", "overflow", "overflowWrap", "overflowX", "overflowY", "padding",
+            "paddingBottom", "paddingLeft", "paddingRight", "paddingTop", "pageBreakAfter", "pageBreakBefore",
+            "pageBreakInside", "perspective", "perspectiveOrigin", "pointerEvents", "position", "quotes",
+            "resize", "right", "scrollBehavior", "tableLayout", "textAlign", "textAlignLast", "textDecoration",
+            "textDecorationColor", "textDecorationLine", "textDecorationStyle", "textIndent", "textJustify",
+            "textOverflow", "textShadow", "textTransform", "top", "transform", "transformOrigin",
+            "transformStyle", "transition", "transitionDelay", "transitionDuration", "transitionProperty",
+            "transitionTimingFunction", "unicodeBidi", "userSelect", "verticalAlign", "visibility",
+            "whiteSpace", "width", "wordBreak", "wordSpacing", "wordWrap", "writingMode", "zIndex"
+        ];
+        const csscolors = [
+            "transparent",
+            "AliceBlue",
+            "AntiqueWhite",
+            "Aqua",
+            "Aquamarine",
+            "Azure",
+            "Beige",
+            "Bisque",
+            "Black",
+            "BlanchedAlmond",
+            "Blue",
+            "BlueViolet",
+            "Brown",
+            "BurlyWood",
+            "CadetBlue",
+            "Chartreuse",
+            "Chocolate",
+            "Coral",
+            "CornflowerBlue",
+            "Cornsilk",
+            "Crimson",
+            "Cyan",
+            "DarkBlue",
+            "DarkCyan",
+            "DarkGoldenRod",
+            "DarkGray",
+            "DarkGreen",
+            "DarkGrey",
+            "DarkKhaki",
+            "DarkMagenta",
+            "DarkOliveGreen",
+            "DarkOrange",
+            "DarkOrchid",
+            "DarkRed",
+            "DarkSalmon",
+            "DarkSeaGreen",
+            "DarkSlateBlue",
+            "DarkSlateGray",
+            "DarkSlateGrey",
+            "DarkTurquoise",
+            "DarkViolet",
+            "DeepPink",
+            "DeepSkyBlue",
+            "DimGray",
+            "DimGrey",
+            "DodgerBlue",
+            "FireBrick",
+            "FloralWhite",
+            "ForestGreen",
+            "Fuchsia",
+            "Gainsboro",
+            "GhostWhite",
+            "Gold",
+            "GoldenRod",
+            "Gray",
+            "Green",
+            "GreenYellow",
+            "Grey",
+            "HoneyDew",
+            "HotPink",
+            "IndianRed",
+            "Indigo",
+            "Ivory",
+            "Khaki",
+            "Lavender",
+            "LavenderBlush",
+            "LawnGreen",
+            "LemonChiffon",
+            "LightBlue",
+            "LightCoral",
+            "LightCyan",
+            "LightGoldenRodYellow",
+            "LightGray",
+            "LightGreen",
+            "LightGrey",
+            "LightPink",
+            "LightSalmon",
+            "LightSeaGreen",
+            "LightSkyBlue",
+            "LightSlateGray",
+            "LightSlateGrey",
+            "LightSteelBlue",
+            "LightYellow",
+            "Lime",
+            "LimeGreen",
+            "Linen",
+            "Magenta",
+            "Maroon",
+            "MediumAquaMarine",
+            "MediumBlue",
+            "MediumOrchid",
+            "MediumPurple",
+            "MediumSeaGreen",
+            "MediumSlateBlue",
+            "MediumSpringGreen",
+            "MediumTurquoise",
+            "MediumVioletRed",
+            "MidnightBlue",
+            "MintCream",
+            "MistyRose",
+            "Moccasin",
+            "NavajoWhite",
+            "Navy",
+            "OldLace",
+            "Olive",
+            "OliveDrab",
+            "Orange",
+            "OrangeRed",
+            "Orchid",
+            "PaleGoldenRod",
+            "PaleGreen",
+            "PaleTurquoise",
+            "PaleVioletRed",
+            "PapayaWhip",
+            "PeachPuff",
+            "Peru",
+            "Pink",
+            "Plum",
+            "PowderBlue",
+            "Purple",
+            "RebeccaPurple",
+            "Red",
+            "RosyBrown",
+            "RoyalBlue",
+            "SaddleBrown",
+            "Salmon",
+            "SandyBrown",
+            "SeaGreen",
+            "SeaShell",
+            "Sienna",
+            "Silver",
+            "SkyBlue",
+            "SlateBlue",
+            "SlateGray",
+            "SlateGrey",
+            "Snow",
+            "SpringGreen",
+            "SteelBlue",
+            "Tan",
+            "Teal",
+            "Thistle",
+            "Tomato",
+            "Turquoise",
+            "Violet",
+            "Wheat",
+            "White",
+            "WhiteSmoke",
+            "Yellow",
+            "YellowGreen"
+        ];
+        const vendorCSSProperties = [
+            "WebkitAlignContent", "WebkitAlignItems", "WebkitAlignSelf", "WebkitAnimation", "WebkitAnimationDelay",
+            "WebkitAnimationDirection", "WebkitAnimationDuration", "WebkitAnimationFillMode",
+            "WebkitAnimationIterationCount", "WebkitAnimationName", "WebkitAnimationPlayState",
+            "WebkitAnimationTimingFunction", "WebkitAppearance", "WebkitBackfaceVisibility", "WebkitBackgroundClip",
+            "WebkitBackgroundOrigin", "WebkitBackgroundSize", "WebkitBorderBottomLeftRadius",
+            "WebkitBorderBottomRightRadius", "WebkitBorderRadius", "WebkitBorderTopLeftRadius",
+            "WebkitBorderTopRightRadius", "WebkitBoxShadow", "WebkitBoxSizing", "WebkitFilter", "WebkitFlex",
+            "WebkitFlexBasis", "WebkitFlexDirection", "WebkitFlexFlow", "WebkitFlexGrow", "WebkitFlexShrink",
+            "WebkitFlexWrap", "WebkitJustifyContent", "WebkitOrder", "WebkitPerspective", "WebkitPerspectiveOrigin",
+            "WebkitTransform", "WebkitTransformOrigin", "WebkitTransformStyle", "WebkitTransition",
+            "WebkitTransitionDelay", "WebkitTransitionDuration", "WebkitTransitionProperty", "WebkitTransitionTimingFunction",
+            "MozAnimation", "MozAnimationDelay", "MozAnimationDirection", "MozAnimationDuration", "MozAnimationFillMode",
+            "MozAnimationIterationCount", "MozAnimationName", "MozAnimationPlayState", "MozAnimationTimingFunction",
+            "MozAppearance", "MozBoxShadow", "MozBoxSizing", "MozFlex", "MozFlexBasis", "MozFlexDirection", "MozFlexFlow",
+            "MozFlexGrow", "MozFlexShrink", "MozFlexWrap", "MozJustifyContent", "MozOrder", "MozPerspective",
+            "MozPerspectiveOrigin", "MozTransform", "MozTransformOrigin", "MozTransformStyle", "MozTransition",
+            "MozTransitionDelay", "MozTransitionDuration", "MozTransitionProperty", "MozTransitionTimingFunction",
+            "msFlex", "msFlexDirection", "msFlexFlow", "msFlexGrow", "msFlexShrink", "msFlexWrap", "msGridColumns",
+            "msGridRows", "msGridColumn", "msGridColumnAlign", "msGridColumnSpan", "msGridRow", "msGridRowAlign",
+            "msGridRowSpan", "msGridRowOverflow", "msGridColumnOverflow", "msTransform", "msTransformOrigin",
+            "msTransition", "msTransitionDelay", "msTransitionDuration", "msTransitionProperty", "msTransitionTimingFunction",
+            "OAnimation", "OAnimationDelay", "OAnimationDirection", "OAnimationDuration", "OAnimationFillMode",
+            "OAnimationIterationCount", "OAnimationName", "OAnimationPlayState", "OAnimationTimingFunction",
+            "OTransition", "OTransitionDelay", "OTransitionDuration", "OTransitionProperty", "OTransitionTimingFunction"
+        ];
+        const jsSyntax = [
+            ...jsKeywords,
+            ...supportedConsoleMethods,
+            ...jsGlobals,
+            ...domAPIs,
+            ...cssProperties,
+            ...vendorCSSProperties
+        ];
+        
+        const htmlTags = [
+            "<div>", "<span>", "<input>", "<button>", "<form>", "<select>", "<option>", "<table>", "<thead>",
+            "<tbody>", "<tr>", "<td>", "<ul>", "<ol>", "<li>", "<a>", "<p>", "<h1>", "<h2>", "<h3>", "<h4>",
+            "<h5>", "<h6>", "<article>", "<section>", "<header>", "<footer>", "<nav>", "<aside>", "<main>", "<mark>",
+            "<small>", "<strong>", "<em>", "<i>", "<b>", "<u>", "<code>", "<pre>", "<blockquote>", "<cite>", "<time>",
+            "<abbr>", "<address>", "<del>", "<ins>", "<sub>", "<sup>", "<figure>", "<figcaption>", "<details>", "<summary>",
+            "<progress>", "<meter>", "<canvas>", "<svg>", "<path>", "<g>", "<circle>", "<rect>", "<line>", "<polygon>",
+            "<polyline>", "<text>", "<style>", "<link>", "<meta>", "<title>", "<base>", "<script>", "<noscript>", "<iframe>",
+            "<audio>", "<video>", "<source>", "<track>", "<object>", "<param>", "<embed>", "<picture>", "<map>", "<area>",
+            "<use>"
+        ];
         function setupAutocomplete(inputElement) {
             if (!section){
                 return;
@@ -11398,306 +11789,6 @@
                 pastevents[lasteventsparentsection.id].push(newpast2);
                 enablepastbtn();
             }
-            const cssKeywordsAndProperties = [
-                "color", "background", "font-size", "margin", "padding", "border", "display", "position", 
-                "grid", "flex", "none", "inline", "inline-block", "block", "align-items", "justify-content", "z-index", "width", "height", "max-width", 
-                "max-height", "min-width", "min-height", "box-sizing", "border-radius", "overflow", "opacity", 
-                "visibility", "box-shadow", "text-shadow", "font-family", "font-weight", "font-style", "line-height", 
-                "letter-spacing", "word-spacing", "text-align", "text-decoration", "text-transform", "white-space", 
-                "vertical-align", "list-style", "cursor", "filter", "transition", "animation", "background-color", 
-                "background-image", "background-position", "background-size", "background-repeat", "background-attachment", 
-                "border-top", "border-right", "border-bottom", "border-left", "border-color", "border-style", 
-                "border-width", "border-collapse", "border-spacing", "position", "top", "right", "bottom", "left", 
-                "float", "clear", "clip", "resize", "box-align", "align-content", "justify-items", "align-self", 
-                "grid-template-columns", "grid-template-rows", "grid-column", "grid-row", "grid-gap", "grid-template-areas", 
-                "gap", "column-gap", "row-gap", "order", "flex-wrap", "flex-direction", "flex-basis", "flex-grow", "flex-shrink", 
-                "justify-self", "align-items", "align-content", "object-fit", "object-position", "clip-path", "filter", 
-                "transform", "transform-origin", "perspective", "backface-visibility", "z-index", "box-sizing", "border-box", 
-                "content", "counter-reset", "counter-increment", "quotes", "writing-mode", "direction", "text-orientation", 
-                "scroll-behavior", "resize", "user-select", "contain", "will-change", "pointer-events", "clip-path", "object-fit",
-
-                "@import", "@media", "@font-face", "@keyframes", "@supports", "@page", 
-                "@charset", "@namespace", "@document", "@viewport", "@counter-style",
-
-                ":hover", ":focus", ":active", ":visited", ":link", ":checked", ":disabled", 
-                ":first-child", ":last-child", ":nth-child()", ":not()", ":root", ":before", ":after",
-    
-                "::before", "::after", "::first-letter", "::first-line", "::selection", 
-                "::placeholder", "accent-color",
-                "@keyframes ", "@media", "@font-face", "@supports", "@import", "@namespace", "@container"
-            ];
-            
-            const jsKeywords = [
-              "await", "break", "case", "catch", "class", "const", "continue", "debugger", "default",
-              "delete", "do", "else", "enum", "export", "extends", "false", "finally", "for", "function",
-              "if", "import", "in", "instanceof", "new", "null", "return", "super", "switch", "this",
-              "throw", "true", "try", "typeof", "var", "void", "while", "with", "yield", "let", "static",
-              "implements", "interface", "package", "private", "protected", "public", "async"
-            ];
-            
-            const supportedConsoleMethods = [
-                "count", "countReset", "time", "timeLog", "timeEnd", "group", "groupEnd", "log", "debug", "warn"
-            ];
-            
-            const jsGlobals = [
-              "undefined", "NaN", "Infinity", "eval", "isFinite", "isNaN", "parseFloat", "parseInt",
-              "decodeURI", "decodeURIComponent", "encodeURI", "encodeURIComponent",
-              "Object", "Function", "Boolean", "Symbol", "Error", "EvalError", "InternalError", "RangeError",
-              "ReferenceError", "SyntaxError", "TypeError", "URIError", "Number", "BigInt", "Math", "Date",
-              "String", "RegExp", "Array", "Int8Array", "Uint8Array", "Uint8ClampedArray", "Int16Array",
-              "Uint16Array", "Int32Array", "Uint32Array", "Float32Array", "Float64Array", "BigInt64Array",
-              "BigUint64Array", "Map", "Set", "WeakMap", "WeakSet", "ArrayBuffer", "SharedArrayBuffer",
-              "Atomics", "DataView", "JSON", "Promise", "Generator", "GeneratorFunction", "AsyncFunction",
-              "Reflect", "Proxy", "Intl", "WebAssembly",
-            
-              "console", "arguments"
-            ];
-            const domAPIs = [
-              "window", "document",
-              "getElementById", "getElementsByClassName", "getElementsByTagName", "querySelector", "querySelectorAll",
-              "createElement", "createTextNode", "cloneNode",
-              "appendChild", "removeChild", "replaceChild", "insertBefore",
-              "setAttribute", "getAttribute", "removeAttribute", "hasAttribute",
-              "addEventListener", "removeEventListener", "dispatchEvent",
-              "getBoundingClientRect", "scrollTo", "scrollIntoView",
-              "focus", "blur", "designMode",
-              "setTimeout", "setInterval", "clearTimeout", "clearInterval"
-            ];
-            const cssProperties = [
-              "accentColor", "alignContent", "alignItems", "alignSelf", "all", "animation", "animationDelay",
-              "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount",
-              "animationName", "animationPlayState", "animationTimingFunction", "backfaceVisibility",
-              "background", "backgroundAttachment", "backgroundBlendMode", "backgroundClip", "backgroundColor",
-              "backgroundImage", "backgroundOrigin", "backgroundPosition", "backgroundPositionX", "backgroundPositionY",
-              "backgroundRepeat", "backgroundSize", "border", "borderBottom", "borderBottomColor",
-              "borderBottomLeftRadius", "borderBottomRightRadius", "borderBottomStyle", "borderBottomWidth",
-              "borderCollapse", "borderColor", "borderImage", "borderImageOutset", "borderImageRepeat",
-              "borderImageSlice", "borderImageSource", "borderImageWidth", "borderLeft", "borderLeftColor",
-              "borderLeftStyle", "borderLeftWidth", "borderRadius", "borderRight", "borderRightColor",
-              "borderRightStyle", "borderRightWidth", "borderSpacing", "borderStyle", "borderTop",
-              "borderTopColor", "borderTopLeftRadius", "borderTopRightRadius", "borderTopStyle",
-              "borderTopWidth", "borderWidth", "bottom", "boxDecorationBreak", "boxShadow", "boxSizing",
-              "captionSide", "clear", "clip", "color", "columnCount", "columnFill", "columnGap", "columnRule",
-              "columnRuleColor", "columnRuleStyle", "columnRuleWidth", "columns", "columnSpan", "columnWidth",
-              "content", "counterIncrement", "counterReset", "cursor", "direction", "display", "emptyCells",
-              "filter", "flex", "flexBasis", "flexDirection", "flexFlow", "flexGrow", "flexShrink", "flexWrap",
-              "float", "font", "fontFamily", "fontFeatureSettings", "fontKerning", "fontSize", "fontSizeAdjust",
-              "fontStretch", "fontStyle", "fontVariant", "fontVariantCaps", "fontVariantEastAsian",
-              "fontVariantLigatures", "fontVariantNumeric", "fontWeight", "gap", "grid", "gridArea",
-              "gridAutoColumns", "gridAutoFlow", "gridAutoRows", "gridColumn", "gridColumnEnd", "gridColumnGap",
-              "gridColumnStart", "gridGap", "gridRow", "gridRowEnd", "gridRowGap", "gridRowStart", "gridTemplate",
-              "gridTemplateAreas", "gridTemplateColumns", "gridTemplateRows", "hangingPunctuation", "height",
-              "hyphens", "imageRendering", "isolation", "justifyContent", "left", "letterSpacing", "lineHeight",
-              "listStyle", "listStyleImage", "listStylePosition", "listStyleType", "margin", "marginBottom",
-              "marginLeft", "marginRight", "marginTop", "maxHeight", "maxWidth", "minHeight", "minWidth",
-              "objectFit", "objectPosition", "opacity", "order", "outline", "outlineColor", "outlineOffset",
-              "outlineStyle", "outlineWidth", "overflow", "overflowWrap", "overflowX", "overflowY", "padding",
-              "paddingBottom", "paddingLeft", "paddingRight", "paddingTop", "pageBreakAfter", "pageBreakBefore",
-              "pageBreakInside", "perspective", "perspectiveOrigin", "pointerEvents", "position", "quotes",
-              "resize", "right", "scrollBehavior", "tableLayout", "textAlign", "textAlignLast", "textDecoration",
-              "textDecorationColor", "textDecorationLine", "textDecorationStyle", "textIndent", "textJustify",
-              "textOverflow", "textShadow", "textTransform", "top", "transform", "transformOrigin",
-              "transformStyle", "transition", "transitionDelay", "transitionDuration", "transitionProperty",
-              "transitionTimingFunction", "unicodeBidi", "userSelect", "verticalAlign", "visibility",
-              "whiteSpace", "width", "wordBreak", "wordSpacing", "wordWrap", "writingMode", "zIndex"
-            ];
-            const csscolors = [
-              "transparent",
-              "AliceBlue",
-              "AntiqueWhite",
-              "Aqua",
-              "Aquamarine",
-              "Azure",
-              "Beige",
-              "Bisque",
-              "Black",
-              "BlanchedAlmond",
-              "Blue",
-              "BlueViolet",
-              "Brown",
-              "BurlyWood",
-              "CadetBlue",
-              "Chartreuse",
-              "Chocolate",
-              "Coral",
-              "CornflowerBlue",
-              "Cornsilk",
-              "Crimson",
-              "Cyan",
-              "DarkBlue",
-              "DarkCyan",
-              "DarkGoldenRod",
-              "DarkGray",
-              "DarkGreen",
-              "DarkGrey",
-              "DarkKhaki",
-              "DarkMagenta",
-              "DarkOliveGreen",
-              "DarkOrange",
-              "DarkOrchid",
-              "DarkRed",
-              "DarkSalmon",
-              "DarkSeaGreen",
-              "DarkSlateBlue",
-              "DarkSlateGray",
-              "DarkSlateGrey",
-              "DarkTurquoise",
-              "DarkViolet",
-              "DeepPink",
-              "DeepSkyBlue",
-              "DimGray",
-              "DimGrey",
-              "DodgerBlue",
-              "FireBrick",
-              "FloralWhite",
-              "ForestGreen",
-              "Fuchsia",
-              "Gainsboro",
-              "GhostWhite",
-              "Gold",
-              "GoldenRod",
-              "Gray",
-              "Green",
-              "GreenYellow",
-              "Grey",
-              "HoneyDew",
-              "HotPink",
-              "IndianRed",
-              "Indigo",
-              "Ivory",
-              "Khaki",
-              "Lavender",
-              "LavenderBlush",
-              "LawnGreen",
-              "LemonChiffon",
-              "LightBlue",
-              "LightCoral",
-              "LightCyan",
-              "LightGoldenRodYellow",
-              "LightGray",
-              "LightGreen",
-              "LightGrey",
-              "LightPink",
-              "LightSalmon",
-              "LightSeaGreen",
-              "LightSkyBlue",
-              "LightSlateGray",
-              "LightSlateGrey",
-              "LightSteelBlue",
-              "LightYellow",
-              "Lime",
-              "LimeGreen",
-              "Linen",
-              "Magenta",
-              "Maroon",
-              "MediumAquaMarine",
-              "MediumBlue",
-              "MediumOrchid",
-              "MediumPurple",
-              "MediumSeaGreen",
-              "MediumSlateBlue",
-              "MediumSpringGreen",
-              "MediumTurquoise",
-              "MediumVioletRed",
-              "MidnightBlue",
-              "MintCream",
-              "MistyRose",
-              "Moccasin",
-              "NavajoWhite",
-              "Navy",
-              "OldLace",
-              "Olive",
-              "OliveDrab",
-              "Orange",
-              "OrangeRed",
-              "Orchid",
-              "PaleGoldenRod",
-              "PaleGreen",
-              "PaleTurquoise",
-              "PaleVioletRed",
-              "PapayaWhip",
-              "PeachPuff",
-              "Peru",
-              "Pink",
-              "Plum",
-              "PowderBlue",
-              "Purple",
-              "RebeccaPurple",
-              "Red",
-              "RosyBrown",
-              "RoyalBlue",
-              "SaddleBrown",
-              "Salmon",
-              "SandyBrown",
-              "SeaGreen",
-              "SeaShell",
-              "Sienna",
-              "Silver",
-              "SkyBlue",
-              "SlateBlue",
-              "SlateGray",
-              "SlateGrey",
-              "Snow",
-              "SpringGreen",
-              "SteelBlue",
-              "Tan",
-              "Teal",
-              "Thistle",
-              "Tomato",
-              "Turquoise",
-              "Violet",
-              "Wheat",
-              "White",
-              "WhiteSmoke",
-              "Yellow",
-              "YellowGreen"
-            ];
-            const vendorCSSProperties = [
-              "WebkitAlignContent", "WebkitAlignItems", "WebkitAlignSelf", "WebkitAnimation", "WebkitAnimationDelay",
-              "WebkitAnimationDirection", "WebkitAnimationDuration", "WebkitAnimationFillMode",
-              "WebkitAnimationIterationCount", "WebkitAnimationName", "WebkitAnimationPlayState",
-              "WebkitAnimationTimingFunction", "WebkitAppearance", "WebkitBackfaceVisibility", "WebkitBackgroundClip",
-              "WebkitBackgroundOrigin", "WebkitBackgroundSize", "WebkitBorderBottomLeftRadius",
-              "WebkitBorderBottomRightRadius", "WebkitBorderRadius", "WebkitBorderTopLeftRadius",
-              "WebkitBorderTopRightRadius", "WebkitBoxShadow", "WebkitBoxSizing", "WebkitFilter", "WebkitFlex",
-              "WebkitFlexBasis", "WebkitFlexDirection", "WebkitFlexFlow", "WebkitFlexGrow", "WebkitFlexShrink",
-              "WebkitFlexWrap", "WebkitJustifyContent", "WebkitOrder", "WebkitPerspective", "WebkitPerspectiveOrigin",
-              "WebkitTransform", "WebkitTransformOrigin", "WebkitTransformStyle", "WebkitTransition",
-              "WebkitTransitionDelay", "WebkitTransitionDuration", "WebkitTransitionProperty", "WebkitTransitionTimingFunction",
-              "MozAnimation", "MozAnimationDelay", "MozAnimationDirection", "MozAnimationDuration", "MozAnimationFillMode",
-              "MozAnimationIterationCount", "MozAnimationName", "MozAnimationPlayState", "MozAnimationTimingFunction",
-              "MozAppearance", "MozBoxShadow", "MozBoxSizing", "MozFlex", "MozFlexBasis", "MozFlexDirection", "MozFlexFlow",
-              "MozFlexGrow", "MozFlexShrink", "MozFlexWrap", "MozJustifyContent", "MozOrder", "MozPerspective",
-              "MozPerspectiveOrigin", "MozTransform", "MozTransformOrigin", "MozTransformStyle", "MozTransition",
-              "MozTransitionDelay", "MozTransitionDuration", "MozTransitionProperty", "MozTransitionTimingFunction",
-              "msFlex", "msFlexDirection", "msFlexFlow", "msFlexGrow", "msFlexShrink", "msFlexWrap", "msGridColumns",
-              "msGridRows", "msGridColumn", "msGridColumnAlign", "msGridColumnSpan", "msGridRow", "msGridRowAlign",
-              "msGridRowSpan", "msGridRowOverflow", "msGridColumnOverflow", "msTransform", "msTransformOrigin",
-              "msTransition", "msTransitionDelay", "msTransitionDuration", "msTransitionProperty", "msTransitionTimingFunction",
-              "OAnimation", "OAnimationDelay", "OAnimationDirection", "OAnimationDuration", "OAnimationFillMode",
-              "OAnimationIterationCount", "OAnimationName", "OAnimationPlayState", "OAnimationTimingFunction",
-              "OTransition", "OTransitionDelay", "OTransitionDuration", "OTransitionProperty", "OTransitionTimingFunction"
-            ];
-            const jsSyntax = [
-              ...jsKeywords,
-              ...supportedConsoleMethods,
-              ...jsGlobals,
-              ...domAPIs,
-              ...cssProperties,
-              ...vendorCSSProperties
-            ];
-            
-            const htmlTags = [
-                "<div>", "<span>", "<input>", "<button>", "<form>", "<select>", "<option>", "<table>", "<thead>",  
-                "<tbody>", "<tr>", "<td>", "<ul>", "<ol>", "<li>", "<a>", "<p>", "<h1>", "<h2>", "<h3>", "<h4>",  
-                "<h5>", "<h6>", "<article>", "<section>", "<header>", "<footer>", "<nav>", "<aside>", "<main>", "<mark>",  
-                "<small>", "<strong>", "<em>", "<i>", "<b>", "<u>", "<code>", "<pre>", "<blockquote>", "<cite>", "<time>",  
-                "<abbr>", "<address>", "<del>", "<ins>", "<sub>", "<sup>", "<figure>", "<figcaption>", "<details>", "<summary>",  
-                "<progress>", "<meter>", "<canvas>", "<svg>", "<path>", "<g>", "<circle>", "<rect>", "<line>", "<polygon>",  
-                "<polyline>", "<text>", "<style>", "<link>", "<meta>", "<title>", "<base>", "<script>", "<noscript>", "<iframe>",  
-                "<audio>", "<video>", "<source>", "<track>", "<object>", "<param>", "<embed>", "<picture>", "<map>", "<area>",  
-                "<use>"
-            ];
             
             const commandsice = [...Object.keys(commandToSymbol).map(key => key.toUpperCase()), ...Object.keys(shortCutCommands)];
 
