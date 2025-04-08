@@ -171,7 +171,25 @@
         .sidebarenabled .section{
             min-width: 70vw;
         }
-
+        
+        @keyframes easein {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes easeout {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
         @keyframes swipein {
             0%{
                 transform: translateY(-100dvh);
@@ -192,6 +210,81 @@
                 opacity: 0;
             }
         }
+        @keyframes easein {
+            0%{
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes easeout {
+            0%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes popin {
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            40%{
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+            60%{
+                transform: scale(0.9);
+                opacity: 0.3;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes popout {
+            0%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            20%{
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes rollin {
+            0%{
+                transform: rotate(360deg) scale(0);
+                opacity: 0;
+            }
+            100%{
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes rollout {
+            0%{
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -1212,7 +1305,7 @@
             border-radius: 0;
             transition: 0.3s;
         }
-        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay, .replaceoverlay, .codefunctionssettingsoverlay{
+        .theme-overlay, .commandsoverlay-container, .singsoverlay-container, #testregexoverlay, .userregulationsandconditionsoverlay, .replaceoverlay, .codefunctionssettingsoverlay, .chooseanimationoverlay{
             position: fixed;
             top: 0;
             left: 0;
@@ -1227,7 +1320,7 @@
             backdrop-filter: blur(5px);
             transition: 0.3s;
         }
-        .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay, .sidebarenabled .replaceoverlay, .sidebarenabled .codefunctionssettingsoverlay {
+        .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay, .sidebarenabled .replaceoverlay, .sidebarenabled .codefunctionssettingsoverlay, .sidebarenabled .chooseanimationoverlay {
             width: 70vw;
             height: 100dvh;
             overflow-y: auto;
@@ -1235,7 +1328,7 @@
             left: 30vw;
             transition: 0.3s;
         }
-       .theme-option-container, .topandbottomsignsdisplay-container, .commandsdisplay-container, #testregexcontainer, .replacecontainer, .codefunctionssettingscontainer {
+       .theme-option-container, .topandbottomsignsdisplay-container, .commandsdisplay-container, #testregexcontainer, .replacecontainer, .codefunctionssettingscontainer, .chooseanimationcontainer {
             border: 1px solid var(--rectangleborder);
             background-color: var(--contentcontainer-color);
             padding: 20px;
@@ -1249,7 +1342,7 @@
             transition: 0.3s;
        }
 
-       .sidebarenabled .theme-option-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled .commandsdisplay-container, .sidebarenabled #testregexcontainer, .sidebarenabled .replacecontainer, .sidebarenabled .codefunctionssettingscontainer{
+       .sidebarenabled .theme-option-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled .commandsdisplay-container, .sidebarenabled #testregexcontainer, .sidebarenabled .replacecontainer, .sidebarenabled .codefunctionssettingscontainer, .sidebarenabled .chooseanimationcontainer {
             width: 70vw;
             height: 100dvh;
             overflow-y: auto;
@@ -1453,7 +1546,7 @@
         }
 
         @media (max-width: 900px) {
-            .commandsdisplay-container, #testregexcontainer, .replacecontainer, .codefunctionssettingscontainer {
+            .commandsdisplay-container, #testregexcontainer, .replacecontainer, .codefunctionssettingscontainer, .chooseanimationcontainer {
                 width: 100vw;
                 height: 100dvh;
                 max-width: none;
@@ -2340,7 +2433,7 @@
             font-weight: bold;
             color: var(--black-color);
         }
-        .testregexcontainer h3, .replacecontainer h3, .codefunctionssettingscontainer h3 {
+        .testregexcontainer h3, .replacecontainer h3, .codefunctionssettingscontainer h3, .chooseanimationcontainer h3 {
             font-family: Arial, sans-serif;
             font-size: 1.3em;
             font-weight: bold;
@@ -2965,7 +3058,7 @@
             margin-top: 10px;
         }
         
-        .gridop {
+        .gridop, .caexample {
             height: 150px;
             min-width: 200px;
             display: flex;
@@ -2973,6 +3066,153 @@
             border-radius: 5px;
             margin-top: 10px;
             width: 100%;
+        }
+        
+        .caexample.selectedanimation {
+            border: 2px solid var(--switchcheckedbackground-color);
+        }
+        
+        .caexample {
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .caexample button {
+            height: 90%;
+            width: 90%;
+            border: none;
+            border-radius: 5px;
+            background: var(--lightgrey-color);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes swipeinout {
+            0%{
+                transform: translateY(-100dvh);
+                opacity: 0;
+            }
+            45%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+            65%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100%{
+                transform: translateY(150dvh);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes easeinout {
+            0%{
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            45%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            65%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes popinout {
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            20%{
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+            30%{
+                transform: scale(0.9);
+                opacity: 0.3;
+            }
+            45%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            65%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            75%{
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes rollinout {
+            0%{
+                transform: rotate(360deg) scale(0);
+                opacity: 0;
+            }
+            45%{
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            65%{
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes noneinout {
+            0%{
+                opacity: 0;
+            }
+            25%{
+                opacity: 0;
+            }
+            26%{
+                opacity: 1;
+            }
+            74%{
+                opacity: 1;
+            }
+            75%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 0;
+            }
+        }
+        .caexample1 button {
+            animation: swipeinout 3s infinite;
+        }
+        
+        .caexample2 button {
+            animation: easeinout 3s infinite;
+        }
+        
+        .caexample3 button {
+            animation: rollinout 3s infinite;
+        }
+        
+        .caexample4 button {
+            animation: popinout 3s infinite;
+        }
+        
+        .caexample5 button {
+            animation: noneinout 3s infinite;
         }
         
         .gridoptions {
@@ -3051,7 +3291,10 @@
             <div class="sidebarbardivbuttondiv">
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
                 <button onclick="showallfilescontainer()">files</button>
+            </div>
+            <div class="sidebarbardivbuttondiv">
                 <button onclick="showthemeoverlay()">theme</button>
+                <button onclick="showchooseanimationoverlay()">animations</button>
             </div>
             <h3>functions</h3>
             <div class="sidebarbardivbuttondiv">
@@ -3782,6 +4025,21 @@
                     <button id="replacebtn" onclick="replacetext('replaceinput', 'replacementinput')">replace</button>
                 </div>
             </div>
+            <div id="chooseanimationoverlay" class="chooseanimationoverlay" onclick="hideelement('class', 'chooseanimationoverlay', event)">
+                <div id="chooseanimationcontainer" class="chooseanimationcontainer">
+                    <button class="closecommandoverlaybtn" onclick="hidechooseanimationoverlay()">×</button>
+                    <br>
+                    <h3>Animation</h3>
+                    <br>
+                    <div class="chooseanimationexamplecontainer">
+                        <div class="caexample caexample1 selectedanimation" onclick="chengeanimation(this, 'swipe')"><button></button></div>
+                        <div class="caexample caexample2" onclick="chengeanimation(this, 'ease')"><button></button></div>
+                        <div class="caexample caexample3" onclick="chengeanimation(this, 'roll')"><button></button></div>
+                        <div class="caexample caexample4" onclick="chengeanimation(this, 'pop')"><button></button></div>
+                        <div class="caexample caexample5" onclick="chengeanimation(this, 'none')"><button></button></div>
+                    </div>
+                </div>
+            </div>
             <div id="codefunctionssettingsoverlay" class="codefunctionssettingsoverlay" onclick="hideelement('class', 'codefunctionssettingsoverlay', event)">
                 <div id="codefunctionssettingscontainer" class="codefunctionssettingscontainer">
                     <button class="closecommandoverlaybtn" onclick="hidecodefunctionssettingsoverlay()">×</button>
@@ -3938,6 +4196,16 @@
     </div>
 
     <script>
+        let transitionanimation = "swipe";
+        
+        function chengeanimation(thiselement, animationname) {
+            transitionanimation = animationname;
+            document.querySelectorAll('.caexample.selectedanimation').forEach(element => {
+                element.classList.remove('selectedanimation');
+            });
+            thiselement.classList.add('selectedanimation');
+        }
+        
         function toggleZoom(preventZoom) {
             let meta = document.querySelector('meta[name="viewport"]');
         
@@ -4018,6 +4286,7 @@
             "/triangletop": "▲",
             "/updownleftarrow": "↵",
         };
+        
         const shortCutCommands = {
             "/:func": {
                 firstpart: "function definition() {",
@@ -4156,6 +4425,8 @@
                 seccondpart: "</main>"
             }
         }
+        
+        
         function addacommand() {
             const copypastcontainer = document.querySelector('.createcommandcontainer');
             if (!copypastcontainer) return;
@@ -4232,6 +4503,7 @@
                 }, 100);
             });
         }
+        
         function addashortcut() {
             const copypastcontainer = document.querySelector('.createshortcutcontainer');
             if (!copypastcontainer) return;
@@ -4329,10 +4601,14 @@
                 }, 100);
             });
         }
+        
+        
         function clearclipboard() {
             const copiedtexthistory = document.querySelector('.copiedtexthistory');
             copiedtexthistory.innerHTML = "clipboard is cleared...";
         }
+        
+        
         function selectthisgrid(gridop) {
             let gridSections = document.querySelectorAll('.section.gridenabled');
             
@@ -4366,6 +4642,7 @@
                 }).observe(sg, { attributes: true });
             });
         }
+        
         let m__up = 1;
         let m__down = 1;
         let m__right = 1;
@@ -4543,9 +4820,12 @@
         function changecommandtosearchregexswitchtext(tehtv) {
             document.querySelector('.commandtosearchregexswitchtext').textContent = tehtv.value + " to search with regex";
         }
+        
         function closetimeinputoverlay() {
             document.querySelector('.timeinputoverlay').style.display = "none";
         }
+        
+        
         function updateSelection(container) {
             let options = container.children;
             let center = container.scrollTop + container.clientHeight / 2;
@@ -4561,7 +4841,9 @@
                 }
             }
         }
+        
         let timeDisplay = 0;
+        
         function timeinputsetup() {
             const hourPicker = document.getElementById("hourPicker");
             const minutePicker = document.getElementById("minutePicker");
@@ -4576,10 +4858,12 @@
                 }
                 container.scrollTop = container.scrollHeight / 2 - container.clientHeight / 2;
             }
-        
+            
+            
             createInfiniteList(hourPicker);
             createInfiniteList(minutePicker);
-        
+            
+            
             function updateTime() {
                 let hourIndex = Math.round((hourPicker.scrollTop + 25) / 50) % 60;
                 let minuteIndex = Math.round((minutePicker.scrollTop + 25) / 50) % 60;
@@ -4588,7 +4872,8 @@
                 updateSelection(hourPicker);
                 updateSelection(minutePicker);
             }
-        
+            
+            
             function checkLoop(container) {
                 if (container.scrollTop < 50) {
                     container.scrollTop += 60 * 50;
@@ -4596,7 +4881,7 @@
                     container.scrollTop -= 60 * 50;
                 }
             }
-        
+            
             hourPicker.addEventListener("scroll", () => {
                 checkLoop(hourPicker);
                 setTimeout(updateTime, 100);
@@ -4609,6 +4894,8 @@
             updateTime();
         }
         timeinputsetup();
+        
+        
         function dissolve(element, numParticles) {
             if (!element) {
                 return;
@@ -4669,9 +4956,12 @@
                 element.remove();
             }, 2000);
         }
+        
+        
         function toggleClass(elementclass, classtt) {
             document.querySelector(elementclass).classList.toggle(classtt);
         }
+        
         
         let replacing = "all";
         function replacetextinlines(allorsl) {
@@ -4684,8 +4974,10 @@
             showreplaceoverlay();
         }
         
-        let correntids = 2;
-
+        
+        let correntids = 3;
+        
+        
         function addstartercodetofiles() {
             const section0 = document.getElementById('section0');
             const section1 = document.getElementById('section1');
@@ -4733,6 +5025,7 @@
 
         addstartercodetofiles();
         
+        
         const lineObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -4752,8 +5045,11 @@
             const consol = document.querySelector('.console');
             consol.innerHTML = "";
         }
+        
+        
         let timers = {};
-
+        
+        
         function startTimer(timerName) {
             timers[timerName] = {
                 start: performance.now(),
@@ -4762,10 +5058,12 @@
             };
         }
         
+        
         function checkTimer(timerName) {
             if (!timers[timerName]) return null;
             return performance.now() - timers[timerName].start;
         }
+        
         
         function endTimer(timerName) {
             if (!timers[timerName]) return null;
@@ -4775,31 +5073,35 @@
             timers[timerName].duration = timers[timerName].end - timers[timerName].start;
         
             const duration = timers[timerName].duration;
-            delete timers[timerName]; // Entfernt den Timer
+            delete timers[timerName];
         
             return duration;
         }
         
+        
+        
         let counts = {};
-
+        
+        
         function count(countName) {
             if (!counts[countName]) {
-                counts[countName] = 1; // Wenn der Count noch nicht existiert, setze ihn auf 1
+                counts[countName] = 1;
             } else {
-                counts[countName] += 1; // Ansonsten erhöhe den Count um 1
+                counts[countName] += 1;
             }
             return counts[countName];
         }
         
         function resetCount(countName) {
             if (counts[countName]) {
-                counts[countName] = 0; // Setze den Count auf 1 zurück, wenn er existiert
+                counts[countName] = 0;
             }
         }
         
+        
         let consolegroups = {};
         let openconsolegroups = {};
-
+        
         
         window.addEventListener('message', (event) => {
             const eds = event.data.status;
@@ -4883,7 +5185,7 @@
                 messagecontainer.classList.add('consolegroupparent' + edm2 + uniqueId);
                 messagecontainer.classList.add('consolegroupparenthere');
             
-                // Automatisch die Gruppe "collapsen" bei initialer Ansicht
+                
                 if (eds === "groupCollapsed") {
                     setTimeout(() => {
                         if (typeof messagecontainer.click === "function") {
@@ -4912,6 +5214,8 @@
             if (eds == "countReset"){
                 resetCount(edm2);
             }
+            
+            
             const allicons = {
                 error: "⚠",
                 clear: "⌧",
@@ -4928,7 +5232,6 @@
                 timeEnd: "◷",
                 timeLog: "◵",
                 assert: "⚠",
-                //clear
                 count: "•",
                 countReset: ""
             };
@@ -4936,6 +5239,7 @@
                 icon.textContent = allicons[eds];
             }
         });
+        
         let timelineRunning = false;
         let timelineInterval;
         
@@ -4944,14 +5248,14 @@
             const timelinecontainer = document.getElementById('timeline-container');
             timelinecontainer.style.display = 'block';
             timelinecontainer.style.animation = "none";
-            void timelinecontainer.offsetWidth; // Trigger reflow
+            void timelinecontainer.offsetWidth;
             timelinecontainer.style.animation = "fadeIn 1s ease-out";
         }
         
         function hidetimelinecontainer() {
             const timelinecontainer = document.getElementById('timeline-container');
             timelinecontainer.style.animation = "none";
-            void timelinecontainer.offsetWidth; // Trigger reflow
+            void timelinecontainer.offsetWidth; 
             timelinecontainer.style.animation = "fadeOut 1s ease-out";
             
             setTimeout(() => {
@@ -4959,12 +5263,16 @@
                 stopTimeline();
             }, 1000);
         }
+        
         function removeactoveclassfromfbtn() {
             document.querySelector('.toggletimelinebtn').classList.remove('Active');
         }
+        
         function addactoveclassfromfbtn() {
             document.querySelector('.toggletimelinebtn').classList.add('Active');
         }
+        
+        
         function toggleTineline(thiselementwasclicked) {
             if (!thiselementwasclicked.classList.contains("Active")) {
                 showtimeinput('enter a time', (userprompt) => {
@@ -4983,12 +5291,13 @@
             }
         }
         
+        
         function convertToHoursAndMinutes(timeInMinutes) {
-            const hours = Math.floor(timeInMinutes / 60); // Ganze Stunden
-            const minutes = Math.round(timeInMinutes % 60); // Restliche Minuten
+            const hours = Math.floor(timeInMinutes / 60);
+            const minutes = Math.round(timeInMinutes % 60);
             return { hours, minutes };
         }
-
+        
         
         function toggleConsole(thiselementwasclicked){
             thiselementwasclicked.classList.toggle("Active");
@@ -5002,11 +5311,13 @@
         
         toggleConsole(document.querySelector('.consoletogglebtn'));
         
+        
         function stopTimeline() {
             timelineRunning = false;
             clearInterval(timelineInterval);
             document.getElementById('timeline-line').style.height = '0';
         }
+        
         
         function runTimeline(time) {
             if (timelineRunning) {
@@ -5048,6 +5359,7 @@
             }, 1000);
         }
         
+        
         document.getElementById('timeline-container').addEventListener('click', () => {
             showtimeinput('enter a new time', (userprompt) => {
                 if (userprompt != null && !isNaN(userprompt)) {
@@ -5061,6 +5373,8 @@
                 }
             });
         });
+        
+        
         function highlightMatches(text, container, patterns) {
             let lastIndex = 0;
         
@@ -5098,6 +5412,8 @@
                 }
             }
         }
+        
+        
         document.addEventListener('click', (event) => {
             if (event.target.classList.contains('code-editor-btn') || event.target.classList.contains('editor-selected-line-btns') || event.target.classList.contains('eslbtn') || event.target.classList.contains('code-editor-btns') || event.target.classList.contains('threedots')){
                 if (document.querySelector('.notificationmessage').style.display != "none") {
@@ -5105,6 +5421,8 @@
                 }
             }
         });
+        
+        
         function notify(message, buttontext, callback){
             document.querySelector('.notificationmessage .messagespan').textContent = message;
             document.querySelector('.notificationmessage .confirmationbtn').textContent = buttontext;
@@ -5121,7 +5439,8 @@
                 }
             }, 5000);
         }
-
+        
+        
         function testRegex() {
             const regexInput = document.getElementById('testregexinput').value;
             const flagsInput = document.getElementById('testregexflagsinput').value;
@@ -5196,7 +5515,8 @@
         }
         
         document.getElementById('testButton').onclick = testRegex;
-
+        
+        
         function gobackrotateanimation(deletebtnnnn) {
             if (document.querySelector('.undoanimation input[type="checkbox"]').checked == false) {
                 return;
@@ -5210,20 +5530,26 @@
                 deletebtnnnn.disabled = false;
             }, 400);
         }
+        
         let lasteventsparentsection = document.getElementById('section0');
         let pastevents = {};
         let futureevents = {};
+        
+        
         function disablepastbtn() {
             if (lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn') && !lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn').classList.contains('disabled')){
                 lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn').classList.add('disabled');
             }
         }
-
+        
+        
         function enablepastbtn() {
             if (lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn') && lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn').classList.contains('disabled')) {
                 lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn').classList.remove('disabled');
             }
         }
+        
+        
         function gobacktolastpastevent() {
             if (!lasteventsparentsection){
                 return;
@@ -5246,9 +5572,9 @@
             lastevent.forEach(element => {
                 if (element.type == "delete") {
                     const allselectedlines = lasteventsparentsection.querySelectorAll(".hiddenlinesparent");
-                    if (allselectedlines.length) { // Überprüfe, ob es ausgewählte Linien gibt
+                    if (allselectedlines.length) {
                         allselectedlines.forEach(selectedline => {
-                            selectedline.classList.remove('hiddenlinesparent'); // Linie auswählen
+                            selectedline.classList.remove('hiddenlinesparent');
                             showHiddenElements(selectedline);
                             updateSelectedClasses();
                         });
@@ -5264,7 +5590,7 @@
                         addJsSyntaxHighlighting(element.element);
                     }
             
-                    if (allselectedlines.length) { // Überprüfe, ob es ausgewählte Linien gibt
+                    if (allselectedlines.length) {
                         allselectedlines.forEach(selectedline => {
                             analyzeAndHideElements(selectedline);
                             updateSelectedClasses();
@@ -5303,7 +5629,8 @@
                 }
             });
         }
-
+        
+        
         let createkonfetti = true;
         function createConfetti() {
             if (!createkonfetti){
@@ -5322,7 +5649,8 @@
             }
             createkonfetti = false;
         }
-
+        
+        
         function mergecode(htmlCodeComtainer, additionalCode, tofinde) {
             closesidebaronsmallscreensizes();
             closeeverything();
@@ -5498,8 +5826,8 @@
                 enablepastbtn();
             }
         }
-
-
+        
+        
         function modifyHTML(htmlCode, additionalCode, type, htmlCodeComtainer) {
             const bodyRegex = /<body[^>]*>([\s\S]*?)<\/body>/i;
             const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/i;
@@ -5528,7 +5856,8 @@
 
             return htmlCode;
         }
-
+        
+        
         function adjustElementPosition(element) {
             const rect = element.getBoundingClientRect();
             const screenHeight = window.innerHeight;
@@ -5539,8 +5868,8 @@
                 element.style.top = `${rect.top - distanceToBottom}px`;
             }
         }
-
-
+        
+        
         function adjustElementPositionleft(element) {
             const rect = element.getBoundingClientRect();
             const screenWidth = window.innerWidth;
@@ -5555,8 +5884,8 @@
                 element.style.left = "0px";
             }
         }
-
-
+        
+        
         function createOptionsContainer(targetElement, number) {
             const options = [
                 { icon: "⚠", text: "Delete" },
@@ -5807,9 +6136,7 @@
                 }
             });
         }
-
-
-
+        
         function typeEffect(element, newText, callback) {
             const originalText = element.textContent || "";
 
@@ -5836,8 +6163,10 @@
             }
             removeText();
         }
-    
+        
         let themetoedit = document.querySelector(`.custom-theme`);
+        
+        
         function removeThemeProperties() {
             if (!themetoedit) {
                 return;
@@ -5884,7 +6213,8 @@
             themetoedit.style.removeProperty('--griddot-color');
             themetoedit.style.removeProperty('--drakgrey-color');
         }
-
+        
+        
         function updateaccentColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit){
@@ -5900,7 +6230,8 @@
             themetoedit.style.setProperty('--seccontainerbackground-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function isColorLightOrDark(rgba) {
             const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
             if (!match) {
@@ -5916,6 +6247,7 @@
             return brightness > 128 ? "light" : "dark";
         }
         
+        
         function updateColorColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -5928,6 +6260,8 @@
             themetoedit.style.setProperty('--black-color', rgba);
             generateCustomThemeCode();
         }
+        
+        
         function updateSelectedColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -5940,6 +6274,8 @@
             themetoedit.style.setProperty('--checkmark-color', rgba);
             generateCustomThemeCode();
         }
+        
+        
         function updategridColorColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -5954,6 +6290,8 @@
             }
             generateCustomThemeCode();
         }
+        
+        
         function updatesyntaxhtmltagcontentcolor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -5965,6 +6303,8 @@
             themetoedit.style.setProperty('--syntaxhtmltagcontent-color', rgba);
             generateCustomThemeCode();
         }
+        
+        
         function updateBackgroundColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -5989,7 +6329,8 @@
             }
             generateCustomThemeCode();
         }
-
+        
+        
         function updateRectangleBorderColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -6003,7 +6344,8 @@
             themetoedit.style.setProperty('--browserheaderborderbottom-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updateSwitchCheckedBackgroundColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -6015,7 +6357,8 @@
             themetoedit.style.setProperty('--switchcheckedbackground-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updateLoadingBarLoadedBackgroundColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -6027,7 +6370,8 @@
             themetoedit.style.setProperty('--loadingbarloadedbackground-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updateRectangleColorColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -6040,7 +6384,8 @@
             themetoedit.style.setProperty('--filepathinput-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatecodeeditoreditbtncolor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
@@ -6052,7 +6397,7 @@
             themetoedit.style.setProperty('--codeeditoreditbtn-color', rgba);
             generateCustomThemeCode();
         }
-
+        
         function updatecustomtheme(codeInputField) {
             const themeCode = codeInputField.value.trim();
             const everyValue = themeCode.split('.');
@@ -6095,6 +6440,8 @@
                 }
             });
         }
+        
+        
         function updatesyntaxblockcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6106,7 +6453,8 @@
             themetoedit.style.setProperty('--syntaxblock-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxoperatorcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6118,7 +6466,8 @@
             themetoedit.style.setProperty('--syntaxoperator-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxbracketcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6130,7 +6479,8 @@
             themetoedit.style.setProperty('--syntaxbracket-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxsigncolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6142,7 +6492,8 @@
             themetoedit.style.setProperty('--syntaxsign-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxstringcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6154,7 +6505,8 @@
             themetoedit.style.setProperty('--syntaxstring-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxnumbercolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6166,7 +6518,8 @@
             themetoedit.style.setProperty('--syntaxnumber-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxcommentcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6178,7 +6531,8 @@
             themetoedit.style.setProperty('--syntaxcomment-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxvariablecolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6190,7 +6544,8 @@
             themetoedit.style.setProperty('--syntaxvariable-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxcommandcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6202,7 +6557,8 @@
             themetoedit.style.setProperty('--syntaxcommand-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxkeywordcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6214,7 +6570,8 @@
             themetoedit.style.setProperty('--syntaxkeyword-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxhtmlcommentcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6226,7 +6583,8 @@
             themetoedit.style.setProperty('--syntaxhtmlcomment-color', rgba);
             generateCustomThemeCode();
         }
-
+        
+        
         function updatesyntaxregexcolor() {
             themetoedit = document.querySelector('.custom-theme');
             if (!themetoedit) {
@@ -6238,8 +6596,8 @@
             themetoedit.style.setProperty('--syntaxregex-color', rgba);
             generateCustomThemeCode();
         }
-
-
+        
+        
         function generateCustomThemeCode() {
             const everyColorInput = document.querySelectorAll('.switchtothememaincolorspan2');
             const everyRangeInput = document.querySelectorAll('.themeoption input[type="range"]');
@@ -6260,12 +6618,12 @@
                 codeInput.value = themeCode.join('.');
             }
         }
-
+        
         function isValidNumber(value) {
             const number = parseFloat(value.trim());
             return !isNaN(number) && number >= 0 && number <= 100;
         }
-
+        
         function isValidHex(hex) {
             const hexPattern = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
             return hexPattern.test(hex.trim());
@@ -6335,28 +6693,35 @@
                 document.body.className = "";
             }
         }
+        
         function removeallthemes() {
             removeThemeProperties();
             document.body.classList.remove("custom-theme");
             document.body.className = "";
         }
+        
         function showallfilescontainer() {
-            if (document.querySelector('.overlay-container').style.display != "flex") {
-                document.querySelector('.overlay-container').style.display = "flex";
-                document.querySelector('.overlay-container').style.animation = "none";
-                void document.querySelector('.overlay-container').offsetWidth;
-                document.querySelector('.overlay-container').style.animation = "swipein 0.5s ease-out";
+            const socoverlaycontainer = document.querySelector('.overlay-container');
+            if (socoverlaycontainer.style.display != "flex") {
+                socoverlaycontainer.style.display = "flex";
+                socoverlaycontainer.style.animation = "none";
+                void socoverlaycontainer.offsetWidth;
+                if (transitionanimation != "none") {
+                    socoverlaycontainer.style.animation = transitionanimation + "in 0.5s ease-out";
+                }
             }
             closesidebaronsmallscreensizes();
         }
-    
+        
         function closesidebaronsmallscreensizes() {
             if (document.querySelector('.divcodeeditor-container').classList.contains('smallsidebarenabled')){
                 document.querySelector('.divcodeeditor-container').classList.remove('smallsidebarenabled');
             }
         }
+        
         function closeeverything() {
             hidecodefunctionssettingsoverlay();
+            hidechooseanimationoverlay();
             hidecommandoverlay();
             hidesignexplenationoverlay();
             closeviewthisfile();
@@ -6370,9 +6735,12 @@
                 hidenotificationmessage();
             }
         }
+        
         function viewbottominputoninput(viewelementinputelement){
             document.getElementById('scrollviewintoviewbtn').textContent = viewelementinputelement.value;
         }
+        
+        
         function togglesidebarbuttonfunction() {
             const mediaQuery = window.matchMedia('(max-width: 700px)');
             if (mediaQuery.matches) {
@@ -6387,6 +6755,7 @@
                 document.querySelector('.divcodeeditor-container').classList.toggle('sidebarenabled');
             }
         }
+        
         const mediaQuery = window.matchMedia('(max-width: 700px)');
 
         if (mediaQuery.matches){
@@ -6406,16 +6775,21 @@
             }
         });
         
+        
         function hideelementwithswipe(relement) {
             if (relement.style.display == "none") {
                 return;
             }
             relement.style.animation = "none";
             void relement.offsetWidth;
-            relement.style.animation = "swipeout 0.5s ease-out";
-            setTimeout(() => {
+            if (transitionanimation != "none") {
+                relement.style.animation = transitionanimation + "out 0.5s ease-out";
+                setTimeout(() => {
+                    relement.style.display = "none";
+                }, 500);
+            }else {
                 relement.style.display = "none";
-            }, 500);
+            }
         }
         
          function showelementwithswipe(relement) {
@@ -6426,7 +6800,19 @@
             relement.style.display = "flex";
             relement.style.animation = "none";
             void relement.offsetWidth;
-            relement.style.animation = "swipein 0.5s ease-out";
+            if (transitionanimation != "none") {
+                relement.style.animation = transitionanimation + "in 0.5s ease-out";
+            }
+        }
+        
+        function showchooseanimationoverlay() {
+            const sohchooseanimationoverlay = document.querySelector('.chooseanimationoverlay');
+            showelementwithswipe(sohchooseanimationoverlay);
+        }
+        
+        function hidechooseanimationoverlay() {
+            const sohchooseanimationoverlay = document.querySelector('.chooseanimationoverlay');
+            hideelementwithswipe(sohchooseanimationoverlay);
         }
         
         function showcommandoverlay() {
@@ -6445,6 +6831,7 @@
             const sohcodefunctionssettingsoverlay = document.querySelector('.codefunctionssettingsoverlay');
             showelementwithswipe(sohcodefunctionssettingsoverlay);
         }
+        
         function shownotificationmessage() {
             const sohnotificationmessage = document.querySelector('.notificationmessage');
             if (sohnotificationmessage.style.display == "flex"){
@@ -6467,6 +6854,7 @@
                 sohnotificationmessage.style.display = "none";
             }, 500);
         }
+        
         function showtestregexoverlay() {
             const sohtestregexoverlay = document.querySelector('#testregexoverlay');
             showelementwithswipe(sohtestregexoverlay);
@@ -6514,7 +6902,8 @@
         const promptInput = document.getElementById('custom-input');
         const submitPromptButton = document.getElementById('submit-prompt');
         const closeDialog = document.getElementById('close-dialog');
-
+        
+        
         function showAlert(message) {
             setTimeout(() => {
                 messageBox.textContent = message;
@@ -6523,7 +6912,8 @@
                 overlay.style.display = 'flex';
             }, 100);
         }
-
+        
+        
         function showPrompt(message, callback) {
             messageBox.textContent = message;
             promptInputContainer.style.display = 'block';
@@ -6536,6 +6926,7 @@
                 closeCustomDialog();
             };
         }
+        
         
         function showtimeinput(texttsotit = "enter a time", callback) {
             document.querySelector('.timeinputoverlay').style.display = 'flex';
@@ -6553,23 +6944,21 @@
             updateSelection(hourPicker);
             updateSelection(minutePicker);
         }
-
+        
         function closeCustomDialog() {
             overlay.style.display = 'none';
             promptInput.value = '';
         }
-
+        
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
                 closeCustomDialog();
             }
         });
-
+        
         closeAlertButton.addEventListener('click', closeCustomDialog);
         closeDialog.addEventListener('click', closeCustomDialog);
-
-
-
+        
         let isloadingfiles = false;
         let isloadingimages = false;
         function startLoading() {
@@ -6582,6 +6971,8 @@
             ];
             startLoadingThis(steps, 'Analyzing');
         }
+        
+        
         function startLoadingThis(steps, initialtext) {
             const overlay = document.getElementById('overlay');
             const progressBar = document.getElementById('progress-bar');
@@ -6737,34 +7128,34 @@
 <button class="close">×</button>`;
 
             contentContainer.appendChild(newRectangle);
-
+            
             newRectangle.querySelector('.download-btn').addEventListener('click', () => {
                 downloadImage(file);
             });
-
+            
             let timer;
-
+            
             newRectangle.querySelector('.close').addEventListener('click', () => {
                 newRectangle.classList.remove('enlarged');
             });
             newRectangle.addEventListener('mousedown', startEnlarge);
             newRectangle.addEventListener('touchstart', startEnlarge);
-
+            
             newRectangle.addEventListener('mouseup', stopEnlarge);
             newRectangle.addEventListener('mouseleave', stopEnlarge);
             newRectangle.addEventListener('touchend', stopEnlarge);
-
+            
             function startEnlarge(event) {
                 timer = setTimeout(() => {
                     newRectangle.classList.add('enlarged');
                 }, 700);
             }
-
+            
             function stopEnlarge() {
                 clearTimeout(timer);
             }
         }
-
+        
         function deleteImage(element) {
             const rectangle = element.closest('.rectangle');
             if (allimages[rectangle.querySelector('.image-name').textContent]){
@@ -6773,7 +7164,7 @@
             rectangle.remove();
             
         }
-
+        
         function downloadImage(file) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -6787,7 +7178,6 @@
             };
             reader.readAsDataURL(file);
         }
-
         function requestcreatenewfile() {
             showPrompt('file path:', (filename) => {
                 let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
@@ -6829,6 +7219,7 @@
             const reader = new FileReader();
             let body = document.querySelector('body');
             const editorContainer = newSection.querySelector('.code-editor-container');
+            
             reader.onload = (e) => {
                 const lines = e.target.result.split('\n');
                 lines.forEach((lineText) => {
@@ -6877,8 +7268,10 @@
                 timeout = setTimeout(() => {
                     document.querySelector('.overlay-container').style.display = "flex";
                     document.querySelector('.overlay-container').style.animation = "none";
-                    void document.querySelector('.overlay-container').offsetWidth; // Trigger reflow
-                    document.querySelector('.overlay-container').style.animation = "swipein 0.5s ease-out";
+                    void document.querySelector('.overlay-container').offsetWidth;
+                    if (transitionanimation != "none") {
+                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
+                    }
                 }, 700);
             }
 
@@ -6992,8 +7385,10 @@
                 timeout = setTimeout(() => {
                     document.querySelector('.overlay-container').style.display = "flex";
                     document.querySelector('.overlay-container').style.animation = "none";
-                    void document.querySelector('.overlay-container').offsetWidth; // Trigger reflow
-                    document.querySelector('.overlay-container').style.animation = "swipein 0.5s ease-out";
+                    void document.querySelector('.overlay-container').offsetWidth;
+                    if (transitionanimation != "none") {
+                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
+                    }
                 }, 700);
             }
 
@@ -7124,7 +7519,9 @@
                     document.querySelector('.overlay-container').style.display = "flex";
                     document.querySelector('.overlay-container').style.animation = "none";
                     void document.querySelector('.overlay-container').offsetWidth;
-                    document.querySelector('.overlay-container').style.animation = "swipein 0.5s ease-out";
+                    if (transitionanimation != "none") {
+                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
+                    }
                 }, 700);
             }
 
@@ -7270,17 +7667,15 @@
                 }
             }
         }
-
+        
         function truncateText(text, maxLength) {
             if (typeof text !== "string" || typeof maxLength !== "number") {
                 throw new Error("Ungültige Argumente: text muss ein String und maxLength eine Zahl sein.");
             }
-
+            
             return text.slice(0, maxLength);
         }
-
-
-
+        
         function handleFileNameInputChange(navDot) {
             const dataIndex = navDot.getAttribute('data-index');
             const option = document.getElementById("option" + dataIndex);
@@ -7325,7 +7720,7 @@
                         "htm": "HyperText Markup"
                     };
                 
-                    let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
+                    let extension = filetype.value.split('.').pop();
                 
                     if (filetypes[extension]) {
                         seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
@@ -7338,66 +7733,64 @@
                 downloadBtn.onclick = () => downloadFile(safeValue);
             }
         }
-
-
-
+        
         document.querySelectorAll('.filedot .filePathInput').forEach(rect => {
             rect.addEventListener('input', () => {
                 handleFileNameInputChange(rect.parentElement);
             });
         });
-
-
-
-
+        
         document.querySelectorAll('.rectangle').forEach(rect => {
             let timer;
-
+            
             rect.querySelector('.close').addEventListener('click', () => {
                 rect.classList.remove('enlarged');
             });
             rect.addEventListener('mousedown', startEnlarge);
             rect.addEventListener('touchstart', startEnlarge);
-
+            
             rect.addEventListener('mouseup', stopEnlarge);
             rect.addEventListener('mouseleave', stopEnlarge);
             rect.addEventListener('touchend', stopEnlarge);
-
+            
             function startEnlarge(event) {
                 timer = setTimeout(() => {
                     rect.classList.add('enlarged');
                 }, 700);
             }
-
+            
             function stopEnlarge() {
                 clearTimeout(timer);
             }
         });
-
+        
         document.querySelectorAll('.filePathInput').forEach(rect => {
             let timer;
-
+            
             rect.addEventListener('mousedown', startEnlarge);
             rect.addEventListener('touchstart', startEnlarge);
-
+            
             rect.addEventListener('mouseup', stopEnlarge);
             rect.addEventListener('mouseleave', stopEnlarge);
             rect.addEventListener('touchend', stopEnlarge);
-
+            
             function startEnlarge(event) {
                 timer = setTimeout(() => {
                     updateviewthisfilebtn();
                     document.querySelector('.overlay-container').style.display = "flex";
                     document.querySelector('.overlay-container').style.animation = "none";
                     void document.querySelector('.overlay-container').offsetWidth;
-                    document.querySelector('.overlay-container').style.animation = "swipein 0.5s ease-out";
+                    if (transitionanimation != "none") {
+                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
+                    }
                 }, 700);
             }
-
+            
             function stopEnlarge() {
                 clearTimeout(timer);
             }
         });
+        
         function hideelement(type, name, event){
             if (event.target !== event.currentTarget) {
                 return;
@@ -7406,20 +7799,29 @@
                 const ewcname = document.querySelector('.' + name);
                 ewcname.style.animation = "none";
                 void ewcname.offsetWidth;
-                ewcname.style.animation = "swipeout 0.5s ease-out";
-                setTimeout(() => {
+                if (transitionanimation != "none") {
+                    ewcname.style.animation = transitionanimation + "out 0.5s ease-out";
+                    setTimeout(() => {
+                        ewcname.style.display = 'none';
+                    }, 500);
+                }else {
                     ewcname.style.display = 'none';
-                }, 500);
+                }
             }else if (type == 'id'){
                 const ewidname = document.getElementById(name);
                 ewidname.style.animation = "none";
                 void ewidname.offsetWidth;
-                ewidname.style.animation = "swipeout 0.5s ease-out";
-                setTimeout(() => {
+                if (transitionanimation != "none") {
+                    ewidname.style.animation = transitionanimation + "out 0.5s ease-out";
+                    setTimeout(() => {
+                        ewidname.style.display = 'none';
+                    }, 500);
+                } else {
                     ewidname.style.display = 'none';
-                }, 500);
+                }
             }
         }
+        
         const navBar = document.getElementById('nav-bar');
         let isDragging = false;
         let startY = 0;
@@ -7478,7 +7880,7 @@
             } else {
                 Array.from(lines)
                     .filter(el => el.textContent.includes(replacethistext))
-                    .reverse() // .reverse() korrekt angewendet
+                    .reverse()
                     .forEach(line => {
                         let pastelement = {
                             element: line,
@@ -7659,8 +8061,7 @@
                 });
             }
         }
-
-
+        
         function editthisfile(number, event = null){
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
@@ -7860,7 +8261,7 @@
                         const range = selection.getRangeAt(0);
                         const rect = range.getBoundingClientRect();
             
-                        if (rect.height === 0) return; // Falls der Cursor unsichtbar ist
+                        if (rect.height === 0) return;
             
                         container.style.left = `${rect.left + window.scrollX}px`;
                         container.style.top = `${rect.bottom + window.scrollY}px`;
@@ -7975,7 +8376,7 @@
                 return;
             }
             if (!targetElementv.classList.contains('selected') && !targetElementv.classList.contains('hiddenlinesparent') && !targetElementv.classList.contains('superselected')) {
-                targetElementv.classList.add('selected');  // Linie auswählen
+                targetElementv.classList.add('selected');
                 section.querySelectorAll('.eslbtn.disabled').forEach(dline => {
                     dline.classList.remove('disabled');
                 });
@@ -8810,10 +9211,14 @@
                 if (sec.id != `section${index}`){
                     sec.style.animation = "none";
                     void sec.offsetWidth;
-                    sec.style.animation = "swipeout 0.3s ease-out";
-                    setTimeout(() => {
+                    if (transitionanimation != "none") {
+                        sec.style.animation = transitionanimation + "out 0.3s ease-out";
+                        setTimeout(() => {
+                            sec.style.display = 'none';
+                        }, 290);
+                    } else {
                         sec.style.display = 'none';
-                    }, 300);
+                    }
                 }
             });
             if (section.classList.contains('viewcontainer')) {
@@ -8827,12 +9232,19 @@
             if (document.querySelector('#sidebarfilelinklink' + index)) {
                 document.querySelector('#sidebarfilelinklink' + index).classList.add('currentfile');
             }
-            setTimeout(() => {
-                document.querySelector(`#section${index}`).style.display = 'flex';
-                document.querySelector(`#section${index}`).style.animation = "none";
-                void document.querySelector(`#section${index}`).offsetWidth;
-                document.querySelector(`#section${index}`).style.animation = "swipein 0.3s ease-out";
-            }, 300);
+            const newstsection = document.querySelector(`#section${index}`);
+            if (transitionanimation != "none") {
+                setTimeout(() => {
+                    newstsection.style.display = 'flex';
+                    newstsection.style.animation = "none";
+                    void newstsection.offsetWidth;
+                    newstsection.style.animation = transitionanimation + "in 0.3s ease-out";
+                }, 300);
+            } else {
+                newstsection.style.display = 'flex';
+                newstsection.style.animation = "none";
+                void newstsection.offsetWidth;
+            }
         }
         function highlightDot(index) {
             navDots.forEach(dot => {
@@ -11162,7 +11574,7 @@
                     }
                 }
             }
-
+            
             if (event.key === '>') {
                 lasteventsparentsection = section;
                 let pastelement = {
@@ -11913,7 +12325,7 @@
                         const range = selection.getRangeAt(0);
                         const rect = range.getBoundingClientRect();
             
-                        if (rect.height === 0) return; // Falls der Cursor unsichtbar ist
+                        if (rect.height === 0) return;
             
                         container.style.left = `${rect.left + window.scrollX}px`;
                         container.style.top = `${rect.bottom + window.scrollY}px`;
