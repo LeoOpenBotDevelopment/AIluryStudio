@@ -11818,7 +11818,7 @@
             function getLastWordBeforeCursor() {
                 const cursorPos = getCursorPosition();
                 const textBeforeCursor = inputElement.textContent.slice(0, cursorPos);
-                const match = textBeforeCursor.match(/[a-zA-Z0-9äöüßÄÖÜ/:\-@]+$/);
+                const match = textBeforeCursor.match(/[a-zA-Z0-9äöüßÄÖÜ/:\-@\<]+$/);
                 return match ? match[0] : "";
             }
 
@@ -11871,7 +11871,7 @@
                         }
                         const cursorPos = cursorPosition;
                         const textBeforeCursor = inputElement.textContent.slice(0, cursorPos);
-                        const regex = /[a-zA-Z0-9äöüßÄÖÜ/:\-@]+$/g;
+                        const regex = /[a-zA-Z0-9äöüßÄÖÜ/:\-@\<]+$/g;
                         const match = textBeforeCursor.match(regex);
                         let lastword = match ? match[0] : "";
                     
