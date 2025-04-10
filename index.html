@@ -8521,23 +8521,7 @@
                 const fileContent = checkiffile(src);
                 return fileContent ? `<script>\n${fileContent}\n<\/script>` : match;
             });
-            if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
-                const extracode = `
-    <\/script>
-    <script>
-        window.addEventListener('message', (event) => {
-            if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
-                try {
-                    const func = new Function(event.data.slice(5).trim());
-                    const result = func();
-                } catch (error) {
-                    parent.postMessage({ 
-                        status: 'error', 
-                        message: error.name + ': ' + error.message 
-                    }, '*');
-                }
-            }
-        });
+            const filerequests = `
     <\/script>
     <script>
         const fileReplacements = ${JSON.stringify(allimages)};
@@ -8585,10 +8569,31 @@
 
     <\/script>
             `;
+            htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, filerequests);
+            if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
+                const extracode = `
+    <\/script>
+    <script>
+        window.addEventListener('message', (event) => {
+            if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
+                try {
+                    const func = new Function(event.data.slice(5).trim());
+                    const result = func();
+                } catch (error) {
+                    parent.postMessage({ 
+                        status: 'error', 
+                        message: error.name + ': ' + error.message 
+                    }, '*');
+                }
+            }
+        });
+    <\/script>`;
+                
                 htmlString = htmlString.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
                     return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
                 });
                 htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, extracode);
+                
                 
                 htmlString = htmlString.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
                     const keys = [
