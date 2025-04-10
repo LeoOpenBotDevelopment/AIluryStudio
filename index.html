@@ -1446,7 +1446,7 @@
             gap: 10px;
         }
 
-        .download-btn, .delete-btn, .close, .edit-btn{
+        .download-btn, .delete-btn, .close, .edit-btn, .copyiurl-btn{
             background-color: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
             color: var(--overlaycolor-color);
@@ -7096,6 +7096,19 @@
             document.body.removeChild(a);
         });
 
+        function copythistext(text) {
+            try {
+                const newtextarea = document.createElement('textarea');
+                newtextarea.value = text;
+                document.body.appendChild(newtextarea);
+                newtextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(newtextarea);
+            } catch (error) {
+                const thiserrorwascatched = error;
+            }
+        }
+
         function addNewImage(imagePath, imageUrl, file) {
             allimages[imagePath] = imageUrl;
             
@@ -7123,11 +7136,16 @@
             newRectangle.style.backgroundSize = 'cover';
             newRectangle.style.backgroundPosition = 'center';
 
-            newRectangle.innerHTML = `<span class="image-name">${fileName}</span>
-<div class="rectangle-buttons"><button class="download-btn">Download</button><button class="delete-btn" onclick="deleteImage(this)">Delete</button></div>
+            newRectangle.innerHTML = `<span class="image-name"></span>
+<div class="rectangle-buttons"><button class="download-btn">Download</button><button class="delete-btn" onclick="deleteImage(this)">Delete</button><button class="copyiurl-btn">Copy</button></div>
 <button class="close">×</button>`;
 
             contentContainer.appendChild(newRectangle);
+            
+            newRectangle.querySelector('.copyiurl-btn').onclick = () => {
+                copythistext(imageUrl);
+            };
+            newRectangle.querySelector('.image-name').textContent = fileName;
             
             newRectangle.querySelector('.download-btn').addEventListener('click', () => {
                 downloadImage(file);
