@@ -2372,45 +2372,6 @@
             width: 1.5em;
             margin-left: 5px;
         }
-        .syntaxcheckboxinput{
-            height: 1.5em;
-            width: 1.5em;
-            margin-left: 5px;
-            accent-color: var(--switchcheckedbackground-color);
-            background-color: var(--background-color);
-            border: 1px solid var(--rectangleborder);
-            padding: 0;
-        }
-        .syntaxcheckboxinput:after{
-            content: "✘";
-            position: absolute;
-            background: var(--background-color);
-            border: 1px solid var(--syntaxkeyword-color);
-            color: var(--syntaxkeyword-color);
-            height: 1.5em;
-            width: 1.5em;
-            margin: -2px;
-            border-radius: 2px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .syntaxcheckboxinput:checked:after {
-            content: "✓";
-            position: absolute;
-            background: var(--background-color);
-            border: 1px solid var(--syntaxkeyword-color);
-            color: var(--syntaxkeyword-color);
-            height: 1.5em;
-            width: 1.5em;
-            margin: -2px;
-            border-radius: 2px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
         .syntaxblock { color: var(--syntaxblock-color); }
         .syntaxoperator { color: var(--syntaxoperator-color); }
         .syntaxbracket { color: var(--syntaxbracket-color); }
@@ -2555,21 +2516,6 @@
             .syntaxcolorinput {
                 height: 1em;
                 width: 1em;
-            }
-            .syntaxcheckboxinput{
-                height: 1em;
-                width: 1em;
-                font-size: 1em;
-            }
-            .syntaxcheckboxinput:after{
-                height: 1em;
-                width: 1em;
-                font-size: 1em;
-            }
-            .syntaxcheckboxinput:checked:after {
-                height: 1em;
-                width: 1em;
-                font-size: 1em;
             }
         }
         #functionsbbdbdb span, #nontotfunctionbtn span{
@@ -11016,44 +10962,6 @@
                                         });
                                     }
                                 };
-                            }else if (className == "syntaxkeyword" && (span.textContent == "true" || span.textContent == "false")){
-                                function addcheckboxtoelement(span){
-                                    const checkBox = document.createElement('input');
-                                    checkBox.type = 'checkbox';
-                                    checkBox.value = span.textContent;
-                                    checkBox.className = "syntaxcheckboxinput";
-                                    span.appendChild(checkBox);
-                                    if (span.textContent == "true") {
-                                        checkBox.checked = true;
-                                    } else {
-                                        checkBox.checked = false;
-                                    }
-                                    checkBox.onclick = () => {
-                                        if (span.parentElement && span.parentElement.classList.contains('code-editor-line')) {
-                                            let newpast = [];
-                                            let pastelement = {
-                                                element: span.parentElement,
-                                                type: "text",
-                                                text: span.parentElement.textContent
-                                            };
-                                            newpast.push(pastelement);
-                                            if (newpast.length > 0) {
-                                                if (!pastevents[lasteventsparentsection.id]) {
-                                                    pastevents[lasteventsparentsection.id] = [];
-                                                }
-                                                pastevents[lasteventsparentsection.id].push(newpast);
-                                                enablepastbtn();
-                                            }
-                                        }
-                                        if (checkBox.checked == true){
-                                            span.textContent = "true";
-                                        }else {
-                                            span.textContent = "false";
-                                        }
-                                        addcheckboxtoelement(span);
-                                    };
-                                }
-                                addcheckboxtoelement(span);
                             }
                             span.classList.add('syntax');
                             container.appendChild(span);
