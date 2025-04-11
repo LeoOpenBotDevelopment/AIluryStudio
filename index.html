@@ -10812,7 +10812,7 @@
 
             let spatterns = [
                 { regex: /(\/\/[^\n]*|\/\*[\s\S]*?(?:\*\/|$)|[^\/]*\*\/)/g, className: "syntaxcomment" },
-                { regex: /(?:\<\!\-\-[^\-]*|(?<!\<\!\-\-[^\-]*)[\s\S]*?\-\-\>)/g, className: "syntaxhtmlcomment" },
+                { regex: /(?:\<\!\-\-[^]*|(?<!\<\!\-\-[^]*)[\s\S]*?\-\-\>)/g, className: "syntaxhtmlcomment" },
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
 
@@ -11106,7 +11106,7 @@
 
             function processDiv2() {
                 const content = code;
-                const regexCommentEnd = /.*-->.*$/;
+                const regexCommentEnd = /.*-->.*/;
                 const regexCommentStart = /.*<!--/;
 
                 if (regexCommentEnd.test(content) && !regexCommentStart.test(content.slice(content.indexOf('-->') + 3))) {
@@ -11125,7 +11125,7 @@
 
             function checkcomments2(div, text) {
                 let regextotest = /<!--(?!.*-->)/g;
-                let regextotest2 = /(?<!<!--.*)-->$/g;
+                let regextotest2 = /(?<!<!--.*)-->/g;
                 if (div.nextElementSibling && div.nextElementSibling.classList.contains('syntaxhtmlcomment') && !div.classList.contains('syntaxhtmlcomment') && !regextotest.test(text)) {
                     let nextelement = div.nextElementSibling;
                     while (nextelement && nextelement.classList.contains('syntaxhtmlcomment')) {
