@@ -2368,8 +2368,8 @@
             display: inline-block;
         }
         .syntaxcolorinput{
-            height: 1.5em;
-            width: 1.5em;
+            height: calc(var(--editor-font-size) / 2 * 3);
+            width: calc(var(--editor-font-size) / 2 * 3);
             margin-left: 5px;
         }
         .syntaxblock { color: var(--syntaxblock-color); }
@@ -2514,8 +2514,8 @@
         }
         @media(max-width: 700px){
             .syntaxcolorinput {
-                height: 1em;
-                width: 1em;
+                height: var(--editor-font-size);
+                width: var(--editor-font-size);
             }
         }
         #functionsbbdbdb span, #nontotfunctionbtn span{
