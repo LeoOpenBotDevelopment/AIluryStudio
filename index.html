@@ -12,6 +12,7 @@
     <title>AIlury</title>
     <style>
         :root {
+            --editor-font-size: 1em;
             --background-color: #F2F2F7;
             --white-color: #F2F2F7;
             --grey-color: #ccc;
@@ -532,7 +533,7 @@
             border-radius: 5px;
             background: transparent;
             color: var(--black-color);
-            font-size: 1em;
+            font-size: var(--editor-font-size);
             font-family: "Fira Code", "JetBrains Mono", monospace;
             letter-spacing: 0.06em;
             text-align: left;
@@ -1116,7 +1117,7 @@
                 transition: 0.3s;
             }
             .code-editor-line {
-                font-size: 0.8em;
+                font-size: calc(var(--editor-font-size) / 4 * 3);
             }
         }
         #addFile{
@@ -1597,7 +1598,7 @@
                 transition: 0.5s;
             }
             .code-editor-line {
-                font-size: 0.7em;
+                font-size: calc(var(--editor-font-size) / 3 * 2);
             }
         }
 
@@ -3451,6 +3452,10 @@
                         <span>file type:</span>
                         <span id="fileinfofiletype">html</span>
                     </div>
+                    <div class="oneinfoc">
+                        <span>font size:</span>
+                        <input type="range" id="fontSizeSlider" onchange="updatefontsize(this)" min="0.5" max="2" step="0.5" value="1">
+                    </div>
                 </div>
                 <div class="seccontainer-line-container">
                     <div class="seccontainer-line">
@@ -4200,6 +4205,12 @@
     </div>
 
     <script>
+        function updatefontsize(slider) {
+            const value = parseFloat(slider.value);
+            const clamped = Math.max(0.5, Math.min(2, value)); // Clamp zwischen 0.5 und 2
+            document.body.style.setProperty('--editor-font-size', clamped.toFixed(2) + 'em');
+        }
+        
         let transitionanimation = "swipe";
         
         function chengeanimation(thiselement, animationname) {
