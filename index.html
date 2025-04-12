@@ -8053,12 +8053,31 @@
                 return;
             }
             closesidebaronsmallscreensizes();
-            closeeverything();
-            let navBar = document.getElementById('nav-bar');
-            let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + number + '"]');
-            if (scrolltothissection){
-                scrolltothissection.scrollIntoView({ behavior: 'smooth' });
-                document.querySelector('.overlay-back-btn').click();
+            if (event.target.classList.contains('rectangle')){
+                let navBar = document.getElementById('nav-bar');
+                let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + number + '"]');
+                if (scrolltothissection){
+                    let lasttransitionanimation = transitionanimation;
+                    transitionanimation = "ease";
+                    event.target.classList.add('enlarged');
+                    scrolltothissection.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                        document.querySelector('.overlay-back-btn').click();
+                        closeeverything();
+                        setTimeout(() => {
+                            event.target.classList.remove('enlarged');
+                        }, 500);
+                        transitionanimation = lasttransitionanimation;
+                    }, 500)
+                }
+            }else {
+                closeeverything();
+                let navBar = document.getElementById('nav-bar');
+                let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + number + '"]');
+                if (scrolltothissection) {
+                    scrolltothissection.scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector('.overlay-back-btn').click();
+                }
             }
             lasteventsparentsection = document.getElementById('section' + number);
         }
