@@ -3605,6 +3605,50 @@
         .ceebtnposexampleselected{
             border: 2px solid var(--switchcheckedbackground-color);
         }
+        @media(min-width: 900px) {
+            .cefbtnislands .editor-selected-line-btns, .cefbtnislands .code-editor-btns {
+                width: 90vw;
+                border-radius: 8px;
+                border: 1px solid var(--rectangleborder);
+                margin-left: 5vw;
+                transform: scale(0.8);
+                overflow: visible;
+            }
+            .sidebarenabled.cefbtnislands .editor-selected-line-btns, .sidebarenabled.cefbtnislands .code-editor-btns {
+                width: calc(90vw - var(--sibebar-width));
+            }
+            .cefbtnislands .code-editor-btns {
+                height: calc(6dvh + 20px);
+            }
+            .cefbtnislands.allbtnsleft .code-editor-btns, .cefbtnislands.selectedbtnsleft .editor-selected-line-btns, .cefbtnislands.bothbtncleft.allbtnsleft.selectedbtnsleft .code-editor-btns, .cefbtnislands.bothbtncleft.selectedbtnsleft.allbtnsleft .editor-selected-line-btns {
+                top: 10dvh;
+                height: 90dvh;
+                width: calc(6dvh + 20px);
+                margin-left: 0;
+                border: 1px solid var(--rectangleborder);
+            }
+            .cefbtnislands .code-search-input:focus, .cefbtnislands .line-number-input:focus {
+                border: 1px solid var(--rectangleborder);
+                transform: scale(1.1);
+                width: 30vw;
+            }
+            .cefbtnislands.allbtnsleft .line-number-input:focus {
+                position: fixed;
+                border: 1px solid var(--rectangleborder);
+                transform: scale(1.1);
+                width: 30vw;
+                left: calc(6dvh + 40px);
+                bottom: 0;
+            }
+            .cefbtnislands.bothbtncleft.selectedbtnsleft.allbtnsleft .line-number-input:focus, .cefbtnislands.bothbtncleft.selectedbtnsleft.allbtnsleft .code-search-input:focus {
+                position: fixed;
+                border: 1px solid var(--rectangleborder);
+                transform: scale(1.1);
+                width: 30vw;
+                left: calc(6dvh + 40px);
+                bottom: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -4385,12 +4429,19 @@
                     <h3>button position</h3>
                     <br>
                     <div class="chooseceebtnposopcontainer">
-                        <div class="chooseceebtnposopcontainerswitchcontainer">
+                        <div class="chooseceebtnposopcontainerswitchcontainer ifislandenableddisablethis">
                             <label class="switch">
                                 <input type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="toggleceefbrlbd(this)">
                                 <span class="slider"></span>
                             </label>
                             <span class="chooseceebtnposopcontainerswitchcontainername">borders</span>
+                        </div>
+                        <div class="chooseceebtnposopcontainerswitchcontainer ifborderenableddisablethis">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="togglecebtnislands(this)">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="chooseceebtnposopcontainerswitchcontainername">islands</span>
                         </div>
                         <div class="ceebtnposexample ceebtnposexampleselected" id="ceebtnposexample0" onclick="switchtobtnlayout('0', this)">
                             <span></span>
@@ -4580,29 +4631,58 @@
     </div>
 
     <script>
+        function togglecebtnislands(thechangedswitch) {
+            if (thechangedswitch.checked) {
+                document.querySelector('.ifislandenableddisablethis input[type="checkbox"]').checked = false;
+                document.querySelector('.divcodeeditor-container').classList.add('ceefbrlbd');
+                document.querySelector('.divcodeeditor-container').classList.add('cefbtnislands');
+            } else {
+                document.querySelector('.divcodeeditor-container').classList.remove('cefbtnislands');
+            }
+        }
         function switchtobtnlayout(layoutnum, layoutexample) {
             document.querySelector('.ceebtnposexample.ceebtnposexampleselected').classList.remove('ceebtnposexampleselected');
             layoutexample.classList.add('ceebtnposexampleselected');
             const divcodeeditorcontainer = document.querySelector('.divcodeeditor-container');
+            const headers = document.querySelectorAll('.topandbottomsignsdisplay-container h2');
+            const selectedebtndheader = headers[0];
+            const allebtndheader = headers[1];
             if (layoutnum == "0") {
                 divcodeeditorcontainer.classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft");
+                if (!selectedebtndheader || !allebtndheader) return;
+                selectedebtndheader.textContent = "top - (selected)";
+                allebtndheader.textContent = "bottom - (all)";
             } else if (layoutnum == "1") {
                 divcodeeditorcontainer.classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft");
                 divcodeeditorcontainer.classList.add("allbtnsleft");
+                if (!selectedebtndheader || !allebtndheader) return;
+                selectedebtndheader.textContent = "top - (selected)";
+                allebtndheader.textContent = "left - (all)";
             } else if (layoutnum == "2") {
                 divcodeeditorcontainer.classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft");
                 divcodeeditorcontainer.classList.add("selectedbtnsleft");
+                if (!selectedebtndheader || !allebtndheader) return;
+                selectedebtndheader.textContent = "right - (selected)";
+                allebtndheader.textContent = "bottom - (all)";
             } else if (layoutnum == "3") {
                 divcodeeditorcontainer.classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft");
                 divcodeeditorcontainer.classList.add("allbtnsleft", "selectedbtnsleft");
+                if (!selectedebtndheader || !allebtndheader) return;
+                selectedebtndheader.textContent = "right - (selected)";
+                allebtndheader.textContent = "left - (all)";
             } else if (layoutnum == "4") {
                 divcodeeditorcontainer.classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft");
                 divcodeeditorcontainer.classList.add("bothbtncleft", "allbtnsleft", "selectedbtnsleft");
+                if (!selectedebtndheader || !allebtndheader) return;
+                selectedebtndheader.textContent = "right - (selected)";
+                allebtndheader.textContent = "left - (all)";
             } 
             
         }
         function toggleceefbrlbd(toggleswitch) {
             if (toggleswitch.checked) {
+                document.querySelector('.ifborderenableddisablethis input[type="checkbox"]').checked = false;
+                document.querySelector('.divcodeeditor-container').classList.remove('cefbtnislands');
                 document.querySelector('.divcodeeditor-container').classList.remove('ceefbrlbd');
             } else {
                 document.querySelector('.divcodeeditor-container').classList.add('ceefbrlbd');
@@ -7246,6 +7326,9 @@
             }
         }
         window.addEventListener('resize', function() {
+            if (window.innerWidth <= 900) {
+                document.querySelector('.divcodeeditor-container').classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft", "ceefbrlbd", "cefbtnislands");
+            }
             if (window.innerWidth <= 700) {
                 if (document.querySelector('.divcodeeditor-container').classList.contains('sidebarenabled')){
                     document.querySelector('.divcodeeditor-container').classList.remove('sidebarenabled');
