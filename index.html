@@ -3625,12 +3625,26 @@
                 height: calc(6dvh + 20px);
             }
             .cefbtnislands.allbtnsleft .code-editor-btns, .cefbtnislands.selectedbtnsleft .editor-selected-line-btns, .cefbtnislands.bothbtncleft.allbtnsleft.selectedbtnsleft .code-editor-btns, .cefbtnislands.bothbtncleft.selectedbtnsleft.allbtnsleft .editor-selected-line-btns {
-                top: 10dvh;
-                height: 90dvh;
+                top: 7dvh;
+                height: 80dvh;
                 width: calc(6dvh + 20px);
-                margin-left: 0;
+                margin-left: 20px;
                 border: 1px solid var(--rectangleborder);
                 background: var(--background-color);
+            }
+            .cefbtnislands.allbtnsleft .code-editor-btns, .cefbtnislands.bothbtncleft.allbtnsleft.selectedbtnsleft .code-editor-btns {
+                margin-left: 20px;
+            }
+            .cefbtnislands.bothbtncleft.allbtnsleft.selectedbtnsleft .code-editor-btns {
+                margin-right: 0;
+            }
+            
+            .cefbtnislands.selectedbtnsleft .editor-selected-line-btns {
+                margin-right: 20px;
+            }
+            .cefbtnislands.bothbtncleft.selectedbtnsleft.allbtnsleft .editor-selected-line-btns {
+                margin-right: 0;
+                margin-left: 0;
             }
             .cefbtnislands .code-search-input:focus, .cefbtnislands .line-number-input:focus {
                 border: 1px solid var(--rectangleborder);
@@ -7335,6 +7349,8 @@
                 document.querySelector('.divcodeeditor-container').classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft", "ceefbrlbd", "cefbtnislands");
                 document.querySelector('.ifislandenableddisablethis input[type="checkbox"]').checked = false;
                 document.querySelector('.ifborderenableddisablethis input[type="checkbox"]').checked = false;
+                document.querySelector('.divcodeeditor-container').classList.add('ceefbrlbd');
+                document.querySelector('.divcodeeditor-container').classList.remove('cefbtnislands');
             }
             if (window.innerWidth <= 700) {
                 if (document.querySelector('.divcodeeditor-container').classList.contains('sidebarenabled')){
