@@ -2194,6 +2194,7 @@
             opacity: 0;
             position: fixed;
             bottom: 2.5px;
+            z-index: 20;
             transition: 0.3s;
         }
         #scrolltopreviousfile{
@@ -7332,6 +7333,8 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 900) {
                 document.querySelector('.divcodeeditor-container').classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft", "ceefbrlbd", "cefbtnislands");
+                document.querySelector('.ifislandenableddisablethis input[type="checkbox"]').checked = false;
+                document.querySelector('.ifborderenableddisablethis input[type="checkbox"]').checked = false;
             }
             if (window.innerWidth <= 700) {
                 if (document.querySelector('.divcodeeditor-container').classList.contains('sidebarenabled')){
