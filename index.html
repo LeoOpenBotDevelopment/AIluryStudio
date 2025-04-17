@@ -5605,15 +5605,17 @@
 
         addstartercodetofiles();
         
-        
+        let observenothing = false;
         const lineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.remove('invisible');
-                } else {
-                    entry.target.classList.add('invisible');
-                }
-            });
+            if (!observenothing){
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('invisible');
+                    } else {
+                        entry.target.classList.add('invisible');
+                    }
+                });
+            }
         }, { threshold: 0.1 });
         
         document.querySelectorAll('.code-editor-line').forEach(line => {
@@ -9486,11 +9488,13 @@
                             resultsnumber2++;
 
                             newspan.addEventListener('click', () => {
+                                observenothing = true;
                                 lineelement.scrollIntoView({
                                     behavior: 'smooth',
                                     block: 'center',
                                 });
                                 setTimeout(() => {
+                                    observenothing = false;
                                     performLongPressAction(lineelement);
                                     hidecodesearchresults();
                                 }, 0);
