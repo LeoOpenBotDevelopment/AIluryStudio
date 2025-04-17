@@ -9494,12 +9494,10 @@
                                     block: 'center',
                                 });
                                 setTimeout(() => {
+                                    observenothing = false;
                                     performLongPressAction(lineelement);
                                     hidecodesearchresults();
-                                }, 0);
-                                setTimeout(() => {
-                                    observenothing = false;
-                                }, 150);
+                                }, 100);
                             });
                         }
                     }
