@@ -8760,22 +8760,24 @@
                 { percent: 100, text: 'empty lines removed' },
             ];
             startLoadingThis(steps, 'checking...');
-            const allsectionlines = sectionlinecontainer.querySelectorAll(".code-editor-line");
+            const allsectionlines = Array.from(sectionlinecontainer.querySelectorAll(".code-editor-line")).filter(el => {
+                return el.textContent.trim() == "";
+            });
             let newpast = [];
             lasteventsparentsection = section;
-            allsectionlines.forEach((line, index) => {
+            let y = allsectionlines.length
+            for (let i = 0; i < y; i++){
+                let line = allsectionlines[i];
                 let pastelement = {
                     element: line,
                     type: "delete",
-                    index: index
+                    index: getElementIndexInParent(line)
                 };
                 newpast.push(pastelement);
-                if (line.textContent.trim() === "") {
-                    if (section.querySelectorAll(".code-editor-line").length > 1 && !line.classList.contains('hiddenlinesparent')){
-                        line.remove();
-                    }
+                if (section.querySelectorAll(".code-editor-line").length > 1 && !line.classList.contains('hiddenlinesparent')) {
+                    line.remove();
                 }
-            });
+            }
             if (newpast.length > 0) {
                 if (!pastevents[lasteventsparentsection.id]) {
                     pastevents[lasteventsparentsection.id] = [];
