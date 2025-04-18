@@ -5006,6 +5006,7 @@
             }
         }
         
+        let dontcopy = false;
         
         function addacommand() {
             const copypastcontainer = document.querySelector('.createcommandcontainer');
@@ -5069,12 +5070,14 @@
                         
                         leidresultbtn2.onclick = () => {
                             try {
+                                dontcopy = true;
                                 const newtextarea = document.createElement('textarea');
                                 newtextarea.value = command.toUpperCase().trim().replace(/\s+/g, '');
                                 document.body.appendChild(newtextarea);
                                 newtextarea.select();
                                 document.execCommand('copy');
                                 document.body.removeChild(newtextarea);
+                                dontcopy = false;
                             } catch (error) {
                                 const thiserrorwascatched = error;
                             }
@@ -5162,12 +5165,14 @@
                                             
                                             leidresultbtn2.onclick = () => {
                                                 try {
+                                                    dontcopy = true;
                                                     const newtextarea = document.createElement('textarea');
                                                     newtextarea.value = command.toLowerCase().trim().replace(/\s+/g, '');
                                                     document.body.appendChild(newtextarea);
                                                     newtextarea.select();
                                                     document.execCommand('copy');
                                                     document.body.removeChild(newtextarea);
+                                                    dontcopy = false;
                                                 } catch (error) {
                                                     const thiserrorwascatched = error;
                                                 }
@@ -6499,12 +6504,14 @@
         
                 const copyText = (text) => {
                     try {
+                        dontcopy = true;
                         const textarea = document.createElement("textarea");
                         textarea.value = text.trim();
                         document.body.appendChild(textarea);
                         textarea.select();
                         document.execCommand("copy");
                         document.body.removeChild(textarea);
+                        dontcopy = false;
                     } catch (error) {
                         const catchederror = error;
                     }
@@ -6516,12 +6523,14 @@
                         text += line.textContent + "\n";
                     });
                     try {
+                        dontcopy = true;
                         const textarea = document.createElement("textarea");
                         textarea.value = text.trim();
                         document.body.appendChild(textarea);
                         textarea.select();
                         document.execCommand("copy");
                         document.body.removeChild(textarea);
+                        dontcopy = false;
                     } catch (error) {
                         const catchederror = error;
                     }
@@ -7314,6 +7323,7 @@
             hidetestregexoverlay();
             hidethemeoverlay();
             hidereplaceoverlay();
+            hidebtnpositionsettingsoverlay();
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
@@ -7348,11 +7358,18 @@
         }
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 900) {
-                document.querySelector('.divcodeeditor-container').classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft", "ceefbrlbd", "cefbtnislands");
+                const divcodeeditorcontainer = document.querySelector('.divcodeeditor-container');
+                const ceebtnposexampleceebtnposexampleselected = document.querySelector('.ceebtnposexample.ceebtnposexampleselected');
+                divcodeeditorcontainer.classList.remove("bothbtncleft", "allbtnsleft", "selectedbtnsleft", "ceefbrlbd", "cefbtnislands");
                 document.querySelector('.ifislandenableddisablethis input[type="checkbox"]').checked = false;
                 document.querySelector('.ifborderenableddisablethis input[type="checkbox"]').checked = false;
-                document.querySelector('.divcodeeditor-container').classList.add('ceefbrlbd');
-                document.querySelector('.divcodeeditor-container').classList.remove('cefbtnislands');
+                divcodeeditorcontainer.classList.add('ceefbrlbd');
+                divcodeeditorcontainer.classList.remove('cefbtnislands');
+                if (ceebtnposexampleceebtnposexampleselected){
+                    ceebtnposexampleceebtnposexampleselected.classList.remove("ceebtnposexampleselected");
+                }
+                document.getElementById('ceebtnposexample0').classList.add("ceebtnposexampleselected");
+                hidebtnpositionsettingsoverlay();
             }
             if (window.innerWidth <= 700) {
                 if (document.querySelector('.divcodeeditor-container').classList.contains('sidebarenabled')){
@@ -7698,12 +7715,14 @@
 
         function copythistext(text) {
             try {
+                dontcopy = true;
                 const newtextarea = document.createElement('textarea');
                 newtextarea.value = text;
                 document.body.appendChild(newtextarea);
                 newtextarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(newtextarea);
+                dontcopy = false;
             } catch (error) {
                 const thiserrorwascatched = error;
             }
@@ -10634,12 +10653,14 @@
             
             leidresultbtn2.onclick = () => {
                 try {
+                    dontcopy = true;
                     const newtextarea = document.createElement('textarea');
                     newtextarea.value = linetexts;
                     document.body.appendChild(newtextarea);
                     newtextarea.select();
                     document.execCommand('copy');
                     document.body.removeChild(newtextarea);
+                    dontcopy = false;
                 } catch (error) {
                     const thiserrorwascatched = error;
                 }
@@ -10742,7 +10763,77 @@
                 }
             };
         }
-
+        
+        document.addEventListener('copy', function(event) {
+            if (dontcopy) return;
+        
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return;
+        
+            const range = selection.getRangeAt(0);
+            const container = findCodeLineAncestor(range.commonAncestorContainer);
+            if (!container) {
+                 const selection = window.getSelection();
+                 const selectedText = selection.toString();
+                 event.clipboardData.setData('text/plain', selectedText);
+                 addcopyleidresult(selectedText);
+                 event.preventDefault();
+                 return;
+            }
+            
+            const fullText = getTextFromNode(container);
+            
+            const { startOffset, endOffset } = getTextRangeOffsets(container, range);
+            
+            if (startOffset !== null && endOffset !== null) {
+                const selectedText = fullText.slice(startOffset, endOffset);
+                event.clipboardData.setData('text/plain', selectedText);
+                addcopyleidresult(selectedText);
+                event.preventDefault();
+            }
+        });
+        
+        function findCodeLineAncestor(node) {
+            while (node && node !== document.body) {
+                if (node.classList && node.classList.contains('code-editor-line')) {
+                    return node;
+                }
+                node = node.parentNode;
+            }
+            return null;
+        }
+        
+        function getTextFromNode(node) {
+            const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+            let text = '';
+            while (walker.nextNode()) {
+                text += walker.currentNode.nodeValue;
+            }
+            return text;
+        }
+        
+        function getTextRangeOffsets(container, range) {
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            let currentOffset = 0;
+            let startOffset = null;
+            let endOffset = null;
+        
+            while (walker.nextNode()) {
+                const node = walker.currentNode;
+        
+                if (range.startContainer === node && startOffset === null) {
+                    startOffset = currentOffset + range.startOffset;
+                }
+                if (range.endContainer === node && endOffset === null) {
+                    endOffset = currentOffset + range.endOffset;
+                }
+        
+                currentOffset += node.nodeValue.length;
+            }
+        
+            return { startOffset, endOffset };
+        }
+        
         function copyselectedlinetexts() {
             const allselectedlines = section.querySelectorAll(".code-editor-line.selected");
             if (allselectedlines.length) {
@@ -10752,6 +10843,7 @@
                 });
 
                 try {
+                    dontcopy = true;
                     const newtextarea = document.createElement('textarea');
                     newtextarea.value = linetexts;
                     document.body.appendChild(newtextarea);
@@ -10759,6 +10851,7 @@
                     document.execCommand('copy');
                     document.body.removeChild(newtextarea);
                     addcopyleidresult(linetexts);
+                    dontcopy = false;
                 } catch (error) {
                     const thiserrorwascatched = error;
                 }
@@ -10779,6 +10872,7 @@
                 });
 
                 try {
+                    dontcopy = true;
                     const newtextarea = document.createElement('textarea');
                     newtextarea.value = linetexts;
                     document.body.appendChild(newtextarea);
@@ -10788,6 +10882,7 @@
                     if (document.querySelector('.addfullcodecopytoclipboardpast input[type="checkbox"]').checked) {
                         addcopyleidresult(linetexts);
                     }
+                    dontcopy = false;
                 } catch (error) {
                     const thiserrorwascatched = error;
                 }
@@ -11298,7 +11393,8 @@
 
             const referenceSpaces = countLeadingSpaces(element.textContent);
             const hiddenElements = [];
-
+            const elementwithnotext = [];
+            
             let nextElement = element.nextElementSibling;
             let nextElementValid = false;
             if (nextElement && element.textContent.trim() != ""){
@@ -11306,11 +11402,15 @@
             }else {
                 return;
             }
+            
             while (nextElement) {
                 const nextText = nextElement.textContent;
                 const nextSpaces = countLeadingSpaces(nextText);
-
+                
                 if (nextSpaces > referenceSpaces || nextText.trim() == "") {
+                    if (nextText.trim() == "") {
+                        elementwithnotext.push(nextElement);
+                    }
                     hiddenElements.push(nextElement);
                     nextElement.classList.add('hidden');
                     nextElementValid = true;
@@ -11319,6 +11419,12 @@
                 }
 
                 nextElement = nextElement.nextElementSibling;
+            }
+            if (elementwithnotext.length == hiddenElements.length) {
+                hiddenElements.forEach(element => {
+                    element.classList.remove('hidden');
+                });
+                nextElementValid = false;
             }
             if (!nextElementValid) {
                 element.classList.remove('hiddenlinesparent');
