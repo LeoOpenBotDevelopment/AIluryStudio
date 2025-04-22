@@ -1559,6 +1559,46 @@
             transition: 0.3s;
         }
 
+        .searchforafilename-container {
+            grid-column: 1 / -1;
+            width: 100%;
+            background-color: var(--contentcontainer-color);
+            border: 1px solid var(--rectangleborder);
+            border-radius: 5px;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        
+        .searchforafilename {
+            padding: 10px;
+            height: 100%;
+            width: 100%;
+            font-size: 1em;
+            border: none;
+            background-color: var(--contentcontainer-color);
+            color: var(--black-color);
+        }
+        
+        .searchforafilename:focus {
+            outline: none;
+        }
+        
+        .searchforafilenamereadybtn {
+            color: var(--switchcheckedbackground-color);
+            height: 100%;
+            padding: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            background: transparent;
+            border: none;
+            border-radius: 0px;
+            border-left: 1px solid var(--rectangleborder);
+            display: none;
+        }
 
         .overlay-back-btn, .upload-btn, .viewthisfile, .create-file-btn, .overlay-close-btn {
             background: var(--switchcheckedbackground-color);
@@ -4150,6 +4190,7 @@
                         <button class="viewthisfile" onclick="viewthisfile()">view</button>
                         <button class="create-file-btn" onclick="requestcreatenewfile()">+</button>
                     </div>
+                    <div class="searchforafilename-container"><input type="text" oninput="searchforafile(this)" placeholder="search..." class="searchforafilename"><button class="searchforafilenamereadybtn" onclick="filesearchready(this)">ready</button></div>
         
                     <!-- Rechtecke (Inhalt) -->
         
@@ -4651,6 +4692,33 @@
     </div>
 
     <script>
+        function filesearchready(readybtn) {
+            readybtn.style.display = "none";
+            document.querySelector('.searchforafilename').value = "";
+            document.querySelectorAll('.rectangle').forEach(rect => {
+                rect.style.display = "flex";
+            });
+        }
+        function searchforafile(inputelement) {
+            const value = inputelement.value.toLowerCase();
+            const readybtn = document.querySelector('.searchforafilenamereadybtn');
+            if (value == "") {
+                readybtn.style.display = "none";
+                document.querySelectorAll('.rectangle').forEach(rect => {
+                    rect.style.display = "flex";
+                });
+            } else {
+                readybtn.style.display = "inline-block";
+                document.querySelectorAll('.rectangle').forEach(rect => {
+                    const recttitle = rect.querySelector('span').textContent.toLowerCase();
+                    if (recttitle.includes(value)) {
+                        rect.style.display = "flex";
+                    } else {
+                        rect.style.display = "none";
+                    }
+                });
+            }
+        }
         function togglecebtnislands(thechangedswitch) {
             if (thechangedswitch.checked) {
                 document.querySelector('.ifislandenableddisablethis input[type="checkbox"]').checked = false;
@@ -7761,6 +7829,12 @@
 <button class="close">×</button>`;
 
             contentContainer.appendChild(newRectangle);
+
+            document.querySelector('.searchforafilenamereadybtn').style.display = "none";
+            document.querySelector('.searchforafilename').value = "";
+            document.querySelectorAll('.rectangle').forEach(rect => {
+                rect.style.display = "flex";
+            });
             
             newRectangle.querySelector('.copyiurl-btn').onclick = () => {
                 copythistext(imageUrl);
@@ -7934,6 +8008,12 @@
             newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
             overlayContainer.appendChild(newRectangle);
 
+            document.querySelector('.searchforafilenamereadybtn').style.display = "none";
+            document.querySelector('.searchforafilename').value = "";
+            document.querySelectorAll('.rectangle').forEach(rect => {
+                rect.style.display = "flex";
+            });
+
             if (newRectangle.querySelector('.download-btn')){
                 newRectangle.querySelector('.download-btn').onclick = () => {
                     downloadFile(filename);
@@ -8050,6 +8130,12 @@
 <button class="close">×</button>`;
             newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
             overlayContainer.appendChild(newRectangle);
+
+            document.querySelector('.searchforafilenamereadybtn').style.display = "none";
+            document.querySelector('.searchforafilename').value = "";
+            document.querySelectorAll('.rectangle').forEach(rect => {
+                rect.style.display = "flex";
+            });
 
             if (newRectangle.querySelector('.download-btn')){
                 newRectangle.querySelector('.download-btn').onclick = () => {
@@ -8183,6 +8269,12 @@
 <button class="close">×</button>`;
             newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
             overlayContainer.appendChild(newRectangle);
+
+            document.querySelector('.searchforafilenamereadybtn').style.display = "none";
+            document.querySelector('.searchforafilename').value = "";
+            document.querySelectorAll('.rectangle').forEach(rect => {
+                rect.style.display = "flex";
+            });
 
             if (newRectangle.querySelector('.download-btn')){
                 newRectangle.querySelector('.download-btn').onclick = () => {
