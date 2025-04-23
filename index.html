@@ -2627,6 +2627,14 @@
         .syntaxhtmlcomment { color: var(--syntaxhtmlcomment-color); }
         .syntaxregex { color: var(--syntaxregex-color); }
         .syntaxhtmltagcontent { color: var(--syntaxhtmltagcontent-color); }
+        .syntaxspaceienabled .code-editor-line:not(.hiddenlinesparent, .selected) .syntaxspace:before {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 1px;
+            top: 0;
+            background: rgba(150, 150, 150, 0.1);
+        }
         .section.gridenabled {
             background-size: 15px 15px;
             background-image: radial-gradient(var(--griddot-color) 1px, transparent 1px);
@@ -4033,6 +4041,12 @@
                             <input type="checkbox" class="switchbox" data-update-aceclass="autocompleteenabled" onchange="updateautocompleteenabledordisabledcheckbox(this)" checked>
                             <span class="slider"></span>
                         </label> suggestions
+                    </div>
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="syntaxspaceienabledtoggleswitch" onchange="toggleClass('.divcodeeditor-container', 'syntaxspaceienabled')">
+                            <span class="slider"></span>
+                        </label> space indentation
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -11681,6 +11695,7 @@
             let allfilenames2 = extractUniqueClasses(div.parentElement.parentElement.querySelector('.code-editor-container').textContent);
 
             let spatterns = [
+                { regex: /[\s \u00A0]{4}/g, className: "syntaxspace" },
                 { regex: /(\/\/[^\n]*|\/\*[\s\S]*?(?:\*\/|$)|[^\/]*\*\/)/g, className: "syntaxcomment" },
                 { regex: /(?:\<\!\-\-[^]*|(?<!\<\!\-\-[^]*)[\s\S]*?\-\-\>)/g, className: "syntaxhtmlcomment" },
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
