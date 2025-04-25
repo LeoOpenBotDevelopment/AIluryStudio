@@ -204,6 +204,16 @@
                 opacity: 1;
             }
         }
+        @keyframes swipeindown {
+            0%{
+                transform: translateY(-100%) translateX(-50%);
+                opacity: 0;
+            }
+            100%{
+                transform: translateY(0) translateX(-50%);
+                opacity: 1;
+            }
+        }
         @keyframes swipeout {
             0%{
                 transform: translateY(0);
@@ -211,6 +221,16 @@
             }
             100%{
                 transform: translateY(150dvh);
+                opacity: 0;
+            }
+        }
+        @keyframes swipeoutup {
+            0%{
+                transform: translateY(0) translateX(-50%);
+                opacity: 1;
+            }
+            100%{
+                transform: translateY(-100%) translateX(-50%);
                 opacity: 0;
             }
         }
@@ -2600,6 +2620,9 @@
         .code-editor-line:focus{
             background: rgba(150, 150, 150, 0.1);
         }
+        .code-editor-line.focusedline {
+            background: rgba(150, 150, 150, 0.1);
+        }
         .customthemecodeinput{
             background: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
@@ -2749,6 +2772,7 @@
             font-size: 1em;
             color: var(--black-color);
             padding: 10px;
+            padding-left: 13px;
         }
         .notificationmessage .confirmationbtn{
             font-size: 1em;
@@ -3532,6 +3556,7 @@
             background: transparent;
             height: 100dvh;
             width: 15px;
+            z-index: 6;
         }
         @media(max-width: 700px) {
             .resizesidebarbar {
@@ -3852,6 +3877,25 @@
             font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
             transform: scaleX(0.7) scaleY(1.5);
             display: inline-block;
+        }
+        .importantnotificationmessageelement {
+            display: none;
+            position: fixed;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            font-size: 1em;
+            color: white;
+            background: rgba(255, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            max-width: 95vw;
+            border-radius: 5px;
+            border: 2px solid red;
+            text-align: center;
+            min-width: 40vw;
+            z-index: 5000;
         }
     </style>
 </head>
@@ -4841,8 +4885,38 @@
             <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">i accept</button>
         </div>
     </div>
-
+    <div class="importantnotificationmessageelement"></div>
     <script>
+        let importantnotificationmessageelementtimeout;
+        function importantnotificationmessageelement(text) {
+            let relement = document.querySelector('.importantnotificationmessageelement');
+            relement.textContent = text;
+            if (importantnotificationmessageelementtimeout){
+                clearTimeout(importantnotificationmessageelementtimeout);
+                importantnotificationmessageelementtimeout = null;
+            }
+            relement.style.display = "block";
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            if (transitionanimation != "none") {
+                relement.style.animation = "swipeindown 0.5s ease-out";
+            }
+            importantnotificationmessageelementtimeout = setTimeout(() => {
+                if (relement.style.display == "none") {
+                    return;
+                }
+                relement.style.animation = "none";
+                void relement.offsetWidth;
+                if (transitionanimation != "none") {
+                    relement.style.animation = "swipeoutup 0.5s ease-out";
+                    setTimeout(() => {
+                        relement.style.display = "none";
+                    }, 500);
+                } else {
+                    relement.style.display = "none";
+                }
+            }, 3000);
+        }
         function filesearchready(readybtn) {
             readybtn.style.display = "none";
             document.querySelector('.searchforafilename').value = "";
@@ -6045,6 +6119,9 @@
             if (eds in allicons){
                 icon.textContent = allicons[eds];
             }
+            if (eds == "error" && document.querySelector('.consoleconteiner').style.display == "none") {
+                importantnotificationmessageelement(message.textContent);
+            }
         });
         
         let timelineRunning = false;
@@ -6457,6 +6534,18 @@
             createkonfetti = false;
         }
         
+        let focuslinetimeout;
+        function focuseceline(celine) {
+            if (focuslinetimeout) {
+                clearTimeout(focuslinetimeout);
+                document.querySelectorAll('.focusedline').forEach(el => el.classList.remove('focusedline'));
+            }
+            celine.classList.add('focusedline');
+            focuslinetimeout = setTimeout(() => {
+                celine.classList.remove('focusedline');
+                focuslinetimeout = null;
+            }, 3000);
+        }
         
         function mergecode(htmlCodeComtainer, additionalCode, tofinde) {
             closesidebaronsmallscreensizes();
@@ -6617,6 +6706,7 @@
                         block: 'center',
                         inline: 'center'
                     });
+                    focuseceline(celine);
                 }
                 if (allselectedlines.length) {
                     allselectedlines.forEach(selectedline => {
@@ -9017,6 +9107,7 @@
                             behavior: 'smooth',
                             block: 'center',
                         });
+                        focuseceline(line);
                     }else if (lineIndex >= 0 && lineIndex > lines.length){
                         let line = lines[lines.length - 1];
                         
@@ -9024,6 +9115,7 @@
                             behavior: 'smooth',
                             block: 'center',
                         });
+                        focuseceline(line);
                     }
                 }
             }
@@ -9039,6 +9131,7 @@
                     behavior: 'smooth',
                     block: 'center',
                 });
+                focuseceline(line);
             }
         }
 
@@ -9952,6 +10045,7 @@
                                     behavior: 'smooth',
                                     block: 'center',
                                 });
+                                focuseceline(lineelement);
                                 setTimeout(() => {
                                     observenothing = false;
                                     performLongPressAction(lineelement);
@@ -11760,6 +11854,7 @@
                         block: 'center',
                         inline: 'center'
                     });
+                    focuseceline(celine);
                 }
             }
             
