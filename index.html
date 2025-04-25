@@ -368,6 +368,7 @@
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             width: 100%;
             text-align: center;
             color: var(--black-color);
@@ -1412,7 +1413,8 @@
             z-index: 1000;
             animation: swipein 0.5s;
             backdrop-filter: blur(5px);
-           transition: 0.3s;
+            -webkit-backdrop-filter: blur(5px);
+            transition: 0.3s;
         }
         .sidebarenabled .overlay-container {
             position: fixed;
@@ -1428,6 +1430,7 @@
             z-index: 1000;
             animation: swipein 0.5s;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             transition: 0.3s;
         }
         .content-container {
@@ -1502,6 +1505,7 @@
             z-index: 1000;
             animation: swipein 0.5s;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             transition: 0.3s;
         }
         .sidebarenabled .theme-overlay, .sidebarenabled .commandsoverlay-container, .sidebarenabled .topandbottomsignsdisplay-container, .sidebarenabled #testregexoverlay, .sidebarenabled .replaceoverlay, .sidebarenabled .codefunctionssettingsoverlay, .sidebarenabled .chooseanimationoverlay, .sidebarenabled .chooseceebtnposoverlay {
@@ -1958,6 +1962,7 @@
             visibility: hidden;
             opacity: 0;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
@@ -2014,6 +2019,7 @@
             align-items: center;
             z-index: 1400;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             animation: fadeInOverlay 0.3s ease-in-out;
         }
 
@@ -2282,6 +2288,7 @@
             overflow: scroll;
             overflow-x: hidden;
             transition: 0.3s;
+            padding-bottom: 55px;
         }
         .sidebarenabled .sidebarbardiv{
             display: flex;
@@ -2300,9 +2307,13 @@
             font-size: 1em;
             font-weight: bold;
             text-align: left;
-            margin: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             color: var(--overlaycolor-color);
             transition: 0.3s;
+            padding-left: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--rectangleborder);
         }
         .theme-option-container h3 {
             font-family: Arial, sans-serif;
@@ -3451,12 +3462,29 @@
             font-size: 2em;
             font-weight: bold:
             color: var(--black-color);
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 0;
+            padding-top: 20px;
+            padding-left: 10px;
+            padding-bottom: 20px;
             padding-left: 15px;
             font-family: 'Roboto', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
+            position: fixed;
+            width: 100vw;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            left: 1px;
+            top: 1px;
+            z-index: 5;
+        }
+        .sidebarenabled .sidebarbardiv {
+            padding-top: 80px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .sidebarenabled .sidebarbardiv h1 {
+            width: calc(var(--sibebar-width) - 2px);
         }
         @media(max-width: 750px){
             .sidebarbardiv h1 {
@@ -3734,6 +3762,97 @@
                 bottom: 0;
             }
         }
+        
+        .divcodeeditor-container.sidebarfilebtnssectionextexternalsidebar #filesh3 {
+            font-size: 1.1em;
+            color: var(--overlaycolor-color);
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+        }
+        #folderh3 {
+            font-size: 1em;
+            color: var(--overlaycolor-color);
+            font-family: 'Arial', sans-serif;
+            font-weight: normal;
+            margin: 0;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .sidebarfilebtnssectionextexternalsidebar .sidebarbardivbuttondiv1 {
+            width: 100%;
+            height: 100dvh;
+            border: 1px solid var(--rectangleborder);
+            border-radius: 5px;
+            padding: 10px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: var(--background-color);
+            z-index: 5;
+            overflow-y: auto;
+            padding-bottom: 55px;
+        }
+        .sidebarfilebtnssectionextexternalsidebarprev .sidebarbardivbuttondiv1 {
+            width: 100%;
+        }
+        .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarbardivbuttondiv1 {
+            width: var(--sibebar-width);
+        }
+        .sidebarenabled.sidebarfilebtnssectionextexternalsidebarprev .sidebarbardivbuttondiv1 {
+            width: var(--sibebar-width);
+        }
+        .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn {
+            background: var(--lightgrey-color);
+            border: none;
+            color: var(--black-color);
+            display: block;
+            padding: 10px;
+            text-align: left;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: 0.3s;
+            overflow: hidden;
+            font-weight: normal;
+        }
+        .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn .closefilesection {
+            display: none;
+        }
+        .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarbardivbuttondiv1 {
+            border: 1px solid var(--rectangleborder);
+            border-radius: 0;
+        }
+        .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink {
+            background: var(--background-color);
+            border: none;
+            border-bottom: 1px solid var(--rectangleborder);
+            border-radius: 0;
+            padding-bottom: 12px;
+            padding-top: 12px;
+        }
+        .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink:before {
+            color: var(--switchcheckedbackground-color);
+            content: "ay";
+            font-size: 1.1em;
+            margin-right: 10px;
+        }
+        .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink.currentfile {
+            background: var(--lightgrey-color);
+            border-radius: 5px;
+        }
+        .closefilesection {
+            background: transparent;
+            color: var(--rectangleborder);
+            font-size: 1.2em;
+            font-weight: bold;
+            background: transparent;
+            border: none;
+            margin-right: 15px;
+            padding: 5px;
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            transform: scaleX(0.7) scaleY(1.5);
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -3742,7 +3861,7 @@
         <div class="sidebarbardiv">
             <h1>AIlury</h1>
             <button id="closemenuforsmallscreen" onclick="togglesidebarbuttonfunction()">← close Menu</button>
-            <h3 onclick="togglesidebarsec(this, 'sidebarlooksbtnssection')">v look</h3>
+            <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarlooksbtnssection')"><</span> look</h3>
             <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
             </div>
@@ -3751,7 +3870,7 @@
                 <button onclick="showchooseanimationoverlay()">animations</button>
                 <button id="sbtnpossettingsoverlay" onclick="showbtnpositionsettingsoverlay()">layout</button>
             </div>
-            <h3 onclick="togglesidebarsec(this, 'sidebarfuncbtnssection')">v functions</h3>
+            <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfuncbtnssection')"><</span> functions</h3>
             <div class="sidebarbardivbuttondiv sidebarfuncbtnssection">
                 <button onclick="togglefilesettings()" class="showfilesettingsbtn" id="nontotfunctionbtn"><span>✎</span>file settings</button>
             </div>
@@ -3759,11 +3878,12 @@
                 <button id="functionsbbdbdb" class="toggletimelinebtn" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
                 <button id="functionsbbdbdb" class="consoletogglebtn Active" onclick="toggleConsole(this)"><span>▷</span>console</button>
             </div>
-            <h3 onclick="togglesidebarsec(this, 'sidebarfilebtnssection')">v files</h3>
+            <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfilebtnssection')"><</span> files</h3>
             <div class="sidebarbardivbuttondiv sidebarfilebtnssection">
                 <button onclick="showallfilescontainer()">files</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1 sidebarfilebtnssection">
+                <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
                 <button id="sidebarfilelinklink0" class="sidebarfilelinklink currentfile" onclick="editthisfile('0', event)">index.html<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink1" class="sidebarfilelinklink" onclick="editthisfile('1', event)">styles.css<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink2" class="sidebarfilelinklink" onclick="editthisfile('2', event)">script.js<div class="threedots">⋮</div></button>
@@ -4842,8 +4962,8 @@
         
         function togglesidebarsec(theh3, theclass) {
             if (theh3.textContent.trim().startsWith(">")) {
-                theh3.textContent = theh3.textContent.replace('>', 'v');
-                theh3.style.opacity = "1";
+                theh3.textContent = theh3.textContent.replace('>', '<');
+                theh3.parentElement.style.opacity = "1";
                 let relements = document.querySelectorAll('.' + theclass);
                 relements.forEach(relement => {
                     relement.style.display = "flex";
@@ -4853,9 +4973,9 @@
                         relement.style.animation = "showsidebarsectionanimation 0.5s ease-out";
                     }
                 });
-            } else if (theh3.textContent.trim().startsWith("v")) {
-                theh3.textContent = theh3.textContent.replace('v', '>');
-                theh3.style.opacity = "0.5";
+            } else if (theh3.textContent.trim().startsWith("<")) {
+                theh3.textContent = theh3.textContent.replace('<', '>');
+                theh3.parentElement.style.opacity = "0.5";
                 let relements = document.querySelectorAll('.' + theclass);
                 relements.forEach(relement => {
                     relement.style.display = "flex";
@@ -6735,7 +6855,11 @@
                     });
                 }
                 
-                let thisfilepath = document.querySelector('#rectangle' + number + " .notclickable")?.textContent;
+                let thisfilepath = "";
+                const thisfilenameinput = document.querySelector('#nav-bar .nav-dot[data-index="' + number + '"] .filePathInput');
+                if (thisfilenameinput) {
+                    thisfilepath = thisfilenameinput.value;
+                }
         
                 if (option.text == "Delete") {
                     optionItem.onclick = () => {
@@ -7570,6 +7694,37 @@
             setTimeout(() => {
                 sohnotificationmessage.style.display = "none";
             }, 500);
+        }
+        
+        function hideexternalsidebar(toggleexternalsidebarelement) {
+            const toggleexternalsidebarelementspan = toggleexternalsidebarelement.querySelector('span');
+            
+            let relement = toggleexternalsidebarelement.parentElement;
+            
+            relement.style.display = "flex";
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            let prevwidth = relement.style.width;
+            document.querySelector('.divcodeeditor-container').classList.add("sidebarfilebtnssectionextexternalsidebarprev");
+            relement.style.animation = "hidesidebarsectionanimation 0.3s ease-out";
+            setTimeout(() => {
+                document.querySelector('.divcodeeditor-container').classList.remove("sidebarfilebtnssectionextexternalsidebarprev");
+                if (toggleexternalsidebarelementspan.textContent == "<") {
+                    toggleexternalsidebarelementspan.textContent = ">";
+                    toggleexternalsidebarelement.querySelector('#toggleexternalsidebartext').textContent = "maximize";
+                    document.querySelector('.divcodeeditor-container').classList.remove("sidebarfilebtnssectionextexternalsidebar");
+                } else {
+                    document.querySelector('.divcodeeditor-container').classList.add("sidebarfilebtnssectionextexternalsidebar");
+                    toggleexternalsidebarelement.querySelector('#toggleexternalsidebartext').textContent = "minimize";
+                    toggleexternalsidebarelementspan.textContent = "<";
+                }
+                relement.style.display = "flex";
+                relement.style.animation = "none";
+                void relement.offsetWidth;
+                if (transitionanimation != "none") {
+                    relement.style.animation = "showsidebarsectionanimation 0.5s ease-out";
+                }
+            }, 300);
         }
         
         function showtestregexoverlay() {
@@ -8459,13 +8614,159 @@
             if (!newValue) {
                 return;
             }
-            const safeValue = newValue.replace(/['"<>&]/g, '');
+            let newValueSplit = newValue.split('/').filter(value => {
+                return value.trim().replace(/\W/g, '') != "";
+            });
+            const safeValue = newValueSplit.pop();
             option.value = safeValue;
             option.textContent = safeValue;
             rectanglespan.textContent = safeValue;
 
             sidebarfilelinklink.textContent = safeValue;
             sidebarfilelinklink.innerHTML += `<div class="threedots">⋮</div>`;
+            sidebarfilelinklink.className = "sidebarfilelinklink";
+            if (document.querySelector('.sidebarfilelinklink.currentfile')){
+                document.querySelector('.sidebarfilelinklink.currentfile').classList.remove('currentfile');
+            }
+            sidebarfilelinklink.classList.add('currentfile');
+            document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
+                link.style.display = "flex";
+            });
+            document.querySelectorAll('#folderh3').forEach(fold => {
+                if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
+                    fold.remove();
+                } else {
+                    fold.style.display = "block";
+                    fold.querySelector('span').textContent = "<";
+                    fold.querySelector('span').click();
+                }
+            });
+            let lasth3 = null;
+            newValueSplit.forEach((value, index) => {
+                if (value.trim().replace(/\W/g, '') != "") {
+                    sidebarfilelinklink.style.display = "none";
+                    sidebarfilelinklink.classList.add('folderelement' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, ''));
+                    sidebarfilelinklink.classList.add('nsidebarfilelinklinkelement');
+                    if (document.querySelector('.foldernamec' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, '')) && document.querySelector('.foldernamec' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, '')).classList.contains('foldernum' + index)) {
+                        document.querySelector('.foldernamec' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, '')).remove();
+                    }
+                    //<h3 id="folderh3"><span class="closefilesection">></span> folder</h3>
+                    const h3 = document.createElement('h3');
+                    const span = document.createElement('span');
+                    const span2 = document.createElement('span');
+                    h3.id = "folderh3";
+                    span.className = "closefilesection";
+                    h3.classList.add('folderfor' + safeValue.replace(/\W/g, ''));
+                    h3.classList.add('foldernamec' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, ''));
+                    h3.classList.add('foldernum' + index);
+                    h3.setAttribute('data-valuewr', 'folderelement' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, ''));
+                    newValueSplit.slice(0, index).forEach((svalue, indx) => {
+                        h3.classList.add('folderelement' + newValueSplit.slice(0, indx).join('') + svalue.replace(/\W/g, ''));
+                        h3.style.display = "none";
+                    });
+                    if (index != 0) {
+                        h3.classList.add("nfolderelement");
+                    }
+                    span.textContent = ">";
+                    span2.textContent = " " + value;
+                    span2.style.display = "contents";
+                    h3.appendChild(span);
+                    h3.appendChild(span2);
+                    if (!lasth3) {
+                        document.querySelector('.sidebarbardivbuttondiv1').firstElementChild.insertAdjacentElement("afterend", h3);
+                    } else {
+                        lasth3.insertAdjacentElement("afterend", h3);
+                    }
+                    document.querySelectorAll('.folderelement' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, '')).forEach(element => {
+                        if (element.id == 'folderh3') {
+                            element.querySelector('span').textContent = ">";
+                        }
+                        element.style.display = "none";
+                    });
+                    lasth3 = h3;
+                    span.onclick = () => {
+                        if (span.textContent == ">") {
+                            document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
+                                link.style.display = "none";
+                            });
+                            document.querySelectorAll('#folderh3').forEach(fold => {
+                                fold.style.display = "none";
+                                fold.querySelector('span').textContent = ">";
+                                document.querySelectorAll('.' + fold.getAttribute('data-valuewr')).forEach(el => {
+                                    el.style.display = "none";
+                                });
+                            });
+                            let allfoldersinthisfolder = [];
+                            document.querySelectorAll('.folderelement' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, '')).forEach(element => {
+                                if (element.id == 'folderh3'){
+                                    element.style.display = "block";
+                                    element.querySelector('span').textContent = ">";
+                                    allfoldersinthisfolder.push(element);
+                                } else {
+                                    element.style.display = "flex";
+                                }
+                            });
+                            allfoldersinthisfolder.forEach(fold => {
+                                document.querySelectorAll('.' + fold.getAttribute('data-valuewr')).forEach(el => {
+                                    el.style.display = "none";
+                                });
+                            });
+                            span.textContent = "<";
+                            h3.style.display = "block";
+                        } else if (span.textContent == "<") {
+                            document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
+                                link.style.display = "flex";
+                            });
+                            document.querySelectorAll('#folderh3').forEach(fold => {
+                                fold.style.display = "block";
+                                fold.querySelector('span').textContent = ">";
+                                document.querySelectorAll('.' + fold.getAttribute('data-valuewr')).forEach(el => {
+                                    el.style.display = "none";
+                                });
+                            });
+                            document.querySelectorAll('.folderelement' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, '')).forEach(element => {
+                                if (element.id == 'folderh3') {
+                                    element.querySelector('span').textContent = ">";
+                                }
+                                element.style.display = "none";
+                            });
+                            document.querySelectorAll('.nfolderelement').forEach(nfelement => {
+                                nfelement.style.display = "none";
+                            });
+                            
+                            if (index >= 1) {
+                                const dqsv = document.querySelector('.foldernamec' + newValueSplit.slice(0, index - 1).join('') + newValueSplit[index - 1].replace(/\W/g, ''));
+                                const dqsv2 = document.querySelectorAll('.folderelement' + newValueSplit.slice(0, index - 1).join('') + newValueSplit[index - 1].replace(/\W/g, ''));
+                                if (dqsv) {
+                                    dqsv.querySelector('span').textContent = ">";
+                                    dqsv.querySelector('span').click();
+                                }
+                            }
+                            sidebarfilelinklink.style.display = "none";
+                            span.textContent = ">";
+                        }
+                    };
+                }
+            });
+            newValueSplit.forEach((value, index) => {
+                newValueSplit.slice(index + 1).forEach(svalue => {
+                    const dqsv = document.querySelector('.foldernamec' + newValueSplit.slice(0, index + 1).join('') + svalue.replace(/\W/g, ''));
+                    if (dqsv) {
+                        dqsv.classList.add('folderelement' + newValueSplit.slice(0, index).join('') + value.replace(/\W/g, ''));
+                        dqsv.style.display = "none";
+                    }
+                });
+            });
+            document.querySelectorAll('#folderh3').forEach(fold => {
+                if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
+                    fold.remove();
+                }
+            });
+            document.querySelectorAll('#folderh3:not(.nfolderelement)').forEach(nnfelement => {
+                nnfelement.querySelector('span').textContent = "<";
+                nnfelement.querySelector('span').click();
+                nnfelement.style.display = "block";
+            });
             const seccontainer = document.querySelector('.seccontainer');
             if (seccontainer.style.display != "none" && seccontainer.querySelector('#fileinfofiletype')) {
                 let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
@@ -8812,6 +9113,7 @@
             
             let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
             if (sidebarfilelinklink) {
+                sidebarfilelinklink.className = "sidebarfilelinklink";
                 dissolve(sidebarfilelinklink, 150);
                 document.querySelectorAll(".sidebarfilelinklink").forEach((sidebarfilelink, index) => {
                     if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
@@ -8821,6 +9123,18 @@
                     sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
                 });
             }
+            document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
+                link.style.display = "flex";
+            });
+            document.querySelectorAll('#folderh3').forEach(fold => {
+                if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
+                    fold.remove();
+                } else {
+                    fold.style.display = "block";
+                    fold.querySelector('span').textContent = "<";
+                    fold.querySelector('span').click();
+                }
+            });
         }
         
         function editthisfile(number, event = null){
