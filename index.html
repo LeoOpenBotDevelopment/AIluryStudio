@@ -2202,7 +2202,7 @@
         }
 
         .sidebarenabled .seccontainer-line, .sidebarenabled .oneinfoc{
-            max-width: calc(98vw - var(--sibebar-width));
+            width: calc(98vw - var(--sibebar-width));
         }
 
         .command-list li:last-child {
@@ -3191,6 +3191,26 @@
             border-radius: 5px;
             margin-top: 5px;
         }
+
+        .cfscscfdes {
+            width: 100%;
+        }
+        
+        .cfscsc h2 {
+            width: 100%;
+            max-width: 700px;
+            text-align: left;
+        }
+        
+        .cfscscf, .cfscscfdes {
+            max-width: 700px;
+        }
+        .cfscsc {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
         
         .cfscscswitchdesname {
             color: var(--black-color);
@@ -3575,7 +3595,8 @@
         .ceebtnposexample {
             display: flex;
             height: 30dvh;
-            width: 40vw;
+            width: 100%;
+            max-width: 40vw;
             border: 1px solid var(--rectangleborder);
             border-radius: 5px;
             margin-top: 5px;
@@ -3711,7 +3732,8 @@
         }
         
         .chooseceebtnposopcontainerswitchcontainer {
-            width: 40vw;
+            width: 100%;
+            max-width: 40vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
