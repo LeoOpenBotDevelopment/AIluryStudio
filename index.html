@@ -1625,20 +1625,40 @@
         }
 
         .overlay-back-btn, .upload-btn, .viewthisfile, .create-file-btn, .overlay-close-btn {
-            background: var(--switchcheckedbackground-color);
-            color: white;
+            background: var(--lightgrey-color);
+            color: var(--black-color);
             border: none;
             padding: 10px 20px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 0;
             transition: 0.3s;
+            width: 100%;
+            border-left: 1px solid var(--background-color);
         }
+        
+        .top-bar {
+            padding: 0;
+        }
+        
+        .overlay-close-btn {
+            border-left: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .create-file-btn {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        
         .overlay-close-btn{
           display: inline-block;
         }
+        
         .overlay-back-btn{
           display: none;
         }
+        
         @media(max-width: 700px){
             .overlay-close-btn {
                 display: none;
@@ -1647,8 +1667,7 @@
                 display: inline-block;
             }
         }
-
-
+        
         .rectangle, .rectanglep {
             background-color: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
