@@ -2438,7 +2438,7 @@
             display: flex;
         }
         .themeoption{
-            background: linear-gradient(90deg, var(--lightgrey-color), var(--contentcontainer-color), var(--contentcontainer-color));
+            background: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
             color: var(--black-color);
             display: flex;
@@ -2450,6 +2450,9 @@
             transition: 0.3s;
             overflow: hidden;
             justify-content: space-between;
+        }
+        .theme-option-container > .themeoption{
+            background: linear-gradient(90deg, var(--lightgrey-color), var(--contentcontainer-color), var(--contentcontainer-color));
         }
         .switchtothememaincolorspan{
             width: 1.2em;
@@ -2466,7 +2469,7 @@
             font-size: 1em;
         }
         .themeoption2{
-            background: var(--contentcontainer-color);
+            background: linear-gradient(90deg, var(--lightgrey-color), var(--contentcontainer-color), var(--contentcontainer-color));
             border: 1px solid var(--rectangleborder);
             color: var(--black-color);
             display: flex;
