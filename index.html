@@ -8034,6 +8034,7 @@
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const files = event.target.files;
             let loadimageiffti = true;
+            const failedfiles = [];
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const filePath = file.name;
@@ -8043,12 +8044,15 @@
                         addNewImage(filePath, URL.createObjectURL(file), file);
                     } else {
                         loadimageiffti = false;
+                        failedfiles.push(filePath);
                     }
                 } else if (file.type === 'text/plain' || file.type === 'text/css' || file.type === 'application/javascript' || file.type === 'text/html') {
                     let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
                     if (!allfilenames.includes(filePath)) {
                         isloadingfiles = true;
                         addNewFile(filePath, file);
+                    } else {
+                        failedfiles.push(filePath);
                     }
                 }
             }
@@ -8064,6 +8068,14 @@
                 isloadingfiles = false;
                 isloadingimages = false;
                 startLoadingImagesAndFiles();
+            }
+            if (failedfiles.length > 0) {
+                if (failedfiles.length == 1){
+                    showAlert("you already have a " + failedfiles[0] + " file");
+                } else {
+                    const lastfailedfilename = failedfiles.pop();
+                    showAlert("you already have files with these names: " + failedfiles.join(', ') + " and " + lastfailedfilename + ". rename them if you want to upload these files");
+                }
             }
         });
 
