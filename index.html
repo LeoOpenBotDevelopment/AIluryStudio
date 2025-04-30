@@ -7622,7 +7622,7 @@
         let lastchosentheme = "none";
         function addcustomthemetoallthemes() {
             showPrompt('enter the themes name', (inputedname) => {
-                const name = inputedname.replace(/[^a-zA-Z]/g, '');
+                let name = inputedname.replace(/[^a-zA-Z]/g, '');
                 const value = document.querySelector('.customthemecodeinput').value;
                 if (name.trim() == "") {
                     showAlert("you did not enter a theme name");
@@ -7651,14 +7651,26 @@
                     } else {
                         showPrompt('want to rename? enter the new theme name', (newinputedthemename) => {
                             const newthemename = newinputedthemename.replace(/[^a-zA-Z]/g, '');
-                            if (alldefaultthemes[name] && newthemename.trim() != ""){
-                                span2.textContent = newthemename;
-                                const previoustheme = alldefaultthemes[name];
-                                delete alldefaultthemes[name];
-                                alldefaultthemes[newthemename] = previoustheme;
-                            } else {
-                                showAlert("theme rename unsuccessful");
+                            
+                            if (newthemename.trim() === "") {
+                                showAlert("Theme rename unsuccessful: name was empty.");
+                                return;
                             }
+                            
+                            if (alldefaultthemes[newthemename]) {
+                                showAlert("A theme with that name already exists.");
+                                return;
+                            }
+
+                            if (!alldefaultthemes[name]){
+                                showAlert("theme rename unsuccessful");
+                                return;
+                            }
+                            
+                            alldefaultthemes[newthemename] = alldefaultthemes[name];
+                            delete alldefaultthemes[name];
+                            span2.textContent = newthemename;
+                            name = newthemename;
                         });
                     }
                 };
