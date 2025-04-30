@@ -9228,7 +9228,7 @@
             }
         }
         function checkiflinenumberinputkeydownisenter(event) {
-            if (event.key === 'Enter') {
+            if (event.key == 'Enter') {
                 event.preventDefault();
                 document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
                     suggestioncontainerv.remove();
