@@ -7620,7 +7620,8 @@
 
         let lastchosentheme = "none";
         function addcustomthemetoallthemes() {
-            showPrompt('enter the themes name', (name) => {
+            showPrompt('enter the themes name', (inputedname) => {
+                const name = inputedname.replace(/\W/g, '');
                 const value = document.querySelector('.customthemecodeinput').value;
                 if (name.trim() == "") {
                     showAlert("you did not enter a theme name");
