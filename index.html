@@ -2454,6 +2454,22 @@
         .theme-option-container > .themeoption{
             background: linear-gradient(90deg, var(--lightgrey-color), var(--contentcontainer-color), var(--contentcontainer-color));
         }
+        .themeoption2 button {
+            display: flex;
+            text-align: center;
+            background: var(--lightgrey-color);
+            color: var(--black-color);
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            overflow: hidden;
+            width: calc(100% - 10px);
+            box-sizing: border-box;
+        }
         .switchtothememaincolorspan{
             width: 1.2em;
             height: 1.2em;
@@ -4655,6 +4671,7 @@
                         <div class="themeoption">
                             <input class="customthemecodeinput" type="text" id="customthemecodeinput" onchange="updatecustomtheme(this)" placeholder="enter your theme code...">
                         </div>
+                        <button onclick="addcustomthemetoallthemes()">add new theme</button>
                         </div>
                     </div>
                 </div>
@@ -7600,8 +7617,45 @@
             "gray-theme": "#28282e,100.#393a43,100.#393a43,50.#ffffff,100.#393a43,100.#0156cd,100.#ffffff,100.#0156cd,100.#0156cd,100.#ffffff,12.#c678dd,100.#e06c75,100.#abb2bf,100.#abb2bf,100.#98c379,100.#d19a66,100.#5c6370,100.#61afef,100.#e5c07b,100.#c678dd,100.#5c6370,100.#e06c75,100.#ffffff,100",
             "custom-theme": ""
         };
+
+        let lastchosentheme = "none";
+        function addcustomthemetoallthemes() {
+            showPrompt('enter the themes name', (name) => {
+                const value = document.querySelector('.customthemecodeinput').value;
+                if (alldefaultthemes[name] && value == "") {
+                    showAlert("you already have a file with the name: " + name);
+                    return;
+                }
+                alldefaultthemes[name] = value;
+                const div = document.createElement('div');
+                div.className = "themeoption";
+                const span = document.createElement('span');
+                span.className = "switchtothememaincolorspan";
+                span.style.background = "blue";
+                const span2 = document.createElement('span');
+                span2.className = "switchtothemetitlespan";
+                span2.textContent = name;
+                div.onclick = () => {
+                    if (lastchosentheme != name){
+                        switchtotheme(name);
+                    } else {
+                        showPrompt('want to rename? enter the new theme name', (newname) => {
+                            span2.textContent = newname;
+                            if (alldefaultthemes[name]){
+                                delete alldefaultthemes[name];
+                                alldefaultthemes[newname] = value;
+                            }
+                        });
+                    }
+                };
+                div.appendChild(span);
+                div.appendChild(span2);
+                document.querySelector('.themeoption2').insertAdjacentElement('beforebegin', div);
+            });
+        }
         
         function switchtotheme(theme) {
+            lastchosentheme = theme;
             if (!alldefaultthemes[theme]){
                 removeThemeProperties();
             }
