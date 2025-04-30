@@ -7648,7 +7648,8 @@
                     if (lastchosentheme != name){
                         switchtotheme(name);
                     } else {
-                        showPrompt('want to rename? enter the new theme name', (newthemename) => {
+                        showPrompt('want to rename? enter the new theme name', (newinputedthemename) => {
+                            const newthemename = newinputedthemename.replace(/\W/g, '');
                             if (alldefaultthemes[name] && newthemename.trim() != ""){
                                 span2.textContent = newthemename;
                                 const previoustheme = alldefaultthemes[name];
