@@ -7622,7 +7622,7 @@
         function addcustomthemetoallthemes() {
             showPrompt('enter the themes name', (name) => {
                 const value = document.querySelector('.customthemecodeinput').value;
-                if (alldefaultthemes[name] && value == "") {
+                if (alldefaultthemes[name] || value == "") {
                     showAlert("you already have a file with the name: " + name);
                     return;
                 }
@@ -7641,9 +7641,9 @@
                     } else {
                         showPrompt('want to rename? enter the new theme name', (newname) => {
                             span2.textContent = newname;
-                            if (alldefaultthemes[name]){
+                            if (alldefaultthemes[name] && newname != ""){
+                                alldefaultthemes[newname] = alldefaultthemes[name];
                                 delete alldefaultthemes[name];
-                                alldefaultthemes[newname] = value;
                             }
                         });
                     }
