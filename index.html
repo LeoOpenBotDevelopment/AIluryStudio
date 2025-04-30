@@ -7622,8 +7622,16 @@
         function addcustomthemetoallthemes() {
             showPrompt('enter the themes name', (name) => {
                 const value = document.querySelector('.customthemecodeinput').value;
-                if (alldefaultthemes[name] || value == "") {
+                if (name.trim() == "") {
+                    showAlert("you did not enter a theme name");
+                    return;
+                }
+                if (alldefaultthemes[name]) {
                     showAlert("you already have a file with the name: " + name);
+                    return;
+                }
+                if (value == "") {
+                    showAlert("make a theme, to save it");
                     return;
                 }
                 alldefaultthemes[name] = value;
@@ -7639,11 +7647,14 @@
                     if (lastchosentheme != name){
                         switchtotheme(name);
                     } else {
-                        showPrompt('want to rename? enter the new theme name', (newname) => {
-                            span2.textContent = newname;
-                            if (alldefaultthemes[name] && newname != ""){
-                                alldefaultthemes[newname] = alldefaultthemes[name];
+                        showPrompt('want to rename? enter the new theme name', (newthemename) => {
+                            if (alldefaultthemes[name] && newthemename.trim() != ""){
+                                span2.textContent = newthemename;
+                                const previoustheme = alldefaultthemes[name];
                                 delete alldefaultthemes[name];
+                                alldefaultthemes[newthemename] = previoustheme;
+                            } else {
+                                showAlert("theme rename unsuccessful");
                             }
                         });
                     }
