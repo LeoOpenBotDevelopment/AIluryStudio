@@ -12629,6 +12629,9 @@
             if (document.querySelector('.notificationmessage').style.display != "none"){
                 hidenotificationmessage();
             }
+            if (event.metaKey || event.ctrlKey) {
+                return;
+            }
             let celine = section.querySelector('.code-editor-line:focus');
             let nodelete = false;
             
