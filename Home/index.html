@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIlury Home</title>
+    <style>
+        :root {
+            --background-color: #F2F2F;
+            --text-color: #000;
+            --border-color: #fff;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #000;
+                --text-color: #fff;
+                --border-color: #161B22;
+            }
+        }
+        
+        body {
+            background: var(--background-color);
+            height: 100dvh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: var(--text-color);
+            font-size: 1em;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100dvh;
+            width: 100vw;
+            background: var(--background-color);
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            height: 100dvh;
+            width: 25vw;
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            padding: 10px;
+            margin: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+        .sidebar h1 {
+            font-size: 4vw;
+            font-weight: bold:
+            color: var(--black-color);
+            margin-top: 0;
+            padding-top: 15px;
+            padding-left: 10px;
+            padding-bottom: 20px;
+            padding-left: 15px;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .section-container {
+            display: flex;
+            height: 100dvh;
+            width: 75vw;
+            border: 1px solid var(--border-color);
+            border-left: none;
+            border-radius: 0;
+            box-sizing: border-box;
+            padding: 10px;
+            flex-direction: column;
+            overflow: hidden;
+            overflow-y: scroll;
+            justify-content: center;
+        }
+        .top-bar {
+            position: fixed;
+            display: flex;
+            top: 1px;
+            right: 1px;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(20px);
+            width: calc(75vw - 1px);
+            padding: 10px;
+            -webkit-backdrop-filter: blur(20px);
+            box-sizing: border-box;
+            border-radius: 0;
+            font-size: 1em;
+            overflow: hidden;
+            overflow-y: auto;
+            justify-content: right;
+        }
+        .top-bar button {
+            padding: 10px;
+            border: none;
+            font-size: 1em;
+            background: transparent;
+            color: var(--text-color);
+        }
+        .sidebar-btn-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+        .sidebar-btn-container button {
+            text-align: left;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            color: var(--text-color);
+            background: transparent;
+            padding: 10px;
+            padding-left: 15px;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        .section-container section {
+            display: flex;
+            background: transparent;
+            border: none;
+            padding: 10px;
+            padding-left: 15px;
+            flex-direction: column;
+            width: 95%;
+            max-width: 500px;
+            min-height: 70dvh;
+        }
+        .section-container #AboutSec {
+            padding-top: 60px;
+        }
+        .section-container section h2 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: bold;
+            text-align: left;
+        }
+        .section-container section p {
+            font-size: 1em;
+            color: var(--text-color);
+            text-align: left;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .sidebar-btn-container button.currentSec {
+            background: var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>AIlury</h1>
+            <div class="sidebar-btn-container">
+                <button id="About">About</button>
+                <button id="Projects">Projects</button>
+                <button id="Experience">Experience</button>
+                <button id="Goals">Goals</button>
+            </div>
+        </div>
+        <div class="section-container">
+            <div class="top-bar">
+                <button onclick="openAIluryProgrammingStudio()">start</button>
+            </div>
+            <section id="AboutSec">
+                <h2>About</h2>
+                <p>
+                    AIlury Services focus on a great user Experience by making simple layouts While also focusing on tools to maximize efficiency to be more accessible to mobile users 
+                </p>
+            </section>
+            <section id="ProjectsSec">
+                <h2>Projects</h2>
+                <p>
+                    AIlury Programming Studio is currently the main focus.
+                    
+                    with AIlury Programming Studio we are trying to make coding html websites more accessible for mobile users and by making an intuitive ui with a focus on tools to make coding quicker and maxing efficiency
+                </p>
+            </section>
+            <section id="ExperienceSec">
+                <h2>Experience</h2>
+                <p>
+                    The AIlury Experience is smooth, intuitive and easy to get started quick by being able to customize almost every aspect of the editor.  
+                </p>
+            </section>
+            <section id="GoalsSec">
+                <h2>Goals</h2>
+                <p>
+                    AIlury aims to make services more accessible           
+                </p>
+            </section>
+        </div>
+    </div>
+    <script>
+        const SecContainerObserver = new IntersectionObserver((entries) => {
+            document.querySelectorAll('button.currentSec').forEach(button => {
+                button.classList.remove('currentSec');
+            });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id.replace('Sec', '');
+                    const button = document.getElementById(id);
+                    if (button) button.classList.add('currentSec');
+                }
+            });
+        }, { threshold: 0.8 });
+        
+        document.querySelectorAll('.section-container section').forEach(sec => {
+            SecContainerObserver.observe(sec);
+        });
+        
+        document.querySelectorAll('.sidebar-btn-container button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById(btn.id + "Sec").scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                });
+            });
+        });
+        function openAIluryProgrammingStudio() {
+            window.location.href = 'https://ailury.com';
+        }
+    </script>
+</body>
+</html>
+
+
+
+
