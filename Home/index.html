@@ -66,7 +66,7 @@
         }
         
         .section-container {
-            display: flex;
+            display: block;
             height: 100dvh;
             width: 75vw;
             border: 1px solid var(--border-color);
@@ -74,10 +74,8 @@
             border-radius: 0;
             box-sizing: border-box;
             padding: 10px;
-            flex-direction: column;
             overflow: hidden;
             overflow-y: scroll;
-            justify-content: center;
         }
         .top-bar {
             position: fixed;
@@ -95,6 +93,7 @@
             overflow: hidden;
             overflow-y: auto;
             justify-content: right;
+            z-index: 10;
         }
         .top-bar button {
             padding: 10px;
@@ -130,6 +129,8 @@
             width: 95%;
             max-width: 500px;
             min-height: 70dvh;
+            margin-left: 50%;
+            transform: translate(-50%);
         }
         .section-container #AboutSec {
             padding-top: 60px;
@@ -150,10 +151,132 @@
         .sidebar-btn-container button.currentSec {
             background: var(--border-color);
         }
+        #startUsingAIlury {
+            background: var(--border-color);
+            padding: 50px;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            flex-direction: column;
+        }
+        #startUsingAIlury h2 {
+            font-size: 2vw;
+            text-align: center;
+        }
+        #startUsingAIlury button {
+            margin-top: 10px;
+            padding: 10px;
+            padding-left: 23px;
+            padding-right: 23px;
+            border: none;
+            border-radius: 100px;
+            background: var(--background-color);
+            color: var(--text-color);
+            font-size: 1.1em;
+        }
+        #featurechecklistul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #featurechecklistul li {
+            margin: 8px 0;
+            margin-top: 8px;
+            padding-left: 24px;
+            position: relative;
+            font-size: 16px;
+        }
+        
+        #featurechecklistul li.true::before {
+            content: "|";
+            position: absolute;
+            left: 0;
+            color: green;
+        }
+        
+        #featurechecklistul li.false::before {
+            content: "!";
+            position: absolute;
+            left: 0;
+            color: red;
+        }
+        .section-container > section:after {
+            content: "";
+            height: 40dvh;
+            width: 1px;
+            background: var(--border-color);
+            margin-left: calc(50% - 1px);
+            display: flex;
+        }
+        .togglesidebarbtn {
+            display: none;
+            font-size: 1em;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0);
+            padding: 10px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 21;
+            border: none;
+            border-radius: 20px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+        iframe {
+            height: 100dvh;
+            width: 100vw;
+            max-width: 800px;
+            margin-left: 50%;
+            transform: translate(-50%) scale(0.6);
+            border: none;
+            border-radius: 13px;
+        }
+        @media(max-width: 500px) {
+            iframe {
+                transform: translate(-50%) scale(0.9);                
+            }
+            .togglesidebarbtn {
+                display: inline;
+            }
+            .sidebar {
+                position: fixed;
+                width: 100vw;
+                height: 100dvh;
+                top: 0;
+                left: 0;
+                z-index: 20;
+                background: var(--background-color);
+                padding-top: 50px;
+            }
+            .sidebarhidden .sidebar {
+                display: none;
+            }
+            .sidebar h1 {
+                display: none;
+            }
+            .section-container {
+                width: 100vw;
+            }
+            .top-bar {
+                width: 100vw;
+                left: 0;
+            }
+        }
+        .icon {
+            font-size: 1em;
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            border-radius: 100px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container sidebarhidden">
+        <button class="togglesidebarbtn">☰</button>
         <div class="sidebar">
             <h1>AIlury</h1>
             <div class="sidebar-btn-container">
@@ -180,34 +303,59 @@
                     
                     with AIlury Programming Studio we are trying to make coding html websites more accessible for mobile users and by making an intuitive ui with a focus on tools to make coding quicker and maxing efficiency
                 </p>
+                <p>Ailury.com <button class="icon">↓</button></p>
+                <iframe src="https://www.ailury.com"></iframe>                
             </section>
             <section id="ExperienceSec">
                 <h2>Experience</h2>
                 <p>
                     The AIlury Experience is smooth, intuitive and easy to get started quick by being able to customize almost every aspect of the editor.  
                 </p>
+                <ul id="featurechecklistul">
+                    <li class="true">custom themes</li>
+                    <li class="true">Free</li>
+                    <li class="true">easy to use</li>
+                    <li class="false">AI help</li>
+                    <li class="true">supports desktop and mobile</li>
+                    <li class="false">auto save</li>
+                    <li class="true">custom settings</li>
+                </ul>
             </section>
             <section id="GoalsSec">
                 <h2>Goals</h2>
                 <p>
                     AIlury aims to make services more accessible           
                 </p>
+                <div id="startUsingAIlury">
+                    <h2>Start using AIlury Programming Studio</h2>
+                    <p>no sign up required</p>
+                    <button onclick="openAIluryProgrammingStudio()">start</button>
+                </div>
+                <p>
+                    AIlury Programming Studio is currently in development
+                </p>
             </section>
         </div>
     </div>
     <script>
+        const togglesidebarbtn = document.querySelector('.togglesidebarbtn');
+        togglesidebarbtn.addEventListener('click', () => {
+            document.querySelector('.container').classList.toggle('sidebarhidden');
+        });
         const SecContainerObserver = new IntersectionObserver((entries) => {
-            document.querySelectorAll('button.currentSec').forEach(button => {
-                button.classList.remove('currentSec');
-            });
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.id.replace('Sec', '');
                     const button = document.getElementById(id);
                     if (button) button.classList.add('currentSec');
+                } else {
+                    const id = entry.target.id.replace('Sec', '');
+                    const button = document.getElementById(id);
+                    if (button) button.classList.remove('currentSec');
+                    
                 }
             });
-        }, { threshold: 0.8 });
+        }, { threshold: 0.5 });
         
         document.querySelectorAll('.section-container section').forEach(sec => {
             SecContainerObserver.observe(sec);
@@ -217,7 +365,7 @@
             btn.addEventListener('click', () => {
                 document.getElementById(btn.id + "Sec").scrollIntoView({
                     behavior: 'smooth',
-                    block: 'center',
+                    block: 'start',
                 });
             });
         });
@@ -227,7 +375,5 @@
     </script>
 </body>
 </html>
-
-
 
 
