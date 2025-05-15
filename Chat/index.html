@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AIlury Chat</title>
+    <style>
+        :root {
+            --background-color: #E8E8ED;
+            --text-color: #000;
+            --border-color: #fff;
+            --secondary-color: #007aff;
+            --sidebar-width: 25vw;
+            --background2-color: #F2F2F7;
+            --syntaxblock-color: #A222D4;
+            --syntaxoperator-color: darkgrey;
+            --syntaxbracket-color: grey;
+            --syntaxsign-color: #000000;
+            --syntaxstring-color: #377B23;
+            --syntaxnumber-color: #64C466;
+            --syntaxcomment-color: #6a737d;
+            --syntaxvariable-color: #316CB1;
+            --syntaxcommand-color: #b31d28;
+            --syntaxkeyword-color: #0202F4;
+            --syntaxhtmlcomment-color: #6a737d;
+            --syntaxregex-color: deeppink;
+            --syntaxhtmltagcontent-color: #000000;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #000;
+                --text-color: #fff;
+                --border-color: #161B22;
+                --secondary-color: #0156CD;
+                --background2-color: #0d1117;
+                --syntaxblock-color: #C678DD;
+                --syntaxoperator-color: #E06C75;
+                --syntaxbracket-color: #ABB2BF;
+                --syntaxsign-color: #ABB2BF;
+                --syntaxstring-color: #98C379;
+                --syntaxnumber-color: #D19A66;
+                --syntaxcomment-color: #5C6370;
+                --syntaxvariable-color: #61AFEF;
+                --syntaxcommand-color: #E5C07B;
+                --syntaxkeyword-color: #C678DD;
+                --syntaxhtmlcomment-color: #5C6370;
+                --syntaxregex-color: #E06C75;
+                --syntaxhtmltagcontent-color: #fff;
+            }
+        }
+        
+        body {
+            background: var(--background2-color);
+            height: 100dvh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: var(--text-color);
+            font-size: 1em;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+        }
+        #server-list {
+            width: var(--sidebar-width);
+            overflow: hidden;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        #server-list, #chat {
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+        #chat {
+            display: flex;
+            flex-direction: column;
+            border: none;
+            width: calc(100vw - var(--sidebar-width));
+            overflow: hidden;
+        }
+        .server {
+            cursor: pointer;
+            padding: 13px;
+            background: var(--background2-color);
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .server:hover {
+            background: var(--background-color);
+        }
+        #messages {
+            flex: 1;
+            overflow: hidden;
+            overflow-y: scroll;
+            border: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background: var(--background-color);
+        }
+        
+        .createserverdiv {
+            display: flex;
+        }
+        #message-form {
+            display: flex;
+            border: none;
+        }
+        button {
+            padding: 10px;
+            background: var(--border-color);
+            border: none;
+            border-radius: 5px;
+            margin-left: 1px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            color: var(--secondary-color);
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .server.active {
+            border: none;
+            background: var(--background-color);
+        }
+        h2 {
+            font-size: 1.5em;
+            padding-left: 13px;
+            padding-bottom: 10px;
+            width: 100%;
+            /*border-bottom: 1px solid var(--border-color);*/
+        }
+        #server-list > h3 {
+            font-size: 1.1em;
+            padding-left: 13px;
+            padding-bottom: 10px;
+            width: 100%;
+            font-weight: bold;
+            border-top: 1px solid var(--border-color);
+            padding-top: 13px;
+            color: var(--border-color);
+        }
+        .Message {
+            padding-left: 15px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 0;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+        .Message.yourMessage {
+            border-left: 2px solid var(--secondary-color);
+        }
+        .Message.pined {
+            border-left: 2px solid red;
+        }
+        .Message.yourMessage.pined {
+            border-left: 2px solid deeppink;
+        }
+        .Message.invisible {
+            visibility: hidden;
+        }
+        .Message.Highlighted {
+            background: var(--border-color);
+            border-radius: 5px;
+        }
+        #messages {
+            padding: 10px;
+        }
+        #new-User-name, #search-for-server-input {
+            border-radius: 5px;
+            background: var(--border-color);
+            margin-bottom: 10px;
+            border: none;
+            width: 100%;
+            padding: 13px;
+        }
+        .option-container-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100dvh;
+            width: 100vw;
+            background: transparent;
+            border: none;
+        }
+        .option-container {
+            width: 100%;
+            max-width: 250px;
+            position: absolute;
+            max-height: 400px;
+            padding: 0;
+            background: var(--background2-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+        .option-container.serverListOpContainer {
+            background: var(--background-color);
+        }
+        .option-container button {
+            background: transparent;
+            border: none;
+            font-size: 1em;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-right: 10px;
+        }
+        .option-container span {
+            display: flex;
+            color: var(--text-color);
+            font-size: 0.9em;
+            padding: 10px;
+        }
+        .likesDisplaypTag, .dislikesDisplaypTag, .reportDisplaypTag, .pinDisplaypTag {
+            opacity: 0.7;
+            color: var(--text-color);
+            background: transparent;
+            font-size: 0.7em;
+            padding: 0;
+            margin-right: 10px;
+        }
+        #custom-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1400;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            animation: fadeInOverlay 0.3s ease-in-out;
+        }
+        #custom-message {
+            font-size: 18px;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            padding: 10px;
+            text-align: left;
+            max-height: 200px;
+            overflow: scroll;
+        }
+        #close-alert, #submit-prompt {
+            margin-top: 10px;
+            padding: 12px;
+            width: 100%;
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        #prompt-input-container {
+            margin-top: 15px;
+        }
+        #custom-input {
+            width: 95%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            background: transparent;
+        }
+        #custom-input:focus{
+            outline: none;
+        }
+        #close-dialog {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--border-color);
+            transition: color 0.2s;
+        }
+        #custom-dialog {
+            background: var(--background-color);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            animation: fadeInDialog 0.4s ease-in-out;
+        }
+        .MessageLinks {
+            color: var(--secondary-color);
+        }
+        @keyframes fadeInDialog {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        #servers {
+            max-height: 80vw;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+        button {
+            cursor: pointer;
+        }
+        a {
+            cursor: pointer;
+        }
+        .AmountOfMessagesInServer {
+            margin-left: 15px;
+        }
+        .respondInfo {
+            /*position: absolute;*/
+            display: none;
+            width: 100%;
+            padding: 13px;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0);
+            border-radius: 5px;
+            font-size: 0.9em;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+        .respondInfo .infoName {
+            font-weight: bold;
+        }
+        .respondInfo span {
+            margin-right: 8px;
+        }
+        .responseDiv {
+            padding: 5px;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0);
+            border-radius: 5px;
+            font-size: 0.9em;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            margin: 0;
+            margin-top: 13px;
+            padding-left: 0;
+        }
+        input[type="text"], textarea {
+            color: var(--text-color);
+            background: var(--border-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            padding: 13px;
+            box-sizing: border-box;
+            width: 100%;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        textarea {
+            display: flex;
+            flex: 1;
+            resize: none;
+            overflow: hidden;
+            min-height: 40px;
+            max-height: 40dvh;
+            box-sizing: border-box;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            overflow-y: auto;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+        }
+        #togglesidebarbtn {
+            font-size: 1em;
+            color: var(--text-color);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: none;
+            border-radius: 100px;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-weight: bold;
+            display: none;
+            z-index: 11;
+        }
+        .resizesidebarbar {
+            position: absolute;
+            left: calc(var(--sidebar-width) - 15px);
+            top: 0;
+            background: rgba(0, 0, 0, 0);
+            height: 100dvh;
+            width: 15px;
+            z-index: 6;
+        }
+        
+        @media(max-width: 700px) {
+            .resizesidebarbar {
+                display: none;
+            }
+            #togglesidebarbtn {
+                display: flex;
+            }
+            #server-list > h2 {
+                display: none;
+            }
+            .serverInfo > h2 {
+                display: none;
+            }
+            #chat {
+                flex: 1;
+            }
+            #server-list {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                width: 100vw;
+                border-radius: 0;
+                background: var(--background2-color);
+                box-sizing: border-box;
+                z-index: 10;
+            }
+            .sidebarenabled#server-list {
+                display: block;
+            }
+            .respondInfo {
+                flex-direction: column;
+            }
+        }
+        @keyframes swipein {
+            0%{
+                transform: translateY(-100dvh);
+                opacity: 0;
+            }
+            100%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes swipeout {
+            0%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100%{
+                transform: translateY(150dvh);
+                opacity: 0;
+            }
+        }
+        .userregulationsandconditionsoverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100dvh;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: swipein 0.5s;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: 0.3s;
+            display: flex;
+        }
+        .userregulationsandconditions {
+            width: 100vw;
+            height: 100dvh;
+            max-width: none;
+            
+        }
+        .userregulationsandconditionsoverlay{
+            display: flex;
+        }
+        .userregulationsandconditions{
+            width: 100vw;
+            max-width: 800px;
+            display: flex;
+            padding: 10px;
+            box-sizing: border-box;
+            color: var(--text-color);
+            background: var(--background2-color);
+            border-radius: 5px;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            max-height: 95dvh;
+            word-break: break-word;
+            font-size: 1em;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        .userregulationsandconditions ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 20px;
+        }
+        
+        .userregulationsandconditions li {
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            background: var(--background2-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .userregulationsandconditions p{
+            margin-left: 5px;
+            margin-top: 20px;
+        }
+        
+        .userregulationsandconditions h2 {
+            color: var(--text-color);
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .userregulationsandconditions button {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            border-radius: 100px;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            align-self: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .syntax{
+            display: inline-block;
+        }
+        .syntaxcolorinput{
+            height: calc(var(--editor-font-size) / 2 * 3);
+            width: calc(var(--editor-font-size) / 2 * 3);
+            margin-left: 5px;
+        }
+        .syntaxblock { color: var(--syntaxblock-color); }
+        .syntaxoperator { color: var(--syntaxoperator-color); }
+        .syntaxbracket { color: var(--syntaxbracket-color); }
+        .syntaxsign { color: var(--syntaxsign-color); }
+        .syntaxstring { color: var(--syntaxstring-color); }
+        .syntaxnumber { color: var(--syntaxnumber-color); }
+        .syntaxcomment { color: var(--syntaxcomment-color); }
+        .syntaxvariable { color: var(--syntaxvariable-color); }
+        .syntaxcommand { color: var(--syntaxcommand-color); }
+        .syntaxkeyword { color: var(--syntaxkeyword-color); }
+        .syntaxhtmlcomment { color: var(--syntaxhtmlcomment-color); }
+        .syntaxregex { color: var(--syntaxregex-color); }
+        .syntaxhtmltagcontent { color: var(--syntaxhtmltagcontent-color); }
+        .syntaxspaceienabled .code-editor-line:not(.hiddenlinesparent, .selected) .syntaxspace:before {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 1px;
+            top: 0;
+            background: rgba(150, 150, 150, 0.1);
+        }
+        .code-editor-line, .code-editor-container-top {
+            display: flex;
+            position: relative;
+            border-radius: 5px;
+            background: transparent;
+            color: var(--text-color);
+            font-size: var(--code-font-size);
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            letter-spacing: 0.03em;
+            text-align: left;
+            padding: 5px;
+            transition: opacity 0.01s ease, visibility 0s linear 0.01s, all 0.5s ease;
+            white-space: pre-wrap;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            cursor: pointer;
+            opacity: 1;
+            caret-color: var(--secondary-color);
+            counter-increment: line-number;
+            position: relative;
+        }
+        .code-editor-container {
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 10px;
+            max-height: 55dvh;
+            overflow: hidden;
+            overflow-y: auto;
+            border-top: none;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+            margin-bottom: 10px;
+        }
+        .code-editor-container-top {
+            border: 1px solid var(--border-color);
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: 13px;
+            margin-top: 10px;
+            justify-content: space-between;
+        }
+        .code-container-btn-container {
+            
+        }
+        .code-container-btn-container button {
+            padding: 0;
+            background: transparent;
+            margin-right: 10px;
+            border: none;
+            color: var(--text-color);
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+</head>
+<body>
+    <div id="server-list">
+        <h2>Servers</h2>
+        <h3>user name</h3>
+        <input type="text" oninput="SaveUserName()" id="new-User-name" value="unidentified" placeholder="User name…">
+        <h3>servers</h3>
+        <input type="text" oninput="searchForServer(this)" id="search-for-server-input" value="" placeholder="Search for a server…">
+        <div id="servers"></div>
+        <div class="createserverdiv">
+            <input type="text" id="new-server-name" placeholder="Server name…">
+            <button onclick="createServer()">Create/Join</button>
+        </div>
+        <div class="resizesidebarbar"></div>
+    </div>
+    <div id="chat">
+        <div class="serverInfo"><p class="AmountOfMessagesInServer">no messages</p></div>
+        <div id="messages"></div>
+        <div class="respondInfo">no response</div>
+        <form id="message-form" onsubmit="sendMessage(event)">
+            <textarea id="message-input" placeholder="Type a message"></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <button id="togglesidebarbtn" onclick="togglesidebar()">☰</button>
+    <div id="custom-overlay" style="display: none;">
+        <div id="custom-dialog">
+            <span id="close-dialog">&times;</span>
+            <p id="custom-message"></p>
+            <div id="prompt-input-container" style="display: none;">
+                <input type="text" id="custom-input" maxlength="250" placeholder="Enter a value">
+                <button id="submit-prompt">Submit</button>
+            </div>
+            <button id="close-alert">OK</button>
+        </div>
+    </div>
+    <div class="userregulationsandconditionsoverlay">
+        <div class="userregulationsandconditions">
+            <h2>Conditions of Use for AIlury Chat</h2>
+            
+            <p>By using AIlury Chat, you agree to the following terms:</p>
+            <ul>
+                <li><strong>No sharing addresses:</strong> Sharing any type of address (including home, work, or IP) with or about other users is strictly prohibited under all circumstances.</li>
+                <li><strong>No harassment:</strong> Harassing, bullying, or targeting any user in any form is strictly prohibited, regardless of the situation.</li>
+                <li><strong>No false reports:</strong> Only report content that clearly violates the rules, such as illegal activity, harassment, threats, or inappropriate material.</li>
+                
+                <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform, or any part of the website.</li>
+                <li><strong>No Exploiting Bugs:</strong> Do not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
+                <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
+                <li><strong>No Malicious Activity:</strong> Running or uploading malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
+            </ul>
+            <p>Do you accept all terms and conditions?</p>
+            <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">i accept</button>
+        </div>
+    </div>
+    <script>
+        function hideelement(type, name, event) {
+            if (event.target !== event.currentTarget) {
+                return;
+            }
+            if (type == 'class') {
+                const ewcname = document.querySelector('.' + name);
+                ewcname.style.animation = "none";
+                void ewcname.offsetWidth;
+                ewcname.style.animation = "swipeout 0.5s ease-out";
+                setTimeout(() => {
+                    ewcname.style.display = 'none';
+                }, 500);
+            } else if (type == 'id') {
+                const ewidname = document.getElementById(name);
+                ewidname.style.animation = "none";
+                void ewidname.offsetWidth;
+                ewidname.style.animation = "swipeout 0.5s ease-out";
+                setTimeout(() => {
+                    ewidname.style.display = 'none';
+                }, 500);
+            }
+        }
+        let isResizingSidebar = false;
+
+        document.querySelector('.resizesidebarbar').addEventListener('touchstart', (e) => {
+            isResizingSidebar = true;
+        });
+        
+        window.addEventListener('touchmove', (e) => {
+            if (!isResizingSidebar) return;
+            e.preventDefault();
+            const viewportWidth = document.documentElement.clientWidth;
+            const vw = (e.touches[0].clientX / viewportWidth) * 100;
+            document.documentElement.style.setProperty('--sidebar-width', `${vw}vw`);
+        });
+        
+        window.addEventListener('touchend', () => {
+            isResizingSidebar = false;
+        });
+        
+        document.querySelector('.resizesidebarbar').addEventListener('mousedown', (e) => {
+            isResizingSidebar = true;
+        });
+        
+        window.addEventListener('mousemove', (e) => {
+            if (!isResizingSidebar) return;
+            const viewportWidth = document.documentElement.clientWidth;
+            const vw = (e.clientX / viewportWidth) * 100;
+            document.documentElement.style.setProperty('--sidebar-width', `${vw}vw`);
+        });
+        
+        window.addEventListener('mouseup', () => {
+            isResizingSidebar = false;
+        });
+        
+        function togglesidebar() {
+            document.getElementById("server-list").classList.toggle("sidebarenabled");
+        }
+        const textarea = document.getElementById('message-input');
+        const respondInfoDiv = document.querySelector('.respondInfo');
+        
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+            /*if (respondInfoDiv && respondInfoDiv.style.display != "none") {
+                positionElementAbove(respondInfoDiv, this);
+                adjustElementPosition(respondInfoDiv);
+            }*/
+        });
+        
+        function searchForServer(input) {
+            const value = input.value.trim().toLowerCase();
+            const servers = document.querySelectorAll('.server');
+            servers.forEach(server => {
+                if (server.textContent.trim().toLowerCase().includes(value)) {
+                    server.style.display = "flex";
+                } else {
+                    server.style.display = "none";
+                }
+            });
+        }
+        const overlay = document.getElementById('custom-overlay');
+        const messageBox = document.getElementById('custom-message');
+        const closeAlertButton = document.getElementById('close-alert');
+        const promptInputContainer = document.getElementById('prompt-input-container');
+        const promptInput = document.getElementById('custom-input');
+        const submitPromptButton = document.getElementById('submit-prompt');
+        const closeDialog = document.getElementById('close-dialog');
+        
+        
+        function showAlert(message, callback) {
+            setTimeout(() => {
+                messageBox.textContent = message;
+                promptInputContainer.style.display = 'none';
+                closeAlertButton.style.display = 'block';
+                overlay.style.display = 'flex';
+                closeAlertButton.onclick = () => {
+                    if (typeof callback === 'function') {
+                        closeCustomDialog();
+                        callback();
+                    }
+                };
+            }, 100);
+        }
+        
+        
+        function showPrompt(message, callback) {
+            messageBox.textContent = message;
+            promptInputContainer.style.display = 'block';
+            closeAlertButton.style.display = 'none';
+            overlay.style.display = 'flex';
+            
+            submitPromptButton.onclick = () => {
+                const inputValue = promptInput.value;
+                callback(inputValue);
+                closeCustomDialog();
+            };
+        }
+        
+        function closeCustomDialog() {
+            overlay.style.display = 'none';
+            promptInput.value = '';
+        }
+        
+        closeAlertButton.addEventListener('click', closeCustomDialog);
+        closeDialog.addEventListener('click', closeCustomDialog);
+        
+        function pruneMessages(roomRef, maxMessages = 1000) {
+            const messageIds = [];
+            roomRef.map().once((data, id) => {
+                if (data && !data.deleted) {
+                    messageIds.push({ id, timestamp: data.timestamp || 0 });
+                }
+            });
+            
+            setTimeout(() => {
+                if (messageIds.length > maxMessages) {
+                    const sorted = messageIds.sort((a, b) => a.timestamp - b.timestamp);
+                    const toDelete = sorted.slice(0, messageIds.length - maxMessages);
+                    toDelete.forEach(item => {
+                        roomRef.get(item.id).put({ deleted: true });
+                        roomRef.get(item.id).put({ text: "" });
+                        roomRef.get(item.id).put({ likes: 0 });
+                        roomRef.get(item.id).put({ pins: 0 });
+                        roomRef.get(item.id).put({ reports: 0 });
+                        roomRef.get(item.id).put({ dislikes: 0 });
+                    });
+                }
+            }, 1000);
+        }
+        function cleanMessage(text) {
+            const badWords = ['fuck', 'shit', 'bastard', 'idiot', 'asshole', 'puta', 'foda', 'merda', 'fucking', 'bitch'];
+            const badWordRegex = new RegExp(`\\b(${badWords.join('|')})\\b`, 'gi');
+            
+            text = text.replace(badWordRegex, (match) => {
+                if (match.length <= 2) return match;
+                const first = match[0];
+                const last = match[match.length - 1];
+                const stars = '*'.repeat(match.length - 2);
+                return first + stars + last;
+            });
+            
+            const phoneRegex = /(\+?\d{1,3}[-.\s]?)?(\d{2,4}[-.\s]?){2,4}\d{2,4}/g;
+            text = text.replace(phoneRegex, '[Censored Phone number]');
+            
+            const plusCodeRegex = /\b[A-Z0-9]{4}\+[A-Z0-9]{2,3}\b(?:,?\s?[A-Za-zäöüß\s]+)?/g;
+            text = text.replace(plusCodeRegex, '[Censored address]');
+            
+            return text;
+        }
+        function positionElementBelow(elementToPosition, referenceElement) {
+            if (!elementToPosition || !referenceElement) return;
+            const referenceRect = referenceElement.getBoundingClientRect();
+            elementToPosition.style.position = 'absolute';
+            elementToPosition.style.top = `${referenceRect.bottom + window.innerHeight * 0.01}px`;
+            if (elementToPosition.classList.contains('serverListOpContainer') || elementToPosition.classList.contains('respondInfo')) {
+                elementToPosition.style.maxWidth = `${referenceRect.width}px`;
+                elementToPosition.style.left = `${referenceRect.left + (referenceRect.width - elementToPosition.getBoundingClientRect().width) / 2}px`;
+            } else {
+                elementToPosition.style.left = `${referenceRect.left}px`;
+            }
+            elementToPosition.style.display = "flex";
+        }
+        function positionElementAbove(elementToPosition, referenceElement) {
+            if (!elementToPosition || !referenceElement) return;
+            const referenceRect = referenceElement.getBoundingClientRect();
+            elementToPosition.style.position = 'absolute';
+            elementToPosition.style.top = `${referenceRect.top - elementToPosition.offsetHeight - 8 + window.scrollY}px`;
+            elementToPosition.style.maxWidth = `${referenceRect.width}px`;
+            elementToPosition.style.right = `${referenceRect.left + (referenceRect.width - elementToPosition.offsetWidth) / 2}px`;
+            elementToPosition.style.left = `${referenceRect.left + (referenceRect.width - elementToPosition.getBoundingClientRect().width) / 2}px`;
+        }
+        function adjustElementPosition(element) {
+            if (!element) return;
+            const rect = element.getBoundingClientRect();
+            const screenHeight = window.innerHeight;
+            
+            const distanceToBottom = rect.bottom - screenHeight;
+            
+            if (distanceToBottom > 0) {
+                element.style.top = `${rect.top - distanceToBottom}px`;
+            }
+        }
+        
+        const messageobserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const target = entry.target;
+                if (target && entry.isIntersecting) {
+                    target.classList.remove('invisible');
+                } else if (target) {
+                    target.classList.add('invisible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        let accountid = crypto.randomUUID();
+        if (localStorage.getItem("AIluryChatUserId")) {
+            accountid = localStorage.getItem("AIluryChatUserId");
+        } else {
+            localStorage.setItem("AIluryChatUserId", accountid);
+        }
+    
+        function SaveUserName() {
+            const username = document.getElementById('new-User-name').value.trim().replace(/\W/g, '');
+            localStorage.setItem(accountid + 'AIluryChatUserName', username);
+        }
+    
+        if (localStorage.getItem(accountid + 'AIluryChatUserName')) {
+            document.getElementById('new-User-name').value = localStorage.getItem(accountid + 'AIluryChatUserName');
+        }
+    
+        const gun = Gun({
+            peers: ['https://gun-manhattan.herokuapp.com/gun']
+        });
+    
+        let currentRoom = null;
+        let roomRef = null;
+        let seenMessages = {};
+        let localServers = JSON.parse(localStorage.getItem('chatServers')) || {};
+        
+        async function duplicateServer(oldName, newName) {
+            if (oldName == newName || localServers[newName]) return showAlert('you need to enter an original name');
+            const oldRef = gun.get('rooms').get(oldName);
+            const newRef = gun.get('rooms').get(newName);
+            
+            oldRef.map().once((data, id) => {
+                if (data) {
+                    newRef.get(id).put(data);
+                    //oldRef.get(id).put(null);
+                }
+            });
+            
+            //delete localServers[oldName];
+            localServers[newName] = true;
+            saveServers();
+            renderServers();
+        }
+    
+        function renderServers() {
+            const serversDiv = document.getElementById('servers');
+            serversDiv.innerHTML = '';
+            for (const serverName in localServers) {
+                const div = document.createElement('div');
+                div.className = 'server';
+                div.classList.add('server' + serverName);
+                div.textContent = serverName;
+                div.onclick = (event) => {
+                    if (event.target.classList.contains("MessageLinks")) return;
+                    if (currentRoom && currentRoom == serverName) {
+                        createOptionContainerForServers(div, serverName);
+                    } else {
+                        joinServer(serverName);
+                        document.querySelectorAll('.server').forEach(server => server.classList.remove('active'));
+                        div.classList.add('active');
+                    }
+                };
+                serversDiv.appendChild(div);
+            }
+        }
+        function extractUniqueIds(code) {
+            const matches = new Set();
+            
+            const patterns = [
+                { regex: /id="([^"]+)"/g, prefix: '#' },
+                { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
+            ];
+            
+            patterns.forEach(({ regex, prefix }) => {
+                let match;
+                while ((match = regex.exec(code)) !== null) {
+                    //matches.add(prefix + match[1]);
+                    matches.add(match[1]);
+                }
+            });
+            
+            return Array.from(matches);
+        }
+        
+        function extractUniqueClasses(code) {
+            const matches = new Set();
+            
+            const patterns = [
+                { regex: /class="([^"]+)"/g, prefix: '.' },
+                { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.' },
+                { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.' }
+            ];
+            
+            patterns.forEach(({ regex, prefix }) => {
+                let match;
+                while ((match = regex.exec(code)) !== null) {
+                    matches.add(match[1]);
+                }
+            });
+            
+            return Array.from(matches);
+        }
+        function addSyntaxHighlighting(div) {
+            if (!div || div.tagName !== "DIV") {
+                return;
+            }
+
+            const code = div.textContent;
+            div.textContent = "";
+      
+            const jstextstring = [
+                { regex: /(?<!\\)`(?![^"]*"(?:[^"\\]*\\.)*[^"]*$)(?![^']*'(?:[^'\\]*\\.)*[^']*$)(?![^/]*\/(?:[^/\\]*\\.)*[^/]*\/[gimsuy]*)(?![^/]*\/\/.*)[^`]*/, className: "syntaxstring" }
+            ];
+            let allfilenames = extractUniqueIds(div.parentElement.parentElement.querySelector('.code-editor-container').textContent);
+            let allfilenames2 = extractUniqueClasses(div.parentElement.parentElement.querySelector('.code-editor-container').textContent);
+            
+            let spatterns = [
+                { regex: /[\s \u00A0]{4}/g, className: "syntaxspace" },
+                { regex: /(\/\/[^\n]*|\/\*[\s\S]*?(?:\*\/|$)|[^\/]*\*\/)/g, className: "syntaxcomment" },
+                { regex: /(?:\<\!\-\-[^]*|(?<!\<\!\-\-[^]*)[\s\S]*?\-\-\>)/g, className: "syntaxhtmlcomment" },
+                { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
+                { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
+
+                { regex: /\b(@charset|@namespace|@viewport|@counter-style|await|break|const|continue|debugger|delete|false|in|instanceof|new|null|return|super|this|throw|true|typeof|var|void|yield|let|static|undefined|NaN|Infinity|eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|BigInt|Math|Date|String|RegExp|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|Map|Set|WeakMap|WeakSet|ArrayBuffer|SharedArrayBuffer|Atomics|DataView|JSON|Promise|Generator|Reflect|Proxy|Intl|WebAssembly)\b/g, className: "syntaxkeyword" },
+                { regex: /\b(case|catch|class(?!=)|default|do|else|enum|export|extends|finally|for|function|if|import|switch|try|while|with|implements|interface|package|private|protected|public|async|GeneratorFunction|AsyncFunction)\b/g, className: "syntaxblock" },
+                { regex: /@(container|page|supports|keyframes|import|font-face|media|document)\b/g, className: "syntaxkeyword" }
+            ];
+            if (Array.isArray(allfilenames) && allfilenames.length > 0) {
+                const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const escapedFilenames = allfilenames.map(escapeRegex);
+                spatterns.push({ regex: new RegExp(`(?<=\\#)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
+            }
+
+            if (Array.isArray(allfilenames2) && allfilenames2.length > 0) {
+                const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const escapedFilenames = allfilenames2.map(escapeRegex);
+                spatterns.push({ regex: new RegExp(`(?<=\\.)(${escapedFilenames.join('|')})`, 'g'), className: "syntaxvariable" });
+            }
+            
+            let restpatterns = [
+                { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable", goto: "def" },
+                { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
+                { regex: /(?<=<\/?)([^\s>/]+)(?=[\s>])/g, className: "syntaxhtmltagcontent" },
+                { regex: /(\+|-|\*|\/|%|=|>|<|!|\^|:)/g, className: "syntaxoperator" },
+                { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" },
+                { regex: /([\[\]{}()])/g, className: "syntaxbracket" },
+                { regex: /([.,&|;])/g, className: "syntaxsign" },
+                { regex: /\b\d+(\.\d+)?\b/g, className: "syntaxnumber" },
+                { regex: /\b[a-zA-Z_]\w*\b(?=\s*=)/g, className: "syntaxvariable" },
+                { regex: /\b\w+(?=\()/g, className: "syntaxcommand" },
+                { regex: /\b(console|Math\.\w+|Date|window|document)\b/g, className: "syntaxcommand" },
+                { regex: /(?<=\.)\b\w+\b/g, className: "syntaxvariable" },
+                { regex: /\b(?:align-content|align-items|align-self|all|animation(?:-delay|-direction|-duration|-fill-mode|-iteration-count|-name|-play-state|-timing-function)?|appearance|backdrop-filter|backface-visibility|background(?:-attachment|-blend-mode|-clip|-color|-image|-origin|-position|-repeat|-size)?|border(?:-block(?:-color|-end(?:-color|-style|-width)?|-start(?:-color|-style|-width)?|-style|-width)?|-bottom(?:-color|-left-radius|-right-radius|-style|-width)?|-collapse|-color|-end-end-radius|-end-start-radius|-image(?:-outset|-repeat|-slice|-source|-width)?|-inline(?:-color|-end(?:-color|-style|-width)?|-start(?:-color|-style|-width)?|-style|-width)?|-left(?:-color|-style|-width)?|-radius|-right(?:-color|-style|-width)?|-spacing|-start-end-radius|-start-start-radius|-style|-top(?:-color|-left-radius|-right-radius|-style|-width)?|-width)?|box-decoration-break|box-shadow|box-sizing|break-(?:after|before|inside)|caption-side|caret-color|clear|clip(?:-path)?|color|column(?:-count|-fill|-gap|-rule(?:-color|-style|-width)?|-span|-width)?|columns|content|counter-(?:increment|reset)|cursor|direction|display|empty-cells|filter|flex(?:-basis|-direction|-flow|-grow|-shrink|-wrap)?|float|font(?:-family|-feature-settings|-kerning|-language-override|-optical-sizing|-size(?:-adjust)?|-stretch|-style|-synthesis|-variant(?:-alternates|-caps|-east-asian|-ligatures|-numeric|-position)?|-variation-settings|-weight)?|gap|grid(?:-area|-auto-(?:columns|flow|rows)|-column(?:-end|-gap|-start)?|-gap|-row(?:-end|-gap|-start)?|-template(?:-areas|-columns|-rows)?)?|height|hyphens|image-rendering|inherit|initial|inline-size|inset(?:-block(?:-end|-start)?|-inline(?:-end|-start)?)?|isolation|justify-(?:content|items|self)|left|letter-spacing|line-(?:break|height)|list-style(?:-image|-position|-type)?|margin(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|mask(?:-border(?:-mode|-outset|-repeat|-slice|-source|-width)?|-clip|-composite|-image|-mode|-origin|-position|-repeat|-size|-type)?|max-(?:block-size|height|inline-size|width)|min-(?:block-size|height|inline-size|width)|mix-blend-mode|object-(?:fit|position)|offset(?:-(?:anchor|distance|path|position|rotate))?|opacity|order|orphans|outline(?:-color|-offset|-style|-width)?|overflow(?:-(?:anchor|block|inline|wrap|x|y))?|overscroll-behavior(?:-(?:block|inline|x|y))?|padding(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|page-break-(?:after|before|inside)|paint-order|perspective(?:-origin)?|place-(?:content|items|self)|pointer-events|position|quotes|resize|right|rotate|row-gap|ruby-(?:align|position)|scale|scroll-(?:behavior|margin(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|padding(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|snap-(?:align|stop|type))|shape-(?:image-threshold|margin|outside)|tab-size|table-layout|text-(?:align(?:-last)?|combine-upright|decoration(?:-color|-line|-skip(?:-ink)?|-style|-thickness)?|emphasis(?:-color|-position|-style)?|indent|justify|orientation|overflow|rendering|shadow|transform(?:-offset|position)?|underline(?:-offset|-position)?)|top|transform(?:-(?:box|origin|style))?|transition(?:-(?:delay|duration|property|timing-function))?|unicode-bidi|user-select|vertical-align|visibility|white-space|widows|width|will-change|word-(?:break|spacing|wrap)|writing-mode|z-index|zoom)\b(?=\s*:)/g
+, className: "syntaxcommand" },
+                { regex: /\b\w+(?=:)/g, className: "syntaxcommand" }
+            ];
+            
+            spatterns = [...spatterns, ...restpatterns];
+
+
+            function processText(text, container, patterns) {
+                let matchFound = false;
+                let lastIndex = 0;
+
+                while (lastIndex < text.length) {
+                    let matched = false;
+          
+                    for (const { regex, className, goto = false } of patterns) {
+                        regex.lastIndex = lastIndex;
+                        const match = regex.exec(text);
+
+                        if (match && match.index === lastIndex) {
+                            matched = true;
+
+                            if (text.slice(lastIndex, match.index)) {
+                                const before = document.createElement("span");
+                                before.textContent = text.slice(lastIndex, match.index);
+                                container.appendChild(before);
+                            }
+
+                            const span = document.createElement("span");
+                            span.textContent = match[0];
+                            span.className = className;
+                            if (className == "syntaxhex"){
+                                function expandHex(shortHex) {
+                                    shortHexR = shortHex.replace(/^#/, '');
+                                    if (shortHexR.length !== 3) {
+                                        return shortHex;
+                                    }
+                                    const fullHex = shortHexR.split('').map(char => char + char).join('');
+                                    
+                                    return `#${fullHex}`;
+                                }
+                                const spanspan = document.createElement('span');
+                                spanspan.className = "ajshspanspan";
+                                spanspan.textContent = match[0];
+                                const colorInput = document.createElement('input');
+                                colorInput.type = 'color';
+                                colorInput.value = expandHex(span.textContent);
+                                colorInput.className = "syntaxcolorinput";
+                                span.textContent = "";
+                                span.appendChild(spanspan);
+                                function colorinputoninput(colorInput) {
+                                    if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
+                                        let newpast = [];
+                                        let pastelement = {
+                                            element: span.parentElement,
+                                            type: "text",
+                                            text: span.parentElement.textContent
+                                        };
+                                        newpast.push(pastelement);
+                                        if (newpast.length > 0) {
+                                            if (!pastevents[lasteventsparentsection.id]) {
+                                                pastevents[lasteventsparentsection.id] = [];
+                                            }
+                                            pastevents[lasteventsparentsection.id].push(newpast);
+                                            enablepastbtn();
+                                        }
+                                    }
+                                    spanspan.textContent = colorInput.value;
+                                }
+                                colorInput.addEventListener('input', (event) => {
+                                    colorinputoninput(colorInput);
+                                });
+                                span.appendChild(colorInput);
+                            }else if (className == "syntaxregex"){
+                                span.onclick = () => {
+                                    notify("edit regex", "open", () => {
+                                        showRegexTester(span.textContent, (back) => {
+                                            if (back){
+                                                if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
+                                                    let newpast = [];
+                                                    let pastelement = {
+                                                        element: span.parentElement,
+                                                        type: "text",
+                                                        text: span.parentElement.textContent
+                                                    };
+                                                    newpast.push(pastelement);
+                                                    if (newpast.length > 0) {
+                                                        if (!pastevents[lasteventsparentsection.id]) {
+                                                            pastevents[lasteventsparentsection.id] = [];
+                                                        }
+                                                        pastevents[lasteventsparentsection.id].push(newpast);
+                                                        enablepastbtn();
+                                                    }
+                                                }
+                                                span.textContent = back;
+                                            }
+                                        });
+                                    });
+                                };
+                            }else if (className == "syntaxvariable" && goto == "def") {
+                                span.classList.add('cssvardef');
+                            }else if (goto == "true") {
+                                span.onclick = () => {
+                                    let definition = null;
+                                    if (section) {
+                                        for (let sv of section.querySelectorAll('.syntaxvariable.cssvardef')) {
+                                            if (sv.parentElement && sv.parentElement.classList.contains('code-editor-line') && sv.textContent == span.textContent) {
+                                                definition = sv;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (definition) {
+                                        notify("go to definition", "go", () => {
+                                            scrolltolinenumber(getElementIndexInParent(definition.parentElement));
+                                        });
+                                    }
+                                };
+                            }
+                            span.classList.add('syntax');
+                            container.appendChild(span);
+
+                            lastIndex = regex.lastIndex;
+                            break;
+                        }
+                    }
+
+                    if (!matched) {
+                        const span = document.createElement("span");
+                        span.textContent = text[lastIndex];
+                        span.classList.add('syntax');
+                        container.appendChild(span);
+                        lastIndex++;
+                    }
+                }
+            }
+      
+      
+            function checkifcontinuedcomment() {
+                const testthisregex = /(?<!\\)(?<![/`'"][^'"\n]*?)\/\*(?![^*]*\*\/)(?!(?:(?=[^'"\n]*['"`])[^'"\n]*['"`]))/;
+                if (!testthisregex.test(code)) {
+                    return;
+                }
+
+                let currentdiv = div;
+                while (currentdiv.nextElementSibling) {
+                    currentdiv = currentdiv.nextElementSibling;
+    
+                    if (!currentdiv.textContent.includes('*/')) {
+                        let currentdivtextcontent = currentdiv.textContent;
+                        currentdiv.innerHTML = "";
+
+                        currentdiv.textContent = currentdivtextcontent;
+                        currentdiv.classList.add('syntaxcomment');
+                    } else {
+                        let commentpart = currentdiv.textContent.split('*/')[0] + "*/";
+                        let notcommentpart = currentdiv.textContent.split('*/')[1];
+                        currentdiv.innerHTML = "";
+                        let newspan = document.createElement('span');
+                        newspan.className = "syntaxcomment";
+                        newspan.textContent = commentpart;
+                        const container = document.createDocumentFragment();
+
+                        container.appendChild(newspan);
+                        currentdiv.appendChild(container);
+                        const container2 = document.createDocumentFragment();
+
+                        processText(notcommentpart, container2, spatterns);
+                        currentdiv.appendChild(container2);
+                        break;
+                    }
+                }
+            }
+            function processDiv() {
+                const content = code;
+                const regexCommentEnd = /.*\*\/.*$/;
+                const regexCommentStart = /.*\/\*/;
+
+                if (regexCommentEnd.test(content) && !regexCommentStart.test(content.slice(content.indexOf('*/') + 2))) {
+                    let nextSibling = div;
+                    while (nextSibling && nextSibling.classList.contains('syntaxcomment')) {
+                        nextSibling.classList.remove('syntaxcomment');
+                        const container2 = document.createDocumentFragment();
+                        let nextSiblingTextContent = nextSibling.textContent;
+                        nextSibling.innerHTML = "";
+                        processText(nextSiblingTextContent, container2, spatterns);
+                        nextSibling.appendChild(container2);
+                        nextSibling = nextSibling.nextElementSibling;
+                    }
+                }
+            }
+
+            function checkcomments(div, text) {
+                let regextotest = /\/\*(?!.*\*\/)/g;
+                let regextotest2 = /(?<!\/\*.*)\*\//g;
+                if (div.nextElementSibling && div.nextElementSibling.classList.contains('syntaxcomment') && !div.classList.contains('syntaxcomment') && !regextotest.test(text)) {
+                    let nextelement = div.nextElementSibling;
+                    while (nextelement && nextelement.classList.contains('syntaxcomment')){
+                        nextelement.classList.remove('syntaxcomment');
+                        const container = document.createDocumentFragment();
+                        processText(nextelement.textContent, container, spatterns);
+                        nextelement.innerHTML = "";
+                        nextelement.appendChild(container);
+                        nextelement = nextelement.nextElementSibling;
+                    }
+                }else if (div.previousElementSibling && div.previousElementSibling.classList.contains('syntaxcomment') && !div.classList.contains('syntaxcomment') && !regextotest2.test(text)){
+                    div.classList.add('syntaxcomment');
+                    div.innerHTML = "";
+                    div.textContent = text;
+                    let currentdiv = div.nextElementSibling;
+                    while (currentdiv && !currentdiv.textContent.includes('*/')) {
+                        if (!currentdiv.classList.contains('syntaxcomment')){
+                            let currentdivtextcontent = currentdiv.textContent;
+                            currentdiv.innerHTML = "";
+                            currentdiv.textContent = currentdivtextcontent;
+                            currentdiv.classList.add('syntaxcomment');
+                            currentdiv = currentdiv.nextElementSibling;
+                        }else {
+                            break;
+                        }
+                    }
+                }
+   
+            }
+
+            function checkifcontinuedcomment2() {
+                const testthisregex = /(?<!['`"][^'"\n]*?)<!--(?![^>]*-->)/;
+                if (!testthisregex.test(code)) {
+                    return;
+                }
+
+                let currentdiv = div;
+                while (currentdiv.nextElementSibling) {
+                    currentdiv = currentdiv.nextElementSibling;
+
+                    if (!currentdiv.textContent.includes('-->')) {
+                        let currentdivtextcontent = currentdiv.textContent;
+                        currentdiv.innerHTML = "";
+
+                        currentdiv.textContent = currentdivtextcontent;
+                        currentdiv.classList.add('syntaxhtmlcomment');
+                    } else {
+                        let commentpart = currentdiv.textContent.split('-->')[0] + "-->";
+                        let notcommentpart = currentdiv.textContent.split('-->')[1];
+                        currentdiv.innerHTML = "";
+                        let newspan = document.createElement('span');
+                        newspan.className = "syntaxhtmlcomment";
+                        newspan.textContent = commentpart;
+                        const container = document.createDocumentFragment();
+                        container.appendChild(newspan);
+                        currentdiv.appendChild(container);
+                        const container2 = document.createDocumentFragment();
+
+                        processText(notcommentpart, container2, spatterns);
+                        currentdiv.appendChild(container2);
+                        break;
+                    }
+                }
+            }
+
+            function processDiv2() {
+                const content = code;
+                const regexCommentEnd = /.*-->.*/;
+                const regexCommentStart = /.*<!--/;
+
+                if (regexCommentEnd.test(content) && !regexCommentStart.test(content.slice(content.indexOf('-->') + 3))) {
+                    let nextSibling = div;
+                    while (nextSibling && nextSibling.classList.contains('syntaxhtmlcomment')) {
+                        nextSibling.classList.remove('syntaxhtmlcomment');
+                        const container2 = document.createDocumentFragment();
+                        let nextSiblingTextContent = nextSibling.textContent;
+                        nextSibling.innerHTML = "";
+                        processText(nextSiblingTextContent, container2, spatterns);
+                        nextSibling.appendChild(container2);
+                        nextSibling = nextSibling.nextElementSibling;
+                    }
+                }
+            }
+
+            function checkcomments2(div, text) {
+                let regextotest = /<!--(?!.*-->)/g;
+                let regextotest2 = /(?<!<!--.*)-->/g;
+                if (div.nextElementSibling && div.nextElementSibling.classList.contains('syntaxhtmlcomment') && !div.classList.contains('syntaxhtmlcomment') && !regextotest.test(text)) {
+                    let nextelement = div.nextElementSibling;
+                    while (nextelement && nextelement.classList.contains('syntaxhtmlcomment')) {
+                        nextelement.classList.remove('syntaxhtmlcomment');
+                        const container = document.createDocumentFragment();
+                        processText(nextelement.textContent, container, spatterns);
+                        nextelement.innerHTML = "";
+                        nextelement.appendChild(container);
+                        nextelement = nextelement.nextElementSibling;
+                    }
+                } else if (div.previousElementSibling && div.previousElementSibling.classList.contains('syntaxhtmlcomment') && !div.classList.contains('syntaxhtmlcomment') && !regextotest2.test(text)) {
+                    div.classList.add('syntaxhtmlcomment');
+                    div.innerHTML = "";
+                    div.textContent = text;
+                    let currentdiv = div.nextElementSibling;
+                    while (currentdiv && !currentdiv.textContent.includes('-->')) {
+                        if (!currentdiv.classList.contains('syntaxhtmlcomment')) {
+                            let currentdivtextcontent = currentdiv.textContent;
+                            currentdiv.innerHTML = "";
+                            currentdiv.textContent = currentdivtextcontent;
+                            currentdiv.classList.add('syntaxhtmlcomment');
+                            currentdiv = currentdiv.nextElementSibling;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!div.classList.contains('syntaxhtmlcomment')){
+                checkifcontinuedcomment();
+            }
+            if (!div.classList.contains('syntaxcomment')){
+                checkifcontinuedcomment2();
+            }
+            if (!div.classList.contains('syntaxhtmlcomment')){
+                processDiv();
+            }
+            if (!div.classList.contains('syntaxcomment')){
+                processDiv2();
+            }
+            if (!div.classList.contains('syntaxcomment') && !div.classList.contains('syntaxhtmlcomment') && !div.classList.contains('syntaxstring')){
+                const container = document.createDocumentFragment();
+                processText(code, container, spatterns);
+                div.appendChild(container);
+            }else {
+                div.textContent = code;
+            }
+            if (!div.classList.contains('syntaxhtmlcomment')){
+                checkcomments(div, code);
+            }
+            if (!div.classList.contains('syntaxcomment')){
+                checkcomments2(div, code);
+            }
+        }
+        function replaceNormalSpaces(text) {
+            return text.replace(/ /g, '\u00A0');
+        }
+        function convertHttpsLinks(element) {
+            if (!element) return;
+            const text1 = element.textContent.split('\n');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            let ishighlighting = false;
+            let codeditorcontainer = document.createElement('div');
+            codeditorcontainer.className = "code-editor-container";
+            text1.forEach(text => {
+                const codetype1 = text.trim().toLowerCase().startsWith("//jscode//");
+                const codetype2 = text.trim().toLowerCase().startsWith("//htmlcode//");
+                const codetype3 = text.trim().toLowerCase().startsWith("//csscode//");
+                const prefix = text.trim().toLowerCase();
+                let filetype = null;
+                
+                if (prefix.startsWith("//jscode//")) filetype = "js";
+                else if (prefix.startsWith("//htmlcode//")) filetype = "html";
+                else if (prefix.startsWith("//csscode//")) filetype = "css";
+                if (filetype) {
+                    if (!ishighlighting) {
+                        ishighlighting = true;
+                        let codecontainertitle = text.trim().toLowerCase().split("//" + filetype + "code//")[1];
+                        const div = document.createElement('div');
+                        div.classList.add('code-editor-container-top');
+                        const btncontainerdiv = document.createElement('div');
+                        const copybtn = document.createElement('button');
+                        copybtn.textContent = "copy";
+                        const runbtn = document.createElement('button');
+                        runbtn.textContent = "run";
+                        const editbtn = document.createElement('button');
+                        editbtn.textContent = "edit";
+                        btncontainerdiv.classList.add('code-container-btn-container');
+                        btncontainerdiv.appendChild(copybtn);
+                        btncontainerdiv.appendChild(runbtn);
+                        btncontainerdiv.appendChild(editbtn);
+                        let currentcodeditorcontainer = codeditorcontainer;
+                        copybtn.onclick = () => {
+                            if (copybtn.classList.contains('copied')) {
+                                return;
+                            }
+                            let texttocopy = "";
+                            currentcodeditorcontainer.querySelectorAll('.code-editor-line').forEach(el => {
+                                texttocopy += el.textContent + "\n";
+                            });
+                            copythistext(texttocopy);
+                            copybtn.textContent = "copied";
+                            copybtn.classList.add('copied');
+                            setTimeout(() => {
+                                copybtn.textContent = "copy";
+                                copybtn.classList.remove('copied');
+                            }, 1500);
+                        };
+                        runbtn.onclick = () => {
+                            if (codecontainertitle != "") {
+                                localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces(codecontainertitle));
+                            } else {
+                                localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces("code"));
+                            }
+                            let pendingfilecontent = "";
+                            currentcodeditorcontainer.querySelectorAll('.code-editor-line').forEach(el => {
+                                pendingfilecontent += el.textContent + "\n";
+                            });
+                            localStorage.setItem("AIluryStudioPendingFileContent", pendingfilecontent);
+                            localStorage.setItem("AIluryStudioPendingFileRun", "true");
+                            localStorage.setItem("AIluryStudioPendingFileType", filetype);
+                            window.open("https://ailury.com/", '_blank', 'noopener,noreferrer');
+                        };
+                        editbtn.onclick = () => {
+                            if (codecontainertitle != "") {
+                                localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces(codecontainertitle));
+                            } else {
+                                localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces("code"));
+                            }
+                            let pendingfilecontent = "";
+                            currentcodeditorcontainer.querySelectorAll('.code-editor-line').forEach(el => {
+                                pendingfilecontent += el.textContent + "\n";
+                            });
+                            localStorage.setItem("AIluryStudioPendingFileContent", pendingfilecontent);
+                            localStorage.setItem("AIluryStudioPendingFileRun", "false");
+                            localStorage.setItem("AIluryStudioPendingFileType", filetype);
+                            window.open("https://ailury.com/", '_blank', 'noopener,noreferrer');
+                        };
+                        if (codecontainertitle != "") {
+                            div.textContent = replaceNormalSpaces(codecontainertitle);
+                        } else {
+                            div.textContent = "code";
+                        }
+                        div.appendChild(btncontainerdiv);
+                        element.appendChild(div);
+                    } else {
+                        ishighlighting = false;
+                        element.appendChild(codeditorcontainer);
+                        codeditorcontainer.querySelectorAll('.code-editor-line').forEach(line => addSyntaxHighlighting(line));
+                        codeditorcontainer = document.createElement('div');
+                        codeditorcontainer.className = "code-editor-container";
+                    }
+                    return;
+                }
+                if (ishighlighting) {
+                    const div = document.createElement('div');
+                    div.classList.add('code-editor-line');
+                    if (text != "") {
+                        div.textContent = replaceNormalSpaces(text);
+                    }
+                    codeditorcontainer.appendChild(div);
+                    return;
+                }
+                const httpsRegex = /(https:\/\/[^\s]+)/g;
+                
+                const parts = text.split(httpsRegex);
+                
+                parts.forEach(part => {
+                    if (part.toLowerCase().startsWith('https://')) {
+                        const atag = document.createElement('a');
+                        if (!part.toLowerCase().trim().startsWith('https://ailury.')){
+                            atag.href = "#";
+                            atag.onclick = (e) => {
+                                e.preventDefault();
+                                showAlert('You’re leaving our site. We’re not responsible for what happens on the next website.', () => {
+                                    window.open(part, '_blank', 'noopener,noreferrer');
+                                });
+                            }
+                            atag.textContent = part;
+                            atag.className = "MessageLinks";
+                            element.appendChild(atag);
+                        } else {
+                            atag.href = part;
+                            atag.textContent = part;
+                            atag.target = '_blank';
+                            atag.rel = 'noopener noreferrer';
+                            atag.className = "MessageLinks";
+                            element.appendChild(atag);
+                        }
+                    } else {
+                        element.appendChild(document.createTextNode(part));
+                    }
+                });
+                element.appendChild(document.createElement('br'));
+            });
+        }
+    
+        function createServer() {
+            const name = document.getElementById('new-server-name').value.trim();
+            if (!name || localServers[name]) return showAlert('Invalid or existing server name.');
+            localServers[name] = true;
+            saveServers();
+            renderServers();
+            document.getElementById('new-server-name').value = '';
+        }
+        let dontscrolldown = false;
+        function joinServer(name) {
+            const sidebarenabledel = document.querySelector(".sidebarenabled");
+            if (sidebarenabledel){
+                sidebarenabledel.classList.remove('sidebarenabled');
+            }
+            currentRoom = null;
+            roomRef = null;
+            seenMessages = {};
+            localServers = JSON.parse(localStorage.getItem('chatServers')) || {};
+            currentRoom = name;
+            dontscrolldown = false;
+            document.getElementById('messages').innerHTML = '';
+            roomRef = gun.get('rooms').get(name);
+            if (!roomRef) return;
+            roomRef.map().on((data, id) => {
+                if (!id || !currentRoom || currentRoom !== name || !data) return;
+                
+                if (data && data.deleted) {
+                    document.querySelectorAll('.MessageWithId' + id).forEach(el => el.remove());
+                    if (seenMessages[id]) {
+                        delete seenMessages[id];
+                    }
+                    return;
+                }
+                
+                if (!seenMessages[id] && data && data.text) {
+                    seenMessages[id] = true;
+                    addMessage(data.text, id);
+                    if (data.accountcode && data.accountcode == accountid) {
+                        if (localStorage.getItem(accountid + 'yourAIluryChatMessages')) {
+                            const yourmessages = JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages'));
+                            if (!yourmessages.includes(id)) {
+                                yourmessages.push(id);
+                                localStorage.setItem(accountid + 'yourAIluryChatMessages', JSON.stringify(yourmessages));
+                            }
+                        } else {
+                            localStorage.setItem(accountid + 'yourAIluryChatMessages', JSON.stringify([id]));
+                        }
+                    }
+                }
+                const regex = /username\(([^)]+)\)/;
+
+                if (data && data.text && data.text != undefined && typeof data?.text === 'string' && regex.test(data.text) && localStorage.getItem(accountid + 'yourAIluryChatMessages')) {
+                    const yourmessages = JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages'));
+                    const username = document.getElementById('new-User-name')?.value
+                        ?.trim()
+                        ?.replace(/\W/g, '');
+                    
+                    const match = data.text.match(regex);
+                    const username2 = match?.[1]?.trim().replace(/\W/g, '') || 'unidentified';
+                    
+                    if (username2 && username && username != "" && username != username2 && yourmessages.includes(id)) {
+                        const newtext = data.text.replace(regex, `username(${username})`);
+                        const textObj = roomRef?.get(id)?.get('text');
+                        if (typeof textObj?.put === 'function') {
+                            textObj.put(newtext);
+                            document.querySelectorAll('.MessageUserNameDisplayH3' + id).forEach(el => el.textContent = username + ": ");
+                        }
+                    }
+                }
+                const reportElement = document.querySelector('.MessageReportsp' + id);
+                const pinElement = document.querySelector('.MessagePinsp' + id);
+                const responseDiv = document.querySelector('.responseDivFor' + id);
+                if (localStorage.getItem(accountid + 'yourAIluryChatMessages') && JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages')).includes(id)) {
+                    document.querySelectorAll('.MessageWithId' + id).forEach(el => el.classList.add("yourMessage"));
+                    if (reportElement) {
+                        reportElement.style.display = "inline-block";
+                    }
+                    if (pinElement) {
+                        pinElement.style.display = "inline-block";
+                    }
+                }
+                if (localStorage.getItem(accountid + 'pinedMessages') && JSON.parse(localStorage.getItem(accountid + 'pinedMessages')).includes(id)) {
+                    document.querySelectorAll('.MessageWithId' + id).forEach(el => el.classList.add("pined"));
+                } else {
+                    document.querySelectorAll('.MessageWithId' + id + ".pined").forEach(el => el.classList.remove("pined"));
+                }
+                const likeElement = document.querySelector('.MessageLikesp' + id);
+                const dislikeElement = document.querySelector('.MessageDislikesp' + id);
+                if (likeElement && data && data.likes !== undefined) {
+                    likeElement.textContent = '♥ ' + data.likes;
+                }
+                if (dislikeElement && data && data.dislikes !== undefined) {
+                    dislikeElement.textContent = '↓ ' + data.dislikes;
+                }
+                if (reportElement && data && data.reports !== undefined) {
+                    reportElement.textContent = '⚑ ' + data.reports;
+                }
+                if (pinElement && data && data.pins !== undefined) {
+                    pinElement.textContent = '⚠ ' + data.pins;
+                }
+                
+            });
+            const messagesDiv = document.getElementById('messages');
+            const messages = messagesDiv?.querySelectorAll('.Message') || [];
+            document.querySelector('.AmountOfMessagesInServer').textContent = messages.length + " message";
+            if (messages && messages.length != 1 && document.querySelector('.AmountOfMessagesInServer')) {
+                document.querySelector('.AmountOfMessagesInServer').textContent += "s";
+            }
+        }
+        
+        function hasScrolledUpMoreThanpx(element) {
+            if (!element) return false;
+            const distanceFromBottom = element.scrollHeight - element.scrollTop - element.clientHeight;
+            return distanceFromBottom > 500;
+        }
+    
+        function addMessage(messagetext, id) {
+            if (!messagetext || !roomRef || !id) return;
+            let msg = cleanMessage(messagetext);
+            const div = document.createElement('div');
+            const responseDiv = document.createElement('button');
+            const h3 = document.createElement('h3');
+            const p = document.createElement('p');
+            const likesp = document.createElement('button');
+            const dislikesp = document.createElement('button');
+            const reportsbtn = document.createElement('button');
+            const pinbtn = document.createElement('button');
+    
+            const regex = /username\(([^)]+)\)/;
+            const regex2 = /respond\(([^)]+)\)/;
+            const match = msg.match(regex);
+            const match2 = msg.match(regex2);
+            let messageid = null;
+            let servername = null;
+            
+            if (match2 && match2[1]) {
+                [messageid, servername] = match2[1].split('|');
+            }
+            const username = (match && match[1]) ? match[1].trim().replace(/\W/g, '') : 'unidentified';
+            h3.textContent = username + ": ";
+            h3.classList.add("MessageUserNameDisplayH3" + id);
+            p.textContent = msg.replace(regex, '').replace(regex2, '');
+            convertHttpsLinks(p);
+            responseDiv.textContent = "Response to ...";
+            responseDiv.style.display = "none";
+            
+            likesp.className = 'MessageLikesp' + id;
+            likesp.classList.add("likesDisplaypTag");
+            likesp.textContent = '♥ 0';
+            
+            dislikesp.className = 'MessageDislikesp' + id;
+            dislikesp.classList.add("dislikesDisplaypTag");
+            dislikesp.textContent = '↓ 0';
+            
+            reportsbtn.className = 'MessageReportsp' + id;
+            reportsbtn.classList.add("reportDisplaypTag");
+            reportsbtn.textContent = '⚑ 0';
+            
+            pinbtn.className = 'MessagePinsp' + id;
+            pinbtn.classList.add("pinDisplaypTag");
+            pinbtn.textContent = '⚠ 0';
+            
+            responseDiv.className = "responseDiv";
+            responseDiv.classList.add('responseDivFor' + id);
+            div.className = 'Message MessageWithId' + id;
+            p.onclick = (event) => {
+                if (!event.target.classList.contains("MessageLinks")) {
+                    createOptionContainerForMessages(div, id);
+                }
+            };
+            h3.onclick = () => createOptionContainerForUser(div, id);
+            
+            div.appendChild(h3);
+            div.appendChild(p);
+            div.appendChild(responseDiv);
+            div.appendChild(likesp);
+            div.appendChild(dislikesp);
+            div.appendChild(reportsbtn);
+            reportsbtn.style.display = "none";
+            div.appendChild(pinbtn);
+            pinbtn.style.display = "none";
+            
+            roomRef.get(id).once((data) => {
+                const likedel = document.querySelector('.MessageLikesp' + id);
+                const dislikedel = document.querySelector('.MessageDislikesp' + id);
+                const reportel = document.querySelector('.MessageReportsp' + id);
+                const pinel = document.querySelector('.pinDisplaypTag' + id);
+                if (likedel && likedel.parentElement && data && data.likes) {
+                    likedel.textContent = '♥ ' + data.likes;
+                }
+                if (dislikedel && dislikedel.parentElement && data && data.dislikes) {
+                    dislikedel.textContent = '↓ ' + data.dislikes;
+                }
+                if (reportel && reportel.parentElement && data && data.reports) {
+                    reportel.textContent = '⚑ ' + data.reports;
+                }
+                if (pinel && pinel.parentElement && data && data.pins) {
+                    pinel.textContent = '⚠ ' + data.pins;
+                }
+            });
+    
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.appendChild(div);
+            if (messagesDiv && !dontscrolldown && !hasScrolledUpMoreThanpx(messagesDiv)) {
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+            if (localStorage.getItem(accountid + 'yourAIluryChatMessages') && JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages')).includes(id)){
+                div.classList.add("yourMessage");
+                reportsbtn.style.display = "inline-block";
+                pinbtn.style.display = "inline-block";
+            }
+            if (localStorage.getItem(accountid + 'pinedMessages') && JSON.parse(localStorage.getItem(accountid + 'pinedMessages')).includes(id)) {
+                div.classList.add("pined");
+            }
+            messageobserver.observe(div);
+            const messages = messagesDiv?.querySelectorAll('.Message') || [];
+            document.querySelector('.AmountOfMessagesInServer').textContent = messages.length + " message";
+            if (messages && messages.length != 1) {
+                document.querySelector('.AmountOfMessagesInServer').textContent += "s";
+            }
+            if (responseDiv && messageid && servername) {
+                responseDiv.style.display = "flex";
+                responseDiv.onclick = async () => {
+                    if (currentRoom !== servername) {
+                        if (localServers && !localServers[servername]) {
+                            localServers[servername] = true;
+                            saveServers();
+                            renderServers();
+                        }
+                        const serverElement = document.querySelector('.server' + servername);
+                        if (serverElement) serverElement.click();
+                    }
+                    
+                    let messagetoteleportto = document.querySelector('.MessageWithId' + messageid);
+                    
+                    const start = Date.now();
+                    while (!messagetoteleportto && messageid && Date.now() - start < 10000) {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        messagetoteleportto = document.querySelector('.MessageWithId' + messageid);
+                    }
+                    
+                    if (messagetoteleportto && messagetoteleportto.classList) {
+                        dontscrolldown = true;
+                        messagetoteleportto.classList.add("Highlighted");
+                        setTimeout(() => {
+                            messagetoteleportto.classList.remove("Highlighted");
+                        }, 5000);
+                        messagetoteleportto.scrollIntoView({
+                            block: 'center'
+                        });
+                        const start2 = Date.now();
+                        while (messagetoteleportto && messageid && messagetoteleportto.classList.contains("invisible") && Date.now() - start2 < 10000) {
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                            messagetoteleportto = document.querySelector('.MessageWithId' + messageid);
+                            if (messagetoteleportto && messagetoteleportto.parentElement) {
+                                messagetoteleportto.scrollIntoView({
+                                    block: 'center'
+                                });
+                            }
+                        }
+                    } else {
+                        showAlert("Message not found.");
+                    }
+                };
+            }
+        }
+    
+        function copythistext(text) {
+            try {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+        }
+        
+        let respondingTo = {};
+    
+        function createOptionContainerForMessages(referenceElement, id) {
+            document.querySelectorAll('.option-container-overlay').forEach(el => el.remove());
+    
+            const overlay = document.createElement('div');
+            overlay.className = 'option-container-overlay';
+            const container = document.createElement('div');
+            container.className = 'option-container';
+    
+            const options = [
+                { icon: '⌧', text: 'Delete', action: () => {
+                    roomRef.get(id).put({ deleted: true });
+                    roomRef.get(id).put({ text: "" });
+                    roomRef.get(id).put({ likes: 0 });
+                    roomRef.get(id).put({ pins: 0 });
+                    roomRef.get(id).put({ reports: 0 });
+                    roomRef.get(id).put({ dislikes: 0 });
+                }},
+                { icon: '□', text: 'Copy', action: () => {
+                    const msgText = referenceElement.querySelector('p')?.textContent || '';
+                    copythistext(msgText);
+                }},
+                { icon: '♥', text: 'Like', action: () => {
+                    if (!roomRef) return;
+                    roomRef.get(id).once((data) => {
+                        const currentLikes = data?.likes || 0;
+                        let likedMessages = JSON.parse(localStorage.getItem(accountid + 'LikedMessages') || '[]');
+                        const currentDislikes = data?.dislikes || 0;
+                        let dislikedMessage = JSON.parse(localStorage.getItem(accountid + 'DislikedMessages') || '[]');
+                        
+                        if (!likedMessages.includes(id)) {
+                            likedMessages.push(id);
+                            localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
+                            roomRef.get(id).get('likes').put(currentLikes + 1);
+                            if (dislikedMessage.includes(id)) {
+                                dislikedMessage = dislikedMessage.filter(mid => mid !== id);
+                                localStorage.setItem(accountid + 'DislikedMessages', JSON.stringify(dislikedMessage));
+                                roomRef.get(id).get('dislikes').put(Math.max(currentDislikes - 1, 0));
+                            }
+                        } else {
+                            likedMessages = likedMessages.filter(mid => mid !== id);
+                            localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
+                            roomRef.get(id).get('likes').put(Math.max(currentLikes - 1, 0));
+                        }
+                    });
+                }},
+                { icon: '↓', text: 'Dislike', action: () => {
+                    if (!roomRef) return;
+                    roomRef.get(id).once((data) => {
+                        const currentLikes = data?.likes || 0;
+                        let likedMessages = JSON.parse(localStorage.getItem(accountid + 'LikedMessages') || '[]');
+                        const currentDislikes = data?.dislikes || 0;
+                        let dislikedMessage = JSON.parse(localStorage.getItem(accountid + 'DislikedMessages') || '[]');
+                        
+                        if (!dislikedMessage.includes(id)) {
+                            dislikedMessage.push(id);
+                            localStorage.setItem(accountid + 'DislikedMessages', JSON.stringify(dislikedMessage));
+                            roomRef.get(id).get('dislikes').put(currentDislikes + 1);
+                            if (likedMessages.includes(id)) {
+                                likedMessages = likedMessages.filter(mid => mid !== id);
+                                localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
+                                roomRef.get(id).get('likes').put(Math.max(currentLikes - 1, 0));
+                            }
+                        } else {
+                            dislikedMessage = dislikedMessage.filter(mid => mid !== id);
+                            localStorage.setItem(accountid + 'DislikedMessages', JSON.stringify(dislikedMessage));
+                            roomRef.get(id).get('dislikes').put(Math.max(currentDislikes - 1, 0));
+                        }
+                    });
+                }},
+                { icon: '⚠', text: 'Pin', action: () => {
+                    if (!roomRef) return;
+                    roomRef.get(id).once((data) => {
+                        const currentPins = data?.pins || 0;
+                        let pinedMessages = JSON.parse(localStorage.getItem(accountid + 'pinedMessages') || '[]');
+                        
+                        if (!pinedMessages.includes(id)) {
+                            pinedMessages.push(id);
+                            localStorage.setItem(accountid + 'pinedMessages', JSON.stringify(pinedMessages));
+                            roomRef.get(id).get('pins').put(currentPins + 1);
+                        } else {
+                            pinedMessages = pinedMessages.filter(mid => mid !== id);
+                            localStorage.setItem(accountid + 'pinedMessages', JSON.stringify(pinedMessages));
+                            roomRef.get(id).get('pins').put(Math.max(currentPins - 1, 0));
+                        }
+                    });
+                }},
+                { icon: '↘', text: 'Respond', action: () => {
+                    const respondInfo = document.querySelector('.respondInfo');
+                    const span = document.createElement('span');
+                    span.textContent = "Server Name: ";
+                    span.className = "infoName";
+                    const span2 = document.createElement('span');
+                    span2.textContent = currentRoom + ", ";
+                    const span3 = document.createElement('span');
+                    span3.textContent = "Message Id: ";
+                    span3.className = "infoName";
+                    const span4 = document.createElement('span');
+                    span4.textContent = id;
+                    respondInfo.innerHTML = "";
+                    respondInfo.appendChild(span);
+                    respondInfo.appendChild(span2);
+                    respondInfo.appendChild(span3);
+                    respondInfo.appendChild(span4);
+                    respondInfo.style.display = "flex";
+                    respondingTo.messageId = id;
+                    respondingTo.serverName = currentRoom;
+                    /*positionElementAbove(respondInfo, document.getElementById("message-input"));
+                    adjustElementPosition(respondInfo);*/
+                    respondInfo.onclick = () => {
+                        respondInfo.innerHTML = "";
+                        respondInfo.style.display = "none";
+                        respondingTo = {};
+                    };
+                }},
+                { icon: '⚑', text: 'Report', action: () => {
+                    if (!roomRef) return;
+                    roomRef.get(id).once((data) => {
+                        const currentReports = data?.reports || 0;
+                        let reportedMessages = JSON.parse(localStorage.getItem(accountid + 'reportedMessages') || '[]');
+                        
+                        if (!reportedMessages.includes(id)) {
+                            reportedMessages.push(id);
+                            localStorage.setItem(accountid + 'reportedMessages', JSON.stringify(reportedMessages));
+                            roomRef.get(id).get('reports').put(currentReports + 1);
+                            if (currentReports >= 5) {
+                                roomRef.get(id).put({ deleted: true });
+                                roomRef.get(id).put({ text: "" });
+                                roomRef.get(id).put({ likes: 0 });
+                                roomRef.get(id).put({ pins: 0 });
+                                roomRef.get(id).put({ reports: 0 });
+                                roomRef.get(id).put({ dislikes: 0 });
+                            }
+                        } else {
+                            reportedMessages = reportedMessages.filter(mid => mid !== id);
+                            localStorage.setItem(accountid + 'reportedMessages', JSON.stringify(reportedMessages));
+                            roomRef.get(id).get('reports').put(Math.max(currentReports - 1, 0));
+                        }
+                    });
+                }},
+                { icon: 'id', text: 'message Id', action: () => {
+                    roomRef.get(id).once((data) => {
+                        showAlert('message id: ' + id);
+                    });
+                }}
+            ];
+    
+            options.forEach(opt => {
+                if (opt.icon == "♥" && localStorage.getItem(accountid + 'LikedMessages') && JSON.parse(localStorage.getItem(accountid + 'LikedMessages')).includes(id)) {
+                    opt.icon = "♡";
+                    opt.text = "Unlike";
+                }
+                if (opt.icon == "↓" && localStorage.getItem(accountid + 'DislikedMessages') && JSON.parse(localStorage.getItem(accountid + 'DislikedMessages')).includes(id)) {
+                    opt.icon = "↓";
+                    opt.text = "Undislike";
+                }
+                if (opt.icon == "⚑" && localStorage.getItem(accountid + 'reportedMessages') && JSON.parse(localStorage.getItem(accountid + 'reportedMessages')).includes(id)) {
+                    opt.text = "Unreport";
+                }
+                if (opt.icon == "⚠" && localStorage.getItem(accountid + 'pinedMessages') && JSON.parse(localStorage.getItem(accountid + 'pinedMessages')).includes(id)) {
+                    opt.text = "Unpin";
+                }
+                if (opt.icon == "⌧" && (!localStorage.getItem(accountid + 'yourAIluryChatMessages') || !JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages')).includes(id))) {
+                    return;
+                }
+                const span = document.createElement('span');
+                const button = document.createElement('button');
+                const label = document.createElement('span');
+    
+                button.textContent = opt.icon;
+                label.textContent = opt.text;
+    
+                span.appendChild(button);
+                span.appendChild(label);
+                span.onclick = () => {
+                    opt.action();
+                    overlay.remove();
+                };
+    
+                container.appendChild(span);
+            });
+    
+            overlay.onclick = () => overlay.remove();
+            overlay.appendChild(container);
+            document.body.appendChild(overlay);
+            positionElementBelow(container, referenceElement);
+            adjustElementPosition(container);
+        }
+        function createOptionContainerForUser(referenceElement, id) {
+            document.querySelectorAll('.option-container-overlay').forEach(el => el.remove());
+    
+            const overlay = document.createElement('div');
+            overlay.className = 'option-container-overlay';
+            const container = document.createElement('div');
+            container.className = 'option-container';
+    
+            const options = [
+                { icon: 'id', text: 'user Id', action: () => {
+                    roomRef.get(id).once((data) => {
+                        if (data && data.accountcode) {
+                            showAlert('user id: ' + data.accountcode);
+                        }
+                    });
+                }}
+            ];
+    
+            options.forEach(opt => {
+                const span = document.createElement('span');
+                const button = document.createElement('button');
+                const label = document.createElement('span');
+    
+                button.textContent = opt.icon;
+                label.textContent = opt.text;
+    
+                span.appendChild(button);
+                span.appendChild(label);
+                span.onclick = () => {
+                    opt.action();
+                    overlay.remove();
+                };
+    
+                container.appendChild(span);
+            });
+    
+            overlay.onclick = () => overlay.remove();
+            overlay.appendChild(container);
+            document.body.appendChild(overlay);
+            positionElementBelow(container, referenceElement);
+            adjustElementPosition(container);
+        }
+        function createOptionContainerForServers(referenceElement, name) {
+            document.querySelectorAll('.option-container-overlay').forEach(el => el.remove());
+    
+            const overlay = document.createElement('div');
+            overlay.className = 'option-container-overlay';
+            const container = document.createElement('div');
+            container.className = 'option-container';
+            container.classList.add('serverListOpContainer');
+    
+            const options = [
+                { icon: '⌧', text: 'Remove', action: () => {
+                    if (localServers[name]) {
+                        delete localServers[name];
+                        saveServers();
+                        renderServers();
+                    }
+                }},
+                { icon: '□', text: 'Copy', action: () => {
+                    const msgText = referenceElement?.textContent || '';
+                    copythistext(msgText);
+                }}
+            ];
+    
+            options.forEach(opt => {
+                const span = document.createElement('span');
+                const button = document.createElement('button');
+                const label = document.createElement('span');
+    
+                button.textContent = opt.icon;
+                label.textContent = opt.text;
+    
+                span.appendChild(button);
+                span.appendChild(label);
+                span.onclick = () => {
+                    opt.action();
+                    overlay.remove();
+                };
+                container.appendChild(span);
+            });
+    
+            overlay.onclick = () => overlay.remove();
+            overlay.appendChild(container);
+            document.body.appendChild(overlay);
+            positionElementBelow(container, referenceElement);
+            adjustElementPosition(container);
+        }
+        function sendMessage(e) {
+            e.preventDefault();
+            if (!currentRoom) return alert('Select a server first.');
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            const username = document.getElementById('new-User-name').value.trim().replace(/\W/g, '');
+            if (!message || !username) return;
+            if (respondingTo.messageId && respondingTo.serverName) {
+                roomRef.set({ text: `username(${username})respond(${respondingTo.messageId}|${respondingTo.serverName})${message}`, accountcode: accountid, timestamp: Gun.state() });
+            } else {
+                roomRef.set({ text: `username(${username})${message}`, accountcode: accountid, timestamp: Gun.state() });
+            }
+            document.querySelector('.respondInfo').innerHTML = "";
+            document.querySelector('.respondInfo').style.display = "none";
+            respondingTo = {};
+            input.value = '';
+            
+            if (textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+            
+            pruneMessages(roomRef, 1000);
+        }
+    
+        function saveServers() {
+            localStorage.setItem('chatServers', JSON.stringify(localServers));
+        }
+    
+        renderServers();
+    </script>
+    
+</body>
+</html>
