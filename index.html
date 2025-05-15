@@ -5980,110 +5980,6 @@
         
         let correntids = 3;
         
-        
-        function addstartercodetofiles() {
-            const section0 = document.getElementById('section0');
-            const section1 = document.getElementById('section1');
-            const section2 = document.getElementById('section2');
-            
-            let sec0text = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Header</h1>
-    <script src="script.js"><\/script>
-</body>
-</html>\n`;
-            let sec1text = `body {
-    height: 100vh;
-    width: 100vw;
-}
-`;
-            let sec2text = `console.log('Hello World');\n`;
-
-            const AIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
-            const AIluryStudioPendingFileContent = localStorage.getItem("AIluryStudioPendingFileContent");
-            const AIluryStudioPendingFileRun = localStorage.getItem("AIluryStudioPendingFileRun");
-            const AIluryStudioPendingFileType = localStorage.getItem("AIluryStudioPendingFileType");
-            if (AIluryStudioPendingFileName && AIluryStudioPendingFileContent && AIluryStudioPendingFileRun && AIluryStudioPendingFileType) {
-                const sidebarfilelinklink0 = document.getElementById('sidebarfilelinklink0');
-                const sidebarfilelinklink1 = document.getElementById('sidebarfilelinklink1');
-                const sidebarfilelinklink2 = document.getElementById('sidebarfilelinklink2');
-                const navdot0input = document.querySelector('.navdot0 .filePathInput');
-                const navdot1input = document.querySelector('.navdot1 .filePathInput');
-                const navdot2input = document.querySelector('.navdot2 .filePathInput');
-                if (sidebarfilelinklink0 && sidebarfilelinklink1 && sidebarfilelinklink2 && navdot0input && navdot1input && navdot2input) {
-                    if (AIluryStudioPendingFileType == "html") {
-                        sec0text = AIluryStudioPendingFileContent;
-                        navdot0input.value = AIluryStudioPendingFileName;
-                        handleFileNameInputChange(navdot0input.parentElement);
-                        const cvinput = document.getElementById("computer-url-input");
-                        const mvinput = document.getElementById("mobile-url-input");
-                        if (AIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
-                            cvinput.value = AIluryStudioPendingFileName;
-                            mvinput.value = AIluryStudioPendingFileName;
-                            scrollviewintoview();
-                            textCode('mobile-url-input', 'mobile-frame');
-                        }
-                    } else if (AIluryStudioPendingFileType == "css") {
-                        sec1text = AIluryStudioPendingFileContent;
-                        navdot1input.value = AIluryStudioPendingFileName;
-                        handleFileNameInputChange(navdot1input.parentElement);
-                        const cvinput = document.getElementById("computer-url-input");
-                        const mvinput = document.getElementById("mobile-url-input");
-                        if (AIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
-                            cvinput.value = AIluryStudioPendingFileName;
-                            mvinput.value = AIluryStudioPendingFileName;
-                            scrollviewintoview();
-                            textCode('mobile-url-input', 'mobile-frame');
-                        } else {
-                            sidebarfilelinklink1.click();
-                        }
-                    } else if (AIluryStudioPendingFileType == "js") {
-                        sec2text = AIluryStudioPendingFileContent;
-                        navdot2input.value = AIluryStudioPendingFileName;
-                        handleFileNameInputChange(navdot2input.parentElement);
-                        const cvinput = document.getElementById("computer-url-input");
-                        const mvinput = document.getElementById("mobile-url-input");
-                        if (AIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
-                            cvinput.value = AIluryStudioPendingFileName;
-                            mvinput.value = AIluryStudioPendingFileName;
-                            scrollviewintoview();
-                            textCode('mobile-url-input', 'mobile-frame');
-                        } else {
-                            sidebarfilelinklink2.click();
-                        }
-                    }
-                }
-            }
-            
-            const sec0lines = sec0text.split('\n');
-            const sec1lines = sec1text.split('\n');
-            const sec2lines = sec2text.split('\n');
-            
-            const allsections = [section0, section1, section2];
-            const allsectionstext = [sec0lines, sec1lines, sec2lines];
-            allsectionstext.forEach((text, index) => {
-                text.forEach(line => {
-                    correntids += 1;
-                    const newline = document.createElement('div');
-                    newline.setAttribute('contenteditable', 'true');
-                    newline.id = correntids;
-                    newline.classList.add('code-editor-line');
-                    newline.textContent = replaceNormalSpaces(line);
-                    allsections[index].querySelector('.code-editor-container').appendChild(newline);
-                    addJsSyntaxHighlighting(newline);
-                });
-            });
-        }
-
-        addstartercodetofiles();
-        
         let observenothing = false;
         const lineObserver = new IntersectionObserver((entries) => {
             if (!observenothing){
@@ -10205,10 +10101,112 @@
                 swipeContainer.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
             }
         }
+
+        function addstartercodetofiles() {
+            const section0 = document.getElementById('section0');
+            const section1 = document.getElementById('section1');
+            const section2 = document.getElementById('section2');
+            
+            let sec0text = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Header</h1>
+    <script src="script.js"><\/script>
+</body>
+</html>\n`;
+            let sec1text = `body {
+    height: 100vh;
+    width: 100vw;
+}
+        `;
+            let sec2text = `console.log('Hello World');\n`;
+            
+            const vAIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
+            const vAIluryStudioPendingFileContent = localStorage.getItem("AIluryStudioPendingFileContent");
+            const vAIluryStudioPendingFileRun = localStorage.getItem("AIluryStudioPendingFileRun");
+            const vAIluryStudioPendingFileType = localStorage.getItem("AIluryStudioPendingFileType");
+            if (vAIluryStudioPendingFileName && vAIluryStudioPendingFileContent && vAIluryStudioPendingFileRun && vAIluryStudioPendingFileType) {
+                const sidebarfilelinklink0 = document.getElementById('sidebarfilelinklink0');
+                const sidebarfilelinklink1 = document.getElementById('sidebarfilelinklink1');
+                const sidebarfilelinklink2 = document.getElementById('sidebarfilelinklink2');
+                const navdot0input = document.querySelector('.navdot0 .filePathInput');
+                const navdot1input = document.querySelector('.navdot1 .filePathInput');
+                const navdot2input = document.querySelector('.navdot2 .filePathInput');
+                if (sidebarfilelinklink0 && sidebarfilelinklink1 && sidebarfilelinklink2 && navdot0input && navdot1input && navdot2input) {
+                    if (vAIluryStudioPendingFileType == "html") {
+                        sec0text = vAIluryStudioPendingFileContent;
+                        navdot0input.value = vAIluryStudioPendingFileName;
+                        handleFileNameInputChange(navdot0input.parentElement);
+                        const cvinput = document.getElementById("computer-url-input");
+                        const mvinput = document.getElementById("mobile-url-input");
+                        if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                            cvinput.value = vAIluryStudioPendingFileName;
+                            mvinput.value = vAIluryStudioPendingFileName;
+                            scrollviewintoview();
+                        }
+                    } else if (vAIluryStudioPendingFileType == "css") {
+                        sec1text = vAIluryStudioPendingFileContent;
+                        navdot1input.value = vAIluryStudioPendingFileName;
+                        handleFileNameInputChange(navdot1input.parentElement);
+                        const cvinput = document.getElementById("computer-url-input");
+                        const mvinput = document.getElementById("mobile-url-input");
+                        if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                            cvinput.value = vAIluryStudioPendingFileName;
+                            mvinput.value = vAIluryStudioPendingFileName;
+                            scrollviewintoview();
+                        } else {
+                            sidebarfilelinklink1.click();
+                        }
+                    } else if (vAIluryStudioPendingFileType == "js") {
+                        sec2text = vAIluryStudioPendingFileContent;
+                        navdot2input.value = vAIluryStudioPendingFileName;
+                        handleFileNameInputChange(navdot2input.parentElement);
+                        const cvinput = document.getElementById("computer-url-input");
+                        const mvinput = document.getElementById("mobile-url-input");
+                        if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                            cvinput.value = vAIluryStudioPendingFileName;
+                            mvinput.value = vAIluryStudioPendingFileName;
+                            scrollviewintoview();
+                        } else {
+                            sidebarfilelinklink2.click();
+                        }
+                    }
+                }
+                localStorage.removeItem("AIluryStudioPendingFileName");
+                localStorage.removeItem("AIluryStudioPendingFileContent");
+                localStorage.removeItem("AIluryStudioPendingFileRun");
+                localStorage.removeItem("AIluryStudioPendingFileType");
+            }
+            
+            const sec0lines = sec0text.split('\n');
+            const sec1lines = sec1text.split('\n');
+            const sec2lines = sec2text.split('\n');
+            
+            const allsections = [section0, section1, section2];
+            const allsectionstext = [sec0lines, sec1lines, sec2lines];
+            allsectionstext.forEach((text, index) => {
+                text.forEach(line => {
+                    correntids += 1;
+                    const newline = document.createElement('div');
+                    newline.setAttribute('contenteditable', 'true');
+                    newline.id = correntids;
+                    newline.classList.add('code-editor-line');
+                    newline.textContent = replaceNormalSpaces(line);
+                    allsections[index].querySelector('.code-editor-container').appendChild(newline);
+                    addJsSyntaxHighlighting(newline);
+                });
+            });
+        }
+        
+        addstartercodetofiles();
+        
         let originalDisplayStatus = [];
-
-
-
 
         function searchcode(thiselementhasthevalue) {
             if (!section) {
