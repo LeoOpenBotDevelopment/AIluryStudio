@@ -410,42 +410,7 @@
             width: 15px;
             z-index: 6;
         }
-        
-        @media(max-width: 700px) {
-            .resizesidebarbar {
-                display: none;
-            }
-            #togglesidebarbtn {
-                display: flex;
-            }
-            #server-list > h2 {
-                display: none;
-            }
-            .serverInfo > h2 {
-                display: none;
-            }
-            #chat {
-                flex: 1;
-            }
-            #server-list {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100dvh;
-                width: 100vw;
-                border-radius: 0;
-                background: var(--background2-color);
-                box-sizing: border-box;
-                z-index: 10;
-            }
-            .sidebarenabled#server-list {
-                display: block;
-            }
-            .respondInfo {
-                flex-direction: column;
-            }
-        }
+       
         @keyframes swipein {
             0%{
                 transform: translateY(-100dvh);
@@ -631,6 +596,44 @@
             color: var(--text-color);
             font-size: 0.9em;
             font-weight: bold;
+        }
+        @media(max-width: 700px) {
+            .resizesidebarbar {
+                display: none;
+            }
+            #togglesidebarbtn {
+                display: flex;
+            }
+            #server-list > h2 {
+                display: none;
+            }
+            .serverInfo > h2 {
+                display: none;
+            }
+            #chat {
+                flex: 1;
+            }
+            #server-list {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                width: 100vw;
+                border-radius: 0;
+                background: var(--background2-color);
+                box-sizing: border-box;
+                z-index: 10;
+            }
+            .sidebarenabled#server-list {
+                display: block;
+            }
+            .respondInfo {
+                flex-direction: column;
+            }
+            .code-editor-line {
+                font-size: 0.8em;
+            }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
