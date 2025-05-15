@@ -6022,18 +6022,40 @@
                         sec0text = AIluryStudioPendingFileContent;
                         navdot0input.value = AIluryStudioPendingFileName;
                         handleFileNameInputChange(navdot0input.parentElement);
+                        const cvinput = document.getElementById("computer-url-input");
+                        const mvinput = document.getElementById("mobile-url-input");
+                        if (AIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                            cvinput.value = AIluryStudioPendingFileName;
+                            mvinput.value = AIluryStudioPendingFileName;
+                            scrollviewintoview();
+                            textCode('mobile-url-input', 'mobile-frame');
+                        }
                     } else if (AIluryStudioPendingFileType == "css") {
                         sec1text = AIluryStudioPendingFileContent;
                         navdot1input.value = AIluryStudioPendingFileName;
                         handleFileNameInputChange(navdot1input.parentElement);
-                        if (AIluryStudioPendingFileRun == "true") {
+                        const cvinput = document.getElementById("computer-url-input");
+                        const mvinput = document.getElementById("mobile-url-input");
+                        if (AIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                            cvinput.value = AIluryStudioPendingFileName;
+                            mvinput.value = AIluryStudioPendingFileName;
+                            scrollviewintoview();
+                            textCode('mobile-url-input', 'mobile-frame');
+                        } else {
                             sidebarfilelinklink1.click();
                         }
                     } else if (AIluryStudioPendingFileType == "js") {
                         sec2text = AIluryStudioPendingFileContent;
                         navdot2input.value = AIluryStudioPendingFileName;
                         handleFileNameInputChange(navdot2input.parentElement);
-                        if (AIluryStudioPendingFileRun == "true") {
+                        const cvinput = document.getElementById("computer-url-input");
+                        const mvinput = document.getElementById("mobile-url-input");
+                        if (AIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                            cvinput.value = AIluryStudioPendingFileName;
+                            mvinput.value = AIluryStudioPendingFileName;
+                            scrollviewintoview();
+                            textCode('mobile-url-input', 'mobile-frame');
+                        } else {
                             sidebarfilelinklink2.click();
                         }
                     }
