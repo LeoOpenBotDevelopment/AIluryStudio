@@ -5986,7 +5986,7 @@
             const section1 = document.getElementById('section1');
             const section2 = document.getElementById('section2');
             
-            const sec0text = `<!DOCTYPE html>
+            let sec0text = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5999,12 +5999,46 @@
     <script src="script.js"><\/script>
 </body>
 </html>\n`;
-            const sec1text = `body {
+            let sec1text = `body {
     height: 100vh;
     width: 100vw;
 }
 `;
-            const sec2text = `console.log('Hello World');\n`;
+            let sec2text = `console.log('Hello World');\n`;
+
+            const AIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
+            const AIluryStudioPendingFileContent = localStorage.getItem("AIluryStudioPendingFileContent");
+            const AIluryStudioPendingFileRun = localStorage.getItem("AIluryStudioPendingFileRun");
+            const AIluryStudioPendingFileType = localStorage.getItem("AIluryStudioPendingFileType");
+            if (AIluryStudioPendingFileName && AIluryStudioPendingFileContent && AIluryStudioPendingFileRun && AIluryStudioPendingFileType) {
+                const sidebarfilelinklink0 = document.getElementById('sidebarfilelinklink0');
+                const sidebarfilelinklink1 = document.getElementById('sidebarfilelinklink1');
+                const sidebarfilelinklink2 = document.getElementById('sidebarfilelinklink2');
+                const navdot0input = document.querySelector('.navdot0 .filePathInput');
+                const navdot1input = document.querySelector('.navdot1 .filePathInput');
+                const navdot2input = document.querySelector('.navdot2 .filePathInput');
+                if (sidebarfilelinklink0 && sidebarfilelinklink1 && sidebarfilelinklink2 && navdot0input && navdot1input && navdot2input) {
+                    if (AIluryStudioPendingFileType == "html") {
+                        sec0text = AIluryStudioPendingFileContent;
+                        navdot0input.value = AIluryStudioPendingFileName;
+                        handleFileNameInputChange(navdot0input.parentElement);
+                    } else if (AIluryStudioPendingFileType == "css") {
+                        sec1text = AIluryStudioPendingFileContent;
+                        navdot1input.value = AIluryStudioPendingFileName;
+                        handleFileNameInputChange(navdot1input.parentElement);
+                        if (AIluryStudioPendingFileRun == "true") {
+                            sidebarfilelinklink1.click();
+                        }
+                    } else if (AIluryStudioPendingFileType == "js") {
+                        sec2text = AIluryStudioPendingFileContent;
+                        navdot2input.value = AIluryStudioPendingFileName;
+                        handleFileNameInputChange(navdot2input.parentElement);
+                        if (AIluryStudioPendingFileRun == "true") {
+                            sidebarfilelinklink2.click();
+                        }
+                    }
+                }
+            }
             
             const sec0lines = sec0text.split('\n');
             const sec1lines = sec1text.split('\n');
