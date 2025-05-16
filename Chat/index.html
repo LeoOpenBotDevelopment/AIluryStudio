@@ -731,9 +731,9 @@
     <script>
         function scrollupcheck(element) {
             if (hasScrolledUpMoreThanpx2(element)) {
-                document.getElementById('scrollbackdown').classList.remove("sidebarhidden");
+                document.getElementById('scrollbackdown').style.display = "block";
             } else {
-                document.getElementById('scrollbackdown').classList.add("sidebarhidden");
+                document.getElementById('scrollbackdown').style.display = "none";
             }
         }
         function scrollbackdowninchat() {
@@ -1607,7 +1607,7 @@
         let dontscrolldown = false;
         function joinServer(name) {
             document.querySelectorAll('.option-container-overlay').forEach(el=> el.remove());
-            document.getElementById('scrollbackdown').classList.add("sidebarhidden");
+            document.getElementById('server-list').classList.remove("sidebarenabled");
             const sidebarenabledel = document.querySelector(".sidebarenabled");
             if (sidebarenabledel){
                 sidebarenabledel.classList.remove('sidebarenabled');
