@@ -49,11 +49,7 @@
                 --syntaxhtmltagcontent-color: #fff;
             }
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        
         body {
             background-color: var(--background2-color);
             height: 100dvh;
@@ -147,6 +143,7 @@
             color: var(--border-color);
         }
         .Message {
+            display: block;
             padding-left: 15px;
             border-left: 2px solid var(--border-color);
             margin-left: 0;
@@ -596,6 +593,41 @@
             font-size: 0.9em;
             font-weight: bold;
         }
+        #searchformessageinput {
+            padding: 10px;
+            font-size: 0.8em;
+            border-radius: 5px;
+            display: inline-block;
+            width: 40vw;
+            max-width: 200px;
+            box-sizing: border-box;
+            margin: 10px;
+            
+        }
+        .serverInfo {
+            display: flex;
+            justify-content: space-between;
+        }
+        #scrollbackdown {
+            display: none;
+            position: relative;
+            background: var(--background2-color);
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.1em;
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .pinedServer, .active.pinedServer {
+            border-left: 2px solid red;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
         @media(max-width: 700px) {
             .resizesidebarbar {
                 display: none;
@@ -652,8 +684,9 @@
         <div class="resizesidebarbar"></div>
     </div>
     <div id="chat">
-        <div class="serverInfo"><p class="AmountOfMessagesInServer">no messages</p></div>
-        <div id="messages"></div>
+        <div class="serverInfo"><p class="AmountOfMessagesInServer">no messages</p><input type="text" id="searchformessageinput" oninput="searchformessage(this)" placeholder="search chat..."></div>
+        <div id="messages" onscroll="scrollupcheck(this)"></div>
+        <button id="scrollbackdown" onclick="scrollbackdowninchat()">↓</button>
         <div class="respondInfo">no response</div>
         <form id="message-form" onsubmit="sendMessage(event)">
             <textarea id="message-input" placeholder="Type a message" maxlength="100000" required></textarea>
@@ -692,6 +725,28 @@
         </div>
     </div>
     <script>
+        function scrollupcheck(element) {
+            if (hasScrolledUpMoreThanpx2(element)) {
+                document.getElementById('scrollbackdown').style.display = "block";
+            } else {
+                document.getElementById('scrollbackdown').style.display = "none";
+            }
+        }
+        function scrollbackdowninchat() {
+            const scrollelement = document.getElementById('messages');
+            scrollelement.scrollTop = scrollelement.scrollHeight;
+            document.getElementById('scrollbackdown').style.display = "none";
+        }
+        function searchformessage(input) {
+            let value = input.value;
+            document.querySelectorAll('.Message').forEach(message => {
+                if (message.textContent.includes(value)){
+                    message.style.display = "block";
+                } else {
+                    message.style.display = "none";
+                }
+            });
+        }
         function hideelement(type, name, event) {
             if (event.target !== event.currentTarget) {
                 return;
@@ -991,10 +1046,15 @@
         function renderServers() {
             const serversDiv = document.getElementById('servers');
             serversDiv.innerHTML = '';
+            const yourpinedServersRaw = localStorage.getItem(accountid + 'pinedServers');
+            let yourpinedServers = parsethisandreturnlist(yourpinedServersRaw, "pinedServers");
             for (const serverName in localServers) {
                 const div = document.createElement('div');
                 div.className = 'server';
                 div.classList.add('server' + serverName);
+                if (yourpinedServers.includes(serverName)) {
+                    div.classList.add('pinedServer');
+                }
                 div.textContent = serverName;
                 div.onclick = (event) => {
                     if (event.target.classList.contains("MessageLinks")) return;
@@ -1624,6 +1684,12 @@
             const distanceFromBottom = element.scrollHeight - element.scrollTop - element.clientHeight;
             return distanceFromBottom - extradiv.getBoundingClientRect().height > 500;
         }
+        
+        function hasScrolledUpMoreThanpx2(element) {
+            if (!element) return false;
+            const distanceFromBottom = element.scrollHeight - element.scrollTop - element.clientHeight;
+            return distanceFromBottom > 500;
+        }
     
         function addMessage(messagetext, id) {
             if (!messagetext || !roomRef || !id) return;
@@ -1777,6 +1843,10 @@
                         showAlert("Message not found.");
                     }
                 };
+            }
+            const chatSearchInput = document.getElementById('searchformessageinput');
+            if (chatSearchInput){
+                searchformessage(chatSearchInput);
             }
         }
     
@@ -1981,6 +2051,9 @@
                 if (opt.icon == "⌧" && !yourmessages.includes(id)) {
                     return;
                 }
+                if (opt.icon == "⚑" && yourmessages.includes(id)) {
+                    return;
+                }
                 const span = document.createElement('span');
                 const button = document.createElement('button');
                 const label = document.createElement('span');
@@ -2054,7 +2127,7 @@
             const container = document.createElement('div');
             container.className = 'option-container';
             container.classList.add('serverListOpContainer');
-    
+            
             const options = [
                 { icon: '⌧', text: 'Remove', action: () => {
                     if (localServers[name]) {
@@ -2066,10 +2139,39 @@
                 { icon: '□', text: 'Copy', action: () => {
                     const msgText = referenceElement?.textContent || '';
                     copythistext(msgText);
+                }},
+                { icon: '⚠', text: 'Pin', action: () => {
+                    const yourpinedServersRaw = localStorage.getItem(accountid + 'pinedServers');
+                    let yourpinedServers = parsethisandreturnlist(yourpinedServersRaw, "pinedServers");
+                    if (yourpinedServers.includes(name)) {
+                        const index = yourpinedServers.indexOf(name);
+                        if (index != -1) {
+                            yourpinedServers.splice(index, 1);
+                        }
+                        if (localServers[name]) {
+                            delete localServers[name];
+                        }
+                        localServers = { ...localServers, [name]: true };
+                        localStorage.setItem('chatServers', JSON.stringify(localServers));
+                    } else {
+                        yourpinedServers.push(name);
+                        if (localServers[name]) {
+                            delete localServers[name];
+                        }
+                        localServers = { [name]: true, ...localServers };
+                        localStorage.setItem('chatServers', JSON.stringify(localServers));
+                    }
+                    localStorage.setItem(accountid + 'pinedServers', JSON.stringify(yourpinedServers));
+                    renderServers();
                 }}
             ];
     
             options.forEach(opt => {
+                const yourpinedServersRaw = localStorage.getItem(accountid + 'pinedServers');
+                let yourpinedServers = parsethisandreturnlist(yourpinedServersRaw, "pinedServers");
+                if (opt.icon == "⚠" && yourpinedServers.includes(name)) {
+                    opt.text = "Unpin";
+                }
                 const span = document.createElement('span');
                 const button = document.createElement('button');
                 const label = document.createElement('span');
