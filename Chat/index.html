@@ -518,11 +518,6 @@
         .syntax{
             display: inline-block;
         }
-        .syntaxcolorinput{
-            height: calc(var(--editor-font-size) / 2 * 3);
-            width: calc(var(--editor-font-size) / 2 * 3);
-            margin-left: 5px;
-        }
         .syntaxblock { color: var(--syntaxblock-color); }
         .syntaxoperator { color: var(--syntaxoperator-color); }
         .syntaxbracket { color: var(--syntaxbracket-color); }
@@ -657,7 +652,7 @@
         <div id="messages"></div>
         <div class="respondInfo">no response</div>
         <form id="message-form" onsubmit="sendMessage(event)">
-            <textarea id="message-input" placeholder="Type a message"></textarea>
+            <textarea id="message-input" placeholder="Type a message" maxlength="100000" required></textarea>
             <button type="submit">Send</button>
         </form>
     </div>
@@ -914,10 +909,39 @@
         } else {
             localStorage.setItem("AIluryChatUserId", accountid);
         }
+        
+        function parsethisandreturnlist(lsRaw, lsn) {
+            if (lsRaw) {
+                try {
+                    let parsed = JSON.parse(lsRaw);
+                    if (Array.isArray(parsed)) {
+                        return parsed;
+                    }
+                } catch (e) {
+                    console.log("Error while parsing " + lsn);
+                }
+            }
+            return [];
+        }
     
         function SaveUserName() {
             const username = document.getElementById('new-User-name').value.trim().replace(/\W/g, '');
             localStorage.setItem(accountid + 'AIluryChatUserName', username);
+            const yourmessagesRaw = localStorage.getItem(accountid + 'yourAIluryChatMessages');
+            let yourmessages = parsethisandreturnlist(yourmessagesRaw, "yourAIluryChatMessages");
+            yourmessages.forEach(id => {
+                document.querySelectorAll('.MessageUserNameDisplayH3' + id).forEach(el => {
+                    if (username && username != "" && username + ":" != el.textContent.trim()) {
+                        el.textContent = username + ": ";
+                    }
+                });
+            });
+        }
+        
+        function isPlainObject(obj) {
+            return typeof obj === 'object' &&
+                obj !== null &&
+                !Array.isArray(obj);
         }
     
         if (localStorage.getItem(accountid + 'AIluryChatUserName')) {
@@ -931,7 +955,16 @@
         let currentRoom = null;
         let roomRef = null;
         let seenMessages = {};
-        let localServers = JSON.parse(localStorage.getItem('chatServers')) || {};
+        const localServersRaw = localStorage.getItem('chatServers');
+        localServers = {};
+        try {
+            let parsed = JSON.parse(localServersRaw);
+            if (isPlainObject(parsed)) {
+                localServers = parsed;
+            }
+        } catch (e) {
+            console.log("Error while parsing chatServers");
+        }
         
         async function duplicateServer(oldName, newName) {
             if (oldName == newName || localServers[newName]) return showAlert('you need to enter an original name');
@@ -1090,94 +1123,6 @@
                             const span = document.createElement("span");
                             span.textContent = match[0];
                             span.className = className;
-                            if (className == "syntaxhex"){
-                                function expandHex(shortHex) {
-                                    shortHexR = shortHex.replace(/^#/, '');
-                                    if (shortHexR.length !== 3) {
-                                        return shortHex;
-                                    }
-                                    const fullHex = shortHexR.split('').map(char => char + char).join('');
-                                    
-                                    return `#${fullHex}`;
-                                }
-                                const spanspan = document.createElement('span');
-                                spanspan.className = "ajshspanspan";
-                                spanspan.textContent = match[0];
-                                const colorInput = document.createElement('input');
-                                colorInput.type = 'color';
-                                colorInput.value = expandHex(span.textContent);
-                                colorInput.className = "syntaxcolorinput";
-                                span.textContent = "";
-                                span.appendChild(spanspan);
-                                function colorinputoninput(colorInput) {
-                                    if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
-                                        let newpast = [];
-                                        let pastelement = {
-                                            element: span.parentElement,
-                                            type: "text",
-                                            text: span.parentElement.textContent
-                                        };
-                                        newpast.push(pastelement);
-                                        if (newpast.length > 0) {
-                                            if (!pastevents[lasteventsparentsection.id]) {
-                                                pastevents[lasteventsparentsection.id] = [];
-                                            }
-                                            pastevents[lasteventsparentsection.id].push(newpast);
-                                            enablepastbtn();
-                                        }
-                                    }
-                                    spanspan.textContent = colorInput.value;
-                                }
-                                colorInput.addEventListener('input', (event) => {
-                                    colorinputoninput(colorInput);
-                                });
-                                span.appendChild(colorInput);
-                            }else if (className == "syntaxregex"){
-                                span.onclick = () => {
-                                    notify("edit regex", "open", () => {
-                                        showRegexTester(span.textContent, (back) => {
-                                            if (back){
-                                                if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
-                                                    let newpast = [];
-                                                    let pastelement = {
-                                                        element: span.parentElement,
-                                                        type: "text",
-                                                        text: span.parentElement.textContent
-                                                    };
-                                                    newpast.push(pastelement);
-                                                    if (newpast.length > 0) {
-                                                        if (!pastevents[lasteventsparentsection.id]) {
-                                                            pastevents[lasteventsparentsection.id] = [];
-                                                        }
-                                                        pastevents[lasteventsparentsection.id].push(newpast);
-                                                        enablepastbtn();
-                                                    }
-                                                }
-                                                span.textContent = back;
-                                            }
-                                        });
-                                    });
-                                };
-                            }else if (className == "syntaxvariable" && goto == "def") {
-                                span.classList.add('cssvardef');
-                            }else if (goto == "true") {
-                                span.onclick = () => {
-                                    let definition = null;
-                                    if (section) {
-                                        for (let sv of section.querySelectorAll('.syntaxvariable.cssvardef')) {
-                                            if (sv.parentElement && sv.parentElement.classList.contains('code-editor-line') && sv.textContent == span.textContent) {
-                                                definition = sv;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (definition) {
-                                        notify("go to definition", "go", () => {
-                                            scrolltolinenumber(getElementIndexInParent(definition.parentElement));
-                                        });
-                                    }
-                                };
-                            }
                             span.classList.add('syntax');
                             container.appendChild(span);
 
@@ -1418,6 +1363,10 @@
                 if (prefix.startsWith("//jscode//")) filetype = "js";
                 else if (prefix.startsWith("//htmlcode//")) filetype = "html";
                 else if (prefix.startsWith("//csscode//")) filetype = "css";
+                else if (prefix.startsWith("//txtcode//")) filetype = "txt";
+                else if (prefix.startsWith("//jsxcode//")) filetype = "jsx";
+                else if (prefix.startsWith("//tsxcode//")) filetype = "tsx";
+                else if (prefix.startsWith("//jsoncode//")) filetype = "json";
                 if (filetype) {
                     if (!ishighlighting) {
                         ishighlighting = true;
@@ -1426,10 +1375,13 @@
                         div.classList.add('code-editor-container-top');
                         const btncontainerdiv = document.createElement('div');
                         const copybtn = document.createElement('button');
+                        copybtn.className = 'codecontainerbtn';
                         copybtn.textContent = "copy";
                         const runbtn = document.createElement('button');
+                        runbtn.className = 'codecontainerbtn';
                         runbtn.textContent = "run";
                         const editbtn = document.createElement('button');
+                        editbtn.className = 'codecontainerbtn';
                         editbtn.textContent = "edit";
                         btncontainerdiv.classList.add('code-container-btn-container');
                         btncontainerdiv.appendChild(copybtn);
@@ -1456,7 +1408,7 @@
                             if (codecontainertitle != "") {
                                 localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces(codecontainertitle));
                             } else {
-                                localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces("code"));
+                                localStorage.setItem("AIluryStudioPendingFileName", "code");
                             }
                             let pendingfilecontent = "";
                             currentcodeditorcontainer.querySelectorAll('.code-editor-line').forEach(el => {
@@ -1471,7 +1423,7 @@
                             if (codecontainertitle != "") {
                                 localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces(codecontainertitle));
                             } else {
-                                localStorage.setItem("AIluryStudioPendingFileName", replaceNormalSpaces("code"));
+                                localStorage.setItem("AIluryStudioPendingFileName", "code");
                             }
                             let pendingfilecontent = "";
                             currentcodeditorcontainer.querySelectorAll('.code-editor-line').forEach(el => {
@@ -1492,7 +1444,9 @@
                     } else {
                         ishighlighting = false;
                         element.appendChild(codeditorcontainer);
-                        codeditorcontainer.querySelectorAll('.code-editor-line').forEach(line => addSyntaxHighlighting(line));
+                        if (filetype != "txt") {
+                            codeditorcontainer.querySelectorAll('.code-editor-line').forEach(line => addSyntaxHighlighting(line));
+                        }
                         codeditorcontainer = document.createElement('div');
                         codeditorcontainer.className = "code-editor-container";
                     }
@@ -1558,7 +1512,16 @@
             currentRoom = null;
             roomRef = null;
             seenMessages = {};
-            localServers = JSON.parse(localStorage.getItem('chatServers')) || {};
+            const localServersRaw = localStorage.getItem('chatServers');
+            localServers = {};
+            try {
+                let parsed = JSON.parse(localServersRaw);
+                if (isPlainObject(parsed)) {
+                    localServers = parsed;
+                }
+            } catch (e) {
+                console.log("Error while parsing chatServers");
+            }
             currentRoom = name;
             dontscrolldown = false;
             document.getElementById('messages').innerHTML = '';
@@ -1579,27 +1542,25 @@
                     seenMessages[id] = true;
                     addMessage(data.text, id);
                     if (data.accountcode && data.accountcode == accountid) {
-                        if (localStorage.getItem(accountid + 'yourAIluryChatMessages')) {
-                            const yourmessages = JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages'));
-                            if (!yourmessages.includes(id)) {
-                                yourmessages.push(id);
-                                localStorage.setItem(accountid + 'yourAIluryChatMessages', JSON.stringify(yourmessages));
-                            }
-                        } else {
-                            localStorage.setItem(accountid + 'yourAIluryChatMessages', JSON.stringify([id]));
+                        const yourmessagesRaw = localStorage.getItem(accountid + 'yourAIluryChatMessages');
+                        let yourmessages = parsethisandreturnlist(yourmessagesRaw, "yourAIluryChatMessages");
+                        if (!yourmessages.includes(id)) {
+                            yourmessages.push(id);
+                            localStorage.setItem(accountid + 'yourAIluryChatMessages', JSON.stringify(yourmessages));
                         }
                     }
                 }
                 const regex = /username\(([^)]+)\)/;
-
-                if (data && data.text && data.text != undefined && typeof data?.text === 'string' && regex.test(data.text) && localStorage.getItem(accountid + 'yourAIluryChatMessages')) {
-                    const yourmessages = JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages'));
+                
+                const yourmessagesRaw = localStorage.getItem(accountid + 'yourAIluryChatMessages');
+                if (data && data.text && data.text != undefined && regex.test(data.text) && yourmessagesRaw) {
+                    let yourmessages = parsethisandreturnlist(yourmessagesRaw, "yourAIluryChatMessages");
                     const username = document.getElementById('new-User-name')?.value
                         ?.trim()
                         ?.replace(/\W/g, '');
                     
                     const match = data.text.match(regex);
-                    const username2 = match?.[1]?.trim().replace(/\W/g, '') || 'unidentified';
+                    const username2 = match[1]?.trim().replace(/\W/g, '') || 'unidentified';
                     
                     if (username2 && username && username != "" && username != username2 && yourmessages.includes(id)) {
                         const newtext = data.text.replace(regex, `username(${username})`);
@@ -1613,7 +1574,8 @@
                 const reportElement = document.querySelector('.MessageReportsp' + id);
                 const pinElement = document.querySelector('.MessagePinsp' + id);
                 const responseDiv = document.querySelector('.responseDivFor' + id);
-                if (localStorage.getItem(accountid + 'yourAIluryChatMessages') && JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages')).includes(id)) {
+                let yourmessages = parsethisandreturnlist(yourmessagesRaw, "yourAIluryChatMessages");
+                if (yourmessages.includes(id)) {
                     document.querySelectorAll('.MessageWithId' + id).forEach(el => el.classList.add("yourMessage"));
                     if (reportElement) {
                         reportElement.style.display = "inline-block";
@@ -1622,7 +1584,9 @@
                         pinElement.style.display = "inline-block";
                     }
                 }
-                if (localStorage.getItem(accountid + 'pinedMessages') && JSON.parse(localStorage.getItem(accountid + 'pinedMessages')).includes(id)) {
+                const yourpinedmessagesRaw = localStorage.getItem(accountid + 'pinedMessages');
+                let yourpinedmessages = parsethisandreturnlist(yourpinedmessagesRaw, "pinedMessages");
+                if (yourpinedmessages.includes(id)) {
                     document.querySelectorAll('.MessageWithId' + id).forEach(el => el.classList.add("pined"));
                 } else {
                     document.querySelectorAll('.MessageWithId' + id + ".pined").forEach(el => el.classList.remove("pined"));
@@ -1651,10 +1615,10 @@
             }
         }
         
-        function hasScrolledUpMoreThanpx(element) {
+        function hasScrolledUpMoreThanpx(element, extradiv) {
             if (!element) return false;
             const distanceFromBottom = element.scrollHeight - element.scrollTop - element.clientHeight;
-            return distanceFromBottom > 500;
+            return distanceFromBottom - extradiv.getBoundingClientRect().height > 500;
         }
     
         function addMessage(messagetext, id) {
@@ -1707,8 +1671,8 @@
             responseDiv.classList.add('responseDivFor' + id);
             div.className = 'Message MessageWithId' + id;
             p.onclick = (event) => {
-                if (!event.target.classList.contains("MessageLinks")) {
-                    createOptionContainerForMessages(div, id);
+                if (!event.target.classList.contains("MessageLinks") && !event.target.classList.contains("codecontainerbtn")) {
+                    createOptionContainerForMessages(div, id, messagetext);
                 }
             };
             h3.onclick = () => createOptionContainerForUser(div, id);
@@ -1744,15 +1708,19 @@
     
             const messagesDiv = document.getElementById('messages');
             messagesDiv.appendChild(div);
-            if (messagesDiv && !dontscrolldown && !hasScrolledUpMoreThanpx(messagesDiv)) {
+            if (messagesDiv && !dontscrolldown && !hasScrolledUpMoreThanpx(messagesDiv, div)) {
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }
-            if (localStorage.getItem(accountid + 'yourAIluryChatMessages') && JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages')).includes(id)){
+            const yourmessagesRaw = localStorage.getItem(accountid + 'yourAIluryChatMessages');
+            let yourmessages = parsethisandreturnlist(yourmessagesRaw, "yourAIluryChatMessages");
+            if (yourmessages.includes(id)){
                 div.classList.add("yourMessage");
                 reportsbtn.style.display = "inline-block";
                 pinbtn.style.display = "inline-block";
             }
-            if (localStorage.getItem(accountid + 'pinedMessages') && JSON.parse(localStorage.getItem(accountid + 'pinedMessages')).includes(id)) {
+            const yourpinedmessagesRaw = localStorage.getItem(accountid + 'pinedMessages');
+            let yourpinedmessages = parsethisandreturnlist(yourpinedmessagesRaw, "pinedMessages");
+            if (yourpinedmessages.includes(id)) {
                 div.classList.add("pined");
             }
             messageobserver.observe(div);
@@ -1823,7 +1791,7 @@
         
         let respondingTo = {};
     
-        function createOptionContainerForMessages(referenceElement, id) {
+        function createOptionContainerForMessages(referenceElement, id, messagetext) {
             document.querySelectorAll('.option-container-overlay').forEach(el => el.remove());
     
             const overlay = document.createElement('div');
@@ -1841,17 +1809,20 @@
                     roomRef.get(id).put({ dislikes: 0 });
                 }},
                 { icon: '□', text: 'Copy', action: () => {
-                    const msgText = referenceElement.querySelector('p')?.textContent || '';
-                    copythistext(msgText);
+                    const regexfun = /username\(([^)]+)\)/;
+                    const regexfmr = /respond\(([^)]+)\)/;
+                    let texttocopy = messagetext.replace(regexfun, '').replace(regexfmr, '');
+                    copythistext(texttocopy);
                 }},
                 { icon: '♥', text: 'Like', action: () => {
                     if (!roomRef) return;
                     roomRef.get(id).once((data) => {
                         const currentLikes = data?.likes || 0;
-                        let likedMessages = JSON.parse(localStorage.getItem(accountid + 'LikedMessages') || '[]');
+                        const likedMessagesRaw = localStorage.getItem(accountid + 'LikedMessages');
+                        let likedMessages = parsethisandreturnlist(likedMessagesRaw, "LikedMessages");
                         const currentDislikes = data?.dislikes || 0;
-                        let dislikedMessage = JSON.parse(localStorage.getItem(accountid + 'DislikedMessages') || '[]');
-                        
+                        const dislikedMessageRaw = localStorage.getItem(accountid + 'DislikedMessages');
+                        let dislikedMessage = parsethisandreturnlist(dislikedMessageRaw, "DislikedMessages");
                         if (!likedMessages.includes(id)) {
                             likedMessages.push(id);
                             localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
@@ -1872,9 +1843,11 @@
                     if (!roomRef) return;
                     roomRef.get(id).once((data) => {
                         const currentLikes = data?.likes || 0;
-                        let likedMessages = JSON.parse(localStorage.getItem(accountid + 'LikedMessages') || '[]');
+                        const likedMessagesRaw = localStorage.getItem(accountid + 'LikedMessages');
+                        let likedMessages = parsethisandreturnlist(likedMessagesRaw, "LikedMessages");
                         const currentDislikes = data?.dislikes || 0;
-                        let dislikedMessage = JSON.parse(localStorage.getItem(accountid + 'DislikedMessages') || '[]');
+                        const dislikedMessageRaw = localStorage.getItem(accountid + 'DislikedMessages');
+                        let dislikedMessage = parsethisandreturnlist(dislikedMessageRaw, "DislikedMessages");
                         
                         if (!dislikedMessage.includes(id)) {
                             dislikedMessage.push(id);
@@ -1896,7 +1869,8 @@
                     if (!roomRef) return;
                     roomRef.get(id).once((data) => {
                         const currentPins = data?.pins || 0;
-                        let pinedMessages = JSON.parse(localStorage.getItem(accountid + 'pinedMessages') || '[]');
+                        const yourpinedmessagesRaw = localStorage.getItem(accountid + 'pinedMessages');
+                        let pinedMessages = parsethisandreturnlist(yourpinedmessagesRaw, "pinedMessages");
                         
                         if (!pinedMessages.includes(id)) {
                             pinedMessages.push(id);
@@ -1941,7 +1915,8 @@
                     if (!roomRef) return;
                     roomRef.get(id).once((data) => {
                         const currentReports = data?.reports || 0;
-                        let reportedMessages = JSON.parse(localStorage.getItem(accountid + 'reportedMessages') || '[]');
+                        const yourreportedmessagesRaw = localStorage.getItem(accountid + 'reportedMessages');
+                        let reportedMessages = parsethisandreturnlist(yourreportedmessagesRaw, "reportedMessages");
                         
                         if (!reportedMessages.includes(id)) {
                             reportedMessages.push(id);
@@ -1970,21 +1945,36 @@
             ];
     
             options.forEach(opt => {
-                if (opt.icon == "♥" && localStorage.getItem(accountid + 'LikedMessages') && JSON.parse(localStorage.getItem(accountid + 'LikedMessages')).includes(id)) {
+                const likedMessagesRaw = localStorage.getItem(accountid + 'LikedMessages');
+                let likedMessages = parsethisandreturnlist(likedMessagesRaw, "LikedMessages");
+                
+                if (opt.icon == "♥" && likedMessages.includes(id)) {
                     opt.icon = "♡";
                     opt.text = "Unlike";
                 }
-                if (opt.icon == "↓" && localStorage.getItem(accountid + 'DislikedMessages') && JSON.parse(localStorage.getItem(accountid + 'DislikedMessages')).includes(id)) {
+                const dislikedMessageRaw = localStorage.getItem(accountid + 'DislikedMessages');
+                let dislikedMessage = parsethisandreturnlist(dislikedMessageRaw, "DislikedMessages");
+                
+                if (opt.icon == "↓" && dislikedMessage.includes(id)) {
                     opt.icon = "↓";
                     opt.text = "Undislike";
                 }
-                if (opt.icon == "⚑" && localStorage.getItem(accountid + 'reportedMessages') && JSON.parse(localStorage.getItem(accountid + 'reportedMessages')).includes(id)) {
+                const yourreportedmessagesRaw = localStorage.getItem(accountid + 'reportedMessages');
+                let reportedMessages = parsethisandreturnlist(yourreportedmessagesRaw, "reportedMessages");
+                
+                if (opt.icon == "⚑" && reportedMessages.includes(id)) {
                     opt.text = "Unreport";
                 }
-                if (opt.icon == "⚠" && localStorage.getItem(accountid + 'pinedMessages') && JSON.parse(localStorage.getItem(accountid + 'pinedMessages')).includes(id)) {
+                const yourpinedmessagesRaw = localStorage.getItem(accountid + 'pinedMessages');
+                let pinedMessages = parsethisandreturnlist(yourpinedmessagesRaw, "pinedMessages");
+                
+                if (opt.icon == "⚠" && pinedMessages.includes(id)) {
                     opt.text = "Unpin";
                 }
-                if (opt.icon == "⌧" && (!localStorage.getItem(accountid + 'yourAIluryChatMessages') || !JSON.parse(localStorage.getItem(accountid + 'yourAIluryChatMessages')).includes(id))) {
+                const yourmessagesRaw = localStorage.getItem(accountid + 'yourAIluryChatMessages');
+                let yourmessages = parsethisandreturnlist(yourmessagesRaw, "yourAIluryChatMessages");
+                
+                if (opt.icon == "⌧" && !yourmessages.includes(id)) {
                     return;
                 }
                 const span = document.createElement('span');
@@ -2098,9 +2088,16 @@
             positionElementBelow(container, referenceElement);
             adjustElementPosition(container);
         }
+        let sendMessagea = true;
+        let sendMessageDelayTimeout = null;
         function sendMessage(e) {
             e.preventDefault();
-            if (!currentRoom) return alert('Select a server first.');
+            if (!currentRoom) return showAlert('Select a server first.');
+            if (sendMessagea == false) return;
+            sendMessagea = false;
+            sendMessageDelayTimeout = setTimeout(() => {
+                sendMessagea = true;
+            }, 1500);
             const input = document.getElementById('message-input');
             const message = input.value.trim();
             const username = document.getElementById('new-User-name').value.trim().replace(/\W/g, '');
