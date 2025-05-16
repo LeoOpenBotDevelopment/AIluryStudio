@@ -185,6 +185,7 @@
             width: 100vw;
             background: transparent;
             border: none;
+            z-index: 200;
         }
         .option-container {
             width: 100%;
@@ -299,7 +300,7 @@
             position: relative;
             animation: fadeInDialog 0.4s ease-in-out;
         }
-        .MessageLinks {
+        .MessageLinks, .MessageServerLinks {
             color: var(--secondary-color);
         }
         @keyframes fadeInDialog {
@@ -665,6 +666,9 @@
             .code-editor-line {
                 font-size: 0.8em;
             }
+            .sidebarhidden {
+                display: none;
+            }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
@@ -718,7 +722,7 @@
                 <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform, or any part of the website.</li>
                 <li><strong>No Exploiting Bugs:</strong> Do not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
                 <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
-                <li><strong>No Malicious Activity:</strong> Running or uploading malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
+                <li><strong>No Malicious Activity:</strong> Running, Editing or sharing malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
             </ul>
             <p>Do you accept all terms and conditions?</p>
             <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">i accept</button>
@@ -727,9 +731,9 @@
     <script>
         function scrollupcheck(element) {
             if (hasScrolledUpMoreThanpx2(element)) {
-                document.getElementById('scrollbackdown').style.display = "block";
+                document.getElementById('scrollbackdown').classList.remove("sidebarhidden");
             } else {
-                document.getElementById('scrollbackdown').style.display = "none";
+                document.getElementById('scrollbackdown').classList.add("sidebarhidden");
             }
         }
         function scrollbackdowninchat() {
@@ -1054,6 +1058,9 @@
                 div.classList.add('server' + serverName);
                 if (yourpinedServers.includes(serverName)) {
                     div.classList.add('pinedServer');
+                }
+                if (currentRoom && currentRoom == serverName) {
+                    div.classList.add('active');
                 }
                 div.textContent = serverName;
                 div.onclick = (event) => {
@@ -1552,7 +1559,37 @@
                             element.appendChild(atag);
                         }
                     } else {
-                        element.appendChild(document.createTextNode(part));
+                        const serverLinksRegex = /(#[^\s]+)/g;
+
+                        const parts2 = part.split(serverLinksRegex);
+                        
+                        parts2.forEach(part2 => {
+                            if (part2.toLowerCase().startsWith('#')) {
+                                const atag = document.createElement('a');
+                                atag.textContent = part2;
+                                atag.className = "MessageServerLinks";
+                                element.appendChild(atag);
+                                atag.onclick = () => {
+                                    const searchedServerName = part2.replace('#', '');
+                                    let renderedServer = document.querySelector('.server' + searchedServerName);
+                                    const servernameinputfield = document.getElementById('new-server-name');
+                                    if (localServers[searchedServerName] == true && renderedServer && currentRoom != searchedServerName) {
+                                        renderedServer.click();
+                                    } else if (currentRoom != searchedServerName && servernameinputfield) {
+                                        let oldsnifvalue = servernameinputfield.value;
+                                        servernameinputfield.value = searchedServerName;
+                                        createServer();
+                                        servernameinputfield.value = oldsnifvalue;
+                                        renderedServer = document.querySelector('.server' + searchedServerName);
+                                        if (renderedServer) {
+                                            renderedServer.click();
+                                        }
+                                    }
+                                };
+                            } else {
+                                element.appendChild(document.createTextNode(part2));
+                            }
+                        });
                     }
                 });
                 element.appendChild(document.createElement('br'));
@@ -1569,6 +1606,8 @@
         }
         let dontscrolldown = false;
         function joinServer(name) {
+            document.querySelectorAll('.option-container-overlay').forEach(el=> el.remove());
+            document.getElementById('scrollbackdown').classList.add("sidebarhidden");
             const sidebarenabledel = document.querySelector(".sidebarenabled");
             if (sidebarenabledel){
                 sidebarenabledel.classList.remove('sidebarenabled');
@@ -1741,7 +1780,7 @@
             responseDiv.classList.add('responseDivFor' + id);
             div.className = 'Message MessageWithId' + id;
             p.onclick = (event) => {
-                if (!event.target.classList.contains("MessageLinks") && !event.target.classList.contains("codecontainerbtn")) {
+                if (!event.target.classList.contains("MessageLinks") && !event.target.classList.contains("codecontainerbtn") && !event.target.classList.contains("MessageServerLinks")) {
                     createOptionContainerForMessages(div, id, messagetext);
                 }
             };
@@ -2139,6 +2178,17 @@
                 { icon: '□', text: 'Copy', action: () => {
                     const msgText = referenceElement?.textContent || '';
                     copythistext(msgText);
+                }},
+                { icon: '+', text: 'Share', action: () => {
+                    const msgText = referenceElement?.textContent || '';
+                    const inputTextarea = document.getElementById('message-input');
+                    if (inputTextarea) {
+                        if (inputTextarea.value.trim() == "") {
+                            inputTextarea.value = "#" + msgText;
+                        } else {
+                            inputTextarea.value = inputTextarea.value + " #" + msgText;
+                        }
+                    }
                 }},
                 { icon: '⚠', text: 'Pin', action: () => {
                     const yourpinedServersRaw = localStorage.getItem(accountid + 'pinedServers');
