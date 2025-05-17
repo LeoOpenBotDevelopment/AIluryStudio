@@ -13,6 +13,12 @@
             --secondary-color: #007aff;
             --sidebar-width: 25vw;
             --background2-color: #F2F2F7;
+            
+            --codeeditoreditbtn-color: #000000;
+            --filepathinput-color: #000000;
+            --pined-color: #ff0000;
+            --interaction-color: rgba(0, 0, 0, 0.7);
+            
             --syntaxblock-color: #A222D4;
             --syntaxoperator-color: darkgrey;
             --syntaxbracket-color: grey;
@@ -34,6 +40,12 @@
                 --border-color: #161B22;
                 --secondary-color: #0156CD;
                 --background2-color: #0d1117;
+                
+                --codeeditoreditbtn-color: #ffffff;
+                --filepathinput-color: #ffffff;
+                --pined-color: #ff0000;
+                --interaction-color: rgba(255, 255, 255, 0.7);
+                
                 --syntaxblock-color: #C678DD;
                 --syntaxoperator-color: #E06C75;
                 --syntaxbracket-color: #ABB2BF;
@@ -49,7 +61,9 @@
                 --syntaxhtmltagcontent-color: #fff;
             }
         }
-        
+        * {
+            transition: 0.3s;
+        }
         body {
             background-color: var(--background2-color);
             height: 100dvh;
@@ -154,7 +168,7 @@
             border-left: 2px solid var(--secondary-color);
         }
         .Message.pined {
-            border-left: 2px solid red;
+            border-left: 2px solid var(--pined-color);
         }
         .Message.yourMessage.pined {
             border-left: 2px solid deeppink;
@@ -220,8 +234,7 @@
             padding: 10px;
         }
         .likesDisplaypTag, .dislikesDisplaypTag, .reportDisplaypTag, .pinDisplaypTag {
-            opacity: 0.7;
-            color: var(--text-color);
+            color: var(--interaction-color);
             background: transparent;
             font-size: 0.7em;
             padding: 0;
@@ -629,6 +642,244 @@
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
         }
+        .theme-overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100dvh;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: swipein 0.5s;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .theme-overlay {
+            width: calc(100vw - var(--sidebar-width));
+            height: 100dvh;
+            overflow-y: auto;
+            right: 0;
+            left: var(--sidebar-width);
+            transition: 0.3s;
+        }
+       .theme-option-container {
+            border: 1px solid var(--border-color);
+            background-color: var(--background2-color);
+            padding: 20px;
+            border-radius: 5px;
+            width: 80vw;
+            max-width: 1200px;
+            margin-top: 20px;
+            position: relative;
+            max-height: 95dvh;
+            overflow-y: scroll;
+            transition: 0.3s;
+       }
+
+       .theme-option-container {
+            width: calc(100vw - var(--sidebar-width));
+            height: 100dvh;
+            overflow-y: auto;
+            right: 0;
+            left: 0;
+            margin-top: 0;
+            border: none;
+            max-height: 100dvh;
+            max-width: none;
+            border-radius: 0;
+            border: 1px solid var(--border-color);
+            border-left: none;
+            transition: 0.3s;
+        }
+        .theme-option-container h3 {
+            width: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: left;
+            margin: 10px;
+            color: var(--text-color);
+            transition: 0.3s;
+            max-width: 450px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .themeoption{
+            background: var(--background2-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            display: flex;
+            padding: 10px;
+            text-align: left;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: 0.3s;
+            overflow: hidden;
+            justify-content: space-between;
+        }
+        .theme-option-container > .themeoption{
+            background: linear-gradient(90deg, var(--border-color), var(--background2-color), var(--background2-color));
+            width: 100%;
+            max-width: 450px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+        .themeoption2 button {
+            display: flex;
+            text-align: center;
+            background: var(--border-color);
+            color: var(--text-color);
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            overflow: hidden;
+            width: calc(100% - 10px);
+            box-sizing: border-box;
+        }
+        .switchtothememaincolorspan{
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 50%;
+        }
+        .switchtothememaincolorspan{
+            width: 1.7em;
+            height: 1.7em;
+            border-radius: 50%;
+        }
+        .switchtothemetitlespan{
+            color: var(--text-color);
+            font-size: 1em;
+        }
+        .themeoption2{
+            background: linear-gradient(90deg, var(--border-color), var(--background2-color), var(--background2-color));
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            display: flex;
+            padding: 10px;
+            text-align: left;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: 0.3s;
+            overflow: hidden;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            max-width: 450px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        input[type="range"]{
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            background: linear-gradient(90deg, var(--background2-color), var(--secondary-color));
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s ease;
+            border: 1px solid var(--background2-color);
+            margin-top: 8px;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--background2-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--background2-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="range"]::-ms-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--background2-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .customthemecodeinput{
+            background: var(--background2-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            display: flex;
+            padding: 10px;
+            text-align: left;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: 0.3s;
+            width: 100%;
+            overflow: hidden;
+        }
+        .customthemecodeinput:focus{
+            outline: none;
+        }
+        .closebtn {
+            color: var(--text-color);
+            background: var(--background2-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+        #themebtn {
+            background: var(--border-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+            font-weight: normal;
+            font-size: 1em;
+            padding: 13px;
+        }
+        input[type="text"]::placeholder {
+            color: var(--text-color);
+            opacity: 0.5;
+        }
         @media(max-width: 700px) {
             .resizesidebarbar {
                 display: none;
@@ -666,6 +917,14 @@
             .code-editor-line {
                 font-size: 0.8em;
             }
+            .theme-option-container {
+                width: 100vw;
+                height: 100dvh;
+                max-width: none;
+            }
+            input[type="range"] {
+                width: 30%;
+            }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
@@ -675,6 +934,8 @@
         <h2>Servers</h2>
         <h3>user name</h3>
         <input type="text" oninput="SaveUserName()" id="new-User-name" value="unidentified" placeholder="User name…">
+        <h3>theme</h3>
+        <button id="themebtn" onclick="showthemeoverlay()">theme</button>
         <h3>servers</h3>
         <input type="text" oninput="searchForServer(this)" id="search-for-server-input" value="" placeholder="Search for a server…">
         <div id="servers"></div>
@@ -704,6 +965,202 @@
                 <button id="submit-prompt">Submit</button>
             </div>
             <button id="close-alert">OK</button>
+        </div>
+    </div>
+    <div id="theme-overlay" class="theme-overlay" onclick="hideelement('class', 'theme-overlay', event)">
+        <div class="theme-option-container">
+            <button class="closebtn" onclick="hidethemeoverlay()">×</button>
+            <h3>theme</h3>
+            <br>
+            <div class="themeoption" onclick="removeallthemes()">
+                <span class="switchtothememaincolorspan" style="background: linear-gradient(to right, #F2F2F7, #0d1117);"></span>
+                <span class="switchtothemetitlespan">none</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('enhanceddefaultdark-theme')">
+                <span class="switchtothememaincolorspan" style="background: linear-gradient(to right, #0156CD, #020615);"></span>
+                <span class="switchtothemetitlespan">enhanced dark</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('dark-theme')">
+                <span class="switchtothememaincolorspan" style="background: #011D57"></span>
+                <span class="switchtothemetitlespan">dark</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('gray-theme')">
+                <span class="switchtothememaincolorspan" style="background: #393A43"></span>
+                <span class="switchtothemetitlespan">gray</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('vintage-theme')">
+                <span class="switchtothememaincolorspan" style="background: gray"></span>
+                <span class="switchtothemetitlespan">vintage</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('candy-theme')">
+                <span class="switchtothememaincolorspan" style="background: lightpink"></span>
+                <span class="switchtothemetitlespan">candy</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('green-theme')">
+                <span class="switchtothememaincolorspan" style="background: green"></span>
+                <span class="switchtothemetitlespan">green</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('red-theme')">
+                <span class="switchtothememaincolorspan" style="background: red"></span>
+                <span class="switchtothemetitlespan">red</span>
+            </div>
+            <div class="themeoption" onclick="switchtotheme('lightblue-theme')">
+                <span class="switchtothememaincolorspan" style="background: lightblue"></span>
+                <span class="switchtothemetitlespan">light blue</span>
+            </div>
+            <div class="themeoption2" id="customthemeoption" onclick="switchtotheme('custom-theme')">
+                <div class="themeoption">
+                    <span class="switchtothememaincolorspan" style="background: var(--switchcheckedbackground-color)"></span>
+                    <span class="switchtothemetitlespan">custom</span>
+                </div>
+                <div class="colorselectorcontainer">
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="backgroundColor" value="#0d1117" onchange="updateBackgroundColor()">
+                        <span class="switchtothemetitlespan">background</span>
+                        <input type="range" id="backgroundAlpha" min="0" max="100" value="100" onchange="updateBackgroundColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="accentColor" value="#161b22" onchange="updateaccentColor()">
+                        <span class="switchtothemetitlespan">accent color</span>
+                        <input type="range" id="accentAlpha" min="0" max="100" value="100" onchange="updateaccentColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="selectedColor" value="#28A745" onchange="updateSelectedColor()">
+                        <span class="switchtothemetitlespan">special color</span>
+                        <input type="range" id="selectedAlpha" min="0" max="100" value="50" onchange="updateSelectedColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="colorColor" value="#ffffff" onchange="updateColorColor()">
+                        <span class="switchtothemetitlespan">text color</span>
+                        <input type="range" id="colorAlpha" min="0" max="100" value="100" onchange="updateColorColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="rectangleBorderColor" value="#161b22" onchange="updateRectangleBorderColor()">
+                        <span class="switchtothemetitlespan">borders</span>
+                        <input type="range" id="rectangleBorderAlpha" min="0" max="100" value="100" onchange="updateRectangleBorderColor()">
+                    </div>
+                    
+                    <div class="themeoption" style="display: none;">
+                        <input class="switchtothememaincolorspan2" type="color" id="switchCheckedBackgroundColor" value="#0156CD" onchange="updateSwitchCheckedBackgroundColor()">
+                        <span class="switchtothemetitlespan">secondary color</span>
+                        <input type="range" id="switchCheckedAlpha" min="0" max="100" value="100" onchange="updateSwitchCheckedBackgroundColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="codeeditoreditbtncolor" value="#ffffff" onchange="updatecodeeditoreditbtncolor()">
+                        <span class="switchtothemetitlespan">functions</span>
+                        <input type="range" id="codeeditoreditbtncolorAlpha" min="0" max="100" value="100" onchange="updatecodeeditoreditbtncolor()">
+                    </div>
+                    
+                    <div class="themeoption" style="display: none;">
+                        <input class="switchtothememaincolorspan2" type="color" id="loadingBarLoadedBackgroundColor" value="#0156CD" onchange="updateLoadingBarLoadedBackgroundColor()">
+                        <span class="switchtothemetitlespan">loading bar</span>
+                        <input type="range" id="loadingBarLoadedAlpha" min="0" max="100" value="100" onchange="updateLoadingBarLoadedBackgroundColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="rectangleColorColor" value="#363736" onchange="updateRectangleColorColor()">
+                        <span class="switchtothemetitlespan">file container path</span>
+                        <input type="range" id="rectangleColorAlpha" min="0" max="100" value="100" onchange="updateRectangleColorColor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="gridColor" value="#ffffff" onchange="updategridColorColor()">
+                        <span class="switchtothemetitlespan">reaction display</span>
+                        <input type="range" id="gridColorAlpha" min="0" max="100" value="70" onchange="updategridColorColor()">
+                    </div>
+                    <br>
+                    <h3>syntax</h3>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxblockcolor" value="#C678DD" onchange="updatesyntaxblockcolor()">
+                        <span class="switchtothemetitlespan">block</span>
+                        <input type="range" id="syntaxblockcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxblockcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxoperatorcolor" value="#E06C75" onchange="updatesyntaxoperatorcolor()">
+                        <span class="switchtothemetitlespan">operator</span>
+                        <input type="range" id="syntaxoperatorcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxoperatorcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxbracketcolor" value="#ABB2BF" onchange="updatesyntaxbracketcolor()">
+                        <span class="switchtothemetitlespan">bracket</span>
+                        <input type="range" id="syntaxbracketcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxbracketcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxsigncolor" value="#ABB2BF" onchange="updatesyntaxsigncolor()">
+                        <span class="switchtothemetitlespan">sign</span>
+                        <input type="range" id="syntaxsigncolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxsigncolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxstringcolor" value="#98C379" onchange="updatesyntaxstringcolor()">
+                        <span class="switchtothemetitlespan">string</span>
+                        <input type="range" id="syntaxstringcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxstringcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxnumbercolor" value="#D19A66" onchange="updatesyntaxnumbercolor()">
+                        <span class="switchtothemetitlespan">number</span>
+                        <input type="range" id="syntaxnumbercolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxnumbercolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxcommentcolor" value="#5C6370" onchange="updatesyntaxcommentcolor()">
+                        <span class="switchtothemetitlespan">comment</span>
+                        <input type="range" id="syntaxcommentcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxcommentcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxvariablecolor" value="#61AFEF" onchange="updatesyntaxvariablecolor()">
+                        <span class="switchtothemetitlespan">variable</span>
+                        <input type="range" id="syntaxvariablecolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxvariablecolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxcommandcolor" value="#E5C07B" onchange="updatesyntaxcommandcolor()">
+                        <span class="switchtothemetitlespan">command</span>
+                        <input type="range" id="syntaxcommandcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxcommandcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxkeywordcolor" value="#C678DD" onchange="updatesyntaxkeywordcolor()">
+                        <span class="switchtothemetitlespan">keyword</span>
+                        <input type="range" id="syntaxkeywordcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxkeywordcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxhtmlcommentcolor" value="#5C6370" onchange="updatesyntaxhtmlcommentcolor()">
+                        <span class="switchtothemetitlespan">html comment</span>
+                        <input type="range" id="syntaxhtmlcommentcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxhtmlcommentcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxregexcolor" value="#E06C75" onchange="updatesyntaxregexcolor()">
+                        <span class="switchtothemetitlespan">regex</span>
+                        <input type="range" id="syntaxregexcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxregexcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="switchtothememaincolorspan2" type="color" id="syntaxhtmltagcontentcolor" value="#ffffff" onchange="updatesyntaxhtmltagcontentcolor()">
+                        <span class="switchtothemetitlespan">tag name</span>
+                        <input type="range" id="syntaxhtmltagcontentcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxhtmltagcontentcolor()">
+                    </div>
+                    <br>
+                    <div class="themeoption">
+                        <input class="customthemecodeinput" type="text" id="customthemecodeinput" onkeydown="themeinputonkeydownforenetr(event)" placeholder="enter your theme code...">
+                    </div>
+                    <button onclick="addcustomthemetoallthemes()">add new theme</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="userregulationsandconditionsoverlay">
@@ -1612,6 +2069,7 @@
         function joinServer(name) {
             document.querySelectorAll('.option-container-overlay').forEach(el=> el.remove());
             document.getElementById('server-list').classList.remove("sidebarenabled");
+            hidethemeoverlay();
             const sidebarenabledel = document.querySelector(".sidebarenabled");
             if (sidebarenabledel){
                 sidebarenabledel.classList.remove('sidebarenabled');
@@ -2304,6 +2762,621 @@
     
         function saveServers() {
             localStorage.setItem('chatServers', JSON.stringify(localServers));
+        }
+        
+        function hideelementwithswipe(relement) {
+            if (relement.style.display == "none") {
+                return;
+            }
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            relement.style.animation = "swipeout 0.5s ease-out";
+            setTimeout(() => {
+                relement.style.display = "none";
+            }, 500);
+        }
+        
+        function showelementwithswipe(relement) {
+            if (relement.style.display == "flex") {
+                hideelementwithswipe(relement);
+                return;
+            }
+            relement.style.display = "flex";
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            relement.style.animation = "swipein 0.5s ease-out";
+        }
+        
+        function showthemeoverlay() {
+            const sohthemeoverlay = document.querySelector('.theme-overlay');
+            showelementwithswipe(sohthemeoverlay);
+        }
+        function hidethemeoverlay() {
+            const sohthemeoverlay = document.querySelector('.theme-overlay');
+            hideelementwithswipe(sohthemeoverlay);
+        }
+        
+        function themeinputonkeydownforenetr(event) {
+            if (event.key == "Enter") {
+                updatecustomtheme(document.querySelector('.customthemecodeinput'));
+            }
+        }
+        let themetoedit = document.querySelector(`.custom-theme`);
+        
+        function removeThemeProperties() {
+            if (!themetoedit) {
+                return;
+            }
+            
+            themetoedit.style.removeProperty('--secondary-color');
+            themetoedit.style.removeProperty('--border-color');
+            themetoedit.style.removeProperty('--background-color');
+            themetoedit.style.removeProperty('--background2-color');
+            themetoedit.style.removeProperty('--text-color');
+            themetoedit.style.removeProperty('--interaction-color');
+            themetoedit.style.removeProperty('--pined-color');
+            themetoedit.style.removeProperty('--codeeditoreditbtn-color');
+            themetoedit.style.removeProperty('--filepathinput-color');
+            
+            themetoedit.style.removeProperty('--syntaxblock-color');
+            themetoedit.style.removeProperty('--syntaxoperator-color');
+            themetoedit.style.removeProperty('--syntaxbracket-color');
+            themetoedit.style.removeProperty('--syntaxsign-color');
+            themetoedit.style.removeProperty('--syntaxstring-color');
+            themetoedit.style.removeProperty('--syntaxnumber-color');
+            themetoedit.style.removeProperty('--syntaxcomment-color');
+            themetoedit.style.removeProperty('--syntaxvariable-color');
+            themetoedit.style.removeProperty('--syntaxcommand-color');
+            themetoedit.style.removeProperty('--syntaxkeyword-color');
+            themetoedit.style.removeProperty('--syntaxhtmlcomment-color');
+            themetoedit.style.removeProperty('--syntaxregex-color');
+            themetoedit.style.removeProperty('--filepathinput-color');
+            themetoedit.style.removeProperty('--syntaxhtmltagcontent-color');
+            //themetoedit.style.removeProperty('--griddot-color');
+        }
+        
+        function updateaccentColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit){
+                return;
+            }
+            const selectedColor = document.getElementById('accentColor').value;
+            const alpha = document.getElementById('accentAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--secondary-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function isColorLightOrDark(rgba) {
+            const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (!match) {
+                console.log("invalid RGBA value");
+            }
+
+            const r = parseInt(match[1], 10);
+            const g = parseInt(match[2], 10);
+            const b = parseInt(match[3], 10);
+
+            const brightness = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    
+            return brightness > 128 && brightness < 255 ? "light" : "dark";
+        }
+        
+        
+        function updateColorColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('colorColor').value;
+            const alpha = document.getElementById('colorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--text-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updateSelectedColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('selectedColor').value;
+            const alpha = document.getElementById('selectedAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--pined-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updategridColorColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('gridColor').value;
+            const alpha = document.getElementById('gridColorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--interaction-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxhtmltagcontentcolor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxhtmltagcontentcolor').value;
+            const alpha = document.getElementById('syntaxhtmltagcontentcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxhtmltagcontent-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updateBackgroundColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('backgroundColor').value;
+            const alpha = document.getElementById('backgroundAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            const rgba2 = hexToRgbaMinus(selectedColor, alpha);
+            const rgba3 = hexToRgbaPlus(selectedColor, alpha);
+            themetoedit.style.setProperty('--background2-color', rgba);
+            if (isColorLightOrDark(rgba) == "dark") {
+                themetoedit.style.setProperty('--background-color', rgba2);
+            } else {
+                themetoedit.style.setProperty('--background-color', rgba3);
+            }
+            generateCustomThemeCode();
+        }
+        
+        
+        function updateRectangleBorderColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const rectangleBorderColor = document.getElementById('rectangleBorderColor').value;
+            const alpha = document.getElementById('rectangleBorderAlpha').value / 100;
+            const rgba = hexToRgba(rectangleBorderColor, alpha);
+            themetoedit.style.setProperty('--border-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updateSwitchCheckedBackgroundColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const switchCheckedBackgroundColor = document.getElementById('switchCheckedBackgroundColor').value;
+            const alpha = document.getElementById('switchCheckedAlpha').value / 100;
+            const rgba = hexToRgba(switchCheckedBackgroundColor, alpha);
+            //themetoedit.style.setProperty('--switchcheckedbackground-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updateLoadingBarLoadedBackgroundColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const loadingBarLoadedBackgroundColor = document.getElementById('loadingBarLoadedBackgroundColor').value;
+            const alpha = document.getElementById('loadingBarLoadedAlpha').value / 100;
+            const rgba = hexToRgba(loadingBarLoadedBackgroundColor, alpha);
+            //themetoedit.style.setProperty('--loadingbarloadedbackground-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updateRectangleColorColor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const rectangleColorColor = document.getElementById('rectangleColorColor').value;
+            const alpha = document.getElementById('rectangleColorAlpha').value / 100;
+            const rgba = hexToRgba(rectangleColorColor, alpha);
+            themetoedit.style.setProperty('--filepathinput-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatecodeeditoreditbtncolor() {
+            themetoedit = document.querySelector(`.custom-theme`);
+            if (!themetoedit) {
+                return;
+            }
+            const codeeditoreditbtncolor = document.getElementById('codeeditoreditbtncolor').value;
+            const alpha = document.getElementById('codeeditoreditbtncolorAlpha').value / 100;
+            const rgba = hexToRgba(codeeditoreditbtncolor, alpha);
+            themetoedit.style.setProperty('--codeeditoreditbtn-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        function updatecustomtheme(codeInputField) {
+            const themeCode = codeInputField.value.trim();
+            const everyValue = themeCode.split('.');
+            const everyColorInput = document.querySelectorAll('.switchtothememaincolorspan2');
+            const everyRangeInput = document.querySelectorAll('.themeoption input[type="range"]');
+
+            everyValue.forEach((value, index) => {
+                const [valueHex, valueRange] = value.split(',');
+
+                if (isValidHex(valueHex) && isValidNumber(valueRange)) {
+                    if (everyColorInput[index]) {
+                        everyColorInput[index].value = valueHex.trim();
+                    }
+                    if (everyRangeInput[index]) {
+                        everyRangeInput[index].value = parseFloat(valueRange.trim());
+                    }
+                    updateSelectedColor();
+                    updateColorColor();
+                    updateBackgroundColor();
+                    updateRectangleBorderColor();
+                    updateSwitchCheckedBackgroundColor();
+                    updateLoadingBarLoadedBackgroundColor();
+                    updateRectangleColorColor();
+                    updatecodeeditoreditbtncolor();
+                    updatesyntaxblockcolor();
+                    updatesyntaxoperatorcolor();
+                    updatesyntaxbracketcolor();
+                    updatesyntaxsigncolor();
+                    updatesyntaxstringcolor();
+                    updatesyntaxnumbercolor();
+                    updatesyntaxcommentcolor();
+                    updatesyntaxvariablecolor();
+                    updatesyntaxcommandcolor();
+                    updatesyntaxkeywordcolor();
+                    updatesyntaxhtmlcommentcolor();
+                    updatesyntaxregexcolor();
+                    updatesyntaxhtmltagcontentcolor();
+                    updategridColorColor();
+                    updateaccentColor();
+                }
+            });
+        }
+        
+        
+        function updatesyntaxblockcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxblockcolor').value;
+            const alpha = document.getElementById('syntaxblockcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxblock-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxoperatorcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxoperatorcolor').value;
+            const alpha = document.getElementById('syntaxoperatorcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxoperator-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxbracketcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxbracketcolor').value;
+            const alpha = document.getElementById('syntaxbracketcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxbracket-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxsigncolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxsigncolor').value;
+            const alpha = document.getElementById('syntaxsigncolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxsign-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxstringcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxstringcolor').value;
+            const alpha = document.getElementById('syntaxstringcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxstring-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxnumbercolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxnumbercolor').value;
+            const alpha = document.getElementById('syntaxnumbercolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxnumber-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxcommentcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxcommentcolor').value;
+            const alpha = document.getElementById('syntaxcommentcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxcomment-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxvariablecolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxvariablecolor').value;
+            const alpha = document.getElementById('syntaxvariablecolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxvariable-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxcommandcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxcommandcolor').value;
+            const alpha = document.getElementById('syntaxcommandcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxcommand-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxkeywordcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxkeywordcolor').value;
+            const alpha = document.getElementById('syntaxkeywordcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxkeyword-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxhtmlcommentcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxhtmlcommentcolor').value;
+            const alpha = document.getElementById('syntaxhtmlcommentcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxhtmlcomment-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function updatesyntaxregexcolor() {
+            themetoedit = document.querySelector('.custom-theme');
+            if (!themetoedit) {
+                return;
+            }
+            const selectedColor = document.getElementById('syntaxregexcolor').value;
+            const alpha = document.getElementById('syntaxregexcolorAlpha').value / 100;
+            const rgba = hexToRgba(selectedColor, alpha);
+            themetoedit.style.setProperty('--syntaxregex-color', rgba);
+            generateCustomThemeCode();
+        }
+        
+        
+        function generateCustomThemeCode() {
+            const everyColorInput = document.querySelectorAll('.switchtothememaincolorspan2');
+            const everyRangeInput = document.querySelectorAll('.themeoption input[type="range"]');
+    
+            let themeCode = [];
+
+            everyColorInput.forEach((colorInput, index) => {
+                const colorValue = colorInput.value.trim();
+                const rangeValue = everyRangeInput[index]?.value.trim();
+
+                if (isValidHex(colorValue) && isValidNumber(rangeValue)) {
+                    themeCode.push(`${colorValue},${rangeValue}`);
+                }
+            });
+
+            const codeInput = document.querySelector('.customthemecodeinput');
+            if (codeInput) {
+                codeInput.value = themeCode.join('.');
+            }
+        }
+        
+        function isValidNumber(value) {
+            const number = parseFloat(value.trim());
+            return !isNaN(number) && number >= 0 && number <= 100;
+        }
+        
+        function isValidHex(hex) {
+            const hexPattern = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
+            return hexPattern.test(hex.trim());
+        }
+
+        function hexToRgba(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        function hexToRgbaMinus(hex, alpha) {
+            const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 30);
+            const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 30);
+            const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 30);
+            
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        function hexToRgbaPlus(hex, alpha) {
+            const r = Math.min(255, parseInt(hex.slice(1, 3), 16) + 30);
+            const g = Math.min(255, parseInt(hex.slice(3, 5), 16) + 30);
+            const b = Math.min(255, parseInt(hex.slice(5, 7), 16) + 30);
+            
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        
+        const alldefaultthemes = {
+            'dark-theme': "#000000,100.#161b22,100.#28a745,50.#ffffff,100.#161b22,100.#0156cd,100.#ffffff,100.#0156cd,100.#0156cd,100.#171b21,31.#c678dd,100.#e06c75,100.#abb2bf,100.#abb2bf,100.#98c379,100.#d19a66,100.#5c6370,100.#61afef,100.#e5c07b,100.#c678dd,100.#5c6370,100.#e06c75,100.#ffffff,100",
+            "vintage-theme": "#333333,100.#474747,100.#fecb3e,50.#ffffff,100.#474747,100.#a67b01,100.#ffffff,100.#fdc700,100.#999999,100.#ffffff,10.#785800,100.#785800,100.#abb2bf,100.#abb2bf,100.#d38301,100.#d19a66,100.#5c6370,100.#fdc700,100.#e5c07b,100.#a67b01,100.#5c6370,100.#e06c75,100.#d6d6d6,100",
+            "green-theme": "#000000,100.#010f00,100.#28a745,50.#024900,100.#041a00,100.#097f00,100.#1c6300,100.#0fb300,100.#0e6800,100.#00d41d,10.#096000,100.#07d900,100.#08e500,100.#038c00,100.#00e000,100.#00eb00,100.#003202,100.#047600,100.#008f00,100.#16e200,100.#002300,100.#01f600,100.#024600,100",
+            "red-theme": "#0c0000,100.#220000,100.#750000,50.#880001,100.#2d0000,100.#f90001,100.#ed0001,100.#e70001,100.#fc0001,100.#fc0001,10.#860001,100.#800001,100.#ea0001,100.#ef0001,100.#f10001,100.#f80001,100.#4e0000,100.#a70001,100.#f00001,100.#a00001,100.#610000,100.#ff0304,100.#670000,100",
+            "candy-theme": "#f9d3e0,100.#ffdce9,100.#fa92e9,100.#ff81b7,100.#ee719e,100.#ca7dff,100.#e63b7a,100.#be38f3,100.#ee719e,100.#e63b7a,100.#d00078,100.#ffaae9,100.#982b72,100.#c11463,100.#ffffff,100.#da63be,100.#b117c4,100.#c678dd,100.#5c6370,100.#e06cff,100.#ffffff,100.#e00075,100.#e63bd5,100",
+            "lightblue-theme": "#ffffff,100.#daf4ff,100.#aafbff,50.#00cafb,100.#ccffff,100.#0088ef,100.#53e0ff,100.#0156cd,100.#007fd7,100.#ffffff,10.#84ebff,100.#64daff,100.#0d9fff,100.#3873bf,100.#007dff,100.#61bfff,100.#aafbff,100.#009fff,100.#73c2ff,100.#0078dd,100.#aafbff,100.#007cff,100.#8ce2ff,100",
+            "enhanceddefaultdark-theme": "#020615,100.#0b1120,100.#0156cd,50.#ffffff,100.#0b1120,100.#0156cd,100.#ffffff,100.#0156cd,100.#0156cd,100.#ffffff,10.#c678dd,100.#e06c75,100.#abb2bf,100.#abb2bf,100.#98c379,100.#d19a66,100.#5c6370,100.#61afef,100.#e5c07b,100.#c678dd,100.#5c6370,100.#e06c75,100.#ffffff,100",
+            "gray-theme": "#28282e,100.#393a43,100.#393a43,50.#ffffff,100.#393a43,100.#0156cd,100.#ffffff,100.#0156cd,100.#0156cd,100.#393a43,12.#c678dd,100.#e06c75,100.#abb2bf,100.#abb2bf,100.#98c379,100.#d19a66,100.#5c6370,100.#61afef,100.#e5c07b,100.#c678dd,100.#5c6370,100.#e06c75,100.#ffffff,100",
+            "custom-theme": ""
+        };
+
+        let lastchosentheme = "none";
+        function addcustomthemetoallthemes() {
+            showPrompt('enter the themes name', (inputedname) => {
+                let name = inputedname.replace(/[^a-zA-Z]/g, '');
+                const value = document.querySelector('.customthemecodeinput').value;
+                if (name.trim() == "") {
+                    showAlert("you did not enter a theme name");
+                    return;
+                }
+                if (alldefaultthemes[name]) {
+                    showAlert("you already have a file with the name: " + name);
+                    return;
+                }
+                if (value == "") {
+                    showAlert("make a theme, to save it");
+                    return;
+                }
+                alldefaultthemes[name] = value;
+                const div = document.createElement('div');
+                div.className = "themeoption";
+                const span = document.createElement('span');
+                span.className = "switchtothememaincolorspan";
+                span.style.background = "var(--switchcheckedbackground-color)";
+                const span2 = document.createElement('span');
+                span2.className = "switchtothemetitlespan";
+                span2.textContent = name;
+                div.onclick = () => {
+                    if (lastchosentheme != name){
+                        switchtotheme(name);
+                    } else {
+                        showPrompt('want to rename? enter the new theme name', (newinputedthemename) => {
+                            const newthemename = newinputedthemename.replace(/[^a-zA-Z]/g, '');
+                            
+                            if (newthemename.trim() === "") {
+                                showAlert("Theme rename unsuccessful: name was empty.");
+                                return;
+                            }
+                            
+                            if (alldefaultthemes[newthemename]) {
+                                showAlert("A theme with that name already exists.");
+                                return;
+                            }
+
+                            if (!alldefaultthemes[name]){
+                                showAlert("theme rename unsuccessful");
+                                return;
+                            }
+                            
+                            alldefaultthemes[newthemename] = alldefaultthemes[name];
+                            delete alldefaultthemes[name];
+                            span2.textContent = newthemename;
+                            name = newthemename;
+                        });
+                    }
+                };
+                div.appendChild(span);
+                div.appendChild(span2);
+                document.querySelector('.themeoption2').insertAdjacentElement('beforebegin', div);
+            });
+        }
+        
+        function switchtotheme(theme) {
+            lastchosentheme = theme;
+            if (!alldefaultthemes[theme]){
+                removeThemeProperties();
+            }
+            if (alldefaultthemes[theme]){
+                updateSelectedColor();
+                updateColorColor();
+                updateBackgroundColor();
+                updateRectangleBorderColor();
+                updateSwitchCheckedBackgroundColor();
+                updateLoadingBarLoadedBackgroundColor();
+                updateRectangleColorColor();
+                updatecodeeditoreditbtncolor();
+                updatesyntaxblockcolor();
+                updatesyntaxoperatorcolor();
+                updatesyntaxbracketcolor();
+                updatesyntaxsigncolor();
+                updatesyntaxstringcolor();
+                updatesyntaxnumbercolor();
+                updatesyntaxcommentcolor();
+                updatesyntaxvariablecolor();
+                updatesyntaxcommandcolor();
+                updatesyntaxkeywordcolor();
+                updatesyntaxhtmlcommentcolor();
+                updatesyntaxregexcolor();
+                updatesyntaxhtmltagcontentcolor();
+                updategridColorColor();
+                updateaccentColor();
+            }
+            if (theme == "custom-theme"){
+                document.body.classList.add("custom-theme");
+                themetoedit = document.querySelector(`.${theme}`);
+                const customthemecodeinput = document.querySelector('.customthemecodeinput');
+                updatecustomtheme(customthemecodeinput);
+            } else if (alldefaultthemes[theme]) {
+                document.body.classList.add("custom-theme");
+                themetoedit = document.querySelector(`.${theme}`);
+                const customthemecodeinput = document.querySelector('.customthemecodeinput');
+                customthemecodeinput.value = alldefaultthemes[theme];
+                updatecustomtheme(customthemecodeinput);
+            } else {
+                document.body.classList.remove("custom-theme");
+                document.body.className = "";
+            }
+        }
+        
+        function removeallthemes() {
+            removeThemeProperties();
+            document.body.classList.remove("custom-theme");
+            document.body.className = "";
         }
     
         renderServers();
