@@ -1892,11 +1892,15 @@
                 searchformessage(chatSearchInput);
             }
         }
+
+        function normalizeSpaces(text) {
+            return text.replace(/[ \t\r\f\v]+/g, ' ');
+        }
     
         function copythistext(text) {
             try {
                 const textarea = document.createElement('textarea');
-                textarea.value = text;
+                textarea.value = normalizeSpaces(text);
                 document.body.appendChild(textarea);
                 textarea.select();
                 document.execCommand('copy');
