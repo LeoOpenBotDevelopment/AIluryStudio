@@ -1894,7 +1894,7 @@
         }
 
         function normalizeSpaces(text) {
-            return text.replace(/[ \t\r\f\v]+/g, ' ');
+            return text.replace(/[ \t\r\f\v\u00A0]+/g, ' ');
         }
     
         function copythistext(text) {
