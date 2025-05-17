@@ -1015,16 +1015,23 @@
         let currentRoom = null;
         let roomRef = null;
         let seenMessages = {};
-        const localServersRaw = localStorage.getItem('chatServers');
-        localServers = {};
-        try {
-            let parsed = JSON.parse(localServersRaw);
-            if (isPlainObject(parsed)) {
-                localServers = parsed;
+        
+        function parseThisAndReturnObject(lsobject, lsn) {
+            if (lsobject) {
+                try {
+                    let parsed = JSON.parse(lsobject);
+                    if (isPlainObject(parsed)) {
+                        return parsed;
+                    }
+                } catch (e) {
+                    console.log("Error while parsing " + lsn);
+                }
             }
-        } catch (e) {
-            console.log("Error while parsing chatServers");
+            return {};
         }
+        
+        const localServersRaw = localStorage.getItem('chatServers');
+        let localServers = parseThisAndReturnObject(localServersRaw, 'chatServers');
         
         async function duplicateServer(oldName, newName) {
             if (oldName == newName || localServers[newName]) return showAlert('you need to enter an original name');
@@ -2198,15 +2205,33 @@
                         if (localServers[name]) {
                             delete localServers[name];
                         }
-                        localServers = { ...localServers, [name]: true };
-                        localStorage.setItem('chatServers', JSON.stringify(localServers));
+                        let newServerContent = { ...localServers, [name]: true };
+                        try {
+                            if (isPlainObject(newServerContent)){
+                                localServers = { ...localServers, [name]: true };
+                            } else {
+                                localServers[name] = true;
+                            }
+                        } catch (err) {
+                            localServers[name] = true;
+                        }
+                        saveServers();
                     } else {
                         yourpinedServers.push(name);
                         if (localServers[name]) {
                             delete localServers[name];
                         }
-                        localServers = { [name]: true, ...localServers };
-                        localStorage.setItem('chatServers', JSON.stringify(localServers));
+                        let newServerContent = { [name]: true, ...localServers };
+                        try {
+                            if (isPlainObject(newServerContent)){
+                                localServers = { [name]: true, ...localServers };
+                            } else {
+                                localServers[name] = true;
+                            }
+                        } catch (err) {
+                            localServers[name] = true;
+                        }
+                        saveServers();
                     }
                     localStorage.setItem(accountid + 'pinedServers', JSON.stringify(yourpinedServers));
                     renderServers();
