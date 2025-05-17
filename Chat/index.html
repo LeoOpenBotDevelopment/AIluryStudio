@@ -1469,7 +1469,7 @@
                             }
                             let texttocopy = "";
                             currentcodeditorcontainer.querySelectorAll('.code-editor-line').forEach(el => {
-                                texttocopy += el.textContent + "\n";
+                                texttocopy += normalizeSpaces(el.textContent) + "\n";
                             });
                             copythistext(texttocopy);
                             copybtn.textContent = "copied";
@@ -1894,7 +1894,7 @@
         }
 
         function normalizeSpaces(text) {
-            return text.replace(/[ \t\r\f\v\u00A0]+/g, ' ');
+            return text.replace(/\s/g, ' ');
         }
     
         function copythistext(text) {
