@@ -7652,7 +7652,12 @@
                 div.className = "themeoption";
                 const span = document.createElement('span');
                 span.className = "switchtothememaincolorspan";
-                span.style.background = "var(--switchcheckedbackground-color)";
+                const scinput = document.getElementById('switchCheckedBackgroundColor');
+                if (scinput) {
+                    span.style.background = scinput.value;
+                } else {
+                    span.style.background = "var(--secondary-color)";
+                }
                 const span2 = document.createElement('span');
                 span2.className = "switchtothemetitlespan";
                 span2.textContent = name;
