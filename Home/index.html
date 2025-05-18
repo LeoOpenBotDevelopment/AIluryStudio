@@ -161,6 +161,7 @@
             align-items: center;
             border-radius: 5px;
             flex-direction: column;
+            margin-top: 10px;
         }
         #startUsingAIlury h2 {
             font-size: 2vw;
@@ -273,6 +274,24 @@
             border: none;
             border-radius: 100px;
         }
+        #ProjectsSec pre {
+            padding: 15px;
+            background: var(--border-color);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1em;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        #copybtn {
+            background: var(--border-color);
+            color: var(--text-color);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -294,26 +313,76 @@
             <section id="AboutSec">
                 <h2>About</h2>
                 <p>
-                    AIlury Services focus on a great user Experience by making simple layouts While also focusing on tools to maximize efficiency to be more accessible to mobile users 
+                    AIlury Services focus on a great user Experience by making simple layouts While also focusing on tools to maximize efficiency and to be more accessible to mobile users 
                 </p>
             </section>
             <section id="ProjectsSec">
                 <h2>Projects</h2>
+                <p>1: AIlury Studio</p>
                 <p>
-                    AIlury Programming Studio is currently the main focus.
+                    AIlury Programming Studio is a code editor for frontend developers.
                     
-                    with AIlury Programming Studio we are trying to make coding html websites more accessible for mobile users and by making an intuitive ui with a focus on tools to make coding quicker and maxing efficiency
+                    With AIlury Programming Studio, we are aiming to make coding HTML websites more accessible for mobile users by creating an intuitive UI, with a focus on tools to make coding quicker and maximize efficiency.
                 </p>
+                <h3>open a file in AIlury Programming Studio through your website by integrating this into your javascrip:</h3>
+                <pre>
+localStorage.setItem("AIluryStudioPendingFileName", "FileName.js");
+
+localStorage.setItem("AIluryStudioPendingFileContent", "console.log('The File Content')");
+
+localStorage.setItem("AIluryStudioPendingFileRun", "false"); //or true
+
+localStorage.setItem("AIluryStudioPendingFileType", "js"); //html, css or js
+
+//open AIlury Programming Studio
+
+window.location.href = 'https://ailury.com';
+                </pre>
+                <button id="copybtn" onclick="copyopencodepretext(this)">copy</button>
                 <p>
                     <button class="icon" onclick="openAIluryProgrammingStudio()">Ailury.com</button>
                     <button class="icon">↓</button>
                 </p>
-                <iframe src="https://www.ailury.com"></iframe>                
+                <iframe src="https://www.ailury.com"></iframe>
+                <p>2: AIlury Chat</p>
+                <p>
+                    AIlury Chat is a chat tool that works with AIlury Programming Studio to make sharing code easier.
+                    
+                    with AIlury Chat you can easely share code by sending it in blocks:
+                </p>
+                <h3>share html:</h3>
+                <pre>
+//htmlcode//FileName.html
+…code…
+//htmlcode//
+                </pre>
+                <h3>share css:</h3>
+                <pre>
+//csscode//FileName.css
+…code…
+//csscode//
+                </pre>
+                <h3>share js:</h3>
+                <pre>
+//jscode//FileName.js
+…code…
+//jscode//
+                </pre>
+                <h3>…</h3>
+                <h3>share servers, by typing:</h3>
+                <pre>
+#ServerName
+                </pre>
+                <p>
+                    <button class="icon" onclick="openAIluryChat()">Ailury.com/Chat</button>
+                    <button class="icon">↓</button>
+                </p>
+                <iframe src="https://www.ailury.com/Chat/"></iframe>
             </section>
             <section id="ExperienceSec">
                 <h2>Experience</h2>
                 <p>
-                    The AIlury Experience is smooth, intuitive and easy to get started quick by being able to customize almost every aspect of the editor.  
+                    The AIlury experience is smooth, intuitive, and easy to get started with, thanks to the ability to customize almost every aspect of our sites.
                 </p>
                 <ul id="featurechecklistul">
                     <li class="true">custom themes</li>
@@ -321,9 +390,13 @@
                     <li class="true">easy to use</li>
                     <li class="false">AI help</li>
                     <li class="true">supports desktop and mobile</li>
+                    <!--
+                    this part is only valid for AIlury Programming Studio:
                     <li class="false">auto save</li>
                     <li class="true">custom settings</li>
+                    -->
                 </ul>
+                
             </section>
             <section id="GoalsSec">
                 <h2>Goals</h2>
@@ -335,8 +408,13 @@
                     <p>no sign up required</p>
                     <button onclick="openAIluryProgrammingStudio()">start</button>
                 </div>
+                <div id="startUsingAIlury">
+                    <h2>Start using AIlury Chat</h2>
+                    <p>no sign up required</p>
+                    <button onclick="openAIluryChat()">start</button>
+                </div>
                 <p>
-                    AIlury Programming Studio is currently in development
+                    AIlury Programming Studio and AIlury Chat are currently in development
                 </p>
             </section>
         </div>
@@ -359,7 +437,7 @@
                     
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.1 });
         
         document.querySelectorAll('.section-container section').forEach(sec => {
             SecContainerObserver.observe(sec);
@@ -373,11 +451,48 @@
                 });
             });
         });
+        function copythistext(text) {
+            try {
+                dontcopy = true;
+                const newtextarea = document.createElement('textarea');
+                newtextarea.value = text;
+                document.body.appendChild(newtextarea);
+                newtextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(newtextarea);
+                dontcopy = false;
+            } catch (error) {
+                const thiserrorwascatched = error;
+            }
+        }
+        function copyopencodepretext(button) {
+            if (button.classList.contains('copied')) return;
+            button.classList.add('copied');
+            button.textContent = "copied";
+            copythistext(`
+localStorage.setItem("AIluryStudioPendingFileName", "FileName.js");
+
+localStorage.setItem("AIluryStudioPendingFileContent", "console.log('The File Content')");
+
+localStorage.setItem("AIluryStudioPendingFileRun", "false"); //or true
+
+localStorage.setItem("AIluryStudioPendingFileType", "js"); //html, css or js
+
+//open AIlury Programming Studio
+
+window.location.href = 'https://ailury.com';
+`);
+            setTimeout(() => {
+                button.classList.remove('copied');
+                button.textContent = "copy";
+            }, 1500);
+        }
         function openAIluryProgrammingStudio() {
             window.location.href = 'https://ailury.com';
+        }
+        function openAIluryChat() {
+            window.location.href = 'https://ailury.com/Chat/';
         }
     </script>
 </body>
 </html>
-
-
