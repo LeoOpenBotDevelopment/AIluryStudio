@@ -607,6 +607,7 @@
             font-size: 0.7em;
             border: none;
             color: var(--linenumber-color);
+            opacity: 0.5;
         }
         
         .code-editor-line.selected::after {
@@ -7199,6 +7200,7 @@
             themetoedit.style.removeProperty('--drakgrey-color');
             themetoedit.style.removeProperty('--overlaycolor-color');
             themetoedit.style.removeProperty('--commandlistcolor-color');
+            themetoedit.style.removeProperty('--linenumber-color');
         }
         
         
@@ -7245,6 +7247,7 @@
             const rgba = hexToRgba(selectedColor, alpha);
             themetoedit.style.setProperty('--urlbarcolor-color', rgba);
             themetoedit.style.setProperty('--black-color', rgba);
+            themetoedit.style.setProperty('--linenumber-color', rgba);
             themetoedit.style.setProperty('--commandlistcolor-color', rgba);
             generateCustomThemeCode();
         }
