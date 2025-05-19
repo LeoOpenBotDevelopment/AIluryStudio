@@ -44,6 +44,7 @@
             --navdotcolor-color: #F2F2F7;
             --seccontainerlinecolor-color: #F2F2F7;
             --switchcheckedbackground-color: #007aff;
+            --caret-color: #007aff;
             --filepathinput-color: #007aff;
             --transparentshade-color: rgba(255, 255, 255, 0.2);
             --superselected-color: #28a745;
@@ -85,6 +86,7 @@
                 --linenumber-color: #555555;
                 --drakgrey-color: #161b22;
                 --selected-color: #0E7F9E;
+                --caret-color: #0E7F9E;
                 --safariheader-color: #0c0c0c;
                 --safariheaderbackground-color: #0E0F0E;
                 --urlbarbackground-color: #161b22;
@@ -583,7 +585,7 @@
             box-sizing: border-box;
             cursor: pointer;
             opacity: 1;
-            caret-color: var(--switchcheckedbackground-color);
+            caret-color: var(--caret-color);
         }
 
         .code-editor-container {
@@ -667,7 +669,7 @@
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             border-top-left-radius: 0;
-            border-left: 2px solid var(--switchcheckedbackground-color);
+            border-left: 2px solid var(--caret-color);
         }
 
         .code-editor-line.selected.bottomSelected {
@@ -676,7 +678,7 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-            border-right: 2px solid var(--switchcheckedbackground-color);
+            border-right: 2px solid var(--caret-color);
         }
 
         .code-editor-line.selected.middleSelected {
@@ -7205,6 +7207,7 @@
             themetoedit.style.removeProperty('--overlaycolor-color');
             themetoedit.style.removeProperty('--commandlistcolor-color');
             themetoedit.style.removeProperty('--linenumber-color');
+            themetoedit.style.removeProperty('--caret-color');
         }
         
         
@@ -7255,7 +7258,14 @@
             themetoedit.style.setProperty('--commandlistcolor-color', rgba);
             generateCustomThemeCode();
         }
-        
+
+        function hexToRgbaMinus(hex, alpha) {
+            const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 30);
+            const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 30);
+            const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 30);
+            
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
         
         function updateSelectedColor() {
             themetoedit = document.querySelector(`.custom-theme`);
@@ -7265,8 +7275,10 @@
             const selectedColor = document.getElementById('selectedColor').value;
             const alpha = document.getElementById('selectedAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
-            themetoedit.style.setProperty('--selected-color', rgba);
+            const rgba2 = hexToRgbaMinus(selectedColor, alpha);
+            themetoedit.style.setProperty('--selected-color', rgba2);
             themetoedit.style.setProperty('--checkmark-color', rgba);
+            themetoedit.style.setProperty('--caret-color', rgba);
             generateCustomThemeCode();
         }
         
