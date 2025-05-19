@@ -7193,6 +7193,8 @@
             themetoedit.style.removeProperty('--syntaxhtmltagcontent-color');
             themetoedit.style.removeProperty('--griddot-color');
             themetoedit.style.removeProperty('--drakgrey-color');
+            themetoedit.style.removeProperty('--overlaycolor-color');
+            themetoedit.style.removeProperty('--commandlistcolor-color');
         }
         
         
@@ -7239,6 +7241,7 @@
             const rgba = hexToRgba(selectedColor, alpha);
             themetoedit.style.setProperty('--urlbarcolor-color', rgba);
             themetoedit.style.setProperty('--black-color', rgba);
+            themetoedit.style.setProperty('--commandlistcolor-color', rgba);
             generateCustomThemeCode();
         }
         
@@ -7321,6 +7324,7 @@
             const alpha = document.getElementById('rectangleBorderAlpha').value / 100;
             const rgba = hexToRgba(rectangleBorderColor, alpha);
             themetoedit.style.setProperty('--rectangleborder', rgba);
+            themetoedit.style.setProperty('--overlaycolor-color', rgba);
             themetoedit.style.setProperty('--deviceborder-color', rgba);
             themetoedit.style.setProperty('--browserheaderborderbottom-color', rgba);
             generateCustomThemeCode();
