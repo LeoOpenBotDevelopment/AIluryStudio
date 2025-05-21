@@ -2273,7 +2273,7 @@
                     createOptionContainerForMessages(div, id, messagetext);
                 }
             };
-            h3.onclick = () => createOptionContainerForUser(div, id);
+            h3.onclick = () => createOptionContainerForUser(h3, id);
             
             div.appendChild(h3);
             div.appendChild(p);
