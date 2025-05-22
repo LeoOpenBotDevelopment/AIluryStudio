@@ -96,6 +96,11 @@
             justify-content: right;
             z-index: 10;
         }
+        @keyframes progressBarAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         .progress {
             content: "";
             position: absolute;
@@ -105,7 +110,17 @@
             background: #0156CD;
             margin: 0;
             box-sizing: border-box;
+            background: linear-gradient(45deg, 
+              #0969b4,
+              #ffffff,
+              #01cacd,
+              #170080
+            );
+            background-size: 400% 400%;
+            animation: progressBarAnimation 8s ease infinite;
+            
         }
+
         .top-bar button {
             padding: 10px;
             border: none;
