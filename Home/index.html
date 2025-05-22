@@ -96,6 +96,16 @@
             justify-content: right;
             z-index: 10;
         }
+        .progress {
+            content: "";
+            position: absolute;
+            top: 95%;
+            height: 5%;
+            width: 0;
+            background: #0156CD;
+            margin: 0;
+            box-sizing: border-box;
+        }
         .top-bar button {
             padding: 10px;
             border: none;
@@ -310,6 +320,7 @@
             <div class="top-bar">
                 <button onclick="openAIluryProgrammingStudio()">Start Programming</button>
                 <button onclick="openAIluryChat()">Start Chatting</button>
+                <div class="progress"></div>
             </div>
             <section id="AboutSec">
                 <h2>About</h2>
@@ -421,6 +432,16 @@ window.location.href = 'https://ailury.com';
         </div>
     </div>
     <script>
+        function seccontaineronscroll(El) {
+            const scrollTop = El.scrollTop;
+            const scrollHeight = El.scrollHeight - El.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            const progress = El.querySelector(".progress"); // WICHTIG: innerhalb von El suchen
+            if (progress) {
+                progress.style.width = scrollPercent + "%";
+            }
+        }
+
         const togglesidebarbtn = document.querySelector('.togglesidebarbtn');
         togglesidebarbtn.addEventListener('click', () => {
             document.querySelector('.container').classList.toggle('sidebarhidden');
