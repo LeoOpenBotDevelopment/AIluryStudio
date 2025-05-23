@@ -7271,8 +7271,10 @@
             const selectedColor = document.getElementById('colorColor').value;
             const alpha = document.getElementById('colorAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
+            const rgba2 = hexToRgba(selectedColor, alpha - 0.5);
             themetoedit.style.setProperty('--urlbarcolor-color', rgba);
             themetoedit.style.setProperty('--black-color', rgba);
+            themetoedit.style.setProperty('--overlaycolor-color', rgba2);
             themetoedit.style.setProperty('--linenumber-color', rgba);
             themetoedit.style.setProperty('--commandlistcolor-color', rgba);
             generateCustomThemeCode();
@@ -7366,7 +7368,6 @@
             const alpha = document.getElementById('rectangleBorderAlpha').value / 100;
             const rgba = hexToRgba(rectangleBorderColor, alpha);
             themetoedit.style.setProperty('--rectangleborder', rgba);
-            themetoedit.style.setProperty('--overlaycolor-color', rgba);
             themetoedit.style.setProperty('--deviceborder-color', rgba);
             themetoedit.style.setProperty('--browserheaderborderbottom-color', rgba);
             generateCustomThemeCode();
