@@ -1,20 +1,20 @@
-Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (modified)
+Custom License based on Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
 
 Copyright (c) 2024 LeoOpenBotDevelopment
 
 This code, including all versions and future changes, is provided under the following license:
 
 You may:
-- Use and modify the code, but only under the condition that **substantial changes** are made, both to the code and the **end result** of the application.
-- You may not redistribute or publish the code in its unchanged form. Any redistribution must significantly modify the code and the result.
-- You may use the code for **non-commercial purposes** only.
+ - Use and modify the code, but only under the condition that substantial changes are made to both the code and the end result of the application.
+ - Use the code for non-commercial purposes only.
 
-You may **not**:
-- Simply **copy and publish** the code or parts of it (e.g., without significant changes or without modifying the result of the application).
-- Use the code for **commercial purposes**.
+You may not:
+ - Redistribute or publish the code in its original or only slightly modified form.
+ - Use the code or any part of it for commercial purposes.
 
 Conditions:
-- **Attribution:** You must provide appropriate credit to the original author (yourself) in the manner specified by the author or licensor, but not in a way that suggests the author endorses your use of the code.
-- **No Derivatives:** You may only use the code if you make substantial changes to both the code and the **end result**. There must be a clear, recognizable modification in the outcome of the application that significantly alters the original code.
+ - Attribution: You must provide appropriate credit to the original author, LeoOpenBotDevelopment, in a visible and reasonable manner, without suggesting endorsement.
+ - Modification Requirement: Any public use, redistribution, or publication must include clear and substantial modifications to both the code and the final application result. Cosmetic or minimal changes are not sufficient.
 
+Disclaimer:
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
