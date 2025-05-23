@@ -3657,12 +3657,22 @@
         }
         .resizesidebarbar {
             position: absolute;
-            left: calc(var(--sibebar-width) - 15px);
+            left: calc(var(--sibebar-width) - 36px);
             top: 0;
             background: transparent;
             height: 100dvh;
-            width: 15px;
+            width: 50px;
             z-index: 6;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            font-size: 1.8em;
+            color: var(--rectangleborder);
+            transform: scaleX(0.4);
+            cursor: ew-resize;
+            transition: 0.3s;
         }
         @media(max-width: 700px) {
             .resizesidebarbar {
@@ -4097,7 +4107,7 @@
                 <button id="sidebarfilelinklink1" class="sidebarfilelinklink" onclick="editthisfile('1', event)">styles.css<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink2" class="sidebarfilelinklink" onclick="editthisfile('2', event)">script.js<div class="threedots">⋮</div></button>
             </div>
-            <div class="resizesidebarbar"></div>
+            <div class="resizesidebarbar">></div>
         </div>
         <div class="allcontainer">
             <button class="togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button>
