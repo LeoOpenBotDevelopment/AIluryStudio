@@ -2407,6 +2407,15 @@
             transition: 0.3s;
             overflow: hidden;
         }
+        .sidebarbardivbuttondiv:not(.sidebarbardivbuttondiv1) button:before {
+            content: "";
+            width: 2px;
+            height: 100%;
+            background: var(--lightgrey-color);
+            border-radius: 5px;
+            margin-left: -10px;
+            margin-right: 10px;
+        }
         .allcontainer{
             width: 100vw;
             height: 100dvh;
@@ -2677,7 +2686,7 @@
             }
         }
         .sidebarbardivbuttondiv button{
-            background: var(--lightgrey-color);
+            background: var(--background-color);
             border: none;
         }
         #closemenuforsmallscreen h3{
@@ -2895,6 +2904,7 @@
             transition: 2s;
         }
         #functionsbbdbdb.Active{
+            background: var(--lightgrey-color);
             color: var(--switchcheckedbackground-color);
         }
         @keyframes fadeIn {
@@ -3611,6 +3621,7 @@
             }
         }
         .sidebarfilelinklink.currentfile {
+            background: var(--lightgrey-color);
             color: var(--filepathinput-color);
         }
         .sidebarfilelinklink.currentfile .threedots {
@@ -3918,7 +3929,7 @@
             width: var(--sibebar-width);
         }
         .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn {
-            background: var(--lightgrey-color);
+            background: var(--background-color);
             border: none;
             color: var(--black-color);
             display: block;
@@ -4037,6 +4048,14 @@
             color: var(--black-color);
             opacity: 0.5;
         }
+        .sidebarlooksbtnssection button.ActiveOverlay, .sidebarfuncbtnssection button.ActiveOverlay, #showallfilescontainerbtn.ActiveOverlay{
+            background: var(--lightgrey-color);
+            color: var(--switchcheckedbackground-color);
+        }
+        #scrollviewintoviewbtn.isviewing {
+            background: var(--lightgrey-color);
+            color: var(--switchcheckedbackground-color);
+        }
     </style>
 </head>
 <body>
@@ -4050,9 +4069,9 @@
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
-                <button onclick="showthemeoverlay()">theme</button>
-                <button onclick="showchooseanimationoverlay()">animations</button>
-                <button id="sbtnpossettingsoverlay" onclick="showbtnpositionsettingsoverlay()">layout</button>
+                <button class="togglethemecontainerbtn" onclick="showthemeoverlay()">theme</button>
+                <button class="toggleanimationcontainerbtn" onclick="showchooseanimationoverlay()">animations</button>
+                <button class="togglelayoutcontainerbtn" id="sbtnpossettingsoverlay" onclick="showbtnpositionsettingsoverlay()">layout</button>
             </div>
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfuncbtnssection')"><</span> functions</h3>
             <div class="sidebarbardivbuttondiv sidebarfuncbtnssection">
@@ -4064,7 +4083,7 @@
             </div>
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfilebtnssection')"><</span> files</h3>
             <div class="sidebarbardivbuttondiv sidebarfilebtnssection">
-                <button onclick="showallfilescontainer()">files</button>
+                <button id="showallfilescontainerbtn" onclick="showallfilescontainer()">files</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1 sidebarfilebtnssection">
                 <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
@@ -4520,7 +4539,7 @@
                     <!-- Top Bar -->
                     <div class="top-bar">
                         <button class="overlay-back-btn" onclick="hideelement('class', 'overlay-container', event)">×</button>
-                        <button class="overlay-close-btn" onclick="hideelement('class', 'overlay-container', event)">close</button>
+                        <button class="overlay-close-btn" onclick="hideelement('class', 'overlay-container', event, 'filesoverlay')">close</button>
                         <input type="file" id="fileInput" style="display: none;" accept=".txt, .css, .js, .html, image/*" multiple>
                         <button onclick="clickthiselement('#fileInput')" class="upload-btn">upload</button>
                         <button class="viewthisfile" onclick="viewthisfile()">view</button>
@@ -7777,6 +7796,7 @@
         }
         
         function showallfilescontainer() {
+            document.getElementById('showallfilescontainerbtn').classList.add("ActiveOverlay");
             const socoverlaycontainer = document.querySelector('.overlay-container');
             if (socoverlaycontainer.style.display != "flex") {
                 socoverlaycontainer.style.display = "flex";
@@ -7866,10 +7886,20 @@
             }
         });
         
+        const togglethemecontainerbtn = document.querySelector('.togglethemecontainerbtn');
+        const toggleanimationcontainerbtn = document.querySelector('.toggleanimationcontainerbtn');
+        const togglelayoutcontainerbtn = document.querySelector('.togglelayoutcontainerbtn');
         
-        function hideelementwithswipe(relement) {
+        function hideelementwithswipe(relement, type = "undefined") {
             if (relement.style.display == "none") {
                 return;
+            }
+            if (type == "theme") {
+                togglethemecontainerbtn.classList.remove("ActiveOverlay");
+            } else if (type == "layout") {
+                togglelayoutcontainerbtn.classList.remove("ActiveOverlay");
+            } else if (type == "animation") {
+                toggleanimationcontainerbtn.classList.remove("ActiveOverlay");
             }
             relement.style.animation = "none";
             void relement.offsetWidth;
@@ -7883,10 +7913,17 @@
             }
         }
         
-         function showelementwithswipe(relement) {
+         function showelementwithswipe(relement, type = "undefined") {
             if (relement.style.display == "flex"){
-                hideelementwithswipe(relement);
+                hideelementwithswipe(relement, type);
                 return;
+            }
+            if (type == "theme") {
+                togglethemecontainerbtn.classList.add("ActiveOverlay");
+            } else if (type == "layout") {
+                togglelayoutcontainerbtn.classList.add("ActiveOverlay");
+            } else if (type == "animation") {
+                toggleanimationcontainerbtn.classList.add("ActiveOverlay");
             }
             relement.style.display = "flex";
             relement.style.animation = "none";
@@ -7898,22 +7935,22 @@
         
         function showbtnpositionsettingsoverlay() {
             const sohchooseceebtnposoverlay = document.querySelector('.chooseceebtnposoverlay');
-            showelementwithswipe(sohchooseceebtnposoverlay);
+            showelementwithswipe(sohchooseceebtnposoverlay, "layout");
         }
         
         function hidebtnpositionsettingsoverlay() {
             const sohchooseceebtnposoverlay = document.querySelector('.chooseceebtnposoverlay');
-            hideelementwithswipe(sohchooseceebtnposoverlay);
+            hideelementwithswipe(sohchooseceebtnposoverlay, "layout");
         }
         
         function showchooseanimationoverlay() {
             const sohchooseanimationoverlay = document.querySelector('.chooseanimationoverlay');
-            showelementwithswipe(sohchooseanimationoverlay);
+            showelementwithswipe(sohchooseanimationoverlay, "animation");
         }
         
         function hidechooseanimationoverlay() {
             const sohchooseanimationoverlay = document.querySelector('.chooseanimationoverlay');
-            hideelementwithswipe(sohchooseanimationoverlay);
+            hideelementwithswipe(sohchooseanimationoverlay, "animation");
         }
         
         function showcommandoverlay() {
@@ -8005,11 +8042,11 @@
         }
         function showthemeoverlay() {
             const sohthemeoverlay = document.querySelector('.theme-overlay');
-            showelementwithswipe(sohthemeoverlay);
+            showelementwithswipe(sohthemeoverlay, "theme");
         }
         function hidethemeoverlay() {
             const sohthemeoverlay = document.querySelector('.theme-overlay');
-            hideelementwithswipe(sohthemeoverlay);
+            hideelementwithswipe(sohthemeoverlay, "theme");
         }
         function showconsoleconteiner() {
             const sohconsoleconteiner = document.querySelector('.consoleconteiner');
@@ -9125,9 +9162,12 @@
             }
         });
         
-        function hideelement(type, name, event){
+        function hideelement(type, name, event, isfo = "undefined"){
             if (event.target !== event.currentTarget) {
                 return;
+            }
+            if (isfo == "filesoverlay") {
+                document.getElementById('showallfilescontainerbtn').classList.remove("ActiveOverlay");
             }
             if (type == 'class'){
                 const ewcname = document.querySelector('.' + name);
@@ -10617,6 +10657,10 @@
             navBar.style.overflow = "hidden";
             seccontainer.style.display = 'flex';
             document.getElementById('replayautoanimation').style.display = "flex";
+            const showfilesettingsbtn = document.querySelector('.showfilesettingsbtn');
+            if (showfilesettingsbtn) {
+                showfilesettingsbtn.classList.add("ActiveOverlay");
+            }
             if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
                 seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
                 let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
@@ -10654,6 +10698,10 @@
                     navBar.classList.remove('expanded');
                     seccontainer.style.display = 'none';
                     document.getElementById('replayautoanimation').style.display = "none";
+                    const showfilesettingsbtn = document.querySelector('.showfilesettingsbtn');
+                    if (showfilesettingsbtn) {
+                        showfilesettingsbtn.classList.remove("ActiveOverlay");
+                    }
                 }
             }
         });
@@ -10668,6 +10716,10 @@
                     navBar.classList.remove('expanded');
                     seccontainer.style.display = 'none';
                     document.getElementById('replayautoanimation').style.display = "none";
+                    const showfilesettingsbtn = document.querySelector('.showfilesettingsbtn');
+                    if (showfilesettingsbtn) {
+                        showfilesettingsbtn.classList.remove("ActiveOverlay");
+                    }
                 }
             }
         });
@@ -10679,7 +10731,11 @@
         let previoussectionfsts = section;
         function closeseccontainer() {
             if (section) {
+                const showfilesettingsbtn = document.querySelector('.showfilesettingsbtn');
                 if (navBar.classList.contains('expanded')) {
+                    if (showfilesettingsbtn){
+                        showfilesettingsbtn.classList.remove("ActiveOverlay");
+                    }
                     navBar.style.height = '50px';
                     navBar.classList.remove('expanded');
                     seccontainer.style.display = 'none';
@@ -10772,8 +10828,12 @@
                     }
                 }
             });
+            document.querySelectorAll('.isviewing').forEach(viewel => {
+                viewel.classList.remove("isviewing");
+            });
             if (section.classList.contains('viewcontainer')) {
                 document.querySelector('.showfilesettingsbtn').classList.add('disabledbtn');
+                document.getElementById('scrollviewintoviewbtn').classList.add('isviewing');
             }else {
                 document.querySelector('.showfilesettingsbtn').classList.remove('disabledbtn');
             }
