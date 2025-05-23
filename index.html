@@ -600,6 +600,9 @@
             counter-increment: line-number;
             position: relative;
         }
+        .code-editor-line.selected {
+            counter-increment: line-number selected-line-number;
+        }
         #linenumberingon .code-editor-line::before {
             content: counter(line-number) ". ";
             position: absolute;
@@ -610,6 +613,9 @@
             border: none;
             color: var(--linenumber-color);
             opacity: 0.5;
+        }
+        #linenumberingon .code-editor-line.selected::before {
+            content: counter(selected-line-number);
         }
         
         .code-editor-line.selected::after {
