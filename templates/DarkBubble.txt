@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIlury Studio - Dark Bubble Template</title>
+    <style>
+        :root {
+            --color-1: #ED70C0;
+            --color-2: #561DE2;
+            --color-3: #56BC6C;
+            --color-4: #82DEE4;
+            --color-5: #B56CD5;
+            --color-6: #EDD46A;
+            --color-7: #B5D7E3;
+            --color-8: #F1A0BA;
+            --color-9: #F1ABEF;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-1), var(--color-4));
+        }
+
+        header, main, footer {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-content {
+            max-width: 700px;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .title {
+            font-size: 3rem;
+            background: var(--color-2);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: textAnimation 2s ease-in-out;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin: 1rem 0 2rem;
+            color: var(--color-6);
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: var(--color-3);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            padding: 5rem 1rem;
+        }
+
+        .feature {
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--color-5);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            background: var(--color-7);
+        }
+
+        footer {
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        /* Shapes */
+        .abstract-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .shape-1 { width: 300px; height: 300px; background: var(--color-6); top: 10%; left: 5%; }
+        .shape-2 { width: 200px; height: 200px; background: var(--color-7); top: 50%; left: 80%; animation-delay: 2s; }
+        .shape-3 { width: 400px; height: 400px; background: var(--color-8); top: 70%; left: 30%; animation-delay: 4s; }
+        .shape-4 { width: 250px; height: 250px; background: var(--color-9); bottom: 15%; right: 10%; animation-delay: 6s; }
+        .shape-5 { width: 350px; height: 350px; background: var(--color-2); top: 5%; right: 15%; animation-delay: 8s; }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes textAnimation {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scrollEffect {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .feature {
+            animation: scrollEffect 1s ease-out;
+        }
+
+        /* Scrolling effect */
+        body {
+            animation: scrollEffect 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="abstract-shapes">
+        <!-- Shapes -->
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1 class="title">AIlury Studio Template </h1>
+            <p class="subtitle">A website with colorful motion effects and unique designs</p>
+            <a class="cta-btn">Explore More</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="feature">
+            <h2>Creative Section 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+        </section>
+        <section class="feature">
+            <h2>Innovative Section 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+        </section>
+        <section class="feature">
+            <h2>Modern Section 3</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Lorem ipsum dolor.</p>
+    </footer>
+</body>
+</html>
