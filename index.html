@@ -3968,6 +3968,9 @@
             opacity: 0;
             font-size: var(--editor-font-size);
         }
+        .sidebarenabled.showFontSizeResize {
+            left: calc(50% + var(--sibebar-width));
+        }
         @media(max-width: 700px){
             #view2{
                 display: none;
@@ -4013,6 +4016,7 @@
             }
             .showFontSizeResize {
                 font-size: calc(var(--editor-font-size) / 4 * 3);
+                width: 99vw;
             }
         }
         @media (max-width: 500px) {
