@@ -5217,19 +5217,23 @@
             
             if (newRectangleAddBtn && code.trim() != "") {
                 newRectangleAddBtn.addEventListener('click', () => {
-                    createNewFilefortemplatecode(name, code);
-                    shortNotificationmessageelement("The File " + name + " was added")
+                    showAlert(`You may use, modify, and build upon these templates for personal or commercial purposes. However, you may not redistribute, sell, or claim intellectual property rights over the original templates or minimally modified versions, especially outside this website. Substantial modifications are permitted, but the original base must remain unclaimable. By using the templates, you accept these terms.`, () => {
+                        createNewFilefortemplatecode(name, code);
+                        shortNotificationmessageelement("The File " + name + " was added");
+                    });
                 });
             }
             if (newRectangleCopyBtn && code.trim() != "") {
                 newRectangleCopyBtn.addEventListener('click', () => {
-                    newRectangleCopyBtn.disabled = true;
-                    copythistext(code);
-                    newRectangleCopyBtn.textContent = "copied";
-                    setTimeout(() => {
-                        newRectangleCopyBtn.disabled = false;
-                        newRectangleCopyBtn.textContent = "copy";
-                    }, 1500);
+                    showAlert(`You may use, modify, and build upon these templates for personal or commercial purposes. However, you may not redistribute, sell, or claim intellectual property rights over the original templates or minimally modified versions, especially outside this website. Substantial modifications are permitted, but the original base must remain unclaimable. By using the templates, you accept these terms.`, () => {
+                        newRectangleCopyBtn.disabled = true;
+                        copythistext(code);
+                        newRectangleCopyBtn.textContent = "copied";
+                        setTimeout(() => {
+                            newRectangleCopyBtn.disabled = false;
+                            newRectangleCopyBtn.textContent = "copy";
+                        }, 1500);
+                    });
                 });
             }
         }
@@ -8394,12 +8398,18 @@
         const closeDialog = document.getElementById('close-dialog');
         
         
-        function showAlert(message) {
+        function showAlert(message, callback) {
             setTimeout(() => {
                 messageBox.textContent = message;
                 promptInputContainer.style.display = 'none';
                 closeAlertButton.style.display = 'block';
                 overlay.style.display = 'flex';
+                closeAlertButton.onclick = () => {
+                    if (typeof callback === 'function') {
+                        closeCustomDialog();
+                        callback();
+                    }
+                };
             }, 100);
         }
         
