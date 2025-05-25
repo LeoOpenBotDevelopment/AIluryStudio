@@ -1306,50 +1306,6 @@
                 height: calc(100dvh - 100px);;
             }
         }
-        @media(max-width: 700px){
-            #view2{
-                display: none;
-            }
-            .view{
-                padding: 0;
-                height: 100dvh;
-            }
-            .mobile-container{
-                border: none;
-                border-radius: 0;
-                height: calc(100dvh - 50px);
-                width: 100vw;
-                max-width: none;
-            }
-            .line-number-input:focus{
-                position: fixed;
-                top: 0;
-                left: 0;
-                border-radius: 5px;
-                width: 100vw;
-                outline: none;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-                background: var(--seccontainerbackground-color);
-                z-index: 20;
-                transition: 0.3s;
-            }
-
-            .code-search-input:focus{
-                position: fixed;
-                top: 0;
-                left: 0;
-                border-radius: 5px;
-                width: 100vw;
-                outline: none;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-                background: var(--seccontainerbackground-color);
-                z-index: 20;
-                transition: 0.3s;
-            }
-            .code-editor-line {
-                font-size: calc(var(--editor-font-size) / 4 * 3);
-            }
-        }
         #addFile{
             position: fixed;
             right: 5px;
@@ -1446,7 +1402,7 @@
                 transform: translateX(0);
             }
         }
-        .overlay-container {
+        .overlay-container, .overlay5-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -1462,7 +1418,7 @@
             -webkit-backdrop-filter: blur(5px);
             transition: 0.3s;
         }
-        .sidebarenabled .overlay-container {
+        .sidebarenabled .overlay-container, .sidebarenabled .overlay5-container {
             position: fixed;
             top: 0;
             left: var(--sibebar-width);
@@ -1479,7 +1435,7 @@
             -webkit-backdrop-filter: blur(5px);
             transition: 0.3s;
         }
-        .content-container {
+        .content-container, .content5-container {
             border: 1px solid var(--rectangleborder);
             background-color: var(--contentcontainer-color);
             padding: 20px;
@@ -1499,7 +1455,7 @@
             transition: 0.3s;
         }
 
-        .sidebarenabled .content-container{
+        .sidebarenabled .content-container, .sidebarenabled .content5-container{
             width: calc(100vw - var(--sibebar-width));
             grid-template-columns: repeat(2, 1fr);
             overflow-y: auto;
@@ -1513,7 +1469,7 @@
             border-left: none;
         }
         @media(max-width: 800px){
-            .sidebarenabled .content-container {
+            .sidebarenabled .content-container, .sidebarenabled .content5-container {
                 width: calc(100vw - var(--sibebar-width));
                 height: 100dvh;
                 grid-template-columns: repeat(2, 1fr);
@@ -1598,7 +1554,7 @@
             right: 0;
         }
 
-        .top-bar {
+        .top-bar, .top5-bar {
             grid-column: 1 / -1;
             width: 100%;
             background-color: var(--contentcontainer-color);
@@ -1650,7 +1606,7 @@
             display: none;
         }
 
-        .overlay-back-btn, .upload-btn, .viewthisfile, .create-file-btn, .overlay-close-btn {
+        .overlay-back-btn, .upload-btn, .viewthisfile, .create-file-btn, .overlay-close-btn, .overlay5-close-btn, .overlay5-back-btn {
             background: var(--lightgrey-color);
             color: var(--black-color);
             border: none;
@@ -1663,7 +1619,7 @@
             font-size: 0.8em;
         }
         
-        .top-bar {
+        .top-bar, .top5-bar {
             padding: 0;
         }
         
@@ -1672,14 +1628,14 @@
             border-bottom-right-radius: 5px;
         }
         
-        .overlay-close-btn{
+        .overlay-close-btn, .overlay5-close-btn {
             display: inline-block;
             border-left: 0;
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
         }
         
-        .overlay-back-btn{
+        .overlay-back-btn, .overlay5-back-btn{
             display: none;
             border-left: 0;
             border-top-left-radius: 5px;
@@ -1687,7 +1643,7 @@
         }
         
         @media(max-width: 700px){
-            .overlay-close-btn {
+            .overlay-close-btn, .overlay5-close-btn {
                 display: none;
             }
             .overlay-back-btn {
@@ -1695,7 +1651,7 @@
             }
         }
         
-        .rectangle, .rectanglep {
+        .rectangle, .rectanglep, .halfrectagle {
             background-color: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
             display: flex;
@@ -1722,7 +1678,7 @@
                 opacity: 1;
             }
         }
-        .rectangle-buttons {
+        .rectangle-buttons, .halfrectagle-buttons {
             position: absolute;
             top: 5px;
             right: 5px;
@@ -1730,17 +1686,17 @@
             transition: 0.3s;
         }
 
-        .rectangle:hover .rectangle-buttons {
+        .rectangle:hover .rectangle-buttons, .halfrectagle:hover .halfrectagle-buttons {
             display: flex;
             gap: 10px;
         }
 
-        .rectangle.enlarged .rectangle-buttons{
+        .rectangle.enlarged .rectangle-buttons, .halfrectagle.enlarged .halfrectagle-buttons{
             display: flex;
             gap: 10px;
         }
 
-        .download-btn, .delete-btn, .close, .edit-btn, .copyiurl-btn{
+        .download-btn, .delete-btn, .close, .closetemplate, .edit-btn, .copyiurl-btn, .use-btn{
             background-color: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
             color: var(--overlaycolor-color);
@@ -1828,7 +1784,7 @@
             transition: 0.3s;
         }
 
-        .sidebarenabled .rectangle.enlarged {
+        .sidebarenabled .rectangle.enlarged, .sidebarenabled .halfrectagle.enlarged {
             position: fixed;
             transform: none;
             top: 0;
@@ -1844,7 +1800,7 @@
             border-left: none;
         }
 
-        .close {
+        .close, .closetemplate {
             position: absolute;
             top: 5px;
             left: 5px;
@@ -1852,7 +1808,7 @@
             transition: 0.3s;
         }
 
-        .rectangle.enlarged .close{
+        .rectangle.enlarged .close, .halfrectagle.enlarged .closetemplate {
             display: block;
         }
 
@@ -1872,17 +1828,17 @@
                 height: 100dvh;
                 max-width: none;
              }
-            .content-container {
+            .content-container, .content5-container {
                 width: 100vw;
                 height: 100dvh;
                 max-width: none;
                 grid-template-columns: repeat(2, 1fr);
                 overflow-y: auto;
             }
-            .rectangle{
+            .rectangle, .halfrectagle{
                transition: 0.5s;
             }
-            .rectangle.enlarged{
+            .rectangle.enlarged, .halfrectagle.enlarged {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -1894,21 +1850,6 @@
                 background-repeat: no-repeat;
                 background-position: center;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .content-container {
-                width: 100vw;
-                height: 100dvh;
-                grid-template-columns: repeat(1, 1fr);
-                overflow-y: auto;
-            }
-            .rectangle{
-                transition: 0.5s;
-            }
-            .code-editor-line {
-                font-size: calc(var(--editor-font-size) / 3 * 2);
             }
         }
 
@@ -2452,7 +2393,7 @@
             margin-left: 10px;
             z-index: 5;
         }
-        .sidebarenabled .content-container {
+        .sidebarenabled .content-container, .sidebarenabled .content5-container {
             border-radius: 0;
         }
         #closemenuforsmallscreen{
@@ -3998,7 +3939,7 @@
             transform: scaleX(0.7) scaleY(1.5);
             display: inline-block;
         }
-        .importantnotificationmessageelement {
+        .importantnotificationmessageelement, .shortNotification, .showFontSizeResize {
             display: none;
             position: fixed;
             top: 5px;
@@ -4016,6 +3957,80 @@
             text-align: center;
             min-width: 40vw;
             z-index: 5000;
+        }
+        .shortNotification, .showFontSizeResize {
+            border: 2px solid var(--rectangleborder);
+            background: var(--background-color);
+            color: var(--black-color);
+        }
+        .showFontSizeResize {
+            transition: opacity 0.3s;
+            opacity: 0;
+            font-size: var(--editor-font-size);
+        }
+        @media(max-width: 700px){
+            #view2{
+                display: none;
+            }
+            .view{
+                padding: 0;
+                height: 100dvh;
+            }
+            .mobile-container{
+                border: none;
+                border-radius: 0;
+                height: calc(100dvh - 50px);
+                width: 100vw;
+                max-width: none;
+            }
+            .line-number-input:focus{
+                position: fixed;
+                top: 0;
+                left: 0;
+                border-radius: 5px;
+                width: 100vw;
+                outline: none;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                background: var(--seccontainerbackground-color);
+                z-index: 20;
+                transition: 0.3s;
+            }
+
+            .code-search-input:focus{
+                position: fixed;
+                top: 0;
+                left: 0;
+                border-radius: 5px;
+                width: 100vw;
+                outline: none;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                background: var(--seccontainerbackground-color);
+                z-index: 20;
+                transition: 0.3s;
+            }
+            .code-editor-line {
+                font-size: calc(var(--editor-font-size) / 4 * 3);
+            }
+            .showFontSizeResize {
+                font-size: calc(var(--editor-font-size) / 4 * 3);
+            }
+        }
+        @media (max-width: 500px) {
+            .content-container, .content5-container {
+                width: 100vw;
+                height: 100dvh;
+                grid-template-columns: repeat(1, 1fr);
+                overflow-y: auto;
+            }
+            .rectangle, .halfrectagle{
+                transition: 0.5s;
+            }
+            .code-editor-line {
+                font-size: calc(var(--editor-font-size) / 3 * 2);
+            }
+            .showFontSizeResize {
+                font-size: calc(var(--editor-font-size) / 3 * 2);
+            }
         }
         .viewoverlayfa {
             display: none;
@@ -4065,13 +4080,39 @@
             color: var(--black-color);
             opacity: 0.5;
         }
-        .sidebarlooksbtnssection button.ActiveOverlay, .sidebarfuncbtnssection button.ActiveOverlay, #showallfilescontainerbtn.ActiveOverlay{
+        .sidebarlooksbtnssection button.ActiveOverlay, .sidebarfuncbtnssection button.ActiveOverlay, #showallfilescontainerbtn.ActiveOverlay, #showalltemplatescontainerbtn.ActiveOverlay {
             background: var(--lightgrey-color);
             color: var(--switchcheckedbackground-color);
         }
         #scrollviewintoviewbtn.isviewing {
             background: var(--lightgrey-color);
             color: var(--switchcheckedbackground-color);
+        }
+        .halfrectagle span {
+            z-index: 2;
+        }
+        .halfrectagle iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .sidebarwidthdisplay {
+            display: none;
+            background: var(--background-color);
+            color: var(--black-color);
+            font-size: 0.8em;
+            padding: 10px;
+            border: 1px solid var(--rectangleborder);
+            border-radius: 5px;
+            position: absolute;
+            left: calc(var(--sibebar-width) + 5px);
+            top: 50%;
+            transform: translateY(-50%);
+            transition: 0.3s;
+            z-index: 2;
+            opacity: 0;
         }
     </style>
 </head>
@@ -4101,6 +4142,7 @@
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfilebtnssection')"><</span> files</h3>
             <div class="sidebarbardivbuttondiv sidebarfilebtnssection">
                 <button id="showallfilescontainerbtn" onclick="showallfilescontainer()">files</button>
+                <button id="showalltemplatescontainerbtn" onclick="showalltemplatescontainer()">templates</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1 sidebarfilebtnssection">
                 <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
@@ -4109,6 +4151,7 @@
                 <button id="sidebarfilelinklink2" class="sidebarfilelinklink" onclick="editthisfile('2', event)">script.js<div class="threedots">⋮</div></button>
             </div>
             <div class="resizesidebarbar">></div>
+            <div class="sidebarwidthdisplay">30vw</div>
         </div>
         <div class="allcontainer">
             <button class="togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button>
@@ -4253,7 +4296,7 @@
                     </div>
                     <div class="oneinfoc">
                         <span>font size:</span>
-                        <input type="range" id="fontSizeSlider" onchange="updatefontsize(this)" min="0.5" max="2" step="0.1" value="1">
+                        <input type="range" id="fontSizeSlider" oninput="updatefontsize(this)" min="0.5" max="2" step="0.1" value="1">
                     </div>
                 </div>
                 <div class="seccontainer-line-container">
@@ -4555,7 +4598,7 @@
                 <div class="content-container">
                     <!-- Top Bar -->
                     <div class="top-bar">
-                        <button class="overlay-back-btn" onclick="hideelement('class', 'overlay-container', event)">×</button>
+                        <button class="overlay-back-btn" onclick="hideelement('class', 'overlay-container', event, 'filesoverlay')">×</button>
                         <button class="overlay-close-btn" onclick="hideelement('class', 'overlay-container', event, 'filesoverlay')">close</button>
                         <input type="file" id="fileInput" style="display: none;" accept=".txt, .css, .js, .html, image/*" multiple>
                         <button onclick="clickthiselement('#fileInput')" class="upload-btn">upload</button>
@@ -4594,6 +4637,17 @@
                             <button class="delete-btn" onclick="deleteImage(this)">Delete</button>
                         </div>
                         <button class="close">×</button>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay5-container" onclick="hideelement('class', 'overlay5-container', event)">
+                <!-- Content Container (mit Top Bar drin) -->
+                <div class="content5-container">
+                    <!-- Top Bar -->
+                    <div class="top5-bar">
+                        <button class="overlay5-back-btn" onclick="hideelement('class', 'overlay5-container', event, 'templatesoverlay')">×</button>
+                        <button class="overlay5-close-btn" onclick="hideelement('class', 'overlay5-container', event, 'templatesoverlay')">close</button>
+                        <button class="create-file-btn" onclick="requestcreatenewfile()">add file</button>
                     </div>
                 </div>
             </div>
@@ -5064,8 +5118,165 @@
         </div>
     </div>
     <div class="importantnotificationmessageelement"></div>
+    <div class="shortNotification"></div>
+    <div class="showFontSizeResize"></div>
     <div class="viewoverlayfa"><div class="charactercountcontainer">characters: <span class="charactercountnum">0</span></div><button class="codingreplayreadybtn">ready</button></div>
     <script>
+        function clampCssVarToMaxPx(cssVarName, maxPx) {
+            const value = getComputedStyle(document.documentElement).getPropertyValue(cssVarName).trim();
+            
+            const vw = parseFloat(value);
+            
+            if (isNaN(vw)) return;
+            const px = (vw / 100) * window.innerWidth;
+            if (px > maxPx) {
+                const vw = (maxPx / window.innerWidth) * 100;
+                document.documentElement.style.setProperty(cssVarName, `${vw}vw`);
+            }
+        }
+        
+        clampCssVarToMaxPx("--sibebar-width", 300);
+
+        function createTemplate(code, filename) {
+            let name = filename.split('.');
+            name.pop();
+            name = name.join('.') + ".html";
+            const content5Container = document.querySelector('.content5-container');
+            
+            const newRectangle = document.createElement('div');
+            const newIFrame = document.createElement('iframe');
+            const newSpan = document.createElement('span');
+            const newRectangleBtnContainer = document.createElement('div');
+            const newRectangleEnlargeBtn = document.createElement('button');
+            const newRectangleAddBtn = document.createElement('button');
+            const newRectangleCopyBtn = document.createElement('button');
+            const newRectangleCloseBtn = document.createElement('button');
+            
+            newRectangle.className = 'halfrectagle';
+            newIFrame.srcdoc = code;
+            newIFrame.id = name + "iframe";
+            newIFrame.setAttribute('frameborder', "0");
+            newSpan.textContent = name;
+            
+            newRectangleBtnContainer.className = "halfrectagle-buttons";
+            newRectangleEnlargeBtn.className = "use-btn enlargetemplatebtn";
+            newRectangleAddBtn.className = "use-btn";
+            newRectangleCopyBtn.className = "use-btn";
+            newRectangleCloseBtn.className = "closetemplate";
+            
+            newRectangleEnlargeBtn.textContent = "enlarged";
+            newRectangleAddBtn.textContent = "add";
+            newRectangleCopyBtn.textContent = "copy";
+            newRectangleCloseBtn.textContent = "×";
+            
+            newRectangle.appendChild(newIFrame);
+            newRectangle.appendChild(newSpan);
+            
+            newRectangleBtnContainer.appendChild(newRectangleEnlargeBtn);
+            newRectangleBtnContainer.appendChild(newRectangleAddBtn);
+            newRectangleBtnContainer.appendChild(newRectangleCopyBtn);
+            
+            newRectangle.appendChild(newRectangleBtnContainer);
+            newRectangle.appendChild(newRectangleCloseBtn);
+            
+            if (content5Container) {
+                content5Container.appendChild(newRectangle);
+            }
+            
+            if (newRectangleCloseBtn && newRectangleEnlargeBtn) {
+                newRectangleCloseBtn.addEventListener('click', () => {
+                    newRectangle.classList.remove('enlarged');
+                    newRectangleEnlargeBtn.disabled = true;
+                    typeEffect(newRectangleEnlargeBtn, "enlarge", () => {
+                        newRectangleEnlargeBtn.disabled = false;
+                    });
+                });
+            }
+            
+            if (newRectangleEnlargeBtn) {
+                newRectangleEnlargeBtn.addEventListener('click', () => {
+                    if (!newRectangle.classList.contains('enlarged')) {
+                        newRectangleEnlargeBtn.disabled = true;
+                        newRectangle.classList.add('enlarged');
+                        typeEffect(newRectangleEnlargeBtn, "reduce", () => {
+                            newRectangleEnlargeBtn.disabled = false;
+                        });
+                    } else if (newRectangle.classList.contains('enlarged')) {
+                        newRectangleEnlargeBtn.disabled = true;
+                        newRectangle.classList.remove('enlarged');
+                        typeEffect(newRectangleEnlargeBtn, "enlarge", () => {
+                            newRectangleEnlargeBtn.disabled = false;
+                        });
+                    }
+                });
+            }
+            
+            if (newRectangleAddBtn && code.trim() != "") {
+                newRectangleAddBtn.addEventListener('click', () => {
+                    createNewFilefortemplatecode(name, code);
+                    shortNotificationmessageelement("The File " + name + " was added")
+                });
+            }
+            if (newRectangleCopyBtn && code.trim() != "") {
+                newRectangleCopyBtn.addEventListener('click', () => {
+                    newRectangleCopyBtn.disabled = true;
+                    copythistext(code);
+                    newRectangleCopyBtn.textContent = "copied";
+                    setTimeout(() => {
+                        newRectangleCopyBtn.disabled = false;
+                        newRectangleCopyBtn.textContent = "copy";
+                    }, 1500);
+                });
+            }
+        }
+        function typeEffect(element, newText, callback) {
+            const originalText = element.textContent || "";
+            
+            let index = originalText.length;
+            
+            function removeText() {
+                if (index > 0) {
+                    element.textContent = originalText.slice(0, --index);
+                    setTimeout(removeText, 100);
+                } else {
+                    buildText();
+                }
+            }
+            
+            let buildIndex = 0;
+            
+            function buildText() {
+                if (buildIndex < newText.length) {
+                    element.textContent += newText.charAt(buildIndex++);
+                    setTimeout(buildText, 100);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            
+            removeText();
+        }
+        fetch('templates/filePaths.json')
+            .then(res => res.json())
+            .then(templateFiles => {
+                templateFiles.forEach(templateFilePath => {
+                    fetch('templates/' + templateFilePath.replace(/^\/+/, ''))
+                        .then(response => {
+                            if (!response.ok) console.log(`Error while loading ${templateFilePath}`);
+                            return response.text();
+                        })
+                        .then(text => {
+                            createTemplate(text, templateFilePath);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                });
+            })
+            .catch(err => {
+                console.log("Error while loading list:", err);
+            });
+
         function themeinputonkeydownforenetr(event) {
             if (event.key == "Enter") {
                 updatecustomtheme(document.querySelector('.customthemecodeinput'));
@@ -5090,6 +5301,50 @@
                 setTimeout(() => {
                     relement.style.display = "none";
                 }, 500);
+            }, 3000);
+        }
+        let shortNotificationtimeout;
+        function shortNotificationmessageelement(text) {
+            let relement = document.querySelector('.shortNotification');
+            relement.textContent = text;
+            if (shortNotificationtimeout){
+                clearTimeout(shortNotificationtimeout);
+                shortNotificationtimeout = null;
+            }
+            relement.style.display = "block";
+            relement.style.animation = "none";
+            void relement.offsetWidth;
+            relement.style.animation = "swipeindown 0.5s ease-out";
+            shortNotificationtimeout = setTimeout(() => {
+                relement.style.animation = "none";
+                void relement.offsetWidth;
+                relement.style.animation = "swipeoutup 0.5s ease-out";
+                setTimeout(() => {
+                    relement.style.display = "none";
+                }, 500);
+            }, 3000);
+        }
+        let showFontSizeResizetimeout;
+        function showFontSizeDisplayelement() {
+            let relement = document.querySelector('.showFontSizeResize');
+            const fontSizePx = parseFloat(getComputedStyle(relement).fontSize);
+            const parentFontSizePx = parseFloat(getComputedStyle(relement.parentElement).fontSize);
+            const fontSizeEm = fontSizePx / parentFontSizePx;
+            const roundedEm = Math.round(fontSizeEm * 100) / 100;
+            
+            relement.textContent = `Font size: ${roundedEm}em`;
+
+            if (showFontSizeResizetimeout){
+                clearTimeout(showFontSizeResizetimeout);
+                showFontSizeResizetimeout = null;
+            }
+            relement.style.display = "block";
+            relement.style.opacity = "1";
+            showFontSizeResizetimeout = setTimeout(() => {
+                relement.style.opacity = "0";
+                setTimeout(() => {
+                    relement.style.display = "none";
+                }, 300);
             }, 3000);
         }
         function filesearchready(readybtn) {
@@ -5177,9 +5432,14 @@
             }
         }
         let isResizingSidebar = false;
+        const sidebarwidthdisplaydiv = document.querySelector('.sidebarwidthdisplay');
         
         document.querySelector('.resizesidebarbar').addEventListener('touchstart', (e) => {
             isResizingSidebar = true;
+            if (sidebarwidthdisplaydiv) {
+                sidebarwidthdisplaydiv.style.display = "block";
+                sidebarwidthdisplaydiv.style.opacity = "1";
+            }
         });
         
         window.addEventListener('touchmove', (e) => {
@@ -5188,14 +5448,27 @@
             const viewportWidth = document.documentElement.clientWidth;
             const vw = (e.touches[0].clientX / viewportWidth) * 100;
             document.documentElement.style.setProperty('--sibebar-width', `${vw}vw`);
+            if (sidebarwidthdisplaydiv) {
+                sidebarwidthdisplaydiv.textContent = `${Math.round(vw)}vw`;
+            }
         });
         
         window.addEventListener('touchend', () => {
             isResizingSidebar = false;
+            if (sidebarwidthdisplaydiv) {
+                sidebarwidthdisplaydiv.style.opacity = "0";
+                setTimeout(() => {
+                    sidebarwidthdisplaydiv.style.display = "none";
+                }, 300);
+            }
         });
         
         document.querySelector('.resizesidebarbar').addEventListener('mousedown', (e) => {
             isResizingSidebar = true;
+            if (sidebarwidthdisplaydiv) {
+                sidebarwidthdisplaydiv.style.display = "block";
+                sidebarwidthdisplaydiv.style.opacity = "1";
+            }
         });
         
         window.addEventListener('mousemove', (e) => {
@@ -5203,10 +5476,19 @@
             const viewportWidth = document.documentElement.clientWidth;
             const vw = (e.clientX / viewportWidth) * 100;
             document.documentElement.style.setProperty('--sibebar-width', `${vw}vw`);
+            if (sidebarwidthdisplaydiv) {
+                sidebarwidthdisplaydiv.textContent = `${Math.round(vw)}vw`;
+            }
         });
         
         window.addEventListener('mouseup', () => {
             isResizingSidebar = false;
+            if (sidebarwidthdisplaydiv) {
+                sidebarwidthdisplaydiv.style.opacity = "0";
+                setTimeout(() => {
+                    sidebarwidthdisplaydiv.style.display = "none";
+                }, 300);
+            }
         });
         
         function togglesidebarsec(theh3, theclass) {
@@ -5237,8 +5519,10 @@
         }
         function updatefontsize(slider) {
             const value = parseFloat(slider.value);
-            const clamped = Math.max(0.5, Math.min(2, value)); // Clamp zwischen 0.5 und 2
-            document.body.style.setProperty('--editor-font-size', clamped.toFixed(2) + 'em');
+            const clamped = Math.max(0.5, Math.min(2, value));
+            const fontSize = clamped.toFixed(2) + 'em';
+            document.body.style.setProperty('--editor-font-size', fontSize);
+            showFontSizeDisplayelement();
         }
         
         let transitionanimation = "swipe";
@@ -7255,8 +7539,10 @@
             const selectedColor = document.getElementById('accentColor').value;
             const alpha = document.getElementById('accentAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
+            const minusRgba = hexToRgbaMinus(selectedColor, alpha);
             themetoedit.style.setProperty('--drakgrey-color', rgba);
             themetoedit.style.setProperty('--lightgrey-color', rgba);
+            themetoedit.style.setProperty('--lightdarkgrey-color', minusRgba);
             themetoedit.style.setProperty('--urlbarbackground-color', rgba);
             themetoedit.style.setProperty('--spencialbtnbackground-color', rgba);
             themetoedit.style.setProperty('--seccontainerbackground-color', rgba);
@@ -7813,6 +8099,19 @@
             document.body.className = "";
         }
         
+        function showalltemplatescontainer() {
+            document.getElementById('showalltemplatescontainerbtn').classList.add("ActiveOverlay");
+            const socoverlay5container = document.querySelector('.overlay5-container');
+            if (socoverlay5container.style.display != "flex") {
+                socoverlay5container.style.display = "flex";
+                socoverlay5container.style.animation = "none";
+                void socoverlay5container.offsetWidth;
+                if (transitionanimation != "none") {
+                    socoverlay5container.style.animation = transitionanimation + "in 0.5s ease-out";
+                }
+            }
+            closesidebaronsmallscreensizes();
+        }
         function showallfilescontainer() {
             document.getElementById('showallfilescontainerbtn').classList.add("ActiveOverlay");
             const socoverlaycontainer = document.querySelector('.overlay-container');
@@ -7826,7 +8125,6 @@
             }
             closesidebaronsmallscreensizes();
         }
-        
         function closesidebaronsmallscreensizes() {
             if (document.querySelector('.divcodeeditor-container').classList.contains('smallsidebarenabled')){
                 document.querySelector('.divcodeeditor-container').classList.remove('smallsidebarenabled');
@@ -9186,6 +9484,8 @@
             }
             if (isfo == "filesoverlay") {
                 document.getElementById('showallfilescontainerbtn').classList.remove("ActiveOverlay");
+            } else if (isfo == "templatesoverlay") {
+                document.getElementById('showalltemplatescontainerbtn').classList.remove("ActiveOverlay");
             }
             if (type == 'class'){
                 const ewcname = document.querySelector('.' + name);
