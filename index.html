@@ -10183,7 +10183,7 @@
         const initialviewcontainerleft = document.querySelector('.viewcontainer').style.left;
         let initialviewcontainerdisplay = document.querySelector('.viewcontainer').style.display;
         function viewthisfile() {
-
+            section.style.display = "none";
             initialviewcontainerdisplay = document.querySelector('.viewcontainer').style.display;
             document.querySelector('.viewcontainer').style.animation = "none";
             document.querySelector('.viewcontainer').style.position = "fixed";
@@ -10208,6 +10208,7 @@
         }
 
         function closeviewthisfile() {
+            section.style.display = "flex";
             document.querySelector('.viewcontainer').style.position = "relative";
             document.querySelector('.viewcontainer').style.top = initialviewcontainertop;
             document.querySelector('.viewcontainer').style.left = initialviewcontainerleft;
