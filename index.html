@@ -7615,7 +7615,7 @@
         }
         
         
-        function updategridColorColor() {
+        async function updategridColorColor() {
             themetoedit = document.querySelector(`.custom-theme`);
             if (!themetoedit) {
                 return;
@@ -7623,7 +7623,10 @@
             const selectedColor = document.getElementById('gridColor').value;
             const alpha = document.getElementById('gridColorAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
-            themetoedit.style.setProperty('--griddot-color', rgba);
+            function updateCssVariable() {
+                themetoedit.style.setProperty('--griddot-color', rgba);
+            }
+            await updateCssVariable();
             if (document.querySelector('.gridop.cyselected') && document.getElementById('enablegridcheckbox').checked) {
                 selectthisgrid(document.querySelector('.gridop.cyselected'));
             }
