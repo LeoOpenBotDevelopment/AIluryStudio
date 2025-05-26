@@ -40,7 +40,7 @@
     }
 
     header {
-      height: 100dvh;
+      min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -56,6 +56,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: popIn 1s ease-out;
+      margin-top: 50px;
     }
 
     p {
@@ -183,3 +184,4 @@
   </footer>
 </body>
 </html>
+
