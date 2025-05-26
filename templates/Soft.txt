@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InspireMotion Template</title>
+  <style>
+    :root {
+      --primary: #FF7ED4;
+      --secondary: #5DEBD7;
+      --bg: #0E0F2A;
+      --accent: #C49CFF;
+      --glow: #ffffff44;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, var(--primary), transparent 50%),
+                  radial-gradient(circle at 70% 70%, var(--secondary), transparent 50%);
+      animation: drift 20s infinite linear alternate;
+      z-index: -2;
+      opacity: 0.08;
+    }
+
+    header {
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #1A1A40, transparent);
+      position: relative;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 5rem);
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: popIn 1s ease-out;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-top: 1rem;
+      color: #ccc;
+      opacity: 0.85;
+      animation: fadeSlide 1.5s ease-out;
+    }
+
+    .cta {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      border: none;
+      background: var(--accent);
+      border-radius: 40px;
+      color: black;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 0 transparent;
+      transition: all 0.3s ease;
+    }
+
+    .cta:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--accent);
+    }
+
+    main {
+      display: grid;
+      gap: 2rem;
+      padding: 4rem 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      background: #12132E;
+      perspective: 1000px;
+    }
+
+    .card {
+      background: #1E1F3A;
+      padding: 2rem;
+      border-radius: 1rem;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+      animation: floatIn 0.8s ease forwards;
+      will-change: transform;
+    }
+
+    .card:hover {
+      transform: rotateY(10deg) scale(1.05);
+    }
+
+    .card h2 {
+      color: var(--secondary);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0F0F25;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* Background Animation */
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-30%, -30%) scale(1.5); }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatIn {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 300px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AIlury Studio Template</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+    <button class="cta">start</button>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Lorem ipsum</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+    </div>
+    <div class="card">
+      <h2>Lorem ipsum</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+    </div>
+    <div class="card">
+      <h2>Lorem ipsum</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+    </div>
+  </main>
+
+  <footer>
+    Lorem ipsum dolor sit amet.
+  </footer>
+</body>
+</html>
