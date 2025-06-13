@@ -6918,6 +6918,7 @@
                     if (element.element) scrolltolinenumber(getElementIndexInParent(element.element));
                 }else if (element.type == "create"){
                     if (element.element) scrolltolinenumber(getElementIndexInParent(element.element));
+                    element.element.remove();
                     if (!lasteventsparentsection.querySelector('.code-editor-line.selected')) {
                         lasteventsparentsection.querySelectorAll('.eslbtn').forEach(dline => {
                             if (!dline.classList.contains('disabled')) {
@@ -6925,7 +6926,6 @@
                             }
                         });
                     }
-                    element.element.remove();
                     updateSelectedClasses();
                 }else if (element.type == "addclass"){
                     if (element.element) scrolltolinenumber(getElementIndexInParent(element.element));
