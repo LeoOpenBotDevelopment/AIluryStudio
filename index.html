@@ -12873,6 +12873,21 @@
                 highlightedElement.classList.remove('highlighted');
             });
         }
+        function handleClickOutside(event) {
+            removeAllHighlightedTexts();
+            if (event.target.classList.contains("highlightable")) {
+                const expectedClass = 'spanwithtext' + event.target.textContent.replace(/[^A-Za-z]/g, '');
+                const wordselectswitch = document.querySelector('.wordselectswitch');
+                if (wordselectswitch && wordselectswitch.checked) {
+                    const alltheotherwords = document.querySelectorAll('.spanwithtext' + event.target.textContent.replace(/[^A-Za-z]/g, ''));
+                    alltheotherwords.forEach(word => {
+                        word.classList.add('highlighted');
+                    });
+                }
+            }
+        }
+            
+        window.addEventListener('click', handleClickOutside);
         function addJsSyntaxHighlighting(div) {
             if (!div || div.tagName !== "DIV") {
                 return;
@@ -13044,26 +13059,7 @@
                                 };
                             }
                             if (span.textContent.replace(/[^A-Za-z]/g, '') != "") {
-                                span.classList.add('spanwithtext' + span.textContent);
-                                span.onclick = () => {
-                                    const wordselectswitch = document.querySelector('.wordselectswitch');
-                                    removeAllHighlightedTexts();
-                                    if (wordselectswitch && wordselectswitch.checked){
-                                        const alltheotherwords = document.querySelectorAll('.spanwithtext' + span.textContent.replace(/[^A-Za-z]/g, ''));
-                                        alltheotherwords.forEach(word => {
-                                            word.classList.add('highlighted');
-                                        });
-                                        function handleClickOutside(event) {
-                                            const expectedClass = 'spanwithtext' + span.textContent.replace(/[^A-Za-z]/g, '');
-                                            if (!event.target.classList.contains(expectedClass)) {
-                                                removeAllHighlightedTexts();
-                                                window.removeEventListener('click', handleClickOutside);
-                                            }
-                                        }
-                                        
-                                        window.addEventListener('click', handleClickOutside);
-                                    }
-                                };
+                                span.classList.add('spanwithtext' + span.textContent, "highlightable");
                             }
                             span.classList.add('syntax');
                             container.appendChild(span);
