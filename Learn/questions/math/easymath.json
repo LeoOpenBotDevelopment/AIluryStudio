@@ -1,0 +1,2380 @@
+[
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the symbol '+'?",
+      "Which word describes the '+' sign?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Minus", "percent": "10", "correct": false },
+      { "text": "Divide", "percent": "20", "correct": false },
+      { "text": "Equals", "percent": "30", "correct": false },
+      { "text": "Multiply", "percent": "15", "correct": false },
+      { "text": "Subtract", "percent": "25", "correct": false },
+      { "text": "Percentage", "percent": "40", "correct": false },
+      { "text": "Plus", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the result in an addition?",
+      "What do you call the answer to an addition problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Factor", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Difference", "percent": "15", "correct": false },
+      { "text": "Remainder", "percent": "25", "correct": false },
+      { "text": "Term", "percent": "40", "correct": false },
+      { "text": "Sum", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the symbol '-'?",
+      "Which operation does the '-' symbol represent?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "30", "correct": false },
+      { "text": "Equal", "percent": "15", "correct": false },
+      { "text": "Estimate", "percent": "25", "correct": false },
+      { "text": "Combine", "percent": "40", "correct": false },
+      { "text": "Subtraction", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call numbers that are whole and not fractions?",
+      "What kind of numbers are 1, 2, 3, 4...?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Decimals", "percent": "10", "correct": false },
+      { "text": "Negative numbers", "percent": "20", "correct": false },
+      { "text": "Fractions", "percent": "30", "correct": false },
+      { "text": "Irrational numbers", "percent": "15", "correct": false },
+      { "text": "Mixed numbers", "percent": "25", "correct": false },
+      { "text": "Percentages", "percent": "40", "correct": false },
+      { "text": "Whole numbers", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number that does not change?",
+      "What do we call a value that stays the same in math?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Variable", "percent": "10", "correct": false },
+      { "text": "Function", "percent": "20", "correct": false },
+      { "text": "Equation", "percent": "30", "correct": false },
+      { "text": "Operation", "percent": "15", "correct": false },
+      { "text": "Expression", "percent": "25", "correct": false },
+      { "text": "Symbol", "percent": "40", "correct": false },
+      { "text": "Constant", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which math operation finds the total amount?",
+      "What do you use when you want to combine values?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Subtract", "percent": "10", "correct": false },
+      { "text": "Divide", "percent": "20", "correct": false },
+      { "text": "Multiply", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Compare", "percent": "25", "correct": false },
+      { "text": "Round", "percent": "40", "correct": false },
+      { "text": "Add", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name for the number below the line in a fraction?",
+      "In a fraction, what do we call the bottom number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Numerator", "percent": "10", "correct": false },
+      { "text": "Quotient", "percent": "20", "correct": false },
+      { "text": "Factor", "percent": "30", "correct": false },
+      { "text": "Remainder", "percent": "15", "correct": false },
+      { "text": "Divider", "percent": "25", "correct": false },
+      { "text": "Equal", "percent": "40", "correct": false },
+      { "text": "Denominator", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is the opposite of subtraction?",
+      "What math process undoes subtraction?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Divide", "percent": "10", "correct": false },
+      { "text": "Multiply", "percent": "20", "correct": false },
+      { "text": "Estimate", "percent": "30", "correct": false },
+      { "text": "Compare", "percent": "15", "correct": false },
+      { "text": "Round", "percent": "25", "correct": false },
+      { "text": "Skip", "percent": "40", "correct": false },
+      { "text": "Add", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number do we use to represent 'nothing'?",
+      "What digit stands for no quantity?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "2", "percent": "30", "correct": false },
+      { "text": "100", "percent": "15", "correct": false },
+      { "text": "3", "percent": "25", "correct": false },
+      { "text": "9", "percent": "40", "correct": false },
+      { "text": "0", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the '=' sign mean in math?",
+      "What does it mean when two sides are equal?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Less than", "percent": "10", "correct": false },
+      { "text": "Greater than", "percent": "20", "correct": false },
+      { "text": "Not equal", "percent": "30", "correct": false },
+      { "text": "Subtract", "percent": "15", "correct": false },
+      { "text": "Divide", "percent": "25", "correct": false },
+      { "text": "Estimate", "percent": "40", "correct": false },
+      { "text": "Is the same as", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the symbol '/'?",
+      "Which math operation uses the slash symbol?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "30", "correct": false },
+      { "text": "Percentage", "percent": "15", "correct": false },
+      { "text": "Equal", "percent": "25", "correct": false },
+      { "text": "Decimal", "percent": "40", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a number that is multiplied by another?",
+      "What is the name for the numbers in a multiplication problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Quotients", "percent": "10", "correct": false },
+      { "text": "Sums", "percent": "20", "correct": false },
+      { "text": "Remainders", "percent": "30", "correct": false },
+      { "text": "Differences", "percent": "15", "correct": false },
+      { "text": "Dividends", "percent": "25", "correct": false },
+      { "text": "Exponents", "percent": "40", "correct": false },
+      { "text": "Factors", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol means 'not equal to'?",
+      "What math symbol shows inequality?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "=", "percent": "10", "correct": false },
+      { "text": ">", "percent": "20", "correct": false },
+      { "text": "<", "percent": "30", "correct": false },
+      { "text": "≈", "percent": "15", "correct": false },
+      { "text": "÷", "percent": "25", "correct": false },
+      { "text": "+", "percent": "40", "correct": false },
+      { "text": "≠", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which numbers come after the decimal point?",
+      "What are digits called that follow a dot in a number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Integers", "percent": "10", "correct": false },
+      { "text": "Whole numbers", "percent": "20", "correct": false },
+      { "text": "Units", "percent": "30", "correct": false },
+      { "text": "Fractions", "percent": "15", "correct": false },
+      { "text": "Tens", "percent": "25", "correct": false },
+      { "text": "Exponents", "percent": "40", "correct": false },
+      { "text": "Decimal places", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to find how many times one number fits into another?",
+      "What operation helps you share or split into equal parts?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Add", "percent": "10", "correct": false },
+      { "text": "Subtract", "percent": "20", "correct": false },
+      { "text": "Multiply", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Round", "percent": "25", "correct": false },
+      { "text": "Compare", "percent": "40", "correct": false },
+      { "text": "Divide", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name for a number that changes in equations?",
+      "Which word describes a symbol that can take different values?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Symbol", "percent": "10", "correct": false },
+      { "text": "Constant", "percent": "20", "correct": false },
+      { "text": "Number", "percent": "30", "correct": false },
+      { "text": "Function", "percent": "15", "correct": false },
+      { "text": "Digit", "percent": "25", "correct": false },
+      { "text": "Operator", "percent": "40", "correct": false },
+      { "text": "Variable", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the math word for the answer in a subtraction problem?",
+      "What do you call the result of subtracting one number from another?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Remainder", "percent": "15", "correct": false },
+      { "text": "Factor", "percent": "25", "correct": false },
+      { "text": "Numerator", "percent": "40", "correct": false },
+      { "text": "Difference", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What symbol shows the start of a math equation?",
+      "Which symbol means the result of a math statement follows?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "+", "percent": "10", "correct": false },
+      { "text": "-", "percent": "20", "correct": false },
+      { "text": "/", "percent": "30", "correct": false },
+      { "text": "x", "percent": "15", "correct": false },
+      { "text": "≠", "percent": "25", "correct": false },
+      { "text": "<", "percent": "40", "correct": false },
+      { "text": "=", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is always even?",
+      "What number can be divided by 2 with no remainder?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "3", "percent": "20", "correct": false },
+      { "text": "5", "percent": "30", "correct": false },
+      { "text": "7", "percent": "15", "correct": false },
+      { "text": "9", "percent": "25", "correct": false },
+      { "text": "11", "percent": "40", "correct": false },
+      { "text": "2", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which digit is at the tens place in the number 42?",
+      "In 42, what number is in the tens column?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "2", "percent": "20", "correct": false },
+      { "text": "4", "percent": "100", "correct": true },
+      { "text": "0", "percent": "15", "correct": false },
+      { "text": "5", "percent": "25", "correct": false },
+      { "text": "6", "percent": "40", "correct": false },
+      { "text": "7", "percent": "30", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the number that tells how many parts are in a whole?",
+      "Which word describes the total number of equal parts?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Denominator", "percent": "100", "correct": true },
+      { "text": "Numerator", "percent": "10", "correct": false },
+      { "text": "Quotient", "percent": "20", "correct": false },
+      { "text": "Factor", "percent": "30", "correct": false },
+      { "text": "Sum", "percent": "15", "correct": false },
+      { "text": "Product", "percent": "25", "correct": false },
+      { "text": "Difference", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the math term 'estimate' mean?",
+      "How do you describe a rough calculation?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Exact answer", "percent": "10", "correct": false },
+      { "text": "Rough guess", "percent": "100", "correct": true },
+      { "text": "Wrong answer", "percent": "20", "correct": false },
+      { "text": "Formula", "percent": "30", "correct": false },
+      { "text": "Variable", "percent": "15", "correct": false },
+      { "text": "Constant", "percent": "25", "correct": false },
+      { "text": "Difference", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the math tool used to measure angles?",
+      "Which device measures how wide an angle is?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Ruler", "percent": "10", "correct": false },
+      { "text": "Compass", "percent": "20", "correct": false },
+      { "text": "Protractor", "percent": "100", "correct": true },
+      { "text": "Calculator", "percent": "30", "correct": false },
+      { "text": "Set square", "percent": "15", "correct": false },
+      { "text": "Tape measure", "percent": "25", "correct": false },
+      { "text": "Divider", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a math sentence with an equals sign called?",
+      "What do you call a statement that shows two expressions are equal?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "100", "correct": true },
+      { "text": "Expression", "percent": "10", "correct": false },
+      { "text": "Function", "percent": "20", "correct": false },
+      { "text": "Inequality", "percent": "30", "correct": false },
+      { "text": "Variable", "percent": "15", "correct": false },
+      { "text": "Constant", "percent": "25", "correct": false },
+      { "text": "Term", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the process of finding how many times one number fits into another?",
+      "Which operation divides a number into equal parts?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Multiplication", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true },
+      { "text": "Addition", "percent": "30", "correct": false },
+      { "text": "Estimation", "percent": "15", "correct": false },
+      { "text": "Rounding", "percent": "25", "correct": false },
+      { "text": "Exponentiation", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which is the smallest whole number?",
+      "What is the smallest integer greater than or equal to zero?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "0", "percent": "100", "correct": true },
+      { "text": "-1", "percent": "20", "correct": false },
+      { "text": "2", "percent": "30", "correct": false },
+      { "text": "3", "percent": "15", "correct": false },
+      { "text": "5", "percent": "25", "correct": false },
+      { "text": "10", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the math term for 'how much space a 3D object takes up'?",
+      "What do we call the amount inside a solid object?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Area", "percent": "10", "correct": false },
+      { "text": "Length", "percent": "20", "correct": false },
+      { "text": "Volume", "percent": "100", "correct": true },
+      { "text": "Perimeter", "percent": "30", "correct": false },
+      { "text": "Weight", "percent": "15", "correct": false },
+      { "text": "Density", "percent": "25", "correct": false },
+      { "text": "Height", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call the top number in a fraction?",
+      "Which number shows how many parts we have in a fraction?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Denominator", "percent": "10", "correct": false },
+      { "text": "Numerator", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "20", "correct": false },
+      { "text": "Remainder", "percent": "30", "correct": false },
+      { "text": "Factor", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "25", "correct": false },
+      { "text": "Product", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call numbers like 1, 2, 3, and so on?",
+      "What is the name for numbers used to count objects?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Whole numbers", "percent": "10", "correct": false },
+      { "text": "Fractions", "percent": "20", "correct": false },
+      { "text": "Integers", "percent": "30", "correct": false },
+      { "text": "Natural numbers", "percent": "100", "correct": true },
+      { "text": "Decimals", "percent": "15", "correct": false },
+      { "text": "Negative numbers", "percent": "25", "correct": false },
+      { "text": "Rational numbers", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the math word for 'the answer of a multiplication'?",
+      "What do you call the result when two numbers are multiplied?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Difference", "percent": "20", "correct": false },
+      { "text": "Product", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Remainder", "percent": "15", "correct": false },
+      { "text": "Factor", "percent": "25", "correct": false },
+      { "text": "Exponent", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'factor' in multiplication?",
+      "Which term describes a number that divides another number exactly?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "A number added to another", "percent": "10", "correct": false },
+      { "text": "A number subtracted", "percent": "20", "correct": false },
+      { "text": "A number multiplied by another", "percent": "30", "correct": false },
+      { "text": "A number that divides another exactly", "percent": "100", "correct": true },
+      { "text": "A number that leaves a remainder", "percent": "15", "correct": false },
+      { "text": "A decimal number", "percent": "25", "correct": false },
+      { "text": "A negative number", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the term 'quotient' mean?",
+      "What is the result of a division called?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Product", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Difference", "percent": "30", "correct": false },
+      { "text": "Quotient", "percent": "100", "correct": true },
+      { "text": "Remainder", "percent": "15", "correct": false },
+      { "text": "Factor", "percent": "25", "correct": false },
+      { "text": "Exponent", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'variable' in math?",
+      "What is a symbol that can represent different numbers?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "A fixed number", "percent": "10", "correct": false },
+      { "text": "A math operation", "percent": "20", "correct": false },
+      { "text": "A constant", "percent": "30", "correct": false },
+      { "text": "A symbol representing different numbers", "percent": "100", "correct": true },
+      { "text": "An equation", "percent": "15", "correct": false },
+      { "text": "A function", "percent": "25", "correct": false },
+      { "text": "A sum", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the meaning of 'integer'?",
+      "Which type of number includes positive and negative whole numbers and zero?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Decimal numbers", "percent": "10", "correct": false },
+      { "text": "Whole numbers only", "percent": "20", "correct": false },
+      { "text": "Numbers with fractions", "percent": "30", "correct": false },
+      { "text": "Positive and negative whole numbers and zero", "percent": "100", "correct": true },
+      { "text": "Rational numbers", "percent": "15", "correct": false },
+      { "text": "Irrational numbers", "percent": "25", "correct": false },
+      { "text": "Natural numbers", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the purpose of a 'calculator'?",
+      "What tool helps to perform math operations quickly?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "To write math equations", "percent": "10", "correct": false },
+      { "text": "To draw shapes", "percent": "20", "correct": false },
+      { "text": "To perform math operations quickly", "percent": "100", "correct": true },
+      { "text": "To measure lengths", "percent": "30", "correct": false },
+      { "text": "To find averages manually", "percent": "15", "correct": false },
+      { "text": "To memorize formulas", "percent": "25", "correct": false },
+      { "text": "To solve puzzles", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does 'percent' mean?",
+      "How do you express a number as parts per hundred?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "A fraction out of ten", "percent": "10", "correct": false },
+      { "text": "A decimal number", "percent": "20", "correct": false },
+      { "text": "A number out of one thousand", "percent": "30", "correct": false },
+      { "text": "A number expressed as parts per hundred", "percent": "100", "correct": true },
+      { "text": "A whole number", "percent": "15", "correct": false },
+      { "text": "A mixed number", "percent": "25", "correct": false },
+      { "text": "An integer", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the term 'sum' mean?",
+      "What is the total when numbers are added?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "The difference", "percent": "10", "correct": false },
+      { "text": "The product", "percent": "20", "correct": false },
+      { "text": "The sum", "percent": "100", "correct": true },
+      { "text": "The quotient", "percent": "30", "correct": false },
+      { "text": "The remainder", "percent": "15", "correct": false },
+      { "text": "The factor", "percent": "25", "correct": false },
+      { "text": "The exponent", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does 'average' mean in math?",
+      "What do you call the middle value of a data set?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Average", "percent": "100", "correct": true },
+      { "text": "Mode", "percent": "30", "correct": false },
+      { "text": "Range", "percent": "15", "correct": false },
+      { "text": "Factor", "percent": "25", "correct": false },
+      { "text": "Probability", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the 'mode' in statistics?",
+      "Which value occurs most frequently in a data set?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Average", "percent": "10", "correct": false },
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Mode", "percent": "100", "correct": true },
+      { "text": "Range", "percent": "30", "correct": false },
+      { "text": "Mean", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "25", "correct": false },
+      { "text": "Factor", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'prime number'?",
+      "What kind of number has only two divisors: 1 and itself?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "A number divisible by many numbers", "percent": "10", "correct": false },
+      { "text": "A composite number", "percent": "20", "correct": false },
+      { "text": "A prime number", "percent": "100", "correct": true },
+      { "text": "An even number", "percent": "30", "correct": false },
+      { "text": "An odd number", "percent": "15", "correct": false },
+      { "text": "A negative number", "percent": "25", "correct": false },
+      { "text": "A fraction", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the term 'even number' mean?",
+      "Which kind of number can be divided by 2 with no remainder?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Odd number", "percent": "10", "correct": false },
+      { "text": "Negative number", "percent": "20", "correct": false },
+      { "text": "Even number", "percent": "100", "correct": true },
+      { "text": "Prime number", "percent": "30", "correct": false },
+      { "text": "Decimal number", "percent": "15", "correct": false },
+      { "text": "Fraction", "percent": "25", "correct": false },
+      { "text": "Integer", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'digit' in math?",
+      "Which term describes a single number from 0 to 9?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Digit", "percent": "100", "correct": true },
+      { "text": "Term", "percent": "30", "correct": false },
+      { "text": "Fraction", "percent": "15", "correct": false },
+      { "text": "Ratio", "percent": "25", "correct": false },
+      { "text": "Mode", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does 'rounding' mean in math?",
+      "What is the process of adjusting a number to the nearest 10, 100, etc.?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Adding two numbers", "percent": "10", "correct": false },
+      { "text": "Finding the exact value", "percent": "20", "correct": false },
+      { "text": "Rounding", "percent": "100", "correct": true },
+      { "text": "Subtracting numbers", "percent": "30", "correct": false },
+      { "text": "Dividing equally", "percent": "15", "correct": false },
+      { "text": "Estimating decimals", "percent": "25", "correct": false },
+      { "text": "Multiplying quickly", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'multiple' of a number?",
+      "What do we call a number that can be evenly divided by another number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Factor", "percent": "10", "correct": false },
+      { "text": "Variable", "percent": "20", "correct": false },
+      { "text": "Multiple", "percent": "100", "correct": true },
+      { "text": "Sum", "percent": "30", "correct": false },
+      { "text": "Exponent", "percent": "15", "correct": false },
+      { "text": "Constant", "percent": "25", "correct": false },
+      { "text": "Base", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the '%' symbol stand for?",
+      "Which math concept does the percent sign represent?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Per thousand", "percent": "10", "correct": false },
+      { "text": "Decimal point", "percent": "20", "correct": false },
+      { "text": "Per hundred", "percent": "100", "correct": true },
+      { "text": "Multiplication", "percent": "30", "correct": false },
+      { "text": "Division", "percent": "15", "correct": false },
+      { "text": "Addition", "percent": "25", "correct": false },
+      { "text": "Currency", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'constant' in math?",
+      "Which word describes a value that does not change?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Variable", "percent": "10", "correct": false },
+      { "text": "Equation", "percent": "20", "correct": false },
+      { "text": "Constant", "percent": "100", "correct": true },
+      { "text": "Expression", "percent": "30", "correct": false },
+      { "text": "Exponent", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "25", "correct": false },
+      { "text": "Remainder", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the top and bottom parts of a fraction?",
+      "Which terms describe the two numbers in a fraction?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum and product", "percent": "10", "correct": false },
+      { "text": "Quotient and remainder", "percent": "20", "correct": false },
+      { "text": "Numerator and denominator", "percent": "100", "correct": true },
+      { "text": "Factor and multiple", "percent": "30", "correct": false },
+      { "text": "Base and exponent", "percent": "15", "correct": false },
+      { "text": "Top and bottom", "percent": "25", "correct": false },
+      { "text": "Mean and median", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which math operation is used to find 'how many times' one number fits into another?",
+      "What is the opposite of multiplication?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true },
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Multiplication", "percent": "30", "correct": false },
+      { "text": "Estimation", "percent": "15", "correct": false },
+      { "text": "Rounding", "percent": "25", "correct": false },
+      { "text": "Comparison", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation finds the difference between two numbers?",
+      "What is the opposite of addition?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "100", "correct": true },
+      { "text": "Division", "percent": "30", "correct": false },
+      { "text": "Estimation", "percent": "15", "correct": false },
+      { "text": "Averaging", "percent": "25", "correct": false },
+      { "text": "Rounding", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'data table' used for?",
+      "What is a math table that organizes numbers and information?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "To draw shapes", "percent": "10", "correct": false },
+      { "text": "To store math tools", "percent": "20", "correct": false },
+      { "text": "To organize information", "percent": "100", "correct": true },
+      { "text": "To erase mistakes", "percent": "30", "correct": false },
+      { "text": "To measure angles", "percent": "15", "correct": false },
+      { "text": "To estimate results", "percent": "25", "correct": false },
+      { "text": "To simplify equations", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number with no fractional or decimal part?",
+      "Which numbers are not decimals or fractions?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Decimal", "percent": "10", "correct": false },
+      { "text": "Fraction", "percent": "20", "correct": false },
+      { "text": "Whole number", "percent": "100", "correct": true },
+      { "text": "Prime number", "percent": "30", "correct": false },
+      { "text": "Irrational number", "percent": "15", "correct": false },
+      { "text": "Negative number", "percent": "25", "correct": false },
+      { "text": "Even number", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the math term 'range' mean?",
+      "Which word describes the difference between the largest and smallest numbers in a set?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Mean", "percent": "10", "correct": false },
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Range", "percent": "100", "correct": true },
+      { "text": "Mode", "percent": "30", "correct": false },
+      { "text": "Average", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "25", "correct": false },
+      { "text": "Factor", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the '=' symbol mean?",
+      "What does it mean when two sides of an equation are the same?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Not equal", "percent": "10", "correct": false },
+      { "text": "Less than", "percent": "20", "correct": false },
+      { "text": "Equal", "percent": "100", "correct": true },
+      { "text": "Greater than", "percent": "30", "correct": false },
+      { "text": "Variable", "percent": "15", "correct": false },
+      { "text": "Unknown", "percent": "25", "correct": false },
+      { "text": "Approximately", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call a math sentence that uses numbers and symbols?",
+      "Which word means a combination of numbers and operations without an equal sign?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Function", "percent": "20", "correct": false },
+      { "text": "Expression", "percent": "100", "correct": true },
+      { "text": "Formula", "percent": "30", "correct": false },
+      { "text": "Inequality", "percent": "15", "correct": false },
+      { "text": "Variable", "percent": "25", "correct": false },
+      { "text": "Estimate", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the answer when two numbers are added together?",
+      "What is the result of an addition called?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Difference", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Sum", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Result", "percent": "25", "correct": false },
+      { "text": "Average", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a number line used for in math?",
+      "Which tool helps visualize numbers in order from least to greatest?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "For drawing shapes", "percent": "10", "correct": false },
+      { "text": "To show variables", "percent": "20", "correct": false },
+      { "text": "To display numbers in sequence", "percent": "100", "correct": true },
+      { "text": "To solve equations", "percent": "30", "correct": false },
+      { "text": "To count even numbers", "percent": "15", "correct": false },
+      { "text": "To make graphs", "percent": "25", "correct": false },
+      { "text": "To multiply quickly", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'function' in math?",
+      "Which term describes a rule that assigns each input exactly one output?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Operation", "percent": "20", "correct": false },
+      { "text": "Function", "percent": "100", "correct": true },
+      { "text": "Sum", "percent": "30", "correct": false },
+      { "text": "Variable", "percent": "15", "correct": false },
+      { "text": "Graph", "percent": "25", "correct": false },
+      { "text": "Expression", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is 'probability' in math?",
+      "Which term refers to the chance of something happening?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Estimate", "percent": "10", "correct": false },
+      { "text": "Guess", "percent": "20", "correct": false },
+      { "text": "Probability", "percent": "100", "correct": true },
+      { "text": "Prediction", "percent": "30", "correct": false },
+      { "text": "Randomness", "percent": "15", "correct": false },
+      { "text": "Chance", "percent": "25", "correct": false },
+      { "text": "Coin flip", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call a group of related numbers in statistics?",
+      "What is a collection of numbers used to study patterns?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Table", "percent": "20", "correct": false },
+      { "text": "Data set", "percent": "100", "correct": true },
+      { "text": "List", "percent": "30", "correct": false },
+      { "text": "Statistic", "percent": "15", "correct": false },
+      { "text": "Sample", "percent": "25", "correct": false },
+      { "text": "Survey", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to make a number larger by repeating addition?",
+      "What math process is like adding the same number many times?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Subtraction", "percent": "10", "correct": false },
+      { "text": "Division", "percent": "20", "correct": false },
+      { "text": "Multiplication", "percent": "100", "correct": true },
+      { "text": "Estimation", "percent": "30", "correct": false },
+      { "text": "Rounding", "percent": "15", "correct": false },
+      { "text": "Graphing", "percent": "25", "correct": false },
+      { "text": "Measurement", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the word for a number that is less than zero?",
+      "Which type of number is always below zero?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Positive", "percent": "10", "correct": false },
+      { "text": "Natural", "percent": "20", "correct": false },
+      { "text": "Negative", "percent": "100", "correct": true },
+      { "text": "Even", "percent": "30", "correct": false },
+      { "text": "Prime", "percent": "15", "correct": false },
+      { "text": "Decimal", "percent": "25", "correct": false },
+      { "text": "Zero", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does it mean when a number is 'odd'?",
+      "What kind of number cannot be divided evenly by 2?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Even", "percent": "10", "correct": false },
+      { "text": "Fraction", "percent": "20", "correct": false },
+      { "text": "Odd", "percent": "100", "correct": true },
+      { "text": "Negative", "percent": "30", "correct": false },
+      { "text": "Whole number", "percent": "15", "correct": false },
+      { "text": "Decimal", "percent": "25", "correct": false },
+      { "text": "Perfect square", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'calculator' mainly used for in math?",
+      "What device helps solve math problems quickly?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "To draw graphs", "percent": "10", "correct": false },
+      { "text": "To write code", "percent": "20", "correct": false },
+      { "text": "To do calculations", "percent": "100", "correct": true },
+      { "text": "To take notes", "percent": "30", "correct": false },
+      { "text": "To find maps", "percent": "15", "correct": false },
+      { "text": "To display videos", "percent": "25", "correct": false },
+      { "text": "To print documents", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a symbol that shows a math operation?",
+      "What do we call symbols like +, -, ×, ÷ in math?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Variables", "percent": "10", "correct": false },
+      { "text": "Constants", "percent": "20", "correct": false },
+      { "text": "Operators", "percent": "100", "correct": true },
+      { "text": "Functions", "percent": "30", "correct": false },
+      { "text": "Brackets", "percent": "15", "correct": false },
+      { "text": "Digits", "percent": "25", "correct": false },
+      { "text": "Rules", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does 'estimate' mean in math?",
+      "What is it called when you make an educated guess of a number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Divide", "percent": "10", "correct": false },
+      { "text": "Measure", "percent": "20", "correct": false },
+      { "text": "Estimate", "percent": "100", "correct": true },
+      { "text": "Multiply", "percent": "30", "correct": false },
+      { "text": "Round", "percent": "15", "correct": false },
+      { "text": "Subtract", "percent": "25", "correct": false },
+      { "text": "Graph", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'math problem'?",
+      "What do we call a question that requires a math solution?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "A paragraph", "percent": "10", "correct": false },
+      { "text": "A drawing", "percent": "20", "correct": false },
+      { "text": "A math problem", "percent": "100", "correct": true },
+      { "text": "A joke", "percent": "30", "correct": false },
+      { "text": "An image", "percent": "15", "correct": false },
+      { "text": "A fact", "percent": "25", "correct": false },
+      { "text": "A message", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is known as the 'additive identity'?",
+      "What number can be added to anything without changing its value?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "0", "percent": "100", "correct": true },
+      { "text": "100", "percent": "30", "correct": false },
+      { "text": "Infinity", "percent": "15", "correct": false },
+      { "text": "-1", "percent": "25", "correct": false },
+      { "text": "2", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'math symbol'?",
+      "What do we call special characters used in math like + or ÷?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Letters", "percent": "10", "correct": false },
+      { "text": "Words", "percent": "20", "correct": false },
+      { "text": "Symbols", "percent": "100", "correct": true },
+      { "text": "Equations", "percent": "30", "correct": false },
+      { "text": "Numbers", "percent": "15", "correct": false },
+      { "text": "Operators", "percent": "25", "correct": false },
+      { "text": "Graphs", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the correct term for a part of a whole?",
+      "What describes something like 1/2 or 3/4?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Integer", "percent": "10", "correct": false },
+      { "text": "Whole number", "percent": "20", "correct": false },
+      { "text": "Fraction", "percent": "100", "correct": true },
+      { "text": "Odd number", "percent": "30", "correct": false },
+      { "text": "Even number", "percent": "15", "correct": false },
+      { "text": "Prime", "percent": "25", "correct": false },
+      { "text": "Decimal", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the first step of the order of operations?",
+      "Which operation is done first in the PEMDAS rule?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Multiplication", "percent": "10", "correct": false },
+      { "text": "Division", "percent": "20", "correct": false },
+      { "text": "Parentheses", "percent": "100", "correct": true },
+      { "text": "Addition", "percent": "30", "correct": false },
+      { "text": "Subtraction", "percent": "15", "correct": false },
+      { "text": "Exponents", "percent": "25", "correct": false },
+      { "text": "Estimate", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for the number found most often in a data set?",
+      "Which measure shows the most frequent value?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Mean", "percent": "10", "correct": false },
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Mode", "percent": "100", "correct": true },
+      { "text": "Range", "percent": "30", "correct": false },
+      { "text": "Sum", "percent": "15", "correct": false },
+      { "text": "Total", "percent": "25", "correct": false },
+      { "text": "Maximum", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number has only two factors: 1 and itself?",
+      "Which type of number can’t be evenly divided by any number except 1 and itself?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Even number", "percent": "10", "correct": false },
+      { "text": "Odd number", "percent": "20", "correct": false },
+      { "text": "Prime number", "percent": "100", "correct": true },
+      { "text": "Multiple", "percent": "30", "correct": false },
+      { "text": "Integer", "percent": "15", "correct": false },
+      { "text": "Composite number", "percent": "25", "correct": false },
+      { "text": "Perfect square", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for the middle value in a sorted list of numbers?",
+      "Which measure represents the center of an ordered set?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Range", "percent": "10", "correct": false },
+      { "text": "Mean", "percent": "20", "correct": false },
+      { "text": "Median", "percent": "100", "correct": true },
+      { "text": "Mode", "percent": "30", "correct": false },
+      { "text": "Average", "percent": "15", "correct": false },
+      { "text": "Maximum", "percent": "25", "correct": false },
+      { "text": "Minimum", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call a number that does not change in a math expression?",
+      "Which value stays the same in an equation?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Operator", "percent": "10", "correct": false },
+      { "text": "Variable", "percent": "20", "correct": false },
+      { "text": "Constant", "percent": "100", "correct": true },
+      { "text": "Coefficient", "percent": "30", "correct": false },
+      { "text": "Exponent", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "25", "correct": false },
+      { "text": "Sign", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which part of a math problem tells you what to find?",
+      "What is the question part of a word problem called?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Answer", "percent": "20", "correct": false },
+      { "text": "Question", "percent": "100", "correct": true },
+      { "text": "Estimate", "percent": "30", "correct": false },
+      { "text": "Expression", "percent": "15", "correct": false },
+      { "text": "Graph", "percent": "25", "correct": false },
+      { "text": "Data", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call numbers like 10, 20, and 30?",
+      "Which numbers end in zero and are easy to round to?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Odd numbers", "percent": "10", "correct": false },
+      { "text": "Negative numbers", "percent": "20", "correct": false },
+      { "text": "Multiples of 10", "percent": "100", "correct": true },
+      { "text": "Integers", "percent": "30", "correct": false },
+      { "text": "Decimals", "percent": "15", "correct": false },
+      { "text": "Half numbers", "percent": "25", "correct": false },
+      { "text": "Fractions", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which word describes a number used to show position in a list?",
+      "What do we call numbers like 1st, 2nd, and 3rd?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Natural numbers", "percent": "10", "correct": false },
+      { "text": "Odd numbers", "percent": "20", "correct": false },
+      { "text": "Ordinal numbers", "percent": "100", "correct": true },
+      { "text": "Even numbers", "percent": "30", "correct": false },
+      { "text": "Prime numbers", "percent": "15", "correct": false },
+      { "text": "Cardinal numbers", "percent": "25", "correct": false },
+      { "text": "Decimals", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is another word for the total when items are counted together?",
+      "What do you get when you add everything in a group?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Average", "percent": "10", "correct": false },
+      { "text": "Estimate", "percent": "20", "correct": false },
+      { "text": "Sum", "percent": "100", "correct": true },
+      { "text": "Product", "percent": "30", "correct": false },
+      { "text": "Mode", "percent": "15", "correct": false },
+      { "text": "Difference", "percent": "25", "correct": false },
+      { "text": "Count", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does 'average' mean in math?",
+      "What is the result when you add all values and divide by how many there are?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Median", "percent": "10", "correct": false },
+      { "text": "Mode", "percent": "20", "correct": false },
+      { "text": "Mean (average)", "percent": "100", "correct": true },
+      { "text": "Range", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Total", "percent": "25", "correct": false },
+      { "text": "Sum", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a repeated or predictable sequence of numbers?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Graph", "percent": "20", "correct": false },
+      { "text": "Pattern", "percent": "100", "correct": true },
+      { "text": "Variable", "percent": "30", "correct": false },
+      { "text": "Expression", "percent": "15", "correct": false },
+      { "text": "Rounding", "percent": "25", "correct": false },
+      { "text": "Fact", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is known as the multiplicative identity?",
+      "What number can be multiplied with any number without changing its value?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "0", "percent": "10", "correct": false },
+      { "text": "2", "percent": "20", "correct": false },
+      { "text": "1", "percent": "100", "correct": true },
+      { "text": "10", "percent": "30", "correct": false },
+      { "text": "-1", "percent": "15", "correct": false },
+      { "text": "100", "percent": "25", "correct": false },
+      { "text": "Infinity", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a 'digit' in mathematics?",
+      "Which term describes a single symbol like 3 or 7 used to make numbers?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Letter", "percent": "10", "correct": false },
+      { "text": "Symbol", "percent": "20", "correct": false },
+      { "text": "Digit", "percent": "100", "correct": true },
+      { "text": "Unit", "percent": "30", "correct": false },
+      { "text": "Code", "percent": "15", "correct": false },
+      { "text": "Fraction", "percent": "25", "correct": false },
+      { "text": "Note", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which term means a letter or symbol that stands for a number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Operator", "percent": "10", "correct": false },
+      { "text": "Equation", "percent": "20", "correct": false },
+      { "text": "Variable", "percent": "100", "correct": true },
+      { "text": "Expression", "percent": "30", "correct": false },
+      { "text": "Fraction", "percent": "15", "correct": false },
+      { "text": "Angle", "percent": "25", "correct": false },
+      { "text": "Point", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which tool helps measure length in centimeters or inches?",
+      "What do you use to find out how long something is?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Compass", "percent": "10", "correct": false },
+      { "text": "Protractor", "percent": "20", "correct": false },
+      { "text": "Ruler", "percent": "100", "correct": true },
+      { "text": "Calculator", "percent": "30", "correct": false },
+      { "text": "Graph paper", "percent": "15", "correct": false },
+      { "text": "Scale", "percent": "25", "correct": false },
+      { "text": "Globe", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which branch of math deals with numbers and operations?",
+      "What is the most basic type of math called?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Algebra", "percent": "10", "correct": false },
+      { "text": "Geometry", "percent": "20", "correct": false },
+      { "text": "Arithmetic", "percent": "100", "correct": true },
+      { "text": "Calculus", "percent": "30", "correct": false },
+      { "text": "Statistics", "percent": "15", "correct": false },
+      { "text": "Logic", "percent": "25", "correct": false },
+      { "text": "Graph theory", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a number that can’t be divided by 2 evenly?",
+      "Which kind of number has 1 left over when divided by 2?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Even number", "percent": "10", "correct": false },
+      { "text": "Decimal", "percent": "20", "correct": false },
+      { "text": "Odd number", "percent": "100", "correct": true },
+      { "text": "Prime number", "percent": "30", "correct": false },
+      { "text": "Rational number", "percent": "15", "correct": false },
+      { "text": "Negative number", "percent": "25", "correct": false },
+      { "text": "Square number", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the mathematical opposite of addition?",
+      "Which operation undoes what addition does?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Multiplication", "percent": "10", "correct": false },
+      { "text": "Division", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "100", "correct": true },
+      { "text": "Summation", "percent": "30", "correct": false },
+      { "text": "Exponentiation", "percent": "15", "correct": false },
+      { "text": "Integration", "percent": "25", "correct": false },
+      { "text": "Rounding", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the % symbol represent in math?",
+      "Which symbol means 'per hundred'?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Division", "percent": "10", "correct": false },
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Percent", "percent": "100", "correct": true },
+      { "text": "Sum", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Fraction", "percent": "25", "correct": false },
+      { "text": "Proportion", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a math sentence with an equal sign?",
+      "Which term describes a statement showing two equal values?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Expression", "percent": "10", "correct": false },
+      { "text": "Inequality", "percent": "20", "correct": false },
+      { "text": "Equation", "percent": "100", "correct": true },
+      { "text": "Operation", "percent": "30", "correct": false },
+      { "text": "Function", "percent": "15", "correct": false },
+      { "text": "Term", "percent": "25", "correct": false },
+      { "text": "Symbol", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of dividing one number by another called?",
+      "What is the name for the answer to a division problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Quotient", "percent": "100", "correct": true },
+      { "text": "Factor", "percent": "30", "correct": false },
+      { "text": "Variable", "percent": "15", "correct": false },
+      { "text": "Remainder", "percent": "25", "correct": false },
+      { "text": "Exponent", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to find out how many times one number fits into another?",
+      "What math process tells how many groups of a number are in another number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true },
+      { "text": "Multiplication", "percent": "30", "correct": false },
+      { "text": "Estimation", "percent": "15", "correct": false },
+      { "text": "Rounding", "percent": "25", "correct": false },
+      { "text": "Graphing", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number that is a result of multiplying two numbers?",
+      "Which word describes the answer in a multiplication problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Difference", "percent": "20", "correct": false },
+      { "text": "Product", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Solution", "percent": "25", "correct": false },
+      { "text": "Median", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the place value of the 5 in the number 250?",
+      "In 250, what does the 5 represent?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Ones", "percent": "10", "correct": false },
+      { "text": "Tens", "percent": "100", "correct": true },
+      { "text": "Hundreds", "percent": "20", "correct": false },
+      { "text": "Thousands", "percent": "30", "correct": false },
+      { "text": "Fives", "percent": "15", "correct": false },
+      { "text": "Units", "percent": "25", "correct": false },
+      { "text": "Decimals", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number includes both whole numbers and their negatives?",
+      "Which group includes numbers like -3, 0, and 5?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Natural numbers", "percent": "10", "correct": false },
+      { "text": "Decimals", "percent": "20", "correct": false },
+      { "text": "Integers", "percent": "100", "correct": true },
+      { "text": "Odd numbers", "percent": "30", "correct": false },
+      { "text": "Even numbers", "percent": "15", "correct": false },
+      { "text": "Fractions", "percent": "25", "correct": false },
+      { "text": "Irrational numbers", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which value separates positive and negative numbers?",
+      "What number lies between all positive and negative numbers on a number line?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "One", "percent": "10", "correct": false },
+      { "text": "Infinity", "percent": "20", "correct": false },
+      { "text": "Zero", "percent": "100", "correct": true },
+      { "text": "Minus one", "percent": "30", "correct": false },
+      { "text": "Ten", "percent": "15", "correct": false },
+      { "text": "Half", "percent": "25", "correct": false },
+      { "text": "Hundred", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a number that divides evenly into another number called?",
+      "Which term means a number that can exactly divide another number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Quotient", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Factor", "percent": "100", "correct": true },
+      { "text": "Multiple", "percent": "30", "correct": false },
+      { "text": "Base", "percent": "15", "correct": false },
+      { "text": "Total", "percent": "25", "correct": false },
+      { "text": "Decimal", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number system uses only 0s and 1s?",
+      "What is the name of the number system used in computers?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Decimal", "percent": "10", "correct": false },
+      { "text": "Roman", "percent": "20", "correct": false },
+      { "text": "Binary", "percent": "100", "correct": true },
+      { "text": "Hexadecimal", "percent": "30", "correct": false },
+      { "text": "Negative", "percent": "15", "correct": false },
+      { "text": "Fractional", "percent": "25", "correct": false },
+      { "text": "Metric", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the longest number in a set called?",
+      "Which value in a data set is the highest?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Mode", "percent": "10", "correct": false },
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Maximum", "percent": "100", "correct": true },
+      { "text": "Mean", "percent": "30", "correct": false },
+      { "text": "Minimum", "percent": "15", "correct": false },
+      { "text": "Middle", "percent": "25", "correct": false },
+      { "text": "Sum", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number that is not exact but close enough?",
+      "Which word means a rough value that is near the actual answer?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Answer", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Estimate", "percent": "100", "correct": true },
+      { "text": "Measure", "percent": "30", "correct": false },
+      { "text": "Total", "percent": "15", "correct": false },
+      { "text": "Calculation", "percent": "25", "correct": false },
+      { "text": "Guess", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result when you take one number away from another?",
+      "Which term means the answer to a subtraction problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Difference", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Factor", "percent": "15", "correct": false },
+      { "text": "Minimum", "percent": "25", "correct": false },
+      { "text": "Range", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to find out how many times one number fits into another?",
+      "What math process tells how many groups of a number are in another number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true },
+      { "text": "Multiplication", "percent": "30", "correct": false },
+      { "text": "Estimation", "percent": "15", "correct": false },
+      { "text": "Rounding", "percent": "25", "correct": false },
+      { "text": "Graphing", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number that is a result of multiplying two numbers?",
+      "Which word describes the answer in a multiplication problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Difference", "percent": "20", "correct": false },
+      { "text": "Product", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Estimate", "percent": "15", "correct": false },
+      { "text": "Solution", "percent": "25", "correct": false },
+      { "text": "Median", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the place value of the 5 in the number 250?",
+      "In 250, what does the 5 represent?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Ones", "percent": "10", "correct": false },
+      { "text": "Tens", "percent": "100", "correct": true },
+      { "text": "Hundreds", "percent": "20", "correct": false },
+      { "text": "Thousands", "percent": "30", "correct": false },
+      { "text": "Fives", "percent": "15", "correct": false },
+      { "text": "Units", "percent": "25", "correct": false },
+      { "text": "Decimals", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number includes both whole numbers and their negatives?",
+      "Which group includes numbers like -3, 0, and 5?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Natural numbers", "percent": "10", "correct": false },
+      { "text": "Decimals", "percent": "20", "correct": false },
+      { "text": "Integers", "percent": "100", "correct": true },
+      { "text": "Odd numbers", "percent": "30", "correct": false },
+      { "text": "Even numbers", "percent": "15", "correct": false },
+      { "text": "Fractions", "percent": "25", "correct": false },
+      { "text": "Irrational numbers", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which value separates positive and negative numbers?",
+      "What number lies between all positive and negative numbers on a number line?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "One", "percent": "10", "correct": false },
+      { "text": "Infinity", "percent": "20", "correct": false },
+      { "text": "Zero", "percent": "100", "correct": true },
+      { "text": "Minus one", "percent": "30", "correct": false },
+      { "text": "Ten", "percent": "15", "correct": false },
+      { "text": "Half", "percent": "25", "correct": false },
+      { "text": "Hundred", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a number that divides evenly into another number called?",
+      "Which term means a number that can exactly divide another number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Quotient", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Factor", "percent": "100", "correct": true },
+      { "text": "Multiple", "percent": "30", "correct": false },
+      { "text": "Base", "percent": "15", "correct": false },
+      { "text": "Total", "percent": "25", "correct": false },
+      { "text": "Decimal", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number system uses only 0s and 1s?",
+      "What is the name of the number system used in computers?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Decimal", "percent": "10", "correct": false },
+      { "text": "Roman", "percent": "20", "correct": false },
+      { "text": "Binary", "percent": "100", "correct": true },
+      { "text": "Hexadecimal", "percent": "30", "correct": false },
+      { "text": "Negative", "percent": "15", "correct": false },
+      { "text": "Fractional", "percent": "25", "correct": false },
+      { "text": "Metric", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the longest number in a set called?",
+      "Which value in a data set is the highest?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Mode", "percent": "10", "correct": false },
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Maximum", "percent": "100", "correct": true },
+      { "text": "Mean", "percent": "30", "correct": false },
+      { "text": "Minimum", "percent": "15", "correct": false },
+      { "text": "Middle", "percent": "25", "correct": false },
+      { "text": "Sum", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number that is not exact but close enough?",
+      "Which word means a rough value that is near the actual answer?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Answer", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Estimate", "percent": "100", "correct": true },
+      { "text": "Measure", "percent": "30", "correct": false },
+      { "text": "Total", "percent": "15", "correct": false },
+      { "text": "Calculation", "percent": "25", "correct": false },
+      { "text": "Guess", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result when you take one number away from another?",
+      "Which term means the answer to a subtraction problem?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Difference", "percent": "100", "correct": true },
+      { "text": "Quotient", "percent": "30", "correct": false },
+      { "text": "Factor", "percent": "15", "correct": false },
+      { "text": "Minimum", "percent": "25", "correct": false },
+      { "text": "Range", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number has no decimal or fractional part?",
+      "Which type of number is complete and not a part of a whole?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Fraction", "percent": "10", "correct": false },
+      { "text": "Decimal", "percent": "20", "correct": false },
+      { "text": "Whole number", "percent": "100", "correct": true },
+      { "text": "Irrational number", "percent": "30", "correct": false },
+      { "text": "Mixed number", "percent": "15", "correct": false },
+      { "text": "Estimate", "percent": "25", "correct": false },
+      { "text": "Negative number", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is the opposite of multiplication?",
+      "What process breaks a number into equal parts?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true },
+      { "text": "Exponentiation", "percent": "30", "correct": false },
+      { "text": "Rounding", "percent": "15", "correct": false },
+      { "text": "Estimation", "percent": "25", "correct": false },
+      { "text": "Simplifying", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of any number raised to the power of 0?",
+      "What do you get when you raise a number to the zero power?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "0", "percent": "10", "correct": false },
+      { "text": "1", "percent": "100", "correct": true },
+      { "text": "That number", "percent": "20", "correct": false },
+      { "text": "Infinity", "percent": "30", "correct": false },
+      { "text": "Undefined", "percent": "15", "correct": false },
+      { "text": "Negative", "percent": "25", "correct": false },
+      { "text": "Half", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which tool do you use to draw perfect circles in math?",
+      "What is the name of the tool that draws arcs and circles?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Protractor", "percent": "10", "correct": false },
+      { "text": "Ruler", "percent": "20", "correct": false },
+      { "text": "Compass", "percent": "100", "correct": true },
+      { "text": "Scale", "percent": "30", "correct": false },
+      { "text": "Set square", "percent": "15", "correct": false },
+      { "text": "Pen", "percent": "25", "correct": false },
+      { "text": "Divider", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call the top number in a fraction?",
+      "Which part of a fraction shows how many parts are taken?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Denominator", "percent": "10", "correct": false },
+      { "text": "Divider", "percent": "20", "correct": false },
+      { "text": "Numerator", "percent": "100", "correct": true },
+      { "text": "Exponent", "percent": "30", "correct": false },
+      { "text": "Multiplier", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "25", "correct": false },
+      { "text": "Factor", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which numbers are used for counting things?",
+      "What do we call numbers like 1, 2, 3, and so on?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Fractions", "percent": "10", "correct": false },
+      { "text": "Decimals", "percent": "20", "correct": false },
+      { "text": "Natural numbers", "percent": "100", "correct": true },
+      { "text": "Negative numbers", "percent": "30", "correct": false },
+      { "text": "Irrational numbers", "percent": "15", "correct": false },
+      { "text": "Zeros", "percent": "25", "correct": false },
+      { "text": "Whole numbers", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number is not a fraction or a decimal?",
+      "Which number is whole and has no part or decimal?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Rational number", "percent": "10", "correct": false },
+      { "text": "Negative number", "percent": "20", "correct": false },
+      { "text": "Integer", "percent": "100", "correct": true },
+      { "text": "Decimal", "percent": "30", "correct": false },
+      { "text": "Proportion", "percent": "15", "correct": false },
+      { "text": "Ratio", "percent": "25", "correct": false },
+      { "text": "Mixed number", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does '≥' mean in math?",
+      "Which symbol means 'greater than or equal to'?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "<", "percent": "10", "correct": false },
+      { "text": ">", "percent": "20", "correct": false },
+      { "text": "≥", "percent": "100", "correct": true },
+      { "text": "≤", "percent": "30", "correct": false },
+      { "text": "≠", "percent": "15", "correct": false },
+      { "text": "=", "percent": "25", "correct": false },
+      { "text": "∑", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of the digit 4 in the number 1,432?",
+      "In the number 1,432, what place is the 4 in?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Units", "percent": "10", "correct": false },
+      { "text": "Thousands", "percent": "20", "correct": false },
+      { "text": "Hundreds", "percent": "100", "correct": true },
+      { "text": "Tens", "percent": "30", "correct": false },
+      { "text": "Tenths", "percent": "15", "correct": false },
+      { "text": "Millions", "percent": "25", "correct": false },
+      { "text": "Ones", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number comes right before 100?",
+      "What is one less than one hundred?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "98", "percent": "10", "correct": false },
+      { "text": "97", "percent": "20", "correct": false },
+      { "text": "99", "percent": "100", "correct": true },
+      { "text": "89", "percent": "30", "correct": false },
+      { "text": "90", "percent": "15", "correct": false },
+      { "text": "101", "percent": "25", "correct": false },
+      { "text": "100", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is commonly used to represent nothing?",
+      "What number means the absence of quantity?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "0", "percent": "100", "correct": true },
+      { "text": "Infinity", "percent": "30", "correct": false },
+      { "text": "100", "percent": "15", "correct": false },
+      { "text": "-1", "percent": "25", "correct": false },
+      { "text": "Null", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of multiplying any number by 0?",
+      "What happens when you multiply something by zero?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "It stays the same", "percent": "10", "correct": false },
+      { "text": "It becomes one", "percent": "20", "correct": false },
+      { "text": "It becomes zero", "percent": "100", "correct": true },
+      { "text": "It becomes negative", "percent": "30", "correct": false },
+      { "text": "It doubles", "percent": "15", "correct": false },
+      { "text": "It divides", "percent": "25", "correct": false },
+      { "text": "It reverses", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which unit is used to measure angles?",
+      "What is the standard unit for measuring angles?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Meters", "percent": "10", "correct": false },
+      { "text": "Degrees", "percent": "100", "correct": true },
+      { "text": "Liters", "percent": "20", "correct": false },
+      { "text": "Inches", "percent": "30", "correct": false },
+      { "text": "Seconds", "percent": "15", "correct": false },
+      { "text": "Watts", "percent": "25", "correct": false },
+      { "text": "Celsius", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is known as a dozen?",
+      "What does 'a dozen' mean in numbers?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "10", "percent": "10", "correct": false },
+      { "text": "11", "percent": "20", "correct": false },
+      { "text": "12", "percent": "100", "correct": true },
+      { "text": "13", "percent": "30", "correct": false },
+      { "text": "6", "percent": "15", "correct": false },
+      { "text": "20", "percent": "25", "correct": false },
+      { "text": "100", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does a calculator help you do?",
+      "Which tool do people often use to do math quickly?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Paint", "percent": "10", "correct": false },
+      { "text": "Read", "percent": "20", "correct": false },
+      { "text": "Calculate", "percent": "100", "correct": true },
+      { "text": "Sing", "percent": "30", "correct": false },
+      { "text": "Cook", "percent": "15", "correct": false },
+      { "text": "Type", "percent": "25", "correct": false },
+      { "text": "Translate", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for an equal split into two parts?",
+      "What do we call one part when something is split in half?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Whole", "percent": "10", "correct": false },
+      { "text": "Double", "percent": "20", "correct": false },
+      { "text": "Half", "percent": "100", "correct": true },
+      { "text": "Quarter", "percent": "30", "correct": false },
+      { "text": "Third", "percent": "15", "correct": false },
+      { "text": "Slice", "percent": "25", "correct": false },
+      { "text": "Side", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What symbol is used to show something is not equal?",
+      "Which sign means two values are different?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "=", "percent": "10", "correct": false },
+      { "text": "<", "percent": "20", "correct": false },
+      { "text": "≠", "percent": "100", "correct": true },
+      { "text": ">", "percent": "30", "correct": false },
+      { "text": "≈", "percent": "15", "correct": false },
+      { "text": "÷", "percent": "25", "correct": false },
+      { "text": "+", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a number you multiply by itself called?",
+      "Which word describes 5 × 5, 7 × 7, and so on?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Double", "percent": "10", "correct": false },
+      { "text": "Pair", "percent": "20", "correct": false },
+      { "text": "Square number", "percent": "100", "correct": true },
+      { "text": "Twin", "percent": "30", "correct": false },
+      { "text": "Factor", "percent": "15", "correct": false },
+      { "text": "Inverse", "percent": "25", "correct": false },
+      { "text": "Clone", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does a minus sign mean in math?",
+      "Which operation is used to remove one number from another?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "100", "correct": true },
+      { "text": "Division", "percent": "30", "correct": false },
+      { "text": "Summation", "percent": "15", "correct": false },
+      { "text": "Approximation", "percent": "25", "correct": false },
+      { "text": "Estimation", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which unit is used to measure weight in the metric system?",
+      "What is the basic unit of mass in the metric system?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Liter", "percent": "10", "correct": false },
+      { "text": "Meter", "percent": "20", "correct": false },
+      { "text": "Gram", "percent": "100", "correct": true },
+      { "text": "Second", "percent": "30", "correct": false },
+      { "text": "Degree", "percent": "15", "correct": false },
+      { "text": "Ton", "percent": "25", "correct": false },
+      { "text": "Volt", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is the first odd number?",
+      "What is the smallest positive odd number?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "0", "percent": "10", "correct": false },
+      { "text": "2", "percent": "20", "correct": false },
+      { "text": "1", "percent": "100", "correct": true },
+      { "text": "3", "percent": "30", "correct": false },
+      { "text": "4", "percent": "15", "correct": false },
+      { "text": "10", "percent": "25", "correct": false },
+      { "text": "100", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which of these is an even number?",
+      "Which number can be divided by 2 without a remainder?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "3", "percent": "10", "correct": false },
+      { "text": "7", "percent": "20", "correct": false },
+      { "text": "4", "percent": "100", "correct": true },
+      { "text": "9", "percent": "30", "correct": false },
+      { "text": "11", "percent": "15", "correct": false },
+      { "text": "5", "percent": "25", "correct": false },
+      { "text": "13", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol represents 'greater than'?",
+      "What math sign means one number is larger than another?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "<", "percent": "10", "correct": false },
+      { "text": "=", "percent": "20", "correct": false },
+      { "text": ">", "percent": "100", "correct": true },
+      { "text": "≠", "percent": "30", "correct": false },
+      { "text": "≤", "percent": "15", "correct": false },
+      { "text": "≥", "percent": "25", "correct": false },
+      { "text": "+", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to find a total?",
+      "What process do you use to combine two numbers into a bigger one?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Division", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Addition", "percent": "100", "correct": true },
+      { "text": "Multiplication", "percent": "30", "correct": false },
+      { "text": "Estimation", "percent": "15", "correct": false },
+      { "text": "Comparison", "percent": "25", "correct": false },
+      { "text": "Rounding", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is a multiple of 10?",
+      "What number is part of the 10 times table?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "12", "percent": "10", "correct": false },
+      { "text": "33", "percent": "20", "correct": false },
+      { "text": "40", "percent": "100", "correct": true },
+      { "text": "27", "percent": "30", "correct": false },
+      { "text": "19", "percent": "15", "correct": false },
+      { "text": "35", "percent": "25", "correct": false },
+      { "text": "13", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which of the following is a negative number?",
+      "Which value is less than zero?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "0", "percent": "10", "correct": false },
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "-5", "percent": "100", "correct": true },
+      { "text": "3", "percent": "30", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "20", "percent": "25", "correct": false },
+      { "text": "100", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number comes after 19?",
+      "What is one more than 19?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "18", "percent": "10", "correct": false },
+      { "text": "21", "percent": "20", "correct": false },
+      { "text": "20", "percent": "100", "correct": true },
+      { "text": "17", "percent": "30", "correct": false },
+      { "text": "22", "percent": "15", "correct": false },
+      { "text": "24", "percent": "25", "correct": false },
+      { "text": "100", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which word means a number with a decimal part?",
+      "What kind of number includes digits after a dot?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "Whole number", "percent": "10", "correct": false },
+      { "text": "Integer", "percent": "20", "correct": false },
+      { "text": "Decimal", "percent": "100", "correct": true },
+      { "text": "Fraction", "percent": "30", "correct": false },
+      { "text": "Even number", "percent": "15", "correct": false },
+      { "text": "Multiple", "percent": "25", "correct": false },
+      { "text": "Set", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is a prime number?",
+      "Which number can only be divided by 1 and itself?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "4", "percent": "10", "correct": false },
+      { "text": "6", "percent": "20", "correct": false },
+      { "text": "7", "percent": "100", "correct": true },
+      { "text": "8", "percent": "30", "correct": false },
+      { "text": "9", "percent": "15", "correct": false },
+      { "text": "10", "percent": "25", "correct": false },
+      { "text": "12", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number shows the result of 10 divided by 2?",
+      "What is half of ten?"
+    ],
+    "level": "easy",
+    "options": [
+      { "text": "10", "percent": "10", "correct": false },
+      { "text": "3", "percent": "20", "correct": false },
+      { "text": "5", "percent": "100", "correct": true },
+      { "text": "4", "percent": "30", "correct": false },
+      { "text": "6", "percent": "15", "correct": false },
+      { "text": "8", "percent": "25", "correct": false },
+      { "text": "7", "percent": "40", "correct": false }
+    ]
+  }
+]
