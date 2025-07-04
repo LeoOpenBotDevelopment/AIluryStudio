@@ -1,0 +1,27 @@
+{
+  "easy": [
+    "numbergrid",
+    "addition",
+    "subtraction",
+    "shape",
+    "quiz"
+  ],
+  "medium": [
+    "addition",
+    "subtraction",
+    "multiplication",
+    "chain",
+    "division",
+    "shape",
+    "quiz"
+  ],
+  "hard": [
+    "addition",
+    "subtraction",
+    "multiplication",
+    "chain",
+    "division",
+    "shape",
+    "quiz"
+  ]
+}
