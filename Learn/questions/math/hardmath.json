@@ -1,0 +1,597 @@
+[
+    {
+        "type": "mathMultiop",
+        "text": [
+            "Who is considered the father of geometry?",
+            "Which mathematician is known for writing 'Elements'?"
+        ],
+        "level": "hard",
+        "options": [
+            { "text": "Pythagoras", "percent": "70", "correct": false },
+            { "text": "Archimedes", "percent": "40", "correct": false },
+            { "text": "Newton", "percent": "20", "correct": false },
+            { "text": "Euler", "percent": "15", "correct": false },
+            { "text": "Gauss", "percent": "5", "correct": false },
+            { "text": "Pascal", "percent": "10", "correct": false },
+            { "text": "Euclid", "percent": "100", "correct": true }
+        ]
+    },
+    {
+        "type": "mathMultiop",
+        "text": [
+            "What is the name of the branch of math that studies change over time?",
+            "Which field deals with rates, slopes, and integrals?"
+        ],
+        "level": "hard",
+        "options": [
+            { "text": "Statistics", "percent": "15", "correct": false },
+            { "text": "Algebra", "percent": "60", "correct": false },
+            { "text": "Trigonometry", "percent": "20", "correct": false },
+            { "text": "Number Theory", "percent": "10", "correct": false },
+            { "text": "Geometry", "percent": "5", "correct": false },
+            { "text": "Logic", "percent": "40", "correct": false },
+            { "text": "Calculus", "percent": "100", "correct": true }
+        ]
+    },
+    {
+        "type": "mathMultiop",
+        "text": [
+            "Which famous female mathematician worked on abstract algebra and theoretical physics?",
+            "Who is known for Noether’s theorem in mathematics and physics?"
+        ],
+        "level": "hard",
+        "options": [
+            { "text": "Marie Curie", "percent": "60", "correct": false },
+            { "text": "Hypatia", "percent": "40", "correct": false },
+            { "text": "Sophie Germain", "percent": "15", "correct": false },
+            { "text": "Ada Lovelace", "percent": "20", "correct": false },
+            { "text": "Mary Cartwright", "percent": "5", "correct": false },
+            { "text": "Dorothy Vaughan", "percent": "10", "correct": false },
+            { "text": "Emmy Noether", "percent": "100", "correct": true }
+        ]
+    },
+    {
+        "type": "mathMultiop",
+        "text": [
+            "What does a logarithm measure?",
+            "A logarithm answers which question about a number?"
+        ],
+        "level": "hard",
+        "options": [
+            { "text": "Its average", "percent": "10", "correct": false },
+            { "text": "Its square", "percent": "15", "correct": false },
+            { "text": "How much it rotates", "percent": "5", "correct": false },
+            { "text": "Its growth rate", "percent": "60", "correct": false },
+            { "text": "Its distance from zero", "percent": "20", "correct": false },
+            { "text": "Its integral", "percent": "40", "correct": false },
+            { "text": "The exponent needed to reach it", "percent": "100", "correct": true }
+        ]
+    },
+    {
+        "type": "mathMultiop",
+        "text": [
+            "What is the golden ratio approximately equal to?",
+            "Which number is often represented by the Greek letter φ (phi)?"
+        ],
+        "level": "hard",
+        "options": [
+            { "text": "1.141", "percent": "10", "correct": false },
+            { "text": "2.718", "percent": "60", "correct": false },
+            { "text": "3.141", "percent": "40", "correct": false },
+            { "text": "1.333", "percent": "15", "correct": false },
+            { "text": "1.001", "percent": "5", "correct": false },
+            { "text": "0.618", "percent": "20", "correct": false },
+            { "text": "1.618", "percent": "100", "correct": true }
+        ]
+    },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which branch of mathematics deals with the study of shapes and spaces?",
+      "What is the name of the field that studies properties of space and dimension?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Algebra", "percent": "40", "correct": false },
+      { "text": "Calculus", "percent": "20", "correct": false },
+      { "text": "Statistics", "percent": "15", "correct": false },
+      { "text": "Number Theory", "percent": "5", "correct": false },
+      { "text": "Trigonometry", "percent": "10", "correct": false },
+      { "text": "Combinatorics", "percent": "70", "correct": false },
+      { "text": "Geometry", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Who developed the Cartesian coordinate system?",
+      "Which philosopher is credited with linking algebra and geometry?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Pascal", "percent": "20", "correct": false },
+      { "text": "Euclid", "percent": "10", "correct": false },
+      { "text": "Newton", "percent": "40", "correct": false },
+      { "text": "Pythagoras", "percent": "15", "correct": false },
+      { "text": "Gauss", "percent": "5", "correct": false },
+      { "text": "Archimedes", "percent": "60", "correct": false },
+      { "text": "René Descartes", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does the term 'prime number' refer to?",
+      "What kind of number has exactly two distinct divisors?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Perfect number", "percent": "15", "correct": false },
+      { "text": "Irrational number", "percent": "5", "correct": false },
+      { "text": "Even number", "percent": "10", "correct": false },
+      { "text": "Negative number", "percent": "40", "correct": false },
+      { "text": "Rational number", "percent": "20", "correct": false },
+      { "text": "Square number", "percent": "60", "correct": false },
+      { "text": "Prime number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of pi approximately?",
+      "Which number represents the ratio of a circle’s circumference to its diameter?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "1.414", "percent": "10", "correct": false },
+      { "text": "2.718", "percent": "20", "correct": false },
+      { "text": "3.618", "percent": "40", "correct": false },
+      { "text": "1.732", "percent": "5", "correct": false },
+      { "text": "0.577", "percent": "15", "correct": false },
+      { "text": "4.669", "percent": "60", "correct": false },
+      { "text": "3.141", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a mathematical proof?",
+      "How do mathematicians formally verify that a statement is always true?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "An experiment", "percent": "20", "correct": false },
+      { "text": "A formula", "percent": "10", "correct": false },
+      { "text": "A simulation", "percent": "40", "correct": false },
+      { "text": "A guess", "percent": "5", "correct": false },
+      { "text": "A drawing", "percent": "15", "correct": false },
+      { "text": "A model", "percent": "60", "correct": false },
+      { "text": "A logical argument", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What field studies the likelihood of events?",
+      "Which mathematical field deals with randomness and chance?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Topology", "percent": "10", "correct": false },
+      { "text": "Geometry", "percent": "20", "correct": false },
+      { "text": "Arithmetic", "percent": "40", "correct": false },
+      { "text": "Algebra", "percent": "5", "correct": false },
+      { "text": "Calculus", "percent": "15", "correct": false },
+      { "text": "Combinatorics", "percent": "60", "correct": false },
+      { "text": "Probability", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which branch of math focuses on the structure of equations?",
+      "What area of mathematics involves solving for unknowns?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Geometry", "percent": "20", "correct": false },
+      { "text": "Trigonometry", "percent": "10", "correct": false },
+      { "text": "Statistics", "percent": "40", "correct": false },
+      { "text": "Logic", "percent": "5", "correct": false },
+      { "text": "Topology", "percent": "15", "correct": false },
+      { "text": "Calculus", "percent": "60", "correct": false },
+      { "text": "Algebra", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Who is known as the 'Prince of Mathematicians'?",
+      "Which German mathematician contributed to number theory, statistics, and astronomy?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Leonhard Euler", "percent": "20", "correct": false },
+      { "text": "Blaise Pascal", "percent": "10", "correct": false },
+      { "text": "Isaac Newton", "percent": "40", "correct": false },
+      { "text": "Kurt Gödel", "percent": "5", "correct": false },
+      { "text": "Archimedes", "percent": "15", "correct": false },
+      { "text": "Emmy Noether", "percent": "60", "correct": false },
+      { "text": "Carl Friedrich Gauss", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What type of number has a non-repeating, non-terminating decimal?",
+      "What kind of number cannot be expressed as a simple fraction?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Whole number", "percent": "10", "correct": false },
+      { "text": "Rational number", "percent": "40", "correct": false },
+      { "text": "Natural number", "percent": "20", "correct": false },
+      { "text": "Imaginary number", "percent": "5", "correct": false },
+      { "text": "Complex number", "percent": "15", "correct": false },
+      { "text": "Prime number", "percent": "60", "correct": false },
+      { "text": "Irrational number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol is used for summation?",
+      "What Greek letter represents the sum of a series?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "α (alpha)", "percent": "5", "correct": false },
+      { "text": "β (beta)", "percent": "10", "correct": false },
+      { "text": "π (pi)", "percent": "40", "correct": false },
+      { "text": "γ (gamma)", "percent": "20", "correct": false },
+      { "text": "θ (theta)", "percent": "15", "correct": false },
+      { "text": "λ (lambda)", "percent": "60", "correct": false },
+      { "text": "Σ (sigma)", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of the unsolved hypothesis related to the zeros of the zeta function?",
+      "Which famous unsolved problem in mathematics concerns the distribution of prime numbers?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Goldbach Conjecture", "percent": "40", "correct": false },
+      { "text": "Navier–Stokes Equation", "percent": "10", "correct": false },
+      { "text": "Collatz Conjecture", "percent": "20", "correct": false },
+      { "text": "Birch and Swinnerton-Dyer Conjecture", "percent": "15", "correct": false },
+      { "text": "Hodge Conjecture", "percent": "5", "correct": false },
+      { "text": "Langlands Program", "percent": "60", "correct": false },
+      { "text": "Riemann Hypothesis", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the branch of mathematics that generalizes arithmetic using symbols and rules?",
+      "Which area of math studies operations and their properties abstractly?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Calculus", "percent": "20", "correct": false },
+      { "text": "Trigonometry", "percent": "10", "correct": false },
+      { "text": "Number Theory", "percent": "40", "correct": false },
+      { "text": "Topology", "percent": "5", "correct": false },
+      { "text": "Statistics", "percent": "60", "correct": false },
+      { "text": "Logic", "percent": "15", "correct": false },
+      { "text": "Abstract Algebra", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which function grows faster than any polynomial but slower than exponential?",
+      "What kind of function is the logarithm in terms of growth rate?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Linear function", "percent": "20", "correct": false },
+      { "text": "Quadratic function", "percent": "10", "correct": false },
+      { "text": "Exponential function", "percent": "40", "correct": false },
+      { "text": "Cubic function", "percent": "15", "correct": false },
+      { "text": "Trigonometric function", "percent": "5", "correct": false },
+      { "text": "Polynomial function", "percent": "60", "correct": false },
+      { "text": "Logarithmic function", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which matrix property is used to determine if a system has a unique solution?",
+      "What is the name of a scalar value that summarizes a matrix's scaling factor?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Trace", "percent": "40", "correct": false },
+      { "text": "Rank", "percent": "10", "correct": false },
+      { "text": "Norm", "percent": "5", "correct": false },
+      { "text": "Eigenvalue", "percent": "60", "correct": false },
+      { "text": "Transpose", "percent": "20", "correct": false },
+      { "text": "Minor", "percent": "15", "correct": false },
+      { "text": "Determinant", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of the Euler–Mascheroni constant approximately?",
+      "Which constant appears in analysis and number theory with value ~0.577?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "e", "percent": "40", "correct": false },
+      { "text": "pi", "percent": "10", "correct": false },
+      { "text": "phi", "percent": "20", "correct": false },
+      { "text": "gamma function", "percent": "5", "correct": false },
+      { "text": "theta constant", "percent": "15", "correct": false },
+      { "text": "zeta value", "percent": "60", "correct": false },
+      { "text": "γ (gamma)", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which function is its own derivative?",
+      "What function remains unchanged when differentiated?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "ln(x)", "percent": "10", "correct": false },
+      { "text": "x^2", "percent": "40", "correct": false },
+      { "text": "sin(x)", "percent": "5", "correct": false },
+      { "text": "1/x", "percent": "15", "correct": false },
+      { "text": "tan(x)", "percent": "20", "correct": false },
+      { "text": "log(x)", "percent": "60", "correct": false },
+      { "text": "e^x", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What theorem guarantees that a continuous function has an intermediate value?",
+      "Which theorem states that f(a) and f(b) having opposite signs means a root exists between them?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Fundamental Theorem of Calculus", "percent": "20", "correct": false },
+      { "text": "Mean Value Theorem", "percent": "10", "correct": false },
+      { "text": "Rolle’s Theorem", "percent": "15", "correct": false },
+      { "text": "L’Hôpital’s Rule", "percent": "5", "correct": false },
+      { "text": "Bolzano–Weierstrass Theorem", "percent": "40", "correct": false },
+      { "text": "Taylor's Theorem", "percent": "60", "correct": false },
+      { "text": "Intermediate Value Theorem", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which mathematician developed the incompleteness theorems?",
+      "Who proved that some truths in arithmetic are unprovable?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Alan Turing", "percent": "10", "correct": false },
+      { "text": "Bertrand Russell", "percent": "20", "correct": false },
+      { "text": "David Hilbert", "percent": "40", "correct": false },
+      { "text": "Emmy Noether", "percent": "5", "correct": false },
+      { "text": "Georg Cantor", "percent": "15", "correct": false },
+      { "text": "John von Neumann", "percent": "60", "correct": false },
+      { "text": "Kurt Gödel", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which branch of mathematics involves topological spaces?",
+      "What field studies properties preserved under continuous deformations?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Geometry", "percent": "10", "correct": false },
+      { "text": "Combinatorics", "percent": "40", "correct": false },
+      { "text": "Algebra", "percent": "15", "correct": false },
+      { "text": "Probability", "percent": "5", "correct": false },
+      { "text": "Number Theory", "percent": "20", "correct": false },
+      { "text": "Set Theory", "percent": "60", "correct": false },
+      { "text": "Topology", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the dimension of the null space called?",
+      "Which term refers to the number of free variables in a homogeneous system?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Rank", "percent": "10", "correct": false },
+      { "text": "Trace", "percent": "15", "correct": false },
+      { "text": "Norm", "percent": "5", "correct": false },
+      { "text": "Order", "percent": "40", "correct": false },
+      { "text": "Degree", "percent": "20", "correct": false },
+      { "text": "Span", "percent": "60", "correct": false },
+      { "text": "Nullity", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which concept describes the size of an infinite set?",
+      "What term is used to compare the cardinality of infinite sets?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Limit", "percent": "10", "correct": false },
+      { "text": "Dimension", "percent": "20", "correct": false },
+      { "text": "Power", "percent": "40", "correct": false },
+      { "text": "Degree", "percent": "5", "correct": false },
+      { "text": "Multiplicity", "percent": "15", "correct": false },
+      { "text": "Measure", "percent": "60", "correct": false },
+      { "text": "Cardinality", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which mathematical structure includes vectors and scalar multiplication?",
+      "What system satisfies axioms of addition and scalar multiplication?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Matrix group", "percent": "10", "correct": false },
+      { "text": "Linear system", "percent": "20", "correct": false },
+      { "text": "Ring", "percent": "40", "correct": false },
+      { "text": "Tensor space", "percent": "5", "correct": false },
+      { "text": "Affine space", "percent": "15", "correct": false },
+      { "text": "Subgroup", "percent": "60", "correct": false },
+      { "text": "Vector space", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the derivative of ln(x)?",
+      "Which function has 1/x as its derivative?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "x", "percent": "10", "correct": false },
+      { "text": "e^x", "percent": "20", "correct": false },
+      { "text": "ln(x)", "percent": "40", "correct": false },
+      { "text": "x^2", "percent": "5", "correct": false },
+      { "text": "√x", "percent": "15", "correct": false },
+      { "text": "tan(x)", "percent": "60", "correct": false },
+      { "text": "1/x", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is both imaginary and the square root of -1?",
+      "What is the standard imaginary unit in complex numbers?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "j", "percent": "10", "correct": false },
+      { "text": "-1", "percent": "20", "correct": false },
+      { "text": "√2", "percent": "40", "correct": false },
+      { "text": "πi", "percent": "5", "correct": false },
+      { "text": "e", "percent": "15", "correct": false },
+      { "text": "√(-2)", "percent": "60", "correct": false },
+      { "text": "i", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which mathematical concept defines the rate of change?",
+      "What is the name of the function that measures instantaneous change?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Integral", "percent": "10", "correct": false },
+      { "text": "Limit", "percent": "20", "correct": false },
+      { "text": "Area under curve", "percent": "40", "correct": false },
+      { "text": "Difference quotient", "percent": "5", "correct": false },
+      { "text": "Sequence", "percent": "15", "correct": false },
+      { "text": "Gradient", "percent": "60", "correct": false },
+      { "text": "Derivative", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number appears in Euler’s identity e^(iπ) + 1 = 0?",
+      "What constant is the base of the natural logarithm?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "π", "percent": "10", "correct": false },
+      { "text": "i", "percent": "20", "correct": false },
+      { "text": "γ", "percent": "40", "correct": false },
+      { "text": "φ", "percent": "5", "correct": false },
+      { "text": "θ", "percent": "15", "correct": false },
+      { "text": "ln(2)", "percent": "60", "correct": false },
+      { "text": "e", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which type of series has terms approaching zero but still diverges?",
+      "What is a common example of a divergent infinite series?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Harmonic series", "percent": "100", "correct": true },
+      { "text": "Geometric series", "percent": "10", "correct": false },
+      { "text": "Taylor series", "percent": "20", "correct": false },
+      { "text": "Power series", "percent": "40", "correct": false },
+      { "text": "Fourier series", "percent": "5", "correct": false },
+      { "text": "Convergent series", "percent": "15", "correct": false },
+      { "text": "Maclaurin series", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which branch of mathematics is concerned with the size and structure of sets?",
+      "What area deals with unions, intersections, and complements?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Group theory", "percent": "10", "correct": false },
+      { "text": "Linear algebra", "percent": "20", "correct": false },
+      { "text": "Graph theory", "percent": "40", "correct": false },
+      { "text": "Topology", "percent": "5", "correct": false },
+      { "text": "Calculus", "percent": "15", "correct": false },
+      { "text": "Logic", "percent": "60", "correct": false },
+      { "text": "Set theory", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which mathematician introduced the symbol ∞ for infinity?",
+      "Who was the first to use ∞ as a mathematical concept?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Isaac Newton", "percent": "10", "correct": false },
+      { "text": "Gottfried Leibniz", "percent": "20", "correct": false },
+      { "text": "Leonhard Euler", "percent": "40", "correct": false },
+      { "text": "Archimedes", "percent": "5", "correct": false },
+      { "text": "Georg Cantor", "percent": "15", "correct": false },
+      { "text": "Kurt Gödel", "percent": "60", "correct": false },
+      { "text": "John Wallis", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which formula relates complex numbers and trigonometry?",
+      "What identity states that e^(ix) = cos(x) + i·sin(x)?"
+    ],
+    "level": "hard",
+    "options": [
+      { "text": "Euler’s product formula", "percent": "10", "correct": false },
+      { "text": "Fourier transform", "percent": "20", "correct": false },
+      { "text": "Taylor expansion", "percent": "40", "correct": false },
+      { "text": "Cauchy’s theorem", "percent": "5", "correct": false },
+      { "text": "Gauss' law", "percent": "15", "correct": false },
+      { "text": "Binomial theorem", "percent": "60", "correct": false },
+      { "text": "Euler’s formula", "percent": "100", "correct": true }
+    ]
+  }
+]
