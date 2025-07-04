@@ -1,0 +1,17 @@
+[
+    {
+        "text": "geography",
+        "file": "geography.json",
+        "img": "/src/map.png"
+    },
+    {
+        "text": "math",
+        "file": "math.json",
+        "img": "/src/math.png"
+    },
+    {
+        "text": "time",
+        "file": null,
+        "img": "/src/time.png"
+    }
+]
