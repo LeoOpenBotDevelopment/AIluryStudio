@@ -1,0 +1,623 @@
+[
+  {
+    "type": "shapemultiop",
+    "name": "squarebasedpyramid",
+    "text": [
+      "What 3D shape has a square base and four triangular sides?",
+      "Which geometric solid has five faces: one square and four triangles?",
+      "What is the name of the pyramid shape with a square base?",
+      "Which 3D figure looks like the Great Pyramid of Giza?",
+      "What shape has one vertex at the top and a square at the bottom?",
+      "What do you call a pyramid with a square base?",
+      "Which shape has 8 edges, 5 faces, and 5 vertices?",
+      "What 3D object has 4 triangle faces meeting at a point above a square?",
+      "Which shape is commonly used to model ancient Egyptian pyramids?",
+      "What solid figure has a square bottom and triangular sides?",
+      "Name the shape that has a square base and comes to a point at the top.",
+      "What is the 3D version of a triangle-based pyramid but with a square bottom?",
+      "What shape has one base and all other faces are triangles?",
+      "Which polyhedron has one square face and four triangular ones?",
+      "What shape do you get when connecting each corner of a square to a single point above it?",
+      "What’s the name of the 3D figure with a square base and apex?",
+      "What shape has a square face and four congruent triangle faces?",
+      "What geometric solid has only one square face?",
+      "Which 3D shape has 5 faces and 5 vertices?",
+      "What do you call a pyramid where all sides except the base are triangles?",
+      "What shape is formed by connecting the vertices of a square to a single point above it?",
+      "Which shape has a flat square base and tapers to a point?",
+      "What solid has a base that is a square and lateral faces that are triangles?",
+      "Which object can be described as having a pointy top and a square bottom?",
+      "What is the 3D shape that consists of a square base and triangular sides meeting at one point?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "65",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "70",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "40",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "30",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "cylinder",
+    "text": [
+      "What 3D shape has two parallel circular bases and a curved surface connecting them?",
+      "What shape is commonly used for cans and pipes due to its uniform round profile?",
+      "Which geometric solid has a height and radius, and is defined by a circular base?",
+      "What is the name of a solid formed by rotating a rectangle around one of its sides?",
+      "Which shape is used in engines to house pistons that move up and down?",
+      "What is the term for a tube-like 3D object with constant circular cross-section?",
+      "Which 3D figure is part of the definition of a right circular solid with no vertices?",
+      "What do we call a solid with two identical, parallel circles connected by a curved face?",
+      "Which shape describes the form of most modern batteries like AA or AAA?",
+      "What geometric shape is often used to model gas tanks and silos?",
+      "What is the name of a 3D shape used in volume calculations with π, radius, and height?",
+      "Which object in geometry has a lateral surface area calculated as 2πrh?",
+      "What do we call the shape formed by stacking many identical circular discs?",
+      "What shape is created by extruding a circle straight upward in space?",
+      "Which 3D form has no corners or edges, just two flat faces and one curved face?",
+      "What shape best describes a roll of coins or a soup can?",
+      "What geometric solid is commonly used to represent columns in architecture?",
+      "What shape would you get if you revolve a circle around a central axis?",
+      "Which 3D object is often used to teach surface area using two circles and a rectangle?",
+      "What is the simplest shape that a soda can represents in 3D geometry?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "40",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "75",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "cone",
+    "text": [
+      "What 3D shape has a circular base and tapers to a single point?",
+      "Which solid is formed by rotating a right triangle around one of its legs?",
+      "What shape describes an ice cream holder in geometry terms?",
+      "Which geometric figure has one face and one vertex?",
+      "What do you call a megaphone-shaped 3D object in geometry?",
+      "What shape is used to model traffic cones?",
+      "Which solid has one curved surface and one flat surface?",
+      "What is the name of the shape often used in party hats?",
+      "Which figure has a radius, height, and a slant height?",
+      "What 3D object is used in geometry to demonstrate volume using 1/3 πr²h?",
+      "What shape is formed by slicing a circular sector and joining the straight edges?",
+      "What do you call the geometric solid that ends in a single apex?",
+      "Which shape best describes the top of a wizard’s hat?",
+      "What 3D figure has a lateral surface that forms a triangle when unwrapped?",
+      "Which shape appears when you rotate a triangle around one of its shorter sides?",
+      "What geometric term describes the object used in waffle ice cream cones?",
+      "What is the name of a 3D figure with exactly one edge and one vertex?",
+      "Which solid has a net consisting of a circle and a sector?",
+      "What shape is commonly used in funnels for pouring?",
+      "What is the name of the object that looks like a pointed mountain with a circular base?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "75",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "40",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "55",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "15",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "70",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "triangularprism",
+    "text": [
+      "What 3D shape has two parallel triangular faces and three rectangular faces?",
+      "Which solid has a triangle as its base and extends in depth?",
+      "What do you call a prism with a triangle as its cross-section?",
+      "Which geometric shape looks like a tent with two triangular ends?",
+      "What solid has five faces, including two triangles and three rectangles?",
+      "What shape is formed by extruding a triangle in the third dimension?",
+      "Which shape has nine edges, six vertices, and five faces?",
+      "Which solid has two congruent and parallel triangular faces?",
+      "What 3D shape can be created by connecting corresponding vertices of two triangles?",
+      "What shape do you get when you slice through a triangular loaf of bread?",
+      "Which prism has a triangle as its base?",
+      "Which solid has a uniform cross-section shaped like a triangle?",
+      "Which shape can be formed by folding a net with two triangles and three rectangles?",
+      "What is the name of the 3D figure often used in roof trusses or bridges?",
+      "Which solid has a triangle at the front and back, and rectangles as sides?",
+      "Which 3D object is the result of translating a triangle along a straight path?",
+      "What shape can you get by stretching a triangle through space?",
+      "Which prism is commonly used to model wedge-shaped objects?",
+      "What shape has flat faces and straight edges, all meeting at right angles except for the triangular ends?",
+      "What do you call a prism that does not have rectangular bases?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "75",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "55",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "40",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "cuboid",
+    "text": [
+      "What 3D shape has 6 rectangular faces, 12 edges, and 8 vertices?",
+      "Which shape resembles a box with right angles and flat surfaces?",
+      "What solid geometric figure has all faces as rectangles?",
+      "Which 3D object is also called a rectangular prism?",
+      "What shape results from extruding a rectangle in 3D space?",
+      "Which shape has opposite faces that are equal and parallel, and all angles are 90 degrees?",
+      "What is the name of the 3D shape that looks like a brick?",
+      "Which solid shape can be described by width, height, and depth and has rectangular sides?",
+      "What shape is formed by connecting six rectangles in a closed form?",
+      "Which object is commonly used to represent rooms, boxes, and books in geometry problems?",
+      "What 3D shape has the same top and bottom face and perpendicular side faces?",
+      "What do you call a box-shaped object in mathematics?",
+      "Which shape has the same cross-section along its length and all faces are flat?",
+      "What is the name of a solid figure with all right angles and rectangular faces?",
+      "Which 3D shape is the standard representation of a volume in building architecture?",
+      "What is a shape with rectangular faces and right angles known as?",
+      "What shape do you get when you extrude a rectangle vertically?",
+      "Which geometric solid is often used to calculate volume and surface area in school?",
+      "What solid has a length, width, and height — all different but forms right angles?",
+      "What 3D figure is a common shape for shipping containers and books?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "45",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "15",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "40",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "75",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "cube",
+    "text": [
+      "What 3D shape has six equal square faces?",
+      "Which geometric solid has 12 edges, 6 faces, and 8 vertices?",
+      "What shape is formed by stacking equal squares along three dimensions?",
+      "Which solid has all sides equal and every angle a right angle?",
+      "What is the result when you raise a number to the power of three, also known as cubing?",
+      "What object is often used in board games and has six numbered faces?",
+      "Which shape has a volume formula of side³?",
+      "What is the name of a regular hexahedron?",
+      "What shape can fit perfectly into another of its kind when rotated 90 degrees on any axis?",
+      "What common dice shape is used in most tabletop games?",
+      "What 3D shape is made of six identical squares?",
+      "Which solid has three pairs of parallel, congruent square faces?",
+      "Which object is often used to teach volume and surface area in math class?",
+      "What shape does a standard Rubik's puzzle have?",
+      "What is the name of the shape formed when a square is extruded along its perpendicular axis?",
+      "What solid object is used in geometry to represent a unit of volume?",
+      "Which 3D object is symmetric along all three spatial axes?",
+      "What solid shape resembles a block of cheese with equal sides?",
+      "What shape appears in the name of a common unit for sugar and ice?",
+      "Which 3D shape is the simplest example of a Platonic solid?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "45",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "15",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "75",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "40",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "tetrahedron",
+    "text": [
+      "What is the name of the polyhedron with four triangular faces?",
+      "Which Platonic solid has the fewest faces?",
+      "Which 3D shape has four faces, six edges, and four vertices?",
+      "What solid has all its faces as equilateral triangles?",
+      "What shape do you get by connecting four non-coplanar points with edges?",
+      "Which geometric solid resembles a three-sided pyramid with a triangular base?",
+      "Which polyhedron is the simplest and has the least number of faces?",
+      "Which shape is used to represent a D4 die in tabletop games?",
+      "What solid has all faces congruent and is self-dual?",
+      "What is the only Platonic solid made entirely of triangles without any square faces?",
+      "Which solid has rotational symmetry and 6 equal edges?",
+      "What solid do you get when you slice a triangular pyramid evenly?",
+      "What 3D object has equal angles and sides and is used in molecular geometry models?",
+      "Which shape is used in chemistry to describe the geometry of methane (CH₄)?",
+      "What is the 3D shape equivalent to a triangle in 2D?",
+      "Which polyhedron can fit inside a cube such that its vertices touch 4 of the cube's corners?",
+      "What 3D shape can be formed from a net of 4 equilateral triangles?",
+      "What geometric object is used to describe a pyramid with a triangular base?",
+      "Which solid is often used to demonstrate basic properties of polyhedra?",
+      "Which Platonic solid has the highest surface-area-to-volume ratio?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "75",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "60",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "65",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "25",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Incorrect",
+        "percent": "15",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "shapemultiop",
+    "name": "sphere",
+    "text": [
+      "Which 3D shape has no edges or vertices and is perfectly round?",
+      "What shape is used to model planets and balls?",
+      "Which solid has the same distance from its center to any point on its surface?",
+      "What object results from rotating a circle around its diameter?",
+      "Which geometric shape has the greatest volume for a given surface area?",
+      "What shape describes the Earth approximately?",
+      "Which 3D object has infinite lines of symmetry through its center?",
+      "What shape is used in physics to represent idealized particles without edges?",
+      "Which object is the most symmetric 3D shape?",
+      "What is the shape of a perfect bubble?",
+      "Which 3D figure has a single curved surface and no flat faces?",
+      "What is the geometric term for the shape of a basketball?",
+      "Which shape is formed when all points are equidistant from a central point in 3D space?",
+      "What 3D shape has the smallest possible surface area for a given volume?",
+      "Which shape is used in geometry to define a perfect round object?",
+      "What is the shape of a marble or a droplet in zero gravity?",
+      "Which object has no corners, edges, or faces but is a solid?",
+      "What shape is commonly used in computer graphics for modeling eyes or heads?",
+      "What 3D object can be described using a center and a radius alone?",
+      "Which shape is used in navigation and astronomy to describe celestial bodies?"
+    ],
+    "level": "middle",
+    "options": [
+      {
+        "text": "square-based pyramid",
+        "result": "Incorrect",
+        "percent": "20",
+        "correct": false
+      },
+      {
+        "text": "triangular prism",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "cone",
+        "result": "Incorrect",
+        "percent": "45",
+        "correct": false
+      },
+      {
+        "text": "cuboid",
+        "result": "Incorrect",
+        "percent": "10",
+        "correct": false
+      },
+      {
+        "text": "tetrahedron",
+        "result": "Incorrect",
+        "percent": "30",
+        "correct": false
+      },
+      {
+        "text": "cube",
+        "result": "Incorrect",
+        "percent": "55",
+        "correct": false
+      },
+      {
+        "text": "cylinder",
+        "result": "Incorrect",
+        "percent": "70",
+        "correct": false
+      },
+      {
+        "text": "sphere",
+        "result": "Correct",
+        "percent": "100",
+        "correct": true
+      }
+    ]
+  }
+]
