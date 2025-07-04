@@ -1,0 +1,2722 @@
+[
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has exactly four equal sides and four right angles?",
+      "What do you call a quadrilateral with all sides equal and all angles 90 degrees?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Rhombus", "percent": "20", "correct": false },
+      { "text": "Trapezoid", "percent": "10", "correct": false },
+      { "text": "Rectangle", "percent": "40", "correct": false },
+      { "text": "Parallelogram", "percent": "5", "correct": false },
+      { "text": "Circle", "percent": "15", "correct": false },
+      { "text": "Pentagon", "percent": "60", "correct": false },
+      { "text": "Square", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What’s the result of multiplying any number by zero?",
+      "What is always the product of a number times zero?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "The number itself", "percent": "20", "correct": false },
+      { "text": "One", "percent": "10", "correct": false },
+      { "text": "Negative one", "percent": "40", "correct": false },
+      { "text": "Infinity", "percent": "5", "correct": false },
+      { "text": "Undefined", "percent": "15", "correct": false },
+      { "text": "Depends on the number", "percent": "60", "correct": false },
+      { "text": "Zero", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the top number of a fraction called?",
+      "In a fraction, what is the name of the number above the line?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Base", "percent": "20", "correct": false },
+      { "text": "Root", "percent": "10", "correct": false },
+      { "text": "Denominator", "percent": "40", "correct": false },
+      { "text": "Multiplier", "percent": "5", "correct": false },
+      { "text": "Dividend", "percent": "15", "correct": false },
+      { "text": "Divider", "percent": "60", "correct": false },
+      { "text": "Numerator", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol means 'greater than or equal to'?",
+      "How do you write that a number is more than or equal to another?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "<", "percent": "20", "correct": false },
+      { "text": ">", "percent": "10", "correct": false },
+      { "text": "=", "percent": "40", "correct": false },
+      { "text": "<=", "percent": "5", "correct": false },
+      { "text": "!=", "percent": "15", "correct": false },
+      { "text": "≈", "percent": "60", "correct": false },
+      { "text": ">=", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has no edges or corners?",
+      "What geometric figure is perfectly round and smooth?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Cube", "percent": "20", "correct": false },
+      { "text": "Pyramid", "percent": "10", "correct": false },
+      { "text": "Cylinder", "percent": "40", "correct": false },
+      { "text": "Cone", "percent": "5", "correct": false },
+      { "text": "Torus", "percent": "15", "correct": false },
+      { "text": "Triangle", "percent": "60", "correct": false },
+      { "text": "Sphere", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is 10 squared?",
+      "What is the value of 10 to the power of 2?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "20", "percent": "20", "correct": false },
+      { "text": "12", "percent": "10", "correct": false },
+      { "text": "1000", "percent": "40", "correct": false },
+      { "text": "200", "percent": "5", "correct": false },
+      { "text": "22", "percent": "15", "correct": false },
+      { "text": "110", "percent": "60", "correct": false },
+      { "text": "100", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a triangle with three equal sides called?",
+      "Which type of triangle has all sides the same length?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Scalene triangle", "percent": "20", "correct": false },
+      { "text": "Isosceles triangle", "percent": "10", "correct": false },
+      { "text": "Right triangle", "percent": "40", "correct": false },
+      { "text": "Obtuse triangle", "percent": "5", "correct": false },
+      { "text": "Acute triangle", "percent": "15", "correct": false },
+      { "text": "Equiangular triangle", "percent": "60", "correct": false },
+      { "text": "Equilateral triangle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is known as the additive identity?",
+      "What number can be added to anything without changing it?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "-1", "percent": "10", "correct": false },
+      { "text": "2", "percent": "40", "correct": false },
+      { "text": "Infinity", "percent": "5", "correct": false },
+      { "text": "0.5", "percent": "15", "correct": false },
+      { "text": "10", "percent": "60", "correct": false },
+      { "text": "0", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which of the following is a prime number?",
+      "Which number has exactly two distinct positive divisors?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "4", "percent": "10", "correct": false },
+      { "text": "9", "percent": "40", "correct": false },
+      { "text": "15", "percent": "5", "correct": false },
+      { "text": "21", "percent": "15", "correct": false },
+      { "text": "27", "percent": "60", "correct": false },
+      { "text": "13", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of the expression: (3 + 2) × 4?",
+      "How much is five times four when the five is inside parentheses with a plus?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "12", "percent": "20", "correct": false },
+      { "text": "14", "percent": "10", "correct": false },
+      { "text": "16", "percent": "40", "correct": false },
+      { "text": "20", "percent": "100", "correct": true },
+      { "text": "22", "percent": "5", "correct": false },
+      { "text": "24", "percent": "15", "correct": false },
+      { "text": "25", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of any number divided by 1?",
+      "What do you get when dividing a number by one?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Zero", "percent": "20", "correct": false },
+      { "text": "One", "percent": "10", "correct": false },
+      { "text": "Infinity", "percent": "40", "correct": false },
+      { "text": "Undefined", "percent": "5", "correct": false },
+      { "text": "Double the number", "percent": "15", "correct": false },
+      { "text": "Half the number", "percent": "60", "correct": false },
+      { "text": "The number itself", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the total angle sum in a triangle?",
+      "How many degrees are in the interior angles of any triangle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "180°", "percent": "100", "correct": true },
+      { "text": "360°", "percent": "10", "correct": false },
+      { "text": "90°", "percent": "20", "correct": false },
+      { "text": "120°", "percent": "40", "correct": false },
+      { "text": "270°", "percent": "5", "correct": false },
+      { "text": "150°", "percent": "15", "correct": false },
+      { "text": "100°", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What type of number has no fractional or decimal part?",
+      "Which kind of number is whole and not a fraction?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Rational number", "percent": "20", "correct": false },
+      { "text": "Decimal number", "percent": "10", "correct": false },
+      { "text": "Imaginary number", "percent": "40", "correct": false },
+      { "text": "Fraction", "percent": "5", "correct": false },
+      { "text": "Real number", "percent": "15", "correct": false },
+      { "text": "Irrational number", "percent": "60", "correct": false },
+      { "text": "Integer", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation should you perform first in an expression?",
+      "According to the order of operations, what comes first?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Addition", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "10", "correct": false },
+      { "text": "Multiplication", "percent": "40", "correct": false },
+      { "text": "Division", "percent": "5", "correct": false },
+      { "text": "Left to right", "percent": "15", "correct": false },
+      { "text": "Simplify everything", "percent": "60", "correct": false },
+      { "text": "Parentheses", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which unit is used to measure angles?",
+      "What is the standard unit for measuring angle size?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Radians", "percent": "20", "correct": false },
+      { "text": "Meters", "percent": "10", "correct": false },
+      { "text": "Seconds", "percent": "40", "correct": false },
+      { "text": "Grams", "percent": "5", "correct": false },
+      { "text": "Degrees Celsius", "percent": "15", "correct": false },
+      { "text": "Liters", "percent": "60", "correct": false },
+      { "text": "Degrees", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a polygon with six sides?",
+      "Which shape has exactly six edges and six angles?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Pentagon", "percent": "20", "correct": false },
+      { "text": "Heptagon", "percent": "10", "correct": false },
+      { "text": "Octagon", "percent": "40", "correct": false },
+      { "text": "Quadrilateral", "percent": "5", "correct": false },
+      { "text": "Trapezoid", "percent": "15", "correct": false },
+      { "text": "Rhombus", "percent": "60", "correct": false },
+      { "text": "Hexagon", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of subtracting a number from itself?",
+      "If you take away a number from the same number, what remains?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "One", "percent": "20", "correct": false },
+      { "text": "The number", "percent": "10", "correct": false },
+      { "text": "Negative number", "percent": "40", "correct": false },
+      { "text": "Undefined", "percent": "5", "correct": false },
+      { "text": "Infinity", "percent": "15", "correct": false },
+      { "text": "Two", "percent": "60", "correct": false },
+      { "text": "Zero", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the perimeter of a square with sides of 5 units?",
+      "If each side of a square is 5, what is the total length around it?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "15", "percent": "10", "correct": false },
+      { "text": "20", "percent": "100", "correct": true },
+      { "text": "25", "percent": "5", "correct": false },
+      { "text": "30", "percent": "15", "correct": false },
+      { "text": "50", "percent": "40", "correct": false },
+      { "text": "100", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which property states that a × b = b × a?",
+      "What is the name of the rule where the order of multiplication doesn’t matter?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Distributive", "percent": "20", "correct": false },
+      { "text": "Associative", "percent": "10", "correct": false },
+      { "text": "Additive identity", "percent": "40", "correct": false },
+      { "text": "Substitution", "percent": "5", "correct": false },
+      { "text": "Inverse", "percent": "15", "correct": false },
+      { "text": "Cancellation", "percent": "60", "correct": false },
+      { "text": "Commutative", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What’s the opposite of multiplication?",
+      "Which operation is the inverse of multiplying?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Addition", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "10", "correct": false },
+      { "text": "Squaring", "percent": "40", "correct": false },
+      { "text": "Rooting", "percent": "5", "correct": false },
+      { "text": "Expanding", "percent": "15", "correct": false },
+      { "text": "Fractioning", "percent": "60", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the next number in the sequence: 2, 4, 6, 8, ...?",
+      "Which number comes after 8 in this even number pattern?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "10", "percent": "100", "correct": true },
+      { "text": "11", "percent": "20", "correct": false },
+      { "text": "9", "percent": "10", "correct": false },
+      { "text": "12", "percent": "5", "correct": false },
+      { "text": "14", "percent": "15", "correct": false },
+      { "text": "7", "percent": "40", "correct": false },
+      { "text": "16", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol means 'not equal'?",
+      "How do you show two values are different?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "=", "percent": "20", "correct": false },
+      { "text": "<>", "percent": "10", "correct": false },
+      { "text": "<", "percent": "40", "correct": false },
+      { "text": "≠", "percent": "100", "correct": true },
+      { "text": "≈", "percent": "15", "correct": false },
+      { "text": ">", "percent": "5", "correct": false },
+      { "text": "∼", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "How many centimeters are in a meter?",
+      "What is the metric conversion from meters to centimeters?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "50", "percent": "10", "correct": false },
+      { "text": "500", "percent": "40", "correct": false },
+      { "text": "100", "percent": "100", "correct": true },
+      { "text": "1000", "percent": "15", "correct": false },
+      { "text": "25", "percent": "5", "correct": false },
+      { "text": "1", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is ¼ expressed as a decimal?",
+      "How do you write one-fourth as a number with a decimal point?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0.2", "percent": "20", "correct": false },
+      { "text": "0.5", "percent": "10", "correct": false },
+      { "text": "0.4", "percent": "40", "correct": false },
+      { "text": "0.25", "percent": "100", "correct": true },
+      { "text": "0.75", "percent": "15", "correct": false },
+      { "text": "1.25", "percent": "5", "correct": false },
+      { "text": "0.1", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is the square root of 49?",
+      "What is the value that when squared equals 49?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "5", "percent": "20", "correct": false },
+      { "text": "6", "percent": "10", "correct": false },
+      { "text": "8", "percent": "40", "correct": false },
+      { "text": "9", "percent": "5", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "12", "percent": "60", "correct": false },
+      { "text": "7", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call a line that divides a shape into two equal parts?",
+      "Which line creates symmetry in a figure?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Tangent", "percent": "20", "correct": false },
+      { "text": "Chord", "percent": "10", "correct": false },
+      { "text": "Diameter", "percent": "40", "correct": false },
+      { "text": "Hypotenuse", "percent": "5", "correct": false },
+      { "text": "Parallel line", "percent": "15", "correct": false },
+      { "text": "Vertical", "percent": "60", "correct": false },
+      { "text": "Line of symmetry", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number represents a dozen?",
+      "How many units are in a typical dozen?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "11", "percent": "10", "correct": false },
+      { "text": "13", "percent": "40", "correct": false },
+      { "text": "14", "percent": "5", "correct": false },
+      { "text": "15", "percent": "15", "correct": false },
+      { "text": "16", "percent": "60", "correct": false },
+      { "text": "12", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the shape of a stop sign in most countries?",
+      "Which polygon has 8 equal sides and 8 angles?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Hexagon", "percent": "20", "correct": false },
+      { "text": "Circle", "percent": "10", "correct": false },
+      { "text": "Square", "percent": "40", "correct": false },
+      { "text": "Heptagon", "percent": "5", "correct": false },
+      { "text": "Decagon", "percent": "15", "correct": false },
+      { "text": "Rectangle", "percent": "60", "correct": false },
+      { "text": "Octagon", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the area of a rectangle with length 4 and width 3?",
+      "How many square units in a rectangle 4 units by 3 units?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "7", "percent": "20", "correct": false },
+      { "text": "12", "percent": "100", "correct": true },
+      { "text": "8", "percent": "10", "correct": false },
+      { "text": "10", "percent": "5", "correct": false },
+      { "text": "14", "percent": "15", "correct": false },
+      { "text": "9", "percent": "40", "correct": false },
+      { "text": "16", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of the digit 7 in the number 472?",
+      "In the number 472, what place is the digit 7 in?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Ones place", "percent": "20", "correct": false },
+      { "text": "Hundreds place", "percent": "10", "correct": false },
+      { "text": "Tens place", "percent": "100", "correct": true },
+      { "text": "Thousands place", "percent": "5", "correct": false },
+      { "text": "Decimal place", "percent": "15", "correct": false },
+      { "text": "Tenths place", "percent": "40", "correct": false },
+      { "text": "Units place", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the perimeter of a triangle with sides 3, 4, and 5?",
+      "If a triangle has side lengths 3, 4, and 5, what is the total around it?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "9", "percent": "20", "correct": false },
+      { "text": "10", "percent": "10", "correct": false },
+      { "text": "11", "percent": "5", "correct": false },
+      { "text": "13", "percent": "15", "correct": false },
+      { "text": "14", "percent": "60", "correct": false },
+      { "text": "15", "percent": "100", "correct": true },
+      { "text": "12", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of 3 cubed (3³)?",
+      "How much is three raised to the power of 3?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "6", "percent": "20", "correct": false },
+      { "text": "9", "percent": "10", "correct": false },
+      { "text": "12", "percent": "5", "correct": false },
+      { "text": "18", "percent": "15", "correct": false },
+      { "text": "21", "percent": "60", "correct": false },
+      { "text": "27", "percent": "100", "correct": true },
+      { "text": "36", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which value is the smallest prime number?",
+      "What is the first prime number greater than 1?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "2", "percent": "100", "correct": true },
+      { "text": "3", "percent": "40", "correct": false },
+      { "text": "5", "percent": "5", "correct": false },
+      { "text": "7", "percent": "60", "correct": false },
+      { "text": "11", "percent": "15", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a number that can be divided evenly only by 1 and itself?",
+      "Which type of number has exactly two distinct positive divisors?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Composite number", "percent": "20", "correct": false },
+      { "text": "Even number", "percent": "10", "correct": false },
+      { "text": "Integer", "percent": "5", "correct": false },
+      { "text": "Natural number", "percent": "15", "correct": false },
+      { "text": "Rational number", "percent": "60", "correct": false },
+      { "text": "Whole number", "percent": "40", "correct": false },
+      { "text": "Prime number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is the opposite of squaring a number?",
+      "What do we call the process of finding the number that was squared?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Cubing", "percent": "20", "correct": false },
+      { "text": "Multiplying", "percent": "10", "correct": false },
+      { "text": "Adding", "percent": "40", "correct": false },
+      { "text": "Factoring", "percent": "5", "correct": false },
+      { "text": "Dividing", "percent": "15", "correct": false },
+      { "text": "Exponentiation", "percent": "60", "correct": false },
+      { "text": "Square root", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which side of a right triangle is always the longest?",
+      "What is the name of the longest side opposite the right angle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Base", "percent": "20", "correct": false },
+      { "text": "Leg", "percent": "10", "correct": false },
+      { "text": "Height", "percent": "40", "correct": false },
+      { "text": "Altitude", "percent": "5", "correct": false },
+      { "text": "Radius", "percent": "15", "correct": false },
+      { "text": "Side", "percent": "60", "correct": false },
+      { "text": "Hypotenuse", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is exactly halfway between 10 and 20?",
+      "What is the average of 10 and 20?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "12", "percent": "20", "correct": false },
+      { "text": "14", "percent": "10", "correct": false },
+      { "text": "15", "percent": "100", "correct": true },
+      { "text": "16", "percent": "5", "correct": false },
+      { "text": "17", "percent": "15", "correct": false },
+      { "text": "18", "percent": "60", "correct": false },
+      { "text": "19", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which of the following is a multiple of 7?",
+      "Which number can be divided evenly by 7?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "20", "percent": "20", "correct": false },
+      { "text": "22", "percent": "10", "correct": false },
+      { "text": "25", "percent": "40", "correct": false },
+      { "text": "28", "percent": "100", "correct": true },
+      { "text": "30", "percent": "5", "correct": false },
+      { "text": "32", "percent": "15", "correct": false },
+      { "text": "35", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the smallest 2-digit number?",
+      "Which number is the lowest that still has two digits?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "9", "percent": "40", "correct": false },
+      { "text": "11", "percent": "5", "correct": false },
+      { "text": "12", "percent": "15", "correct": false },
+      { "text": "99", "percent": "60", "correct": false },
+      { "text": "10", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to find the difference between two values?",
+      "What do we call the math process of comparing two numbers by removing one from the other?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Division", "percent": "40", "correct": false },
+      { "text": "Rounding", "percent": "5", "correct": false },
+      { "text": "Squaring", "percent": "15", "correct": false },
+      { "text": "Summation", "percent": "60", "correct": false },
+      { "text": "Subtraction", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result when you divide 100 by 10?",
+      "How much is 100 split evenly into 10 parts?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "5", "percent": "10", "correct": false },
+      { "text": "15", "percent": "40", "correct": false },
+      { "text": "1000", "percent": "5", "correct": false },
+      { "text": "20", "percent": "15", "correct": false },
+      { "text": "50", "percent": "60", "correct": false },
+      { "text": "10", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which property tells us that a + (b + c) = (a + b) + c?",
+      "What is the rule that allows us to regroup numbers when adding?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Commutative property", "percent": "20", "correct": false },
+      { "text": "Distributive property", "percent": "10", "correct": false },
+      { "text": "Multiplicative identity", "percent": "40", "correct": false },
+      { "text": "Inverse property", "percent": "5", "correct": false },
+      { "text": "Additive identity", "percent": "15", "correct": false },
+      { "text": "Associative property", "percent": "100", "correct": true },
+      { "text": "Equality rule", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "How many degrees are in a right angle?",
+      "What is the angle measure of a perfect L-shape?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "360°", "percent": "20", "correct": false },
+      { "text": "180°", "percent": "10", "correct": false },
+      { "text": "120°", "percent": "40", "correct": false },
+      { "text": "60°", "percent": "5", "correct": false },
+      { "text": "150°", "percent": "15", "correct": false },
+      { "text": "45°", "percent": "60", "correct": false },
+      { "text": "90°", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has only one curved surface and one flat circular base?",
+      "What solid figure looks like an ice cream cone?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Cylinder", "percent": "20", "correct": false },
+      { "text": "Sphere", "percent": "10", "correct": false },
+      { "text": "Pyramid", "percent": "40", "correct": false },
+      { "text": "Cube", "percent": "5", "correct": false },
+      { "text": "Hemisphere", "percent": "15", "correct": false },
+      { "text": "Rectangular prism", "percent": "60", "correct": false },
+      { "text": "Cone", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which term describes the distance around a circle?",
+      "What do we call the total length of a circle's edge?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Area", "percent": "20", "correct": false },
+      { "text": "Radius", "percent": "10", "correct": false },
+      { "text": "Diameter", "percent": "40", "correct": false },
+      { "text": "Arc", "percent": "5", "correct": false },
+      { "text": "Chord", "percent": "15", "correct": false },
+      { "text": "Sector", "percent": "60", "correct": false },
+      { "text": "Circumference", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the decimal equivalent of ½?",
+      "How is one-half written as a decimal?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0.2", "percent": "20", "correct": false },
+      { "text": "0.3", "percent": "10", "correct": false },
+      { "text": "0.75", "percent": "40", "correct": false },
+      { "text": "0.8", "percent": "5", "correct": false },
+      { "text": "1.5", "percent": "15", "correct": false },
+      { "text": "1.0", "percent": "60", "correct": false },
+      { "text": "0.5", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the answer to a multiplication problem?",
+      "What is the result called when you multiply two numbers?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Quotient", "percent": "20", "correct": false },
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Factor", "percent": "40", "correct": false },
+      { "text": "Difference", "percent": "5", "correct": false },
+      { "text": "Dividend", "percent": "15", "correct": false },
+      { "text": "Average", "percent": "60", "correct": false },
+      { "text": "Product", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of adding two negative numbers?",
+      "If you add -5 and -3, what type of number do you get?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Positive number", "percent": "20", "correct": false },
+      { "text": "Zero", "percent": "10", "correct": false },
+      { "text": "Fraction", "percent": "40", "correct": false },
+      { "text": "Irrational number", "percent": "5", "correct": false },
+      { "text": "Whole number", "percent": "15", "correct": false },
+      { "text": "Even number", "percent": "60", "correct": false },
+      { "text": "Negative number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "How many faces does a cube have?",
+      "What is the total number of flat surfaces on a cube?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "4", "percent": "20", "correct": false },
+      { "text": "5", "percent": "10", "correct": false },
+      { "text": "8", "percent": "40", "correct": false },
+      { "text": "10", "percent": "5", "correct": false },
+      { "text": "7", "percent": "15", "correct": false },
+      { "text": "3", "percent": "60", "correct": false },
+      { "text": "6", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a result of subtraction?",
+      "What do you call the outcome when one number is subtracted from another?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Product", "percent": "20", "correct": false },
+      { "text": "Quotient", "percent": "10", "correct": false },
+      { "text": "Remainder", "percent": "40", "correct": false },
+      { "text": "Base", "percent": "5", "correct": false },
+      { "text": "Sum", "percent": "15", "correct": false },
+      { "text": "Mean", "percent": "60", "correct": false },
+      { "text": "Difference", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name for the number that indicates position in a sequence?",
+      "Which term describes the place of a number in an ordered list?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Variable", "percent": "20", "correct": false },
+      { "text": "Numerator", "percent": "10", "correct": false },
+      { "text": "Constant", "percent": "40", "correct": false },
+      { "text": "Base", "percent": "5", "correct": false },
+      { "text": "Denominator", "percent": "15", "correct": false },
+      { "text": "Multiplier", "percent": "60", "correct": false },
+      { "text": "Ordinal number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol is used to indicate an approximate value?",
+      "How do you show that a number is not exact but close?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "=", "percent": "20", "correct": false },
+      { "text": "<", "percent": "10", "correct": false },
+      { "text": ">", "percent": "40", "correct": false },
+      { "text": "≠", "percent": "5", "correct": false },
+      { "text": "÷", "percent": "15", "correct": false },
+      { "text": "∫", "percent": "60", "correct": false },
+      { "text": "≈", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which of the following numbers is an odd number?",
+      "Which one cannot be divided by 2 without a remainder?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "12", "percent": "20", "correct": false },
+      { "text": "8", "percent": "10", "correct": false },
+      { "text": "20", "percent": "40", "correct": false },
+      { "text": "18", "percent": "5", "correct": false },
+      { "text": "4", "percent": "15", "correct": false },
+      { "text": "16", "percent": "60", "correct": false },
+      { "text": "13", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is used to combine equal groups?",
+      "What is the process of repeated addition called?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Subtraction", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "10", "correct": false },
+      { "text": "Rounding", "percent": "40", "correct": false },
+      { "text": "Averaging", "percent": "5", "correct": false },
+      { "text": "Simplifying", "percent": "15", "correct": false },
+      { "text": "Factoring", "percent": "60", "correct": false },
+      { "text": "Multiplication", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call numbers like 10, 100, and 1,000?",
+      "Which numbers increase by powers of ten?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Odd numbers", "percent": "20", "correct": false },
+      { "text": "Composite numbers", "percent": "10", "correct": false },
+      { "text": "Irrational numbers", "percent": "40", "correct": false },
+      { "text": "Prime numbers", "percent": "5", "correct": false },
+      { "text": "Decimal numbers", "percent": "15", "correct": false },
+      { "text": "Natural numbers", "percent": "60", "correct": false },
+      { "text": "Powers of ten", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which part of a fraction is on top?",
+      "What is the name of the upper number in a fraction?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Denominator", "percent": "20", "correct": false },
+      { "text": "Whole number", "percent": "10", "correct": false },
+      { "text": "Exponent", "percent": "40", "correct": false },
+      { "text": "Root", "percent": "5", "correct": false },
+      { "text": "Factor", "percent": "15", "correct": false },
+      { "text": "Ratio", "percent": "60", "correct": false },
+      { "text": "Numerator", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number system uses only 0 and 1?",
+      "What is the name of the number system used in computers?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Decimal", "percent": "20", "correct": false },
+      { "text": "Hexadecimal", "percent": "10", "correct": false },
+      { "text": "Octal", "percent": "40", "correct": false },
+      { "text": "Roman", "percent": "5", "correct": false },
+      { "text": "Duodecimal", "percent": "15", "correct": false },
+      { "text": "Ternary", "percent": "60", "correct": false },
+      { "text": "Binary", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name of a polygon with five sides?",
+      "Which shape has five angles and five straight edges?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Hexagon", "percent": "20", "correct": false },
+      { "text": "Octagon", "percent": "10", "correct": false },
+      { "text": "Quadrilateral", "percent": "40", "correct": false },
+      { "text": "Triangle", "percent": "5", "correct": false },
+      { "text": "Nonagon", "percent": "15", "correct": false },
+      { "text": "Decagon", "percent": "60", "correct": false },
+      { "text": "Pentagon", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of triangle has all sides the same length?",
+      "Which triangle has three equal angles and three equal sides?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Right triangle", "percent": "20", "correct": false },
+      { "text": "Isosceles triangle", "percent": "10", "correct": false },
+      { "text": "Scalene triangle", "percent": "40", "correct": false },
+      { "text": "Acute triangle", "percent": "5", "correct": false },
+      { "text": "Obtuse triangle", "percent": "15", "correct": false },
+      { "text": "Reflex triangle", "percent": "60", "correct": false },
+      { "text": "Equilateral triangle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for numbers that are multiplied together to get a product?",
+      "Which numbers are used in multiplication to produce a result?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Quotients", "percent": "20", "correct": false },
+      { "text": "Divisors", "percent": "10", "correct": false },
+      { "text": "Numerators", "percent": "40", "correct": false },
+      { "text": "Terms", "percent": "5", "correct": false },
+      { "text": "Differences", "percent": "15", "correct": false },
+      { "text": "Addends", "percent": "60", "correct": false },
+      { "text": "Factors", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a number that divides another number exactly?",
+      "Which term describes a number that fits evenly into another?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Factor", "percent": "100", "correct": true },
+      { "text": "Dividend", "percent": "20", "correct": false },
+      { "text": "Multiple", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "40", "correct": false },
+      { "text": "Quotient", "percent": "5", "correct": false },
+      { "text": "Product", "percent": "15", "correct": false },
+      { "text": "Base", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is both even and a prime number?",
+      "What is the only even prime number?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "3", "percent": "20", "correct": false },
+      { "text": "5", "percent": "10", "correct": false },
+      { "text": "7", "percent": "40", "correct": false },
+      { "text": "9", "percent": "5", "correct": false },
+      { "text": "1", "percent": "15", "correct": false },
+      { "text": "11", "percent": "60", "correct": false },
+      { "text": "2", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What type of angle measures less than 90 degrees?",
+      "Which angle is smaller than a right angle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Right angle", "percent": "20", "correct": false },
+      { "text": "Obtuse angle", "percent": "10", "correct": false },
+      { "text": "Straight angle", "percent": "40", "correct": false },
+      { "text": "Reflex angle", "percent": "5", "correct": false },
+      { "text": "Flat angle", "percent": "15", "correct": false },
+      { "text": "Supplementary angle", "percent": "60", "correct": false },
+      { "text": "Acute angle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a triangle with no equal sides?",
+      "Which triangle has all sides of different lengths?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Isosceles", "percent": "20", "correct": false },
+      { "text": "Equilateral", "percent": "10", "correct": false },
+      { "text": "Right triangle", "percent": "40", "correct": false },
+      { "text": "Obtuse triangle", "percent": "5", "correct": false },
+      { "text": "Acute triangle", "percent": "15", "correct": false },
+      { "text": "Reflex triangle", "percent": "60", "correct": false },
+      { "text": "Scalene", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is the identity for multiplication?",
+      "What number can you multiply with anything and not change its value?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "-1", "percent": "10", "correct": false },
+      { "text": "2", "percent": "40", "correct": false },
+      { "text": "100", "percent": "5", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "½", "percent": "60", "correct": false },
+      { "text": "1", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the result of a division problem?",
+      "Which term means the answer after dividing one number by another?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Sum", "percent": "20", "correct": false },
+      { "text": "Difference", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "40", "correct": false },
+      { "text": "Remainder", "percent": "5", "correct": false },
+      { "text": "Base", "percent": "15", "correct": false },
+      { "text": "Factor", "percent": "60", "correct": false },
+      { "text": "Quotient", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the distance across a circle through its center?",
+      "Which line passes through the center and touches both sides of a circle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Radius", "percent": "20", "correct": false },
+      { "text": "Chord", "percent": "10", "correct": false },
+      { "text": "Arc", "percent": "40", "correct": false },
+      { "text": "Tangent", "percent": "5", "correct": false },
+      { "text": "Circumference", "percent": "15", "correct": false },
+      { "text": "Diameter", "percent": "100", "correct": true },
+      { "text": "Sector", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which numbers are used to show parts of a whole?",
+      "What do we call a number like ¾ or ½?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Integers", "percent": "20", "correct": false },
+      { "text": "Decimals", "percent": "10", "correct": false },
+      { "text": "Multiples", "percent": "40", "correct": false },
+      { "text": "Whole numbers", "percent": "5", "correct": false },
+      { "text": "Square roots", "percent": "15", "correct": false },
+      { "text": "Fractions", "percent": "100", "correct": true },
+      { "text": "Percents", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number means nothing or the absence of value?",
+      "What number represents an empty amount?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "−1", "percent": "10", "correct": false },
+      { "text": "10", "percent": "40", "correct": false },
+      { "text": "100", "percent": "5", "correct": false },
+      { "text": "0", "percent": "100", "correct": true },
+      { "text": "2", "percent": "15", "correct": false },
+      { "text": "½", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the answer called when you add two numbers together?",
+      "Which term is used for the total of an addition?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Difference", "percent": "20", "correct": false },
+      { "text": "Product", "percent": "10", "correct": false },
+      { "text": "Quotient", "percent": "40", "correct": false },
+      { "text": "Factor", "percent": "5", "correct": false },
+      { "text": "Term", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "100", "correct": true },
+      { "text": "Variable", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which math property states that a × b = b × a?",
+      "What is the rule that allows numbers to switch places when multiplying?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Associative property", "percent": "20", "correct": false },
+      { "text": "Distributive property", "percent": "10", "correct": false },
+      { "text": "Identity property", "percent": "40", "correct": false },
+      { "text": "Inverse property", "percent": "5", "correct": false },
+      { "text": "Additive property", "percent": "15", "correct": false },
+      { "text": "Multiplicative inverse", "percent": "60", "correct": false },
+      { "text": "Commutative property", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call an equation that shows two ratios are equal?",
+      "Which term describes a statement like 1/2 = 2/4?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Fraction", "percent": "20", "correct": false },
+      { "text": "Proportion", "percent": "100", "correct": true },
+      { "text": "Equation", "percent": "10", "correct": false },
+      { "text": "Inequality", "percent": "40", "correct": false },
+      { "text": "Rate", "percent": "5", "correct": false },
+      { "text": "Ratio", "percent": "15", "correct": false },
+      { "text": "Decimal", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name for a part of a circle’s edge?",
+      "Which term refers to a section of the circumference?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Chord", "percent": "20", "correct": false },
+      { "text": "Diameter", "percent": "10", "correct": false },
+      { "text": "Radius", "percent": "40", "correct": false },
+      { "text": "Tangent", "percent": "5", "correct": false },
+      { "text": "Sector", "percent": "15", "correct": false },
+      { "text": "Arc", "percent": "100", "correct": true },
+      { "text": "Center", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What type of number has a decimal that never ends or repeats?",
+      "Which numbers can't be written as simple fractions?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Rational", "percent": "20", "correct": false },
+      { "text": "Integer", "percent": "10", "correct": false },
+      { "text": "Whole number", "percent": "40", "correct": false },
+      { "text": "Natural number", "percent": "5", "correct": false },
+      { "text": "Prime number", "percent": "15", "correct": false },
+      { "text": "Irrational", "percent": "100", "correct": true },
+      { "text": "Even number", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has four equal sides and four right angles?",
+      "What do we call a regular quadrilateral?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Rectangle", "percent": "20", "correct": false },
+      { "text": "Rhombus", "percent": "10", "correct": false },
+      { "text": "Parallelogram", "percent": "40", "correct": false },
+      { "text": "Trapezoid", "percent": "5", "correct": false },
+      { "text": "Hexagon", "percent": "15", "correct": false },
+      { "text": "Square", "percent": "100", "correct": true },
+      { "text": "Oval", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the missing number: 5 + ___ = 12?",
+      "Solve for the number that completes: 5 plus what equals 12?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "6", "percent": "20", "correct": false },
+      { "text": "5", "percent": "10", "correct": false },
+      { "text": "9", "percent": "100", "correct": true },
+      { "text": "8", "percent": "40", "correct": false },
+      { "text": "7", "percent": "5", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "3", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is needed to find how many times one number fits into another?",
+      "What process tells you how many groups of a number are in another number?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Addition", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "40", "correct": false },
+      { "text": "Exponentiation", "percent": "5", "correct": false },
+      { "text": "Rounding", "percent": "15", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true },
+      { "text": "Simplifying", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of raising any number to the power of zero?",
+      "What is x⁰ equal to (x ≠ 0)?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "x", "percent": "10", "correct": false },
+      { "text": "∞", "percent": "40", "correct": false },
+      { "text": "x²", "percent": "5", "correct": false },
+      { "text": "−x", "percent": "15", "correct": false },
+      { "text": "Undefined", "percent": "60", "correct": false },
+      { "text": "1", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What’s the value of π (pi) rounded to two decimal places?",
+      "Which number is used to calculate circle circumference?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "2.14", "percent": "20", "correct": false },
+      { "text": "3.33", "percent": "10", "correct": false },
+      { "text": "3.10", "percent": "40", "correct": false },
+      { "text": "3.50", "percent": "5", "correct": false },
+      { "text": "3.41", "percent": "15", "correct": false },
+      { "text": "3.00", "percent": "60", "correct": false },
+      { "text": "3.14", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call the top point of a triangle or angle?",
+      "What is the name of the point where two lines meet?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Edge", "percent": "20", "correct": false },
+      { "text": "Base", "percent": "10", "correct": false },
+      { "text": "Side", "percent": "40", "correct": false },
+      { "text": "Angle", "percent": "5", "correct": false },
+      { "text": "Segment", "percent": "15", "correct": false },
+      { "text": "Line", "percent": "60", "correct": false },
+      { "text": "Vertex", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number is not a fraction and not a decimal?",
+      "Which number type includes 1, 2, 3, etc. but not 0 or negatives?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Integer", "percent": "20", "correct": false },
+      { "text": "Rational", "percent": "10", "correct": false },
+      { "text": "Irrational", "percent": "40", "correct": false },
+      { "text": "Even number", "percent": "5", "correct": false },
+      { "text": "Whole number", "percent": "15", "correct": false },
+      { "text": "Negative number", "percent": "60", "correct": false },
+      { "text": "Natural number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number multiplied by itself?",
+      "What do we call 4 × 4 or 9 × 9?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Square root", "percent": "20", "correct": false },
+      { "text": "Exponent", "percent": "10", "correct": false },
+      { "text": "Double", "percent": "40", "correct": false },
+      { "text": "Quotient", "percent": "5", "correct": false },
+      { "text": "Product", "percent": "15", "correct": false },
+      { "text": "Cube", "percent": "60", "correct": false },
+      { "text": "Square", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the place value of the 7 in 7,542?",
+      "In the number 7,542, what does the 7 represent?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Tens", "percent": "20", "correct": false },
+      { "text": "Hundreds", "percent": "10", "correct": false },
+      { "text": "Ones", "percent": "40", "correct": false },
+      { "text": "Thousands", "percent": "100", "correct": true },
+      { "text": "Ten thousands", "percent": "5", "correct": false },
+      { "text": "Millions", "percent": "15", "correct": false },
+      { "text": "Hundred thousands", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which term describes the chance of an event happening?",
+      "What word is used in math to describe likelihood?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Statistics", "percent": "20", "correct": false },
+      { "text": "Outcome", "percent": "10", "correct": false },
+      { "text": "Average", "percent": "40", "correct": false },
+      { "text": "Ratio", "percent": "5", "correct": false },
+      { "text": "Graph", "percent": "15", "correct": false },
+      { "text": "Frequency", "percent": "60", "correct": false },
+      { "text": "Probability", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the perimeter of a square with 4cm sides?",
+      "If each side of a square is 4cm, what is the total distance around it?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "12 cm", "percent": "20", "correct": false },
+      { "text": "8 cm", "percent": "10", "correct": false },
+      { "text": "14 cm", "percent": "40", "correct": false },
+      { "text": "10 cm", "percent": "5", "correct": false },
+      { "text": "18 cm", "percent": "15", "correct": false },
+      { "text": "24 cm", "percent": "60", "correct": false },
+      { "text": "16 cm", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the smallest prime number?",
+      "Which number is the first in the list of prime numbers?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "3", "percent": "40", "correct": false },
+      { "text": "4", "percent": "5", "correct": false },
+      { "text": "6", "percent": "15", "correct": false },
+      { "text": "9", "percent": "60", "correct": false },
+      { "text": "2", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for the average of a group of numbers?",
+      "What do you calculate by adding all numbers and dividing by how many there are?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Mode", "percent": "20", "correct": false },
+      { "text": "Median", "percent": "10", "correct": false },
+      { "text": "Range", "percent": "40", "correct": false },
+      { "text": "Sum", "percent": "5", "correct": false },
+      { "text": "Total", "percent": "15", "correct": false },
+      { "text": "Frequency", "percent": "60", "correct": false },
+      { "text": "Mean", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What shape has only one face, no edges, and no vertices?",
+      "Which solid figure is completely round like a ball?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Cube", "percent": "20", "correct": false },
+      { "text": "Cylinder", "percent": "10", "correct": false },
+      { "text": "Cone", "percent": "40", "correct": false },
+      { "text": "Pyramid", "percent": "5", "correct": false },
+      { "text": "Torus", "percent": "15", "correct": false },
+      { "text": "Hemisphere", "percent": "60", "correct": false },
+      { "text": "Sphere", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which unit is used to measure angles?",
+      "How do we express the size of an angle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Meters", "percent": "20", "correct": false },
+      { "text": "Seconds", "percent": "10", "correct": false },
+      { "text": "Radians", "percent": "40", "correct": false },
+      { "text": "Kilograms", "percent": "5", "correct": false },
+      { "text": "Inches", "percent": "15", "correct": false },
+      { "text": "Liters", "percent": "60", "correct": false },
+      { "text": "Degrees", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for numbers that are multiplied together in an expression like 3x?",
+      "What is the number 3 called in the expression 3x?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Variable", "percent": "20", "correct": false },
+      { "text": "Term", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "40", "correct": false },
+      { "text": "Product", "percent": "5", "correct": false },
+      { "text": "Quotient", "percent": "15", "correct": false },
+      { "text": "Constant", "percent": "60", "correct": false },
+      { "text": "Coefficient", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the longest side of a right triangle?",
+      "Which side is opposite the right angle in a right triangle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Adjacent", "percent": "20", "correct": false },
+      { "text": "Base", "percent": "10", "correct": false },
+      { "text": "Altitude", "percent": "40", "correct": false },
+      { "text": "Opposite", "percent": "5", "correct": false },
+      { "text": "Radius", "percent": "15", "correct": false },
+      { "text": "Diagonal", "percent": "60", "correct": false },
+      { "text": "Hypotenuse", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for a number that appears most often in a set?",
+      "Which value occurs most frequently in a data set?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Median", "percent": "20", "correct": false },
+      { "text": "Mean", "percent": "10", "correct": false },
+      { "text": "Range", "percent": "40", "correct": false },
+      { "text": "Maximum", "percent": "5", "correct": false },
+      { "text": "Average", "percent": "15", "correct": false },
+      { "text": "Variance", "percent": "60", "correct": false },
+      { "text": "Mode", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has no straight lines and one continuous curved edge?",
+      "What shape is round and 2D?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Triangle", "percent": "20", "correct": false },
+      { "text": "Square", "percent": "10", "correct": false },
+      { "text": "Rectangle", "percent": "40", "correct": false },
+      { "text": "Ellipse", "percent": "5", "correct": false },
+      { "text": "Octagon", "percent": "15", "correct": false },
+      { "text": "Cylinder", "percent": "60", "correct": false },
+      { "text": "Circle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol shows inequality?",
+      "What sign means one value is not equal to another?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "=", "percent": "20", "correct": false },
+      { "text": "+", "percent": "10", "correct": false },
+      { "text": "-", "percent": "40", "correct": false },
+      { "text": "×", "percent": "5", "correct": false },
+      { "text": "≈", "percent": "15", "correct": false },
+      { "text": ">", "percent": "60", "correct": false },
+      { "text": "≠", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the term for the number that is raised to a power?",
+      "In 3⁴, what is the 3 called?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Exponent", "percent": "20", "correct": false },
+      { "text": "Product", "percent": "10", "correct": false },
+      { "text": "Power", "percent": "40", "correct": false },
+      { "text": "Quotient", "percent": "5", "correct": false },
+      { "text": "Root", "percent": "15", "correct": false },
+      { "text": "Sum", "percent": "60", "correct": false },
+      { "text": "Base", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is 10% of 200?",
+      "How much is 10 percent of 200?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "30", "percent": "20", "correct": false },
+      { "text": "25", "percent": "10", "correct": false },
+      { "text": "15", "percent": "40", "correct": false },
+      { "text": "10", "percent": "5", "correct": false },
+      { "text": "50", "percent": "15", "correct": false },
+      { "text": "5", "percent": "60", "correct": false },
+      { "text": "20", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is a multiple of both 3 and 4?",
+      "What number can be divided evenly by both 3 and 4?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "9", "percent": "20", "correct": false },
+      { "text": "10", "percent": "10", "correct": false },
+      { "text": "8", "percent": "40", "correct": false },
+      { "text": "6", "percent": "5", "correct": false },
+      { "text": "12", "percent": "100", "correct": true },
+      { "text": "15", "percent": "15", "correct": false },
+      { "text": "18", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of triangle has one angle that is exactly 90 degrees?",
+      "Which triangle includes a right angle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Acute triangle", "percent": "20", "correct": false },
+      { "text": "Scalene triangle", "percent": "10", "correct": false },
+      { "text": "Equilateral triangle", "percent": "40", "correct": false },
+      { "text": "Obtuse triangle", "percent": "5", "correct": false },
+      { "text": "Isosceles triangle", "percent": "15", "correct": false },
+      { "text": "Oblique triangle", "percent": "60", "correct": false },
+      { "text": "Right triangle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation reverses addition?",
+      "What do you use to undo an addition?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Multiplication", "percent": "20", "correct": false },
+      { "text": "Division", "percent": "10", "correct": false },
+      { "text": "Exponents", "percent": "40", "correct": false },
+      { "text": "Factoring", "percent": "5", "correct": false },
+      { "text": "Simplifying", "percent": "15", "correct": false },
+      { "text": "Rounding", "percent": "60", "correct": false },
+      { "text": "Subtraction", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What does a line of symmetry do to a shape?",
+      "Which line divides a shape into two mirror-image halves?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Measures angles", "percent": "20", "correct": false },
+      { "text": "Calculates area", "percent": "10", "correct": false },
+      { "text": "Draws diagonals", "percent": "40", "correct": false },
+      { "text": "Rotates shape", "percent": "5", "correct": false },
+      { "text": "Divides into thirds", "percent": "15", "correct": false },
+      { "text": "Splits in two unequal parts", "percent": "60", "correct": false },
+      { "text": "Creates symmetry", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which part of a fraction is the top number?",
+      "In the fraction ¾, what is the 3 called?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Denominator", "percent": "20", "correct": false },
+      { "text": "Whole number", "percent": "10", "correct": false },
+      { "text": "Divisor", "percent": "40", "correct": false },
+      { "text": "Base", "percent": "5", "correct": false },
+      { "text": "Quotient", "percent": "15", "correct": false },
+      { "text": "Decimal", "percent": "60", "correct": false },
+      { "text": "Numerator", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of the expression 2 × (3 + 4)?",
+      "Apply the order of operations to solve: 2 × (3 + 4)"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "14", "percent": "20", "correct": false },
+      { "text": "9", "percent": "10", "correct": false },
+      { "text": "10", "percent": "40", "correct": false },
+      { "text": "16", "percent": "5", "correct": false },
+      { "text": "11", "percent": "15", "correct": false },
+      { "text": "21", "percent": "60", "correct": false },
+      { "text": "14", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the sum of the interior angles of a triangle?",
+      "How many degrees are in all three angles of a triangle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "180", "percent": "100", "correct": true },
+      { "text": "90", "percent": "10", "correct": false },
+      { "text": "360", "percent": "40", "correct": false },
+      { "text": "270", "percent": "5", "correct": false },
+      { "text": "120", "percent": "15", "correct": false },
+      { "text": "150", "percent": "60", "correct": false },
+      { "text": "100", "percent": "20", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What shape has exactly five sides?",
+      "Which polygon is made of five straight edges?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Hexagon", "percent": "20", "correct": false },
+      { "text": "Triangle", "percent": "10", "correct": false },
+      { "text": "Square", "percent": "40", "correct": false },
+      { "text": "Circle", "percent": "5", "correct": false },
+      { "text": "Octagon", "percent": "15", "correct": false },
+      { "text": "Quadrilateral", "percent": "60", "correct": false },
+      { "text": "Pentagon", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which property is this: (a + b) + c = a + (b + c)?",
+      "What property allows us to regroup numbers when adding?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Distributive property", "percent": "20", "correct": false },
+      { "text": "Commutative property", "percent": "10", "correct": false },
+      { "text": "Inverse property", "percent": "40", "correct": false },
+      { "text": "Multiplicative property", "percent": "5", "correct": false },
+      { "text": "Identity property", "percent": "15", "correct": false },
+      { "text": "Associative property", "percent": "100", "correct": true },
+      { "text": "Additive inverse", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is 3 cubed (3³)?",
+      "Solve the expression: 3 × 3 × 3"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "6", "percent": "20", "correct": false },
+      { "text": "9", "percent": "10", "correct": false },
+      { "text": "12", "percent": "40", "correct": false },
+      { "text": "18", "percent": "5", "correct": false },
+      { "text": "24", "percent": "15", "correct": false },
+      { "text": "30", "percent": "60", "correct": false },
+      { "text": "27", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a variable in an equation?",
+      "Which part of an equation represents an unknown value?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Number", "percent": "20", "correct": false },
+      { "text": "Solution", "percent": "10", "correct": false },
+      { "text": "Sum", "percent": "40", "correct": false },
+      { "text": "Function", "percent": "5", "correct": false },
+      { "text": "Coefficient", "percent": "15", "correct": false },
+      { "text": "Exponent", "percent": "60", "correct": false },
+      { "text": "Variable", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the opposite of multiplying?",
+      "Which operation undoes multiplication?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Addition", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "10", "correct": false },
+      { "text": "Exponentiation", "percent": "40", "correct": false },
+      { "text": "Squaring", "percent": "5", "correct": false },
+      { "text": "Factoring", "percent": "15", "correct": false },
+      { "text": "Multiplying again", "percent": "60", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which math operation is used to find area of a rectangle?",
+      "To get area from length and width, what operation is used?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Addition", "percent": "20", "correct": false },
+      { "text": "Subtraction", "percent": "10", "correct": false },
+      { "text": "Division", "percent": "40", "correct": false },
+      { "text": "Averaging", "percent": "5", "correct": false },
+      { "text": "Exponentiation", "percent": "15", "correct": false },
+      { "text": "Square root", "percent": "60", "correct": false },
+      { "text": "Multiplication", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a pattern that repeats in numbers or shapes?",
+      "Which term means a regularly repeating arrangement?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Ratio", "percent": "20", "correct": false },
+      { "text": "Sum", "percent": "10", "correct": false },
+      { "text": "Product", "percent": "40", "correct": false },
+      { "text": "Angle", "percent": "5", "correct": false },
+      { "text": "Variable", "percent": "15", "correct": false },
+      { "text": "Transformation", "percent": "60", "correct": false },
+      { "text": "Pattern", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the distance around a circle called?",
+      "Which term refers to the outer boundary length of a circle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Diameter", "percent": "20", "correct": false },
+      { "text": "Radius", "percent": "10", "correct": false },
+      { "text": "Area", "percent": "40", "correct": false },
+      { "text": "Arc", "percent": "5", "correct": false },
+      { "text": "Sector", "percent": "15", "correct": false },
+      { "text": "Chord", "percent": "60", "correct": false },
+      { "text": "Circumference", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which property shows how multiplication distributes over addition?",
+      "What is a × (b + c) = ab + ac an example of?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Commutative property", "percent": "20", "correct": false },
+      { "text": "Associative property", "percent": "10", "correct": false },
+      { "text": "Inverse property", "percent": "40", "correct": false },
+      { "text": "Identity property", "percent": "5", "correct": false },
+      { "text": "Multiplicative identity", "percent": "15", "correct": false },
+      { "text": "Additive inverse", "percent": "60", "correct": false },
+      { "text": "Distributive property", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of subtracting a number from itself?",
+      "What is x - x always equal to?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "x", "percent": "20", "correct": false },
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "x²", "percent": "40", "correct": false },
+      { "text": "Undefined", "percent": "5", "correct": false },
+      { "text": "x + x", "percent": "15", "correct": false },
+      { "text": "2x", "percent": "60", "correct": false },
+      { "text": "0", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which tool is used to measure angles?",
+      "What instrument is shaped like a half-circle and measures degrees?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Ruler", "percent": "20", "correct": false },
+      { "text": "Compass", "percent": "10", "correct": false },
+      { "text": "Caliper", "percent": "40", "correct": false },
+      { "text": "Set square", "percent": "5", "correct": false },
+      { "text": "Level", "percent": "15", "correct": false },
+      { "text": "Meter stick", "percent": "60", "correct": false },
+      { "text": "Protractor", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is the identity element for multiplication?",
+      "What number keeps another number the same when multiplied?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "2", "percent": "10", "correct": false },
+      { "text": "−1", "percent": "40", "correct": false },
+      { "text": "Infinity", "percent": "5", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "100", "percent": "60", "correct": false },
+      { "text": "1", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is a number called that only has two positive divisors: 1 and itself?",
+      "Which type of number can't be divided evenly by anything but 1 and itself?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Even number", "percent": "20", "correct": false },
+      { "text": "Square number", "percent": "10", "correct": false },
+      { "text": "Perfect number", "percent": "40", "correct": false },
+      { "text": "Factor", "percent": "5", "correct": false },
+      { "text": "Composite number", "percent": "15", "correct": false },
+      { "text": "Rational number", "percent": "60", "correct": false },
+      { "text": "Prime number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which type of angle is greater than 90° but less than 180°?",
+      "What do we call angles between a right and a straight angle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Acute angle", "percent": "20", "correct": false },
+      { "text": "Right angle", "percent": "10", "correct": false },
+      { "text": "Straight angle", "percent": "40", "correct": false },
+      { "text": "Reflex angle", "percent": "5", "correct": false },
+      { "text": "Vertical angle", "percent": "15", "correct": false },
+      { "text": "Complementary angle", "percent": "60", "correct": false },
+      { "text": "Obtuse angle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What’s the perimeter of a rectangle with sides 6cm and 4cm?",
+      "If a rectangle has length 6 and width 4, what is the total distance around it?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "20 cm", "percent": "100", "correct": true },
+      { "text": "24 cm", "percent": "10", "correct": false },
+      { "text": "18 cm", "percent": "40", "correct": false },
+      { "text": "16 cm", "percent": "5", "correct": false },
+      { "text": "14 cm", "percent": "15", "correct": false },
+      { "text": "12 cm", "percent": "60", "correct": false },
+      { "text": "10 cm", "percent": "20", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol means 'greater than or equal to'?",
+      "What sign is used when values are greater than or possibly equal?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "<", "percent": "20", "correct": false },
+      { "text": ">", "percent": "10", "correct": false },
+      { "text": "=", "percent": "40", "correct": false },
+      { "text": "≠", "percent": "5", "correct": false },
+      { "text": "≈", "percent": "15", "correct": false },
+      { "text": "≤", "percent": "60", "correct": false },
+      { "text": "≥", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What type of graph uses bars to show quantities?",
+      "Which visual tool uses rectangular bars to compare numbers?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Pie chart", "percent": "20", "correct": false },
+      { "text": "Line graph", "percent": "10", "correct": false },
+      { "text": "Scatter plot", "percent": "40", "correct": false },
+      { "text": "Histogram", "percent": "5", "correct": false },
+      { "text": "Box plot", "percent": "15", "correct": false },
+      { "text": "Number line", "percent": "60", "correct": false },
+      { "text": "Bar graph", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call a polygon with six sides?",
+      "Which shape has exactly six straight edges?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Pentagon", "percent": "20", "correct": false },
+      { "text": "Octagon", "percent": "10", "correct": false },
+      { "text": "Quadrilateral", "percent": "40", "correct": false },
+      { "text": "Triangle", "percent": "5", "correct": false },
+      { "text": "Heptagon", "percent": "15", "correct": false },
+      { "text": "Nonagon", "percent": "60", "correct": false },
+      { "text": "Hexagon", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is both a square and a cube?",
+      "What number is 2² and also 2³?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "4", "percent": "20", "correct": false },
+      { "text": "8", "percent": "10", "correct": false },
+      { "text": "16", "percent": "40", "correct": false },
+      { "text": "27", "percent": "5", "correct": false },
+      { "text": "9", "percent": "15", "correct": false },
+      { "text": "1", "percent": "60", "correct": false },
+      { "text": "64", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which coordinate comes first in an ordered pair (x, y)?",
+      "In the pair (3, 5), what does 3 represent?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Y-axis", "percent": "20", "correct": false },
+      { "text": "Slope", "percent": "10", "correct": false },
+      { "text": "Quadrant", "percent": "40", "correct": false },
+      { "text": "Z-coordinate", "percent": "5", "correct": false },
+      { "text": "Distance", "percent": "15", "correct": false },
+      { "text": "Intercept", "percent": "60", "correct": false },
+      { "text": "X-coordinate", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the average of the numbers 2, 4, and 6?",
+      "Find the mean of 2, 4, 6"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "5", "percent": "100", "correct": true },
+      { "text": "4", "percent": "10", "correct": false },
+      { "text": "6", "percent": "40", "correct": false },
+      { "text": "3", "percent": "5", "correct": false },
+      { "text": "2", "percent": "15", "correct": false },
+      { "text": "7", "percent": "60", "correct": false },
+      { "text": "8", "percent": "20", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the square root of 49?",
+      "Which number times itself gives 49?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "5", "percent": "20", "correct": false },
+      { "text": "6", "percent": "10", "correct": false },
+      { "text": "8", "percent": "40", "correct": false },
+      { "text": "9", "percent": "5", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "12", "percent": "60", "correct": false },
+      { "text": "7", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is a factor of both 12 and 18?",
+      "Which number divides both 12 and 18 with no remainder?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "4", "percent": "20", "correct": false },
+      { "text": "5", "percent": "10", "correct": false },
+      { "text": "3", "percent": "100", "correct": true },
+      { "text": "2", "percent": "5", "correct": false },
+      { "text": "7", "percent": "15", "correct": false },
+      { "text": "11", "percent": "60", "correct": false },
+      { "text": "8", "percent": "40", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the product of 5 and 7?",
+      "Multiply 5 × 7"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "30", "percent": "20", "correct": false },
+      { "text": "45", "percent": "10", "correct": false },
+      { "text": "50", "percent": "40", "correct": false },
+      { "text": "60", "percent": "5", "correct": false },
+      { "text": "20", "percent": "15", "correct": false },
+      { "text": "25", "percent": "60", "correct": false },
+      { "text": "35", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the next number in this pattern: 2, 4, 8, 16, ...?",
+      "Which number continues the doubling sequence?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "20", "percent": "20", "correct": false },
+      { "text": "22", "percent": "10", "correct": false },
+      { "text": "30", "percent": "40", "correct": false },
+      { "text": "24", "percent": "5", "correct": false },
+      { "text": "18", "percent": "15", "correct": false },
+      { "text": "32", "percent": "100", "correct": true },
+      { "text": "36", "percent": "60", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What’s the value of 10 minus the square of 2?",
+      "Solve: 10 - 2²"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "6", "percent": "100", "correct": true },
+      { "text": "8", "percent": "10", "correct": false },
+      { "text": "4", "percent": "40", "correct": false },
+      { "text": "2", "percent": "5", "correct": false },
+      { "text": "12", "percent": "15", "correct": false },
+      { "text": "1", "percent": "60", "correct": false },
+      { "text": "16", "percent": "20", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which part of a circle goes from the center to the edge?",
+      "What is half the diameter of a circle called?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Chord", "percent": "20", "correct": false },
+      { "text": "Arc", "percent": "10", "correct": false },
+      { "text": "Tangent", "percent": "40", "correct": false },
+      { "text": "Sector", "percent": "5", "correct": false },
+      { "text": "Diameter", "percent": "15", "correct": false },
+      { "text": "Circumference", "percent": "60", "correct": false },
+      { "text": "Radius", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is the Roman numeral 'X'?",
+      "In Roman numerals, what does 'X' represent?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "5", "percent": "20", "correct": false },
+      { "text": "15", "percent": "10", "correct": false },
+      { "text": "50", "percent": "40", "correct": false },
+      { "text": "100", "percent": "5", "correct": false },
+      { "text": "20", "percent": "15", "correct": false },
+      { "text": "1", "percent": "60", "correct": false },
+      { "text": "10", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which angle measures exactly 90 degrees?",
+      "What type of angle forms an 'L' shape?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Acute angle", "percent": "20", "correct": false },
+      { "text": "Obtuse angle", "percent": "10", "correct": false },
+      { "text": "Straight angle", "percent": "40", "correct": false },
+      { "text": "Reflex angle", "percent": "5", "correct": false },
+      { "text": "Full rotation", "percent": "15", "correct": false },
+      { "text": "Diagonal angle", "percent": "60", "correct": false },
+      { "text": "Right angle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of any number multiplied by zero?",
+      "What is 27 × 0?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "100", "correct": true },
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "27", "percent": "40", "correct": false },
+      { "text": "Undefined", "percent": "5", "correct": false },
+      { "text": "Infinity", "percent": "15", "correct": false },
+      { "text": "Null", "percent": "60", "correct": false },
+      { "text": "Equal", "percent": "20", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which unit is used to measure liquid volume in the metric system?",
+      "What is the metric unit for measuring drinks?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Gram", "percent": "20", "correct": false },
+      { "text": "Meter", "percent": "10", "correct": false },
+      { "text": "Kilogram", "percent": "40", "correct": false },
+      { "text": "Centimeter", "percent": "5", "correct": false },
+      { "text": "Liter", "percent": "100", "correct": true },
+      { "text": "Inch", "percent": "60", "correct": false },
+      { "text": "Watt", "percent": "15", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is 100 divided by 10?",
+      "Divide: 100 ÷ 10"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "5", "percent": "20", "correct": false },
+      { "text": "15", "percent": "10", "correct": false },
+      { "text": "20", "percent": "40", "correct": false },
+      { "text": "8", "percent": "5", "correct": false },
+      { "text": "25", "percent": "15", "correct": false },
+      { "text": "50", "percent": "60", "correct": false },
+      { "text": "10", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the shape of a dice face showing five dots?",
+      "How are the five dots arranged on a standard die face?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Circle", "percent": "20", "correct": false },
+      { "text": "Line", "percent": "10", "correct": false },
+      { "text": "Triangle", "percent": "40", "correct": false },
+      { "text": "Pentagon", "percent": "5", "correct": false },
+      { "text": "Cross", "percent": "15", "correct": false },
+      { "text": "Plus sign", "percent": "60", "correct": false },
+      { "text": "X-shape", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What type of number can be expressed as a fraction?",
+      "Which numbers include both integers and decimal representations?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Irrational numbers", "percent": "20", "correct": false },
+      { "text": "Prime numbers", "percent": "10", "correct": false },
+      { "text": "Even numbers", "percent": "40", "correct": false },
+      { "text": "Whole numbers", "percent": "5", "correct": false },
+      { "text": "Imaginary numbers", "percent": "15", "correct": false },
+      { "text": "Odd numbers", "percent": "60", "correct": false },
+      { "text": "Rational numbers", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which triangle has all three sides equal?",
+      "What kind of triangle has three identical angles?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Isosceles triangle", "percent": "20", "correct": false },
+      { "text": "Scalene triangle", "percent": "10", "correct": false },
+      { "text": "Right triangle", "percent": "40", "correct": false },
+      { "text": "Obtuse triangle", "percent": "5", "correct": false },
+      { "text": "Acute triangle", "percent": "15", "correct": false },
+      { "text": "Oblique triangle", "percent": "60", "correct": false },
+      { "text": "Equilateral triangle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the decimal form of ¾?",
+      "Convert the fraction 3/4 to decimal"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0.25", "percent": "20", "correct": false },
+      { "text": "0.50", "percent": "10", "correct": false },
+      { "text": "0.60", "percent": "40", "correct": false },
+      { "text": "0.9", "percent": "5", "correct": false },
+      { "text": "1.0", "percent": "15", "correct": false },
+      { "text": "0.33", "percent": "60", "correct": false },
+      { "text": "0.75", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which measurement is used for the weight of a person in the metric system?",
+      "What unit is used to measure body mass in most of the world?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Grams", "percent": "20", "correct": false },
+      { "text": "Pounds", "percent": "10", "correct": false },
+      { "text": "Tons", "percent": "40", "correct": false },
+      { "text": "Ounces", "percent": "5", "correct": false },
+      { "text": "Meters", "percent": "15", "correct": false },
+      { "text": "Inches", "percent": "60", "correct": false },
+      { "text": "Kilograms", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which symbol represents 'approximately equal to'?",
+      "What symbol is used when two values are nearly the same?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "=", "percent": "20", "correct": false },
+      { "text": "≠", "percent": "10", "correct": false },
+      { "text": ">", "percent": "40", "correct": false },
+      { "text": "<", "percent": "5", "correct": false },
+      { "text": "≥", "percent": "15", "correct": false },
+      { "text": "→", "percent": "60", "correct": false },
+      { "text": "≈", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the smallest prime number?",
+      "Which number is the first in the set of prime numbers?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "0", "percent": "20", "correct": false },
+      { "text": "1", "percent": "10", "correct": false },
+      { "text": "3", "percent": "40", "correct": false },
+      { "text": "4", "percent": "5", "correct": false },
+      { "text": "5", "percent": "15", "correct": false },
+      { "text": "9", "percent": "60", "correct": false },
+      { "text": "2", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which formula is used to calculate the area of a triangle?",
+      "What is the correct formula for triangle area?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "length × width", "percent": "20", "correct": false },
+      { "text": "base × height", "percent": "10", "correct": false },
+      { "text": "π × r²", "percent": "40", "correct": false },
+      { "text": "side³", "percent": "5", "correct": false },
+      { "text": "2 × base × height", "percent": "15", "correct": false },
+      { "text": "base + height", "percent": "60", "correct": false },
+      { "text": "½ × base × height", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has no vertices?",
+      "What 2D figure has no corners or edges?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Square", "percent": "20", "correct": false },
+      { "text": "Rectangle", "percent": "10", "correct": false },
+      { "text": "Hexagon", "percent": "40", "correct": false },
+      { "text": "Triangle", "percent": "5", "correct": false },
+      { "text": "Pentagon", "percent": "15", "correct": false },
+      { "text": "Octagon", "percent": "60", "correct": false },
+      { "text": "Circle", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is both even and a multiple of 3?",
+      "Pick the smallest even number that is divisible by 3"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "2", "percent": "20", "correct": false },
+      { "text": "4", "percent": "10", "correct": false },
+      { "text": "9", "percent": "40", "correct": false },
+      { "text": "5", "percent": "5", "correct": false },
+      { "text": "12", "percent": "15", "correct": false },
+      { "text": "15", "percent": "60", "correct": false },
+      { "text": "6", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which axis is vertical on a graph?",
+      "Which line runs up and down on a coordinate grid?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "X-axis", "percent": "20", "correct": false },
+      { "text": "Diagonal", "percent": "10", "correct": false },
+      { "text": "Z-axis", "percent": "40", "correct": false },
+      { "text": "Origin", "percent": "5", "correct": false },
+      { "text": "Center", "percent": "15", "correct": false },
+      { "text": "Horizontal", "percent": "60", "correct": false },
+      { "text": "Y-axis", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do you call a number that is not positive and not negative?",
+      "Which number represents a neutral value in math?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "−1", "percent": "10", "correct": false },
+      { "text": "Infinity", "percent": "40", "correct": false },
+      { "text": "Even", "percent": "5", "correct": false },
+      { "text": "NaN", "percent": "15", "correct": false },
+      { "text": "One-half", "percent": "60", "correct": false },
+      { "text": "Zero", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the result of 2⁴?",
+      "Calculate 2 raised to the 4th power"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "6", "percent": "20", "correct": false },
+      { "text": "8", "percent": "10", "correct": false },
+      { "text": "10", "percent": "40", "correct": false },
+      { "text": "12", "percent": "5", "correct": false },
+      { "text": "14", "percent": "15", "correct": false },
+      { "text": "20", "percent": "60", "correct": false },
+      { "text": "16", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What kind of number is used to show position in a list?",
+      "What type of number is 'third' or 'seventh'?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Cardinal number", "percent": "20", "correct": false },
+      { "text": "Decimal", "percent": "10", "correct": false },
+      { "text": "Fraction", "percent": "40", "correct": false },
+      { "text": "Integer", "percent": "5", "correct": false },
+      { "text": "Real number", "percent": "15", "correct": false },
+      { "text": "Roman numeral", "percent": "60", "correct": false },
+      { "text": "Ordinal number", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which shape has four equal sides and four right angles?",
+      "What is a regular quadrilateral called?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Rectangle", "percent": "20", "correct": false },
+      { "text": "Rhombus", "percent": "10", "correct": false },
+      { "text": "Trapezoid", "percent": "40", "correct": false },
+      { "text": "Parallelogram", "percent": "5", "correct": false },
+      { "text": "Diamond", "percent": "15", "correct": false },
+      { "text": "Pentagon", "percent": "60", "correct": false },
+      { "text": "Square", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is known as the additive identity?",
+      "What number can you add to any value without changing it?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "1", "percent": "20", "correct": false },
+      { "text": "2", "percent": "10", "correct": false },
+      { "text": "Infinity", "percent": "40", "correct": false },
+      { "text": "Negative one", "percent": "5", "correct": false },
+      { "text": "Ten", "percent": "15", "correct": false },
+      { "text": "One-half", "percent": "60", "correct": false },
+      { "text": "Zero", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which solid shape has one circular base and comes to a point?",
+      "What 3D figure has a round base and a single vertex?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Cylinder", "percent": "70", "correct": false },
+      { "text": "Sphere", "percent": "10", "correct": false },
+      { "text": "Cube", "percent": "40", "correct": false },
+      { "text": "Rectangular prism", "percent": "5", "correct": false },
+      { "text": "Torus", "percent": "15", "correct": false },
+      { "text": "Pyramid", "percent": "60", "correct": false },
+      { "text": "Cone", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the value of 5 squared?",
+      "Solve 5²"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "10", "percent": "20", "correct": false },
+      { "text": "15", "percent": "10", "correct": false },
+      { "text": "20", "percent": "40", "correct": false },
+      { "text": "30", "percent": "5", "correct": false },
+      { "text": "15", "percent": "15", "correct": false },
+      { "text": "10", "percent": "60", "correct": false },
+      { "text": "25", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What do we call the longest side of a right triangle?",
+      "Which side is opposite the right angle?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Base", "percent": "20", "correct": false },
+      { "text": "Height", "percent": "10", "correct": false },
+      { "text": "Radius", "percent": "40", "correct": false },
+      { "text": "Tangent", "percent": "5", "correct": false },
+      { "text": "Leg", "percent": "15", "correct": false },
+      { "text": "Chord", "percent": "60", "correct": false },
+      { "text": "Hypotenuse", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which branch of math deals with shapes and their properties?",
+      "What area of mathematics focuses on points, lines, angles, and surfaces?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Algebra", "percent": "20", "correct": false },
+      { "text": "Arithmetic", "percent": "10", "correct": false },
+      { "text": "Calculus", "percent": "40", "correct": false },
+      { "text": "Statistics", "percent": "5", "correct": false },
+      { "text": "Trigonometry", "percent": "15", "correct": false },
+      { "text": "Probability", "percent": "60", "correct": false },
+      { "text": "Geometry", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "How many degrees are in a straight angle?",
+      "What is the measure of a flat line in degrees?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "45°", "percent": "20", "correct": false },
+      { "text": "90°", "percent": "10", "correct": false },
+      { "text": "120°", "percent": "40", "correct": false },
+      { "text": "270°", "percent": "5", "correct": false },
+      { "text": "60°", "percent": "15", "correct": false },
+      { "text": "360°", "percent": "60", "correct": false },
+      { "text": "180°", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the name for a polygon with eight sides?",
+      "Which shape has 8 straight edges?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Hexagon", "percent": "20", "correct": false },
+      { "text": "Heptagon", "percent": "10", "correct": false },
+      { "text": "Nonagon", "percent": "40", "correct": false },
+      { "text": "Decagon", "percent": "5", "correct": false },
+      { "text": "Pentagon", "percent": "15", "correct": false },
+      { "text": "Triangle", "percent": "60", "correct": false },
+      { "text": "Octagon", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which operation is the inverse of multiplication?",
+      "What do you use to undo a multiplication?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "Addition", "percent": "20", "correct": false },
+      { "text": "Exponentiation", "percent": "10", "correct": false },
+      { "text": "Subtraction", "percent": "40", "correct": false },
+      { "text": "Squaring", "percent": "5", "correct": false },
+      { "text": "Multiplying again", "percent": "15", "correct": false },
+      { "text": "Logarithm", "percent": "60", "correct": false },
+      { "text": "Division", "percent": "100", "correct": true }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "What is the perimeter of a square with side length 5 cm?",
+      "If each side of a square is 5 cm, what's the total boundary length?"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "15 cm", "percent": "20", "correct": false },
+      { "text": "20 cm", "percent": "100", "correct": true },
+      { "text": "25 cm", "percent": "40", "correct": false },
+      { "text": "10 cm", "percent": "5", "correct": false },
+      { "text": "30 cm", "percent": "15", "correct": false },
+      { "text": "5 cm", "percent": "60", "correct": false },
+      { "text": "50 cm", "percent": "10", "correct": false }
+    ]
+  },
+  {
+    "type": "mathMultiop",
+    "text": [
+      "Which number is a multiple of both 4 and 6?",
+      "Find the smallest common multiple of 4 and 6"
+    ],
+    "level": "middle",
+    "options": [
+      { "text": "12", "percent": "100", "correct": true },
+      { "text": "18", "percent": "10", "correct": false },
+      { "text": "16", "percent": "40", "correct": false },
+      { "text": "24", "percent": "5", "correct": false },
+      { "text": "10", "percent": "15", "correct": false },
+      { "text": "20", "percent": "60", "correct": false },
+      { "text": "8", "percent": "20", "correct": false }
+    ]
+  }
+]
