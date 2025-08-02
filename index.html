@@ -12637,7 +12637,26 @@
             }
             let pasteText = (event.clipboardData || window.clipboardData).getData('text');
             let lines = pasteText.split(/\r\n|\n|\r/);
+            let indentSizes = [];
+            for (let line of lines) {
+                let count = 0;
+                while (line[count] === '\u00A0' || line[count] === ' ') count++;
+                if (count > 0) indentSizes.push(count);
+            }
             
+            const unit = Math.min(...indentSizes);
+            
+            let fixedLines = lines.map(line => {
+                let count = 0;
+                while (line[count] === '\u00A0' || line[count] === ' ') count++;
+                
+                const indentLevel = Math.round(count / unit);
+                const trimmedLine = line.slice(count);
+                const correctedIndent = '\u00A0'.repeat(indentLevel * 4);
+                
+                return correctedIndent + trimmedLine;
+            });
+            lines = fixedLines;
             let selection = window.getSelection();
             if (selection.rangeCount === 0) return;
             
