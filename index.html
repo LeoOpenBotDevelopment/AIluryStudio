@@ -85,8 +85,8 @@
                 --black-color: #fff;
                 --linenumber-color: #555555;
                 --drakgrey-color: #161b22;
-                --selected-color: #0E7F9E;
-                --caret-color: #0E7F9E;
+                --selected-color: #0a8927;
+                --caret-color: #28A745;
                 --safariheader-color: #0c0c0c;
                 --safariheaderbackground-color: #0E0F0E;
                 --urlbarbackground-color: #161b22;
@@ -621,24 +621,51 @@
         .code-editor-line.selected::after {
             content: '✓';
             position: absolute;
-            left: -3.5em;
+            left: -3em;
             top: 0;
             color: var(--lightgrey-color);
             font-size: 1.2em;
             transition: 0.3s;
             font-weight: bold;
         }
+        
         .section.gridenabled .code-editor-line.selected::after {
             color: var(--checkmark-color);
         }
         .code-editor-line.selected.bottomSelected::after {
-            content: '└─';
+            /*content: '└─';*/
+            content: '';
+            height: 100%;
+            width: 15px;
+            border-left: 1px solid var(--rectangleborder);
+            border-bottom: 1px solid var(--rectangleborder);
+        }
+        .section.gridenabled .code-editor-line.selected.bottomSelected::after {
+            border-left: 1px solid var(--caret-color);
+            border-bottom: 1px solid var(--caret-color);
         }
         .code-editor-line.selected.middleSelected::after {
-            content: '│';
+            /*content: '│';*/
+            content: '';
+            height: 100%;
+            width: 15px;
+            border-left: 1px solid var(--rectangleborder);
+        }
+        .section.gridenabled .code-editor-line.selected.middleSelected::after {
+            border-left: 1px solid var(--caret-color);
         }
         .code-editor-line.selected.topSelected::after {
-            content: '┌─';
+            /*content: '┌─';*/
+            content: '';
+            height: 100%;
+            width: 15px;
+            transform: translateX(-2px);
+            border-left: 1px solid var(--rectangleborder);
+            border-top: 1px solid var(--rectangleborder);
+        }
+        .section.gridenabled .code-editor-line.selected.topSelected::after {
+            border-left: 1px solid var(--caret-color);
+            border-top: 1px solid var(--caret-color);
         }
         
         .code-editor-line.importantpin.topimportantpin {
@@ -2560,6 +2587,7 @@
             word-break: break-word;
             hyphens: auto;
             overflow-x: hidden;
+            width: 100%;
         }
 
         .threedots {
@@ -3876,6 +3904,7 @@
             z-index: 5;
             overflow-y: auto;
             padding-bottom: 55px;
+            display: block;
         }
         .sidebarfilebtnssectionextexternalsidebarprev .sidebarbardivbuttondiv1 {
             width: 100%;
@@ -3888,7 +3917,7 @@
         }
         .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn {
             background: var(--background-color);
-            border: none;
+            border: 1px solid var(--rectangleborder);
             color: var(--black-color);
             display: block;
             padding: 10px;
@@ -3901,7 +3930,27 @@
             font-weight: normal;
             margin-bottom: 15px;
         }
-        .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn .closefilesection {
+        #runCodeBtn {
+            display: inline;
+            padding: 0;
+            font-size: 1.1em;
+            color: var(--switchcheckedbackground-color);
+            border: none;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 12px;
+            padding-right: 17px;
+            padding-left: 15px;
+            background: var(--lightgrey-color);
+            transition: 0.3s;
+        }
+        #runCodeBtn:hover {
+            background: var(--switchcheckedbackground-color);
+            color: var(--lightgrey-color);
+        }
+        .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn .closefilesection, .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) #runCodeBtn {
             display: none;
         }
         .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarbardivbuttondiv1 {
@@ -4122,6 +4171,15 @@
             border: 2px dashed var(--caret-color);
             border-radius: 2px;
         }
+        .replacereplacecontainer, #replacebtn, #replacecontainer h3 {
+            max-width: 500px;
+            width: 100%;
+        }
+        #replacecontainer {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
@@ -4154,6 +4212,7 @@
             </div>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1 sidebarfilebtnssection">
                 <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
+                <button id="runCodeBtn" onclick="scrollviewintoview()">◀</button>
                 <button id="sidebarfilelinklink0" class="sidebarfilelinklink currentfile" onclick="editthisfile('0', event)">index.html<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink1" class="sidebarfilelinklink" onclick="editthisfile('1', event)">styles.css<div class="threedots">⋮</div></button>
                 <button id="sidebarfilelinklink2" class="sidebarfilelinklink" onclick="editthisfile('2', event)">script.js<div class="threedots">⋮</div></button>
@@ -4297,6 +4356,10 @@
                     <div class="oneinfoc">
                         <span>lines:</span>
                         <span id="fileinfolineamount">15</span>
+                    </div>
+                    <div class="oneinfoc">
+                        <span>length:</span>
+                        <span id="fileinfolengthnumber">15</span>
                     </div>
                     <div class="oneinfoc">
                         <span>file type:</span>
@@ -4771,7 +4834,7 @@
                         </div>
                         <br>
                         <div class="themeoption">
-                            <input class="switchtothememaincolorspan2" type="color" id="rectangleColorColor" value="#363736" onchange="updateRectangleColorColor()">
+                            <input class="switchtothememaincolorspan2" type="color" id="rectangleColorColor" value="#0156CD" onchange="updateRectangleColorColor()">
                             <span class="switchtothemetitlespan">file container path</span>
                             <input type="range" id="rectangleColorAlpha" min="0" max="100" value="100" onchange="updateRectangleColorColor()">
                         </div>
@@ -5131,17 +5194,23 @@
     </div>
     <div class="userregulationsandconditionsoverlay">
         <div class="userregulationsandconditions">
-            <h2>Conditions of Use for AIlury Studio</h2>
+            <h2>Terms and Conditions of Use for AIlury Studio</h2>
             
-            <p>By using AIlury Studio, you agree to the following terms:</p>
             <ul>
-                <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform, or any part of the website.</li>
-                <li><strong>No Exploiting Bugs:</strong> Do not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
-                <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
-                <li><strong>No Malicious Activity:</strong> Running or uploading malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
+                <li><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service — whether directly, through another service, program, automated system, third-party tool, or by any other means. Your actions, whether manual or automated, are fully attributed to you as the user, and you bear sole responsibility for any resulting consequences. Use of the service through indirect methods does not exempt you from compliance with these terms.</li>
             </ul>
-            <p>Do you accept all terms and conditions?</p>
-            <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">i accept</button>
+            <p>By using AIlury Studio, you agree to the following terms and conditions:</p>
+            <ul>
+                <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform or any part of the website.</li>
+                <li><strong>No Exploiting Bugs:</strong> You must not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
+                <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
+                <li><strong>No Malicious Activity:</strong> Uploading, writing, pasting, crearing or running malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
+                <li><strong>Responsibility:</strong> You are responsible for any code you create, paste, upload, write and run using this website.</li>
+            </ul>
+            
+            <p>Do you accept all terms and conditions? By using the code editor, you accept these terms and conditions by default. Accessing or manipulating this platform through a separate program also constitutes acceptance of these terms.</p>
+            
+            <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">I understand and accept</button>
         </div>
     </div>
     <div class="importantnotificationmessageelement"></div>
@@ -7222,7 +7291,7 @@
         
         function createOptionsContainer(targetElement, number) {
             const options = [
-                { icon: "⚠", text: "Delete" },
+                { icon: "⌧", text: "Delete" },
                 { icon: "□", text: "Copy Code" },
                 { icon: "□", text: "Copy Path" },
                 { icon: "■", text: "Duplicate" },
@@ -8368,7 +8437,7 @@
                     toggleexternalsidebarelement.querySelector('#toggleexternalsidebartext').textContent = "minimize";
                     toggleexternalsidebarelementspan.textContent = "<";
                 }
-                relement.style.display = "flex";
+                relement.style.display = "block";
                 relement.style.animation = "none";
                 void relement.offsetWidth;
                 if (transitionanimation != "none") {
@@ -8820,9 +8889,7 @@
             filePathInputblablabla.addEventListener('input', (event) => {
                 handleFileNameInputChange(event.target.parentElement);
             });
-
-
-
+            
             filePathInputblablabla.addEventListener('mousedown', startOverlayEnlarge);
             filePathInputblablabla.addEventListener('touchstart', startOverlayEnlarge);
 
@@ -8907,6 +8974,7 @@
             newNavDot.classList.add('nav-dot', 'navdot' + newNavDot.getAttribute('data-index'));
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
             navBarremoveeventlistenerscrollandadditagain();
+            handleFileNameInputChange(newNavDot);
         }
         async function createNewFile(filename) {
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
@@ -9030,6 +9098,7 @@
             newNavDot.classList.add('nav-dot', 'navdot' + newNavDot.getAttribute('data-index'));
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
             navBarremoveeventlistenerscrollandadditagain();
+            handleFileNameInputChange(newNavDot);
         }
         async function createNewFilefortemplatecode(filename, optionalText = '') {
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
@@ -9187,6 +9256,7 @@
             newNavDot.classList.add('nav-dot', 'navdot' + newNavDot.getAttribute('data-index'));
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
             navBarremoveeventlistenerscrollandadditagain();
+            handleFileNameInputChange(newNavDot);
         }
 
         function downloadFile(name) {
@@ -9900,8 +9970,11 @@
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
                 const seccontainer = document.querySelector('.seccontainer');
-                if (seccontainer.querySelector('#fileinfolineamount')) {
-                    seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                const fileinfolineamount = seccontainer.querySelector('#fileinfolineamount');
+                const fileinfolengthnumber = seccontainer.querySelector('#fileinfolengthnumber');
+                if (fileinfolineamount && fileinfolengthnumber) {
+                    fileinfolineamount.textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                    fileinfolengthnumber.textContent = section.querySelector('.code-editor-container').textContent.replace(/[\s\u00A0\u1680\u180E\u2000-\u200A\u202F\u205F\u3000\uFEFF]/g, '').length;
                 }
             }
         }
@@ -9963,8 +10036,11 @@
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
                 const seccontainer = document.querySelector('.seccontainer');
-                if (seccontainer.querySelector('#fileinfolineamount')) {
-                    seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                const fileinfolineamount = seccontainer.querySelector('#fileinfolineamount');
+                const fileinfolengthnumber = seccontainer.querySelector('#fileinfolengthnumber');
+                if (fileinfolineamount && fileinfolengthnumber) {
+                    fileinfolineamount.textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                    fileinfolengthnumber.textContent = section.querySelector('.code-editor-container').textContent.replace(/[\s\u00A0\u1680\u180E\u2000-\u200A\u202F\u205F\u3000\uFEFF]/g, '').length;
                 }
             }
         }
@@ -11023,8 +11099,12 @@
             if (showfilesettingsbtn) {
                 showfilesettingsbtn.classList.add("ActiveOverlay");
             }
-            if (seccontainer.querySelector('#fileinfolineamount') && seccontainer.querySelector('#fileinfofiletype')) {
-                seccontainer.querySelector('#fileinfolineamount').textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+            const fileinfolineamount = seccontainer.querySelector('#fileinfolineamount');
+            const fileinfolengthnumber = seccontainer.querySelector('#fileinfolengthnumber');
+            const fileinfofiletype = seccontainer.querySelector('#fileinfofiletype');
+            if (fileinfolineamount && fileinfolengthnumber && fileinfofiletype) {
+                fileinfolineamount.textContent = Array.from(section.querySelectorAll('.code-editor-line')).length;
+                fileinfolengthnumber.textContent = section.querySelector('.code-editor-container').textContent.replace(/[\s\u00A0\u1680\u180E\u2000-\u200A\u202F\u205F\u3000\uFEFF]/g, '').length;
                 let filetype = document.querySelector(`.filedot.navdot${section.id.replace('section', '')} .filePathInput`);
                 if (filetype) {
                     let filetypes = {
@@ -11041,9 +11121,9 @@
                     let extension = filetype.value.split('.').pop(); // Holt die Dateierweiterung
                     
                     if (filetypes[extension]) {
-                        seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
+                        fileinfofiletype.textContent = filetypes[extension];
                     } else {
-                        seccontainer.querySelector('#fileinfofiletype').textContent = "Unsupported";
+                        fileinfofiletype.textContent = "Unsupported";
                     }
                 }
             }
@@ -12362,6 +12442,33 @@
             }
             updateSelectedClasses();
         }
+        
+        function setCursorPosition(element, position) {
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            
+            const range = document.createRange();
+            let currentOffset = 0;
+            
+            function traverseNodes(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const nextOffset = currentOffset + node.textContent.length;
+                    if (currentOffset <= position && position <= nextOffset) {
+                        range.setStart(node, position - currentOffset);
+                        range.collapse(true);
+                        return true;
+                    }
+                    currentOffset = nextOffset;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    for (let i = 0; i < node.childNodes.length; i++) {
+                        if (traverseNodes(node.childNodes[i])) return true;
+                    }
+                }
+                return false;
+            }
+            traverseNodes(element);
+            selection.addRange(range);
+        }
 
         function preserveCursorAndHighlight(celine) {
             if (!celine || !(celine instanceof HTMLElement)) {
@@ -12378,34 +12485,6 @@
                 const startOffset = preCaretRange.toString().length;
 
                 return startOffset;
-            }
-
-            function setCursorPosition(element, position) {
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-
-                const range = document.createRange();
-                let currentOffset = 0;
-
-                function traverseNodes(node) {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        const nextOffset = currentOffset + node.textContent.length;
-                        if (currentOffset <= position && position <= nextOffset) {
-                            range.setStart(node, position - currentOffset);
-                            range.collapse(true);
-                            return true;
-                        }
-                        currentOffset = nextOffset;
-                    } else if (node.nodeType === Node.ELEMENT_NODE) {
-                        for (let i = 0; i < node.childNodes.length; i++) {
-                            if (traverseNodes(node.childNodes[i])) return true;
-                        }
-                    }
-                    return false;
-                }
-
-                traverseNodes(element);
-                selection.addRange(range);
             }
   
             const cursorPosition = getCursorPosition(celine);
@@ -12692,6 +12771,7 @@
             newRange.collapse(true);
             selection.removeAllRanges();
             selection.addRange(newRange);
+            preserveCursorAndHighlight(celine);
         }
 
 
@@ -13325,33 +13405,6 @@
                     preCaretRange.setEnd(range.startContainer, range.startOffset);
                     const startOffset = preCaretRange.toString().length;
                     return startOffset;
-                }
-
-                function setCursorPosition(element, position) {
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-
-                    const range = document.createRange();
-                    let currentOffset = 0;
-
-                    function traverseNodes(node) {
-                        if (node.nodeType === Node.TEXT_NODE) {
-                            const nextOffset = currentOffset + node.textContent.length;
-                            if (currentOffset <= position && position <= nextOffset) {
-                                range.setStart(node, position - currentOffset);
-                                range.collapse(true);
-                                return true;
-                            }
-                            currentOffset = nextOffset;
-                        } else if (node.nodeType === Node.ELEMENT_NODE) {
-                            for (let i = 0; i < node.childNodes.length; i++) {
-                                if (traverseNodes(node.childNodes[i])) return true;
-                            }
-                        }
-                        return false;
-                    }
-                    traverseNodes(element);
-                    selection.addRange(range);
                 }
                 
                 const invalidKeys = ["'", "\"", "`", "(", "{", "[", "“", "‚", ">", "„", "Backspace", "‘", "Enter", "}", "]", ")", ";"];
@@ -14200,34 +14253,6 @@
                 const startOffset = preCaretRange.toString().length;
 
                 return startOffset;
-            }
-
-            function setCursorPosition(element, position) {
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-
-                const range = document.createRange();
-                let currentOffset = 0;
-
-                function traverseNodes(node) {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        const nextOffset = currentOffset + node.textContent.length;
-                        if (currentOffset <= position && position <= nextOffset) {
-                            range.setStart(node, position - currentOffset);
-                            range.collapse(true);
-                            return true;
-                        }
-                        currentOffset = nextOffset;
-                    } else if (node.nodeType === Node.ELEMENT_NODE) {
-                        for (let i = 0; i < node.childNodes.length; i++) {
-                            if (traverseNodes(node.childNodes[i])) return true;
-                        }
-                    }
-                    return false;
-                }
-
-                traverseNodes(element);
-                selection.addRange(range);
             }
 
             const cursorPosition = getCursorPosition(inputElement);
