@@ -1,20 +1,45 @@
-Custom License based on Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+Custom License — Inspired by CC BY-NC 4.0  
+Copyright (c) 2024 LeoOpenBotDevelopment  
+All rights reserved.
 
-Copyright (c) 2024 LeoOpenBotDevelopment
+---
 
-This code, including all versions and future changes, is provided under the following license:
+THIS CODE IS PROVIDED FOR INSPIRATIONAL AND EDUCATIONAL PURPOSES ONLY.  
+It is intended to serve as a reference or learning tool — **not** as a foundation for redistribution, repackaging, or derivative works.
 
-You may:
- - Use and modify the code, but only under the condition that substantial changes are made to both the code and the end result of the application.
- - Use the code for non-commercial purposes only.
+---
 
-You may not:
- - Redistribute or publish the code in its original or only slightly modified form.
- - Use the code or any part of it for commercial purposes.
+YOU ARE PERMITTED TO:
+- View and study the code to better understand how it works.
+- Experiment with modifications **for personal, private use** on your own machine.
+- Use concepts or patterns as inspiration in your own original, non-commercial code.
 
-Conditions:
- - Attribution: You must provide appropriate credit to the original author, LeoOpenBotDevelopment, in a visible and reasonable manner, without suggesting endorsement.
- - Modification Requirement: Any public use, redistribution, or publication must include clear and substantial modifications to both the code and the final application result. Cosmetic or minimal changes are not sufficient.
+---
 
-Disclaimer:
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+YOU MAY **NOT**:
+- Redistribute, reupload, or publish this code or any modified version of it — regardless of how much has been changed.
+- Use this code or derivatives in any commercial, monetized, or client-related project.
+- Publish or claim credit for work based on this code, even if changes are made to either the frontend or backend.
+- Make “hidden” changes (such as backend rewrites or cosmetic UI changes) and present the result as new or original.
+
+---
+
+IMPORTANT NOTE:
+
+This license **does not override or restrict fair use** where it legally applies.  
+However, copying, modifying, and sharing this code — outside of fair use — requires **explicit permission** from the copyright holder.
+
+This project is meant to **inspire your own original work**, not to be reused, rebranded, or redistributed.
+
+---
+
+ATTRIBUTION:
+
+If you reference this code in any public discussion or internal material, please credit **LeoOpenBotDevelopment**, and do not imply affiliation or endorsement.
+
+---
+
+DISCLAIMER:
+
+THIS SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.  
+THE AUTHOR SHALL NOT BE HELD LIABLE FOR ANY CLAIMS, DAMAGES, OR LIABILITY ARISING OUT OF THE USE OF THIS CODE.
