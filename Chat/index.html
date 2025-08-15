@@ -96,6 +96,9 @@
             border: none;
             flex: 1;
             overflow: hidden;
+            position: relative;
+            background: var(--background-color);
+            padding-top: 0;
         }
         .server {
             cursor: pointer;
@@ -114,6 +117,7 @@
             overflow-y: scroll;
             border: none;
             padding: 10px;
+            padding-top: 70px;
             margin-bottom: 10px;
             border-radius: 10px;
             background: var(--background-color);
@@ -125,6 +129,7 @@
         #message-form {
             display: flex;
             border: none;
+            position: relative;
         }
         button {
             padding: 10px;
@@ -183,16 +188,35 @@
             background: var(--border-color);
             border-radius: 5px;
         }
-        #messages {
-            padding: 10px;
-        }
-        #new-User-name, #search-for-server-input {
+        #search-for-server-input {
             border-radius: 5px;
             background: var(--border-color);
             margin-bottom: 10px;
             border: none;
             width: 100%;
             padding: 13px;
+        }
+        #new-User-name {
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            width: 100%;
+            padding: 10px;
+            position: relative;
+            border-left: 2px solid var(--border-color);
+            margin-left: 10px;
+        }
+        #profilebar {
+            border: 0;
+            border-radius: 0;
+            border-top: 1px solid var(--border-color);
+            background: transparent;
+            margin-top: 10px;
+            width: var(--sidebar-width);
+            padding: 5px;
+            position: fixed;
+            bottom: 50px;
+            left: 0;
         }
         .option-container-overlay {
             position: fixed;
@@ -236,7 +260,7 @@
             font-size: 0.9em;
             padding: 10px;
         }
-        .likesDisplaypTag, .dislikesDisplaypTag, .reportDisplaypTag, .pinDisplaypTag {
+        .likesDisplaypTag, .dislikesDisplaypTag, .reportDisplaypTag, .pinDisplaypTag, .commentDisplaypTag {
             color: var(--interaction-color);
             background: transparent;
             font-size: 0.7em;
@@ -396,9 +420,9 @@
             min-height: 40px;
             max-height: 40dvh;
             box-sizing: border-box;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
+            border-radius: 10px;
             overflow-y: auto;
+            background: var(--background2-color);
         }
         input[type="text"]:focus, textarea:focus {
             outline: none;
@@ -625,11 +649,21 @@
         .serverInfo {
             display: flex;
             justify-content: space-between;
+            background: rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color);
+            box-sizing: border-box;
+            padding: 5px;
+            z-index: 10;
         }
         #scrollbackdown {
             display: none;
             position: relative;
-            background: var(--background2-color);
+            background: transparent;
             padding: 10px;
             padding-left: 14px;
             padding-right: 14px;
@@ -905,6 +939,39 @@
             z-index: 5;
             box-sizing: border-box;
         }
+        #backbtn {
+            background: transparent;
+            color: var(--rectangleborder);
+            font-size: 1.2em;
+            font-weight: bold;
+            background: transparent;
+            border: none;
+            margin: 0;
+            padding: 5px;
+            color: var(--text-color);
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            transform: scaleX(0.7) scaleY(1.5);
+            display: inline-block;
+            display: none;
+        }
+        #submit-message-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            color: var(--text-color);
+            background: var(--secondary-color);
+        }
+        #profilebar h2 {
+            font-size: 1em;
+            font-weight: normal;
+            margin: 0;
+            color: var(--border-color);
+        }
         @media(max-width: 700px) {
             #server-list > h1 {
                 display: none;
@@ -953,6 +1020,9 @@
             input[type="range"] {
                 width: 30%;
             }
+            #profilebar {
+                width: 100%;
+            }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
@@ -960,26 +1030,28 @@
 <body>
     <div id="server-list">
         <h1>AIlury</h1>
-        <h3>customize</h3>
-        <input type="text" oninput="SaveUserName()" id="new-User-name" value="unidentified" placeholder="User name…">
         <button id="themebtn" onclick="showthemeoverlay()">theme</button>
         <h3>servers</h3>
         <input type="text" oninput="searchForServer(this)" id="search-for-server-input" value="" placeholder="Search for a server…">
         <div id="servers"></div>
         <div class="createserverdiv">
             <input type="text" id="new-server-name" placeholder="Server name…">
-            <button onclick="createServer()">Create/Join</button>
+            <button onclick="createServer()">add</button>
+        </div>
+        <div id="profilebar">
+            <h2>user-name:</h2>
+            <input type="text" oninput="SaveUserName()" id="new-User-name" value="unidentified" placeholder="User name…">
         </div>
         <div class="resizesidebarbar"></div>
     </div>
     <div id="chat">
-        <div class="serverInfo"><p class="AmountOfMessagesInServer">no messages</p><input type="text" id="searchformessageinput" oninput="searchformessage(this)" placeholder="search chat..."></div>
+        <div class="serverInfo"><button id="backbtn"><</button><p class="AmountOfMessagesInServer">no messages</p><input type="text" id="searchformessageinput" oninput="searchformessage(this)" placeholder="search chat..."></div>
         <div id="messages" onscroll="scrollupcheck(this)"></div>
         <button id="scrollbackdown" onclick="scrollbackdowninchat()">↓</button>
         <div class="respondInfo">no response</div>
         <form id="message-form" onsubmit="sendMessage(event)">
             <textarea id="message-input" placeholder="Type a message" maxlength="100000" required></textarea>
-            <button type="submit">Send</button>
+            <button type="submit" id="submit-message-btn">↑</button>
         </form>
     </div>
     <button id="togglesidebarbtn" onclick="togglesidebar()">☰</button>
@@ -1547,6 +1619,8 @@
             saveServers();
             renderServers();
         }
+        
+        let backIndexes = [];
     
         function renderServers() {
             const serversDiv = document.getElementById('servers');
@@ -1554,27 +1628,39 @@
             const yourpinedServersRaw = localStorage.getItem(accountid + 'pinedServers');
             let yourpinedServers = parsethisandreturnlist(yourpinedServersRaw, "pinedServers");
             for (const serverName in localServers) {
-                const div = document.createElement('div');
-                div.className = 'server';
-                div.classList.add('server' + serverName);
-                if (yourpinedServers.includes(serverName)) {
-                    div.classList.add('pinedServer');
-                }
-                if (currentRoom && currentRoom == serverName) {
-                    div.classList.add('active');
-                }
-                div.textContent = serverName;
-                div.onclick = (event) => {
-                    if (event.target.classList.contains("MessageLinks")) return;
+                if (serverName.trim() == "") {
+                    localServers[serverName] = null;
+                } else {
+                    const div = document.createElement('div');
+                    div.className = 'server';
+                    const safeServerName = String(serverName).replace(/[^a-zA-Z0-9_-]/g, '_');
+                    div.classList.add('server' + safeServerName);
+                    if (yourpinedServers.includes(serverName)) {
+                        div.classList.add('pinedServer');
+                    }
                     if (currentRoom && currentRoom == serverName) {
-                        createOptionContainerForServers(div, serverName);
-                    } else {
-                        joinServer(serverName);
-                        document.querySelectorAll('.server').forEach(server => server.classList.remove('active'));
                         div.classList.add('active');
                     }
-                };
-                serversDiv.appendChild(div);
+                    div.textContent = serverName;
+                    div.onclick = (event) => {
+                        if (event.target.classList.contains("MessageLinks")) return;
+                        if (currentRoom && currentRoom == serverName) {
+                            createOptionContainerForServers(div, serverName);
+                        } else {
+                            const backbtn = document.getElementById('backbtn');
+                            if (backbtn) {
+                                backbtn.style.display = "none";
+                                backbtn.onclick = null;
+                            }
+                            joinServer(serverName);
+                            backIndexes = [serverName];
+                            document.querySelectorAll('.server').forEach(server => server.classList.remove('active'));
+                            div.classList.add('active');
+                        }
+                    };
+                    
+                    serversDiv.appendChild(div);
+                }
             }
         }
         function extractUniqueIds(code) {
@@ -2099,8 +2185,10 @@
     
         function createServer() {
             const name = document.getElementById('new-server-name').value.trim();
-            if (!name || localServers[name]) return showAlert('Invalid or existing server name.');
-            localServers[name] = true;
+            if (!name || name.trim() == "") showAlert('Invalid server name.');
+            const safeServerName = String(name).replace(/[^a-zA-Z0-9_-]/g, '_');
+            if (localServers[safeServerName] || safeServerName.trim() == "") return showAlert('Existing server name.');
+            localServers[safeServerName] = true;
             saveServers();
             renderServers();
             document.getElementById('new-server-name').value = '';
@@ -2243,6 +2331,7 @@
             const dislikesp = document.createElement('button');
             const reportsbtn = document.createElement('button');
             const pinbtn = document.createElement('button');
+            const commentbtn = document.createElement('button');
     
             const regex = /username\(([^)]+)\)/;
             const regex2 = /respond\(([^)]+)\)/;
@@ -2253,6 +2342,7 @@
             
             if (match2 && match2[1]) {
                 [messageid, servername] = match2[1].split('|');
+                servername = servername.replace(/[^a-zA-Z0-9_-]/g, '_');
             }
             const username = (match && match[1]) ? match[1].trim().replace(/\W/g, '') : 'unidentified';
             h3.textContent = username + ": ";
@@ -2266,9 +2356,61 @@
             likesp.classList.add("likesDisplaypTag");
             likesp.textContent = '♥ 0';
             
+            likesp.onclick = () => {
+                if (!roomRef) return;
+                roomRef.get(id).once((data) => {
+                    const currentLikes = data?.likes || 0;
+                    const likedMessagesRaw = localStorage.getItem(accountid + 'LikedMessages');
+                    let likedMessages = parsethisandreturnlist(likedMessagesRaw, "LikedMessages");
+                    const currentDislikes = data?.dislikes || 0;
+                    const dislikedMessageRaw = localStorage.getItem(accountid + 'DislikedMessages');
+                    let dislikedMessage = parsethisandreturnlist(dislikedMessageRaw, "DislikedMessages");
+                    if (!likedMessages.includes(id)) {
+                        likedMessages.push(id);
+                        localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
+                        roomRef.get(id).get('likes').put(currentLikes + 1);
+                        if (dislikedMessage.includes(id)) {
+                            dislikedMessage = dislikedMessage.filter(mid => mid !== id);
+                            localStorage.setItem(accountid + 'DislikedMessages', JSON.stringify(dislikedMessage));
+                            roomRef.get(id).get('dislikes').put(Math.max(currentDislikes - 1, 0));
+                        }
+                    } else {
+                        likedMessages = likedMessages.filter(mid => mid !== id);
+                        localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
+                        roomRef.get(id).get('likes').put(Math.max(currentLikes - 1, 0));
+                    }
+                });
+            }
+            
             dislikesp.className = 'MessageDislikesp' + id;
             dislikesp.classList.add("dislikesDisplaypTag");
             dislikesp.textContent = '↓ 0';
+            dislikesp.onclick = () => {
+                if (!roomRef) return;
+                roomRef.get(id).once((data) => {
+                    const currentLikes = data?.likes || 0;
+                    const likedMessagesRaw = localStorage.getItem(accountid + 'LikedMessages');
+                    let likedMessages = parsethisandreturnlist(likedMessagesRaw, "LikedMessages");
+                    const currentDislikes = data?.dislikes || 0;
+                    const dislikedMessageRaw = localStorage.getItem(accountid + 'DislikedMessages');
+                    let dislikedMessage = parsethisandreturnlist(dislikedMessageRaw, "DislikedMessages");
+                    
+                    if (!dislikedMessage.includes(id)) {
+                        dislikedMessage.push(id);
+                        localStorage.setItem(accountid + 'DislikedMessages', JSON.stringify(dislikedMessage));
+                        roomRef.get(id).get('dislikes').put(currentDislikes + 1);
+                        if (likedMessages.includes(id)) {
+                            likedMessages = likedMessages.filter(mid => mid !== id);
+                            localStorage.setItem(accountid + 'LikedMessages', JSON.stringify(likedMessages));
+                            roomRef.get(id).get('likes').put(Math.max(currentLikes - 1, 0));
+                        }
+                    } else {
+                        dislikedMessage = dislikedMessage.filter(mid => mid !== id);
+                        localStorage.setItem(accountid + 'DislikedMessages', JSON.stringify(dislikedMessage));
+                        roomRef.get(id).get('dislikes').put(Math.max(currentDislikes - 1, 0));
+                    }
+                });
+            }
             
             reportsbtn.className = 'MessageReportsp' + id;
             reportsbtn.classList.add("reportDisplaypTag");
@@ -2277,6 +2419,34 @@
             pinbtn.className = 'MessagePinsp' + id;
             pinbtn.classList.add("pinDisplaypTag");
             pinbtn.textContent = '⚠ 0';
+            pinbtn.onclick = () => {
+                if (!roomRef) return;
+                roomRef.get(id).once((data) => {
+                    const currentPins = data?.pins || 0;
+                    const yourpinedmessagesRaw = localStorage.getItem(accountid + 'pinedMessages');
+                    let pinedMessages = parsethisandreturnlist(yourpinedmessagesRaw, "pinedMessages");
+                    
+                    if (!pinedMessages.includes(id)) {
+                        pinedMessages.push(id);
+                        localStorage.setItem(accountid + 'pinedMessages', JSON.stringify(pinedMessages));
+                        roomRef.get(id).get('pins').put(currentPins + 1);
+                    } else {
+                        pinedMessages = pinedMessages.filter(mid => mid !== id);
+                        localStorage.setItem(accountid + 'pinedMessages', JSON.stringify(pinedMessages));
+                        roomRef.get(id).get('pins').put(Math.max(currentPins - 1, 0));
+                    }
+                });
+            }
+            
+            commentbtn.className = 'MessageCommentp' + id;
+            commentbtn.classList.add("commentDisplaypTag");
+            commentbtn.textContent = '⤷';
+            commentbtn.onclick = () => {
+                roomRef.get(id).once((data) => {
+                    backBtn(id);
+                });
+            }
+
             
             responseDiv.className = "responseDiv";
             responseDiv.classList.add('responseDivFor' + id);
@@ -2297,6 +2467,7 @@
             reportsbtn.style.display = "none";
             div.appendChild(pinbtn);
             pinbtn.style.display = "none";
+            div.appendChild(commentbtn);
             
             roomRef.get(id).once((data) => {
                 const likedel = document.querySelector('.MessageLikesp' + id);
@@ -2349,10 +2520,34 @@
                             saveServers();
                             renderServers();
                         }
-                        const serverElement = document.querySelector('.server' + servername);
-                        if (serverElement) serverElement.click();
+                        document.querySelectorAll('.server').forEach(server => server.classList.remove('active'));
+                        let serverElement = document.querySelector('.server' + servername.replace(/[^a-zA-Z0-9_-]/g, '_'));
+                        if (serverElement) {
+                            serverElement.classList.add('active');
+                        }
+                        //backIndexes = [servername];
                     }
                     
+                    //joinServer(servername);
+                    //console.log(servername);
+                    //backBtn(id);
+                    
+                    let idx = backIndexes.indexOf(servername);
+                    if (idx !== -1 && backIndexes.length >= idx + 2) {
+                        backIndexes = backIndexes.slice(0, idx + 1);
+                        const backbtn = document.getElementById('backbtn');
+                        if (backbtn && backIndexes.length <= 1) {
+                            backbtn.style.display = "none";
+                        }
+                    } else {
+                        backIndexes = [servername];
+                        const backbtn = document.getElementById('backbtn');
+                        if (backbtn) {
+                            backbtn.style.display = "none";
+                        }
+                    }
+                    
+                    joinServer(servername);
                     let messagetoteleportto = document.querySelector('.MessageWithId' + messageid);
                     
                     const start = Date.now();
@@ -2393,6 +2588,71 @@
 
         function normalizeSpaces(text) {
             return text.replace(/\s/g, ' ');
+        }
+        
+        function backBtn(id, join = true) {
+            const backbtn = document.getElementById('backbtn');
+            if (backbtn) {
+                backIndexes.push(id);
+                if (join) {
+                    joinServer(id);
+                }
+                backbtn.style.display = "inline-block";
+                backbtn.onclick = async () => {
+                    let formerCurrentRoomId = currentRoom;
+                    let formerBackIndex = backIndexes.pop();
+                    if (formerBackIndex == currentRoom && backIndexes.length > 0) {
+                        formerBackIndex = backIndexes.pop();
+                    }
+                    if (!formerBackIndex) {
+                        backbtn.style.display = "none";
+                        return;
+                    }
+                    joinServer(formerBackIndex);
+                    let messagetoteleportto = document.querySelector('.MessageWithId' + formerCurrentRoomId);
+                    document.querySelectorAll('.server').forEach(server => server.classList.remove('active'));
+                    let serverElement = document.querySelector('.server' + formerBackIndex.replace(/[^a-zA-Z0-9_-]/g, '_'));
+                    if (serverElement) {
+                        serverElement.classList.add('active');
+                    }
+                    const start = Date.now();
+                    while (!messagetoteleportto && formerCurrentRoomId && Date.now() - start < 10000) {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        messagetoteleportto = document.querySelector('.MessageWithId' + formerCurrentRoomId);
+                    }
+                    
+                    if (messagetoteleportto && messagetoteleportto.classList) {
+                        dontscrolldown = true;
+                        messagetoteleportto.classList.add("Highlighted");
+                        setTimeout(() => {
+                            messagetoteleportto.classList.remove("Highlighted");
+                        }, 5000);
+                        messagetoteleportto.scrollIntoView({
+                            block: 'center'
+                        });
+                        const start2 = Date.now();
+                        while (messagetoteleportto && formerCurrentRoomId && messagetoteleportto.classList.contains("invisible") && Date.now() - start2 < 10000) {
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                            messagetoteleportto = document.querySelector('.MessageWithId' + formerCurrentRoomId);
+                            if (messagetoteleportto && messagetoteleportto.parentElement) {
+                                messagetoteleportto.scrollIntoView({
+                                    block: 'center'
+                                });
+                            }
+                        }
+                    } else {
+                        showAlert("Message not found.");
+                    }
+                    
+                    if (backIndexes.length <= 0) {
+                        backbtn.style.display = "none";
+                        backbtn.onclick = null;
+                        backIndexes = [currentRoom];
+                    } else {
+                        backbtn.style.display = "inline-block";
+                    }
+                }
+            }
         }
     
         function copythistext(text) {
@@ -2502,7 +2762,7 @@
                         }
                     });
                 }},
-                { icon: '↘', text: 'Respond', action: () => {
+                { icon: '⤶', text: 'Respond', action: () => {
                     const respondInfo = document.querySelector('.respondInfo');
                     const span = document.createElement('span');
                     span.textContent = "Server Name: ";
@@ -2554,6 +2814,11 @@
                             localStorage.setItem(accountid + 'reportedMessages', JSON.stringify(reportedMessages));
                             roomRef.get(id).get('reports').put(Math.max(currentReports - 1, 0));
                         }
+                    });
+                }},
+                { icon: '⤷', text: 'Comment', action: () => {
+                    roomRef.get(id).once((data) => {
+                        backBtn(id);
                     });
                 }},
                 { icon: 'id', text: 'message Id', action: () => {
@@ -2686,7 +2951,7 @@
                     copythistext(msgText);
                 }},
                 { icon: '+', text: 'Share', action: () => {
-                    const msgText = referenceElement?.textContent || '';
+                    const msgText = referenceElement?.textContent.replace(/[^a-zA-Z0-9_-]/g, '_') || '';
                     const inputTextarea = document.getElementById('message-input');
                     if (inputTextarea) {
                         if (inputTextarea.value.trim() == "") {
