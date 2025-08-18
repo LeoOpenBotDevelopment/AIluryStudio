@@ -1578,7 +1578,12 @@
         }
     
         const gun = Gun({
-            peers: ['https://gun-manhattan.herokuapp.com/gun']
+            peers: [
+                'https://gun-manhattan.herokuapp.com/gun',
+                'https://gun-eu.herokuapp.com/gun',
+                'https://gun-us.herokuapp.com/gun',
+                'https://relay.peer.2023.gundb.io/gun'
+            ]
         });
     
         let currentRoom = null;
