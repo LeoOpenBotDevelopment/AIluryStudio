@@ -13061,104 +13061,82 @@
 
 
             function processText(text, container, patterns) {
-                let matchFound = false;
                 let lastIndex = 0;
-
+                
                 while (lastIndex < text.length) {
                     let matched = false;
-          
+                    
                     for (const { regex, className, goto = false } of patterns) {
-                        regex.lastIndex = lastIndex;
-                        const match = regex.exec(text);
-
+                        const r = new RegExp(regex.source, regex.flags.includes("g") ? regex.flags : regex.flags + "g");
+                        r.lastIndex = lastIndex;
+                        const match = r.exec(text);
+                        
                         if (match && match.index === lastIndex) {
                             matched = true;
-
+                            
                             if (text.slice(lastIndex, match.index)) {
                                 const before = document.createElement("span");
                                 before.textContent = text.slice(lastIndex, match.index);
                                 container.appendChild(before);
                             }
-
+                            
                             const span = document.createElement("span");
                             span.textContent = match[0];
                             span.className = className;
-                            if (className == "syntaxhex"){
+                            span.classList.add("syntax");
+                            
+                            if (className === "syntaxhex") {
                                 function expandHex(shortHex) {
-                                    shortHexR = shortHex.replace(/^#/, '');
-                                    if (shortHexR.length !== 3) {
-                                        return shortHex;
+                                    let shortHexR = shortHex.replace(/^#/, '');
+                                    if (shortHexR.length === 3) {
+                                        return "#" + shortHexR.split("").map(c => c + c).join("");
                                     }
-                                    const fullHex = shortHexR.split('').map(char => char + char).join('');
-                                    
-                                    return `#${fullHex}`;
+                                    if (shortHexR.length === 6) {
+                                        return "#" + shortHexR;
+                                    }
+                                    return "#000000";
                                 }
-                                const spanspan = document.createElement('span');
+                                
+                                const spanspan = document.createElement("span");
                                 spanspan.className = "ajshspanspan";
                                 spanspan.textContent = match[0];
-                                const colorInput = document.createElement('input');
-                                colorInput.type = 'color';
-                                colorInput.value = expandHex(span.textContent);
+                                
+                                const colorInput = document.createElement("input");
+                                colorInput.type = "color";
+                                try {
+                                    colorInput.value = expandHex(span.textContent);
+                                } catch (e) {
+                                    colorInput.value = "#000000";
+                                }
                                 colorInput.className = "syntaxcolorinput";
+                                
                                 span.textContent = "";
                                 span.appendChild(spanspan);
-                                function colorinputoninput(colorInput) {
-                                    if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
-                                        let newpast = [];
-                                        let pastelement = {
-                                            element: span.parentElement,
-                                            type: "text",
-                                            text: span.parentElement.textContent
-                                        };
-                                        newpast.push(pastelement);
-                                        if (newpast.length > 0) {
-                                            if (!pastevents[lasteventsparentsection.id]) {
-                                                pastevents[lasteventsparentsection.id] = [];
-                                            }
-                                            pastevents[lasteventsparentsection.id].push(newpast);
-                                            enablepastbtn();
-                                        }
-                                    }
-                                    spanspan.textContent = colorInput.value;
-                                }
-                                colorInput.addEventListener('input', (event) => {
-                                    colorinputoninput(colorInput);
-                                });
                                 span.appendChild(colorInput);
-                            }else if (className == "syntaxregex"){
+                                
+                                colorInput.addEventListener("input", () => {
+                                    spanspan.textContent = colorInput.value;
+                                });
+                            } else if (className === "syntaxregex") {
                                 span.onclick = () => {
                                     notify("edit regex", "open", () => {
                                         showRegexTester(span.textContent, (back) => {
-                                            if (back){
-                                                if (span.parentElement && span.parentElement.classList.contains('code-editor-line')){
-                                                    let newpast = [];
-                                                    let pastelement = {
-                                                        element: span.parentElement,
-                                                        type: "text",
-                                                        text: span.parentElement.textContent
-                                                    };
-                                                    newpast.push(pastelement);
-                                                    if (newpast.length > 0) {
-                                                        if (!pastevents[lasteventsparentsection.id]) {
-                                                            pastevents[lasteventsparentsection.id] = [];
-                                                        }
-                                                        pastevents[lasteventsparentsection.id].push(newpast);
-                                                        enablepastbtn();
-                                                    }
-                                                }
-                                                span.textContent = back;
-                                            }
+                                            if (back) span.textContent = back;
                                         });
                                     });
                                 };
-                            }else if (className == "syntaxvariable" && goto == "def") {
-                                span.classList.add('cssvardef');
-                            }else if (goto == "true") {
+                            } else if (className === "syntaxvariable" && goto === "def") {
+                                span.classList.add("cssvardef");
+                            } else if (goto === "true") {
                                 span.onclick = () => {
                                     let definition = null;
                                     if (section) {
-                                        for (let sv of section.querySelectorAll('.syntaxvariable.cssvardef')) {
-                                            if (sv.parentElement && sv.parentElement.classList.contains('code-editor-line') && sv.textContent == span.textContent) {
+                                        for (let sv of section.querySelectorAll(".syntaxvariable.cssvardef")) {
+                                            if (
+                                                sv.parentElement &&
+                                                sv.parentElement.classList.contains("code-editor-line") &&
+                                                sv.textContent === span.textContent
+                                            ) {
                                                 definition = sv;
                                                 break;
                                             }
@@ -13171,21 +13149,18 @@
                                     }
                                 };
                             }
-                            if (span.textContent.replace(/[^A-Za-z]/g, '') != "") {
-                                span.classList.add('spanwithtext' + span.textContent, "highlightable");
-                            }
-                            span.classList.add('syntax');
+                            
                             container.appendChild(span);
-
-                            lastIndex = regex.lastIndex;
+                            
+                            lastIndex = match.index + match[0].length;
                             break;
                         }
                     }
-
+                    
                     if (!matched) {
                         const span = document.createElement("span");
                         span.textContent = text[lastIndex];
-                        span.classList.add('syntax');
+                        span.classList.add("syntax");
                         container.appendChild(span);
                         lastIndex++;
                     }
