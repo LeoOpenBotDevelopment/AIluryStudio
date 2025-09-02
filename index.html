@@ -1742,6 +1742,47 @@
             animation: easeinanimationfrb 0.3s;
         }
 
+        .rectangle:not(#image-rectangle) .rectangle-buttons {
+            padding: 0;
+            top: -1px;
+            right: -1px;
+        }
+        .rectangle:not(#image-rectangle) .rectangle-buttons:after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            top: 0;
+            left: -10px;
+            border: none;
+            border-top: 1px solid var(--rectangleborder);
+            border-right: 1px solid var(--rectangleborder);
+            border-top-right-radius: 5px;
+            box-shadow: 5px -5px 0px var(--background-color);
+            animation: easeinanimationfrb 0.3s;
+        }
+        .rectangle:not(#image-rectangle) .rectangle-buttons:before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            border: none;
+            border-top: 1px solid var(--rectangleborder);
+            border-right: 1px solid var(--rectangleborder);
+            border-top-right-radius: 5px;
+            box-shadow: 5px -5px 0px var(--background-color);
+            animation: easeinanimationfrb 0.3s;
+        }
+        .rectangle:not(#image-rectangle) .edit-btn {
+            border: none;
+            border-bottom: 1px solid var(--rectangleborder);
+            border-left: 1px solid var(--rectangleborder);
+            border-radius: 0;
+            border-bottom-left-radius: 5px;
+        }
+
         .download-btn {
             display: none;
         }
@@ -4698,21 +4739,21 @@
                     <div class="rectangle" id="rectangle0" onclick="editthisfile('0', event)">
                         <span class="notclickable">index.html</span>
                         <div class="rectangle-buttons">
-                            <button class="edit-btn">…</button>
+                            <button class="edit-btn">≡</button>
                         </div>
                         <button class="close">×</button>
                     </div>
                     <div class="rectangle" id="rectangle1" onclick="editthisfile('1', event)">
                         <span class="notclickable">styles.css</span>
                         <div class="rectangle-buttons">
-                            <button class="edit-btn">…</button>
+                            <button class="edit-btn">≡</button>
                         </div>
                         <button class="close">×</button>
                     </div>
                     <div class="rectangle" id="rectangle2" onclick="editthisfile('2', event)">
                         <span class="notclickable">script.js</span>
                         <div class="rectangle-buttons">
-                            <button class="edit-btn">…</button>
+                            <button class="edit-btn">≡</button>
                         </div>
                         <button class="close">×</button>
                     </div>
@@ -8932,7 +8973,7 @@
             newRectangle.classList.add('rectangle');
             newRectangle.innerHTML = `<span class="notclickable">${filename}</span>
 <div class="rectangle-buttons">
-    <button class="edit-btn">…</button>
+    <button class="edit-btn">≡</button>
 </div>
 <button class="close">×</button>`;
             newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
@@ -9056,7 +9097,7 @@
             newRectangle.classList.add('rectangle');
             newRectangle.innerHTML = `<span class="notclickable">${filename}</span>
 <div class="rectangle-buttons">
-    <button class="edit-btn">…</button>
+    <button class="edit-btn">≡</button>
 </div>
 <button class="close">×</button>`;
             newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
@@ -9196,7 +9237,7 @@
             newRectangle.classList.add('rectangle');
             newRectangle.innerHTML = `<span class="notclickable">${filename}</span>
 <div class="rectangle-buttons">
-    <button class="edit-btn">…</button>
+    <button class="edit-btn">≡</button>
 </div>
 <button class="close">×</button>`;
             newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
