@@ -188,16 +188,21 @@
             applyViewBox();
         });
 
-        // Touch pinch + pan
+        // Touch: pinch + pan
         let pinchDist = 0;
+        let lastTouch = null;
+
         previewWrap.addEventListener('touchstart', e => {
             if (e.touches.length === 2 && svgEl) {
                 pinchDist = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
                 );
+            } else if (e.touches.length === 1) {
+                lastTouch = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             }
         }, { passive: false });
+
         previewWrap.addEventListener('touchmove', e => {
             if (!svgEl) return;
             if (e.touches.length === 2) {
@@ -213,15 +218,21 @@
                 const py = viewBox.y + midY / rect.height * viewBox.h;
                 zoomAt(px, py, dist / pinchDist);
                 pinchDist = dist;
-            } else if (e.touches.length === 1) {
+            } else if (e.touches.length === 1 && lastTouch) {
                 e.preventDefault();
-                const dx = e.touches[0].movementX || 0;
-                const dy = e.touches[0].movementY || 0;
+                const dx = e.touches[0].clientX - lastTouch.x;
+                const dy = e.touches[0].clientY - lastTouch.y;
                 viewBox.x -= dx / previewWrap.clientWidth * viewBox.w;
                 viewBox.y -= dy / previewWrap.clientHeight * viewBox.h;
+                lastTouch = { x: e.touches[0].clientX, y: e.touches[0].clientY };
                 applyViewBox();
             }
         }, { passive: false });
+
+        previewWrap.addEventListener('touchend', e => {
+            if (e.touches.length < 2) pinchDist = 0;
+            if (e.touches.length === 0) lastTouch = null;
+        });
 
         // File input & dragdrop
         fileInput.addEventListener('change', e => { if (e.target.files[0]) showFile(e.target.files[0]); });
