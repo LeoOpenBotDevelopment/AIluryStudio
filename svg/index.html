@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <title>SVG Upload & Infinite Zoom</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body {
+            width: 100vw;
+            height: 100dvh;
+            overflow: hidden;
+            padding: 20px;
+            margin: 0;
+            display: grid;
+            gap: 1rem;
+            place-items: start;
+            background: #f6f7f9;
+        }
+        :root { font-family: system-ui, sans-serif; }
+        h1 { margin: 0 0 .5rem; font-size: 1.25rem; }
+        .uploader {
+            border: 2px dashed #bbb;
+            border-radius: 12px;
+            background: #fff;
+            padding: 1.25rem;
+            width: calc(100vw - 40px);
+            height: calc(100dvh - 40px);
+            display: grid;
+            gap: .75rem;
+            box-sizing: border-box;
+        }
+        .dropzone {
+            padding: 1.25rem;
+            border-radius: 10px;
+            text-align: center;
+            background: #fafbfc;
+            transition: border-color .2s, background .2s;
+            cursor: pointer;
+        }
+        .dropzone.dragover { border-color: #4a90e2; background: #eef5ff; }
+        .controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+        .controls input[type="file"] { display: none; }
+        .btn {
+            display: inline-block; padding: .6rem .9rem; border-radius: 8px; border: 1px solid #d0d6dd;
+            background: #fff; cursor: pointer;
+        }
+        .meta { font-size: .9rem; color: #415269; }
+        .error { color: #b00020; }
+        .previewWrap {
+            overflow: hidden; background: #fff; border: 1px solid #e5e9ef; border-radius: 10px; padding: 0; 
+            height: 60vh; min-height: 260px;
+            touch-action: none;
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .viewport { width: 100%; height: 100%; }
+        svg { width: 100%; height: 100%; display: block; }
+        .hint { font-size: .85rem; color: #6b7785; margin-top: .25rem; }
+    </style>
+</head>
+<body>
+    <div class="uploader" id="uploader">
+        <h1>SVG anzeigen — mit Pan &amp; Infinite Zoom</h1>
+
+        <div class="dropzone" id="dropzone" tabindex="0" role="button">
+            <strong>Drag & Drop</strong> deine SVG hierher – oder klicke, um eine Datei auszuwählen.
+        </div>
+
+        <div class="controls">
+            <label class="btn" for="fileInput">SVG wählen</label>
+            <input id="fileInput" type="file" accept=".svg,image/svg+xml" />
+            <button class="btn" id="clearBtn" type="button">Zurücksetzen</button>
+            <span class="meta" id="fileMeta" aria-live="polite"></span>
+        </div>
+
+        <div class="previewWrap" id="previewWrap" hidden>
+            <div class="viewport" id="viewport"></div>
+        </div>
+
+        <div class="error" id="errorMsg" role="alert" aria-live="assertive"></div>
+        <div class="hint">Maus: Rad = Zoom (auf Cursor), Ziehen = Verschieben. Touch: Zwei Finger = Zoom, ein Finger = Pan.</div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const dropzone = document.getElementById('dropzone');
+        const viewport = document.getElementById('viewport');
+        const previewWrap = document.getElementById('previewWrap');
+        const fileMeta = document.getElementById('fileMeta');
+        const errorMsg = document.getElementById('errorMsg');
+        const clearBtn = document.getElementById('clearBtn');
+
+        let svgEl = null;
+        let viewBox = { x: 0, y: 0, w: 100, h: 100 }; // current viewBox
+
+        function setError(msg) { errorMsg.textContent = msg || ''; }
+        function clearPreview() {
+            viewport.innerHTML = '';
+            previewWrap.hidden = true;
+            fileMeta.textContent = '';
+            setError('');
+            svgEl = null;
+        }
+
+        async function showFile(file) {
+            clearPreview();
+            if (!file || !/\.svg$/i.test(file.name)) {
+                setError('Bitte eine gültige SVG-Datei auswählen.');
+                return;
+            }
+            const text = await file.text();
+            viewport.innerHTML = text;
+            svgEl = viewport.querySelector('svg');
+            if (!svgEl) { setError('Ungültige SVG.'); return; }
+            previewWrap.hidden = false;
+            fileMeta.textContent = `${file.name} • ${(file.size/1024).toFixed(1)} KB`;
+            initViewBox();
+        }
+
+        function initViewBox() {
+            const vb = svgEl.getAttribute('viewBox');
+            if (vb) {
+                const parts = vb.split(/\s+/).map(Number);
+                viewBox = { x: parts[0], y: parts[1], w: parts[2], h: parts[3] };
+            } else {
+                const w = svgEl.getAttribute('width') || 100;
+                const h = svgEl.getAttribute('height') || 100;
+                viewBox = { x: 0, y: 0, w: +w, h: +h };
+                svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
+            }
+            applyViewBox();
+        }
+        function applyViewBox() {
+            svgEl.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        }
+
+        // Zoom & pan
+        function zoomAt(px, py, factor) {
+            const newW = viewBox.w / factor;
+            const newH = viewBox.h / factor;
+            viewBox.x = px - (px - viewBox.x) * (newW / viewBox.w);
+            viewBox.y = py - (py - viewBox.y) * (newH / viewBox.h);
+            viewBox.w = newW;
+            viewBox.h = newH;
+            applyViewBox();
+        }
+
+        // Mouse wheel
+        previewWrap.addEventListener('wheel', e => {
+            if (!svgEl) return;
+            e.preventDefault();
+            const rect = svgEl.getBoundingClientRect();
+            const px = viewBox.x + (e.clientX - rect.left) / rect.width * viewBox.w;
+            const py = viewBox.y + (e.clientY - rect.top) / rect.height * viewBox.h;
+            const factor = e.deltaY < 0 ? 1.2 : 0.8;
+            zoomAt(px, py, factor);
+        }, { passive: false });
+
+        // Pan with mouse
+        let isPanning = false, lastX, lastY;
+        previewWrap.addEventListener('mousedown', e => {
+            if (!svgEl) return;
+            isPanning = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
+        });
+        window.addEventListener('mouseup', () => isPanning = false);
+        window.addEventListener('mousemove', e => {
+            if (!isPanning || !svgEl) return;
+            const rect = svgEl.getBoundingClientRect();
+            const dx = (e.clientX - lastX) / rect.width * viewBox.w;
+            const dy = (e.clientY - lastY) / rect.height * viewBox.h;
+            viewBox.x -= dx;
+            viewBox.y -= dy;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            applyViewBox();
+        });
+
+        // Touch pinch + pan
+        let pinchDist = 0;
+        previewWrap.addEventListener('touchstart', e => {
+            if (e.touches.length === 2 && svgEl) {
+                pinchDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            }
+        }, { passive: false });
+        previewWrap.addEventListener('touchmove', e => {
+            if (!svgEl) return;
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const dist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                const rect = svgEl.getBoundingClientRect();
+                const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+                const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+                const px = viewBox.x + midX / rect.width * viewBox.w;
+                const py = viewBox.y + midY / rect.height * viewBox.h;
+                zoomAt(px, py, dist / pinchDist);
+                pinchDist = dist;
+            } else if (e.touches.length === 1) {
+                e.preventDefault();
+                const dx = e.touches[0].movementX || 0;
+                const dy = e.touches[0].movementY || 0;
+                viewBox.x -= dx / previewWrap.clientWidth * viewBox.w;
+                viewBox.y -= dy / previewWrap.clientHeight * viewBox.h;
+                applyViewBox();
+            }
+        }, { passive: false });
+
+        // File input & dragdrop
+        fileInput.addEventListener('change', e => { if (e.target.files[0]) showFile(e.target.files[0]); });
+        dropzone.addEventListener('click', () => fileInput.click());
+        dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        dropzone.addEventListener('drop', e => {
+            e.preventDefault(); dropzone.classList.remove('dragover');
+            if (e.dataTransfer.files[0]) showFile(e.dataTransfer.files[0]);
+        });
+        clearBtn.addEventListener('click', () => { fileInput.value = ''; clearPreview(); });
+    </script>
+</body>
+</html>
