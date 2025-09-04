@@ -60,16 +60,16 @@
 </head>
 <body>
     <div class="uploader" id="uploader">
-        <h1>SVG anzeigen — mit Pan &amp; Infinite Zoom</h1>
+        <h1>Show SVG — with Pan &amp; Infinite Zoom</h1>
 
         <div class="dropzone" id="dropzone" tabindex="0" role="button">
-            <strong>Drag & Drop</strong> deine SVG hierher – oder klicke, um eine Datei auszuwählen.
+            <strong>Drag & Drop</strong> your SVG here or click, to select a File.
         </div>
 
         <div class="controls">
-            <label class="btn" for="fileInput">SVG wählen</label>
+            <label class="btn" for="fileInput">select SVG</label>
             <input id="fileInput" type="file" accept=".svg,image/svg+xml" />
-            <button class="btn" id="clearBtn" type="button">Zurücksetzen</button>
+            <button class="btn" id="clearBtn" type="button">set back</button>
             <span class="meta" id="fileMeta" aria-live="polite"></span>
         </div>
 
@@ -78,7 +78,7 @@
         </div>
 
         <div class="error" id="errorMsg" role="alert" aria-live="assertive"></div>
-        <div class="hint">Maus: Rad = Zoom (auf Cursor), Ziehen = Verschieben. Touch: Zwei Finger = Zoom, ein Finger = Pan.</div>
+        <div class="hint">Mouse: wheel = Zoom (with Cursor), Pull = Move. Touch: Two Fingers = Zoom, one Finger = Pan.</div>
     </div>
 
     <script>
