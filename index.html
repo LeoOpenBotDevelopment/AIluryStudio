@@ -106,7 +106,7 @@
                 --rectangleborder: #161b22;
                 --overlaybackground-color: rgba(0, 0, 0, 0.3);
                 --contentcontainer-color: #0d1117;
-                --checkmark-color: #0E7F9E;
+                --checkmark-color: #28a745;
                 --seccontainerbackground-color: #161b22;
                 --seccontainerlinebackground-color: rgba(50, 50, 50, 0.5);
                 --navdotcolor-color: #161b22;
@@ -2493,7 +2493,7 @@
             background: var(--contentcontainer-color);
             border: 1px solid var(--rectangleborder);
             color: var(--black-color);
-            display: flex;
+            display: block;
             padding: 10px;
             text-align: left;
             font-size: 1em;
@@ -2501,14 +2501,16 @@
             margin-bottom: 5px;
             transition: 0.3s;
             overflow: hidden;
-            justify-content: space-between;
+            justify-content: left;
         }
-        .theme-option-container > .themeoption{
+        .theme-option-container > .themeoption {
             background: linear-gradient(90deg, var(--lightgrey-color), var(--contentcontainer-color), var(--contentcontainer-color));
             width: 100%;
             max-width: 450px;
+            display: flex;
             margin-left: 50%;
             transform: translateX(-50%);
+            justify-content: space-between;
         }
         .themeoption2 button {
             display: flex;
@@ -2531,7 +2533,10 @@
             height: 1.2em;
             border-radius: 50%;
         }
-        .switchtothememaincolorspan{
+        .switchtothememaincolorspan2 {
+            margin-right: 10px;
+        }
+        .switchtothememaincolorspan {
             width: 1.7em;
             height: 1.7em;
             border-radius: 50%;
@@ -2559,6 +2564,37 @@
             margin-left: 50%;
             transform: translateX(-50%);
         }
+        .theme-option-container .themeoption:not(.customtextthemeoption) input[type="range"]{
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            background: linear-gradient(90deg, var(--white-color), var(--switchcheckedbackground-color));
+            border-radius: 4px;
+            outline: none;
+            transition: background 0.3s ease;
+            border: 2px solid var(--switchcheckedbackground-color);
+            margin-top: 12px;
+            width: 100%;
+        }
+        .theme-option-container .themeoption:not(.customtextthemeoption) input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 24px;
+            background: var(--white-color);
+            border: 2px solid var(--switchcheckedbackground-color);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .themeoption2 .themeoption:not(.customtextthemeoption) span {
+            display: inline-block;
+            transform: translateY(-7px);
+        }
+        
+        
 
         input[type="range"]{
             -webkit-appearance: none;
@@ -2574,6 +2610,9 @@
         @media(max-width: 700px){
             input[type="range"]{
                 width: 30%;
+            }
+            .theme-option-container input[type="range"] {
+                width: 100%;
             }
         }
 
@@ -2636,6 +2675,11 @@
             hyphens: auto;
             overflow-x: hidden;
             width: 100%;
+        }
+        
+        .themeoption2 .customtextthemeoption {
+            display: flex;
+            justify-content: space-between;
         }
 
         .threedots {
@@ -4829,14 +4873,14 @@
                         <span class="switchtothemetitlespan">light yellow</span>
                     </div>
                     <div class="themeoption2" id="customthemeoption" onclick="switchtotheme('custom-theme')">
-                        <div class="themeoption">
+                        <div class="themeoption customtextthemeoption">
                             <span class="switchtothememaincolorspan" style="background: var(--switchcheckedbackground-color)"></span>
                             <span class="switchtothemetitlespan">custom</span></div>
                         <div class="colorselectorcontainer">
                         <br>
                         <div class="themeoption">
                             <input class="switchtothememaincolorspan2" type="color" id="backgroundColor" value="#0d1117" onchange="updateBackgroundColor()">
-                                <span class="switchtothemetitlespan">background</span>
+                            <span class="switchtothemetitlespan">background</span>
                             <input type="range" id="backgroundAlpha" min="0" max="100" value="100" onchange="updateBackgroundColor()">
                         </div>
                         <br>
@@ -10518,9 +10562,11 @@
                     }
                     let messagetouse = message;
                     if (messagetouse == ""){
-                        return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: "default" }, '*');`;
+                        //console.${type}(${messagetouse});\n
+                        return `parent.postMessage({ status: '${type}', message: "default" }, '*');`;
                     }
-                    return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
+                    //console.${type}(${messagetouse});\n
+                    return `parent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
                 });
             }
             
@@ -10613,9 +10659,11 @@
                     }
                     let messagetouse = message;
                     if (messagetouse == "") {
-                        return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: "default" }, '*');`;
+                        //console.${type}(${messagetouse});\n
+                        return `parent.postMessage({ status: '${type}', message: "default" }, '*');`;
                     }
-                    return `console.${type}(${messagetouse});\nparent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
+                    //console.${type}(${messagetouse});\n
+                    return `parent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
                 });
                 document.getElementById(currentiframeid).contentWindow.postMessage('run: ' + texttorun, '*');
                 inputfield.value = "";
@@ -10682,8 +10730,7 @@
             let sec1text = `body {
     height: 100vh;
     width: 100vw;
-}
-        `;
+}`;
             let sec2text = `console.log('Hello World');\n`;
             
             const vAIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
@@ -11859,10 +11906,8 @@
                         text: selectedline.textContent
                     };
                     newpast.push(pastelement);
-                    let additionalspaces = "";
-                    for (i = 0; i < m__right; i++){
-                        additionalspaces += "\u00A0";
-                    }
+                    let additionalspaces = "\u00A0".repeat(m__right);
+                    
                     selectedline.textContent = additionalspaces + selectedline.textContent;
                     if (!selectedline.classList.contains('syntaxhtmlcomment') && !selectedline.classList.contains('syntaxcomment') && !selectedline.classList.contains('syntaxstring')) {
                         addJsSyntaxHighlighting(selectedline);
@@ -12991,6 +13036,9 @@
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
+            if (event.key == 'Shift' || event.metaKey || event.ctrlKey || event.key == "CapsLock" || event.code == "CapsLock") {
+                return;
+            }
             let celine = document.activeElement?.closest('.code-editor-line');
             if (!celine) return;
     
@@ -13416,7 +13464,8 @@
             if (document.querySelector('.notificationmessage').style.display != "none"){
                 hidenotificationmessage();
             }
-            if (event.metaKey || event.ctrlKey) {
+            
+            if (event.key == 'Shift' || event.metaKey || event.ctrlKey || event.key == "CapsLock" || event.code == "CapsLock") {
                 return;
             }
             let celine = section.querySelector('.code-editor-line:focus');
@@ -13429,7 +13478,7 @@
                 if (!selection.rangeCount) return null;
                     const range = selection.getRangeAt(0);
                     const selectedText = range.toString();
-                    if (selectedText != "" && event.key != "Shift" && event.key != "Tab"){
+                    if (selectedText != "" && event.key != "Tab"){
                         nodelete = true;
                         if (celine){
                             lasteventsparentsection = section;
@@ -13500,263 +13549,6 @@
                     "doctype"
                 ];
                 
-                if (event.key == 'Enter') {
-                    event.preventDefault();
-                    
-                    if (celine) {
-                        if (celine.classList.contains('hiddenlinesparent')){
-                            celine.classList.remove('hiddenlinesparent');
-                            showHiddenElements(celine);
-                        }
-                        correntids += 1;
-                        const newid = correntids;
-                        lasteventsparentsection = section;
-                        let pastelement = {
-                            element: celine,
-                            type: "text",
-                            text: celine.textContent
-                        };
-                        newpast.push(pastelement);
-                        const text = celine.textContent;
-           
-                        const selection = window.getSelection();
-                        const range = selection.getRangeAt(0);
-                        const cursorOffset = range.startOffset;
-    
-                        const textBehindCursor = text.substring(cursorOffset);
-                        celine.textContent = text.substring(0, cursorOffset);
-    
-                        let lastsignincelineelement = getLastNonSpaceCharInText(celine.textContent);
-                        let firstsignintextbehindcursor = getFirstNonSpaceCharInTextaftercursor(textBehindCursor);
-                        let spaces = "";
-                        for (let i = 0; i < celine.textContent.length; i++) {
-                            const character = celine.textContent[i];
-                            if (character === " " || character === "\u00A0") {
-                                spaces += "\u00A0";
-                            } else {
-                                break;
-                            }
-                        }
-                        let firstspaces = spaces;
-                        const openingsignsincssandjavascript = ["{", "[", "(", ":"];
-                        const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
-                        let openTagMatch = celine.textContent.trim().match(/<(\w+)([^>]*)>$/);
-                        if (openingsignsincssandjavascript.includes(lastsignincelineelement) || (openTagMatch && !selfClosingTags.includes(openTagMatch[1]))) {
-                            spaces += "\u00A0\u00A0\u00A0\u00A0";
-                        }
-                        const newline = document.createElement('div');
-                        newline.setAttribute('contenteditable', 'true');
-                        newline.id = newid;
-                        newline.classList.add('code-editor-line');
-
-                        let closingTagMatch = textBehindCursor.match(/^<\/(\w+)>/);
-                        
-                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch){
-                            newline.textContent = spaces;
-                        }else {
-                            newline.textContent = spaces + textBehindCursor;
-                        }
-                        
-                        if (celine.classList.contains('syntaxhtmlcomment')){
-                            newline.classList.add('syntaxhtmlcomment');
-                        }
-                        if (celine.classList.contains('syntaxcomment')) {
-                            newline.classList.add('syntaxcomment');
-                        }
-                        if (celine.classList.contains('syntaxstring')) {
-                            newline.classList.add('syntaxstring');
-                        }
-                        if (celine.nextElementSibling && celine.nextElementSibling.classList.contains('syntaxstring')) {
-                            newline.classList.add('syntaxstring');
-                        }
-                        let regextotest = /\/\*(?!.*\*\/)/g;
-                        if (regextotest.test(celine)){
-                            newline.classList.add('syntaxcomment');
-                        }
-                        let regextotest2 = /(?<!<!--.*)-->$/g;
-                        if (regextotest.test(celine)) {
-                            newline.classList.add('syntaxhtmlcomment');
-                        }
-                        celine.insertAdjacentElement('afterend', newline);
-                        lineObserver.observe(newline);
-                        let pastelemen4 = {
-                            element: newline,
-                            type: "create",
-                            index: getElementIndexInParent(newline)
-                        };
-                        newpast.push(pastelemen4);
-                        
-                        if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch){
-                            correntids++;
-                            const newline2 = document.createElement('div');
-                            newline2.setAttribute('contenteditable', 'true');
-                            newline2.id = correntids;
-                            newline2.classList.add('code-editor-line');
-                            newline2.textContent = firstspaces + textBehindCursor;
-                            newline.insertAdjacentElement('afterend', newline2);
-                            lineObserver.observe(newline2);
-                            addJsSyntaxHighlighting(newline2);
-                            let pastelement = {
-                                element: newline2,
-                                type: "create",
-                                index: getElementIndexInParent(newline2)
-                            };
-                            newpast.push(pastelement);
-                        }
-                        newline.focus();
-                        const newRange = document.createRange();
-                        newRange.setStart(newline.firstChild || newline, spaces.length);
-                        newRange.collapse(true);
-                        selection.removeAllRanges();
-                        selection.addRange(newRange);
-                        addJsSyntaxHighlighting(celine);
-                        updateSelectedClasses();
-                    }
-                }
-    
-    
-                if (event.key === 'Backspace' && nodelete == false) {
-                    lasteventsparentsection = section;
-                    if (celine.textContent != ""){
-                        let pastelemen3 = {
-                            element: celine,
-                            type: "text",
-                            text: celine.textContent
-                        };
-                        newpast.push(pastelemen3);
-                    }
-                    function handleBackspaceWithMatchingCharacters(event) {
-                        if (event.key !== 'Backspace') return;
-                        const selection = window.getSelection();
-                        if (!selection.rangeCount) return;
-                        const range = selection.getRangeAt(0);
-                        const cursorOffset = range.startOffset;
-                        const celine = range.startContainer;
-        
-                        if (!celine || celine.nodeType !== Node.TEXT_NODE) return;
-        
-                        const text = celine.textContent;
-        
-                        const matchingPairs = {
-                            '(': ')',
-                            '{': '}',
-                            '[': ']',
-                            '"': '"',
-                            "'": "'",
-                            '`': '`'
-                        };
-        
-                        const previousChar = text.charAt(cursorOffset - 1);
-                        const nextChar = text.charAt(cursorOffset);
-        
-                        if (matchingPairs[previousChar] === nextChar) {
-                            event.preventDefault();
-                            document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
-                                suggestioncontainerv.remove();
-                            });
-        
-                            const updatedText = text.slice(0, cursorOffset - 1) + text.slice(cursorOffset + 1);
-                            celine.textContent = updatedText;
-        
-                            const newCursorPosition = cursorOffset - 1;
-                            range.setStart(celine, newCursorPosition);
-                            range.collapse(true);
-        
-                            selection.removeAllRanges();
-                            selection.addRange(range);
-                        }
-                    }
-        
-                    handleBackspaceWithMatchingCharacters(event);
-                    let selection = window.getSelection();
-                    let range = selection.getRangeAt(0);
-        
-                    if (range.startOffset === 0 && celine) {
-                        event.preventDefault();
-                        document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
-                            suggestioncontainerv.remove();
-                    });
-
-                    const previousLine = celine.previousElementSibling;
-                    if (previousLine) {
-                        updateSelectedClasses();
-
-                        const currentLineText = celine.textContent;
-                        const previousLineText = previousLine.textContent;
-
-                        let pastelement2 = {
-                            element: celine,
-                            type: "delete",
-                            index: getElementIndexInParent(celine)
-                        };
-                        newpast.push(pastelement2);
-                        if (celine.classList.contains('hiddenlinesparent')){
-                            celine.classList.remove('hiddenlinesparent');
-                            showHiddenElements(celine);
-                        }
-                        celine.remove();
-                        if (!section.querySelector('.code-editor-line.selected')) {
-                            section.querySelectorAll('.eslbtn').forEach(dline => {
-                                if (!dline.classList.contains('disabled')){
-                                    dline.classList.add('disabled');
-                                }
-                            });
-                        }
-                        
-                        let pastelemen3 = {
-                            element: previousLine,
-                            type: "text",
-                            text: previousLine.textContent
-                        };
-                        newpast.push(pastelemen3);
-
-                        previousLine.textContent = previousLineText + currentLineText;
-
-                        const newRange = document.createRange();
-                        const textLength = previousLine.textContent.length;
-
-                        newRange.setStart(previousLine.firstChild || previousLine, textLength - currentLineText.length);
-                        newRange.collapse(true);
-
-                        selection.removeAllRanges();
-                        selection.addRange(newRange);
-                    }
-                }
-            }
-            
-            if (event.key === '>') {
-                lasteventsparentsection = section;
-                let pastelement = {
-                    element: celine,
-                    type: "text",
-                    text: celine.textContent
-                };
-                newpast.push(pastelement);
-
-                let selection = window.getSelection();
-                let range = selection.getRangeAt(0);
-                let cursorOffset = range.startOffset;
-
-                let text = celine.textContent.substring(0, cursorOffset);
-                let openTagMatch = text.match(/<(\w+)([^>]*)$/);
-
-                if (openTagMatch) {
-                    let tagName = openTagMatch[1];
-                    if (selfClosingTags.includes(tagName)){
-                        return;
-                    }else {
-                        event.preventDefault();
-                    }
-                    let tagEnd = `</${tagName}>`;
-                    let textAfterCursor = celine.textContent.substring(cursorOffset);
-                    celine.textContent = text + '>' + tagEnd + textAfterCursor;
-
-                    range.setStart(celine.firstChild, cursorOffset + 1);
-                    range.collapse(true);
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                }
-            }
 
             let selection = window.getSelection();
 
@@ -13775,25 +13567,10 @@
                 let textAfterCursor = text.substring(cursorOffset);
                 celine.textContent = text.substring(0, cursorOffset) + openingChar + closingChar + textAfterCursor;
 
-                range.setStart(celine.firstChild, cursorOffset + 1);
+                range.setStart(celine.firstChild, cursorOffset + openingChar.length);
                 range.collapse(true);
                 selection.removeAllRanges();
                 selection.addRange(range);
-            }
-
-            if (event.key === '{') {
-                event.preventDefault();
-                insertClosingCharacter('{', '}');
-            }
-
-            if (event.key === '[') {
-                event.preventDefault();
-                insertClosingCharacter('[', ']');
-            }
-
-            if (event.key === '(') {
-                event.preventDefault();
-                insertClosingCharacter('(', ')');
             }
 
             function checkAndSkipClosingCharacter(closingChar) {
@@ -13837,34 +13614,306 @@
                     insertClosingCharacter(closingChar, closingChar);
                 }
             }
-            if (event.key === ']') {
+            if (event.key == 'Tab') {
+                event.preventDefault();
+                let additionalspaces = " ".repeat(m__right);
+                insertClosingCharacter(additionalspaces, '');
+            }
+            else if (event.key == 'Enter') {
+                event.preventDefault();
+                
+                if (celine) {
+                    if (celine.classList.contains('hiddenlinesparent')) {
+                        celine.classList.remove('hiddenlinesparent');
+                        showHiddenElements(celine);
+                    }
+                    correntids += 1;
+                    const newid = correntids;
+                    lasteventsparentsection = section;
+                    let pastelement = {
+                        element: celine,
+                        type: "text",
+                        text: celine.textContent
+                    };
+                    newpast.push(pastelement);
+                    const text = celine.textContent;
+                    
+                    const selection = window.getSelection();
+                    const range = selection.getRangeAt(0);
+                    const cursorOffset = range.startOffset;
+                    
+                    const textBehindCursor = text.substring(cursorOffset);
+                    celine.textContent = text.substring(0, cursorOffset);
+                    
+                    let lastsignincelineelement = getLastNonSpaceCharInText(celine.textContent);
+                    let firstsignintextbehindcursor = getFirstNonSpaceCharInTextaftercursor(textBehindCursor);
+                    let spaces = "";
+                    for (let i = 0; i < celine.textContent.length; i++) {
+                        const character = celine.textContent[i];
+                        if (character === " " || character === "\u00A0") {
+                            spaces += "\u00A0";
+                        } else {
+                            break;
+                        }
+                    }
+                    let firstspaces = spaces;
+                    const openingsignsincssandjavascript = ["{", "[", "(", ":"];
+                    const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
+                    let openTagMatch = celine.textContent.trim().match(/<(\w+)([^>]*)>$/);
+                    if (openingsignsincssandjavascript.includes(lastsignincelineelement) || (openTagMatch && !selfClosingTags.includes(openTagMatch[1]))) {
+                        spaces += "\u00A0\u00A0\u00A0\u00A0";
+                    }
+                    const newline = document.createElement('div');
+                    newline.setAttribute('contenteditable', 'true');
+                    newline.id = newid;
+                    newline.classList.add('code-editor-line');
+                    
+                    let closingTagMatch = textBehindCursor.match(/^<\/(\w+)>/);
+                    
+                    if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch) {
+                        newline.textContent = spaces;
+                    } else {
+                        newline.textContent = spaces + textBehindCursor;
+                    }
+                    
+                    if (celine.classList.contains('syntaxhtmlcomment')) {
+                        newline.classList.add('syntaxhtmlcomment');
+                    }
+                    if (celine.classList.contains('syntaxcomment')) {
+                        newline.classList.add('syntaxcomment');
+                    }
+                    if (celine.classList.contains('syntaxstring')) {
+                        newline.classList.add('syntaxstring');
+                    }
+                    if (celine.nextElementSibling && celine.nextElementSibling.classList.contains('syntaxstring')) {
+                        newline.classList.add('syntaxstring');
+                    }
+                    let regextotest = /\/\*(?!.*\*\/)/g;
+                    if (regextotest.test(celine)) {
+                        newline.classList.add('syntaxcomment');
+                    }
+                    let regextotest2 = /(?<!<!--.*)-->$/g;
+                    if (regextotest.test(celine)) {
+                        newline.classList.add('syntaxhtmlcomment');
+                    }
+                    celine.insertAdjacentElement('afterend', newline);
+                    lineObserver.observe(newline);
+                    let pastelemen4 = {
+                        element: newline,
+                        type: "create",
+                        index: getElementIndexInParent(newline)
+                    };
+                    newpast.push(pastelemen4);
+                    
+                    if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch) {
+                        correntids++;
+                        const newline2 = document.createElement('div');
+                        newline2.setAttribute('contenteditable', 'true');
+                        newline2.id = correntids;
+                        newline2.classList.add('code-editor-line');
+                        newline2.textContent = firstspaces + textBehindCursor;
+                        newline.insertAdjacentElement('afterend', newline2);
+                        lineObserver.observe(newline2);
+                        addJsSyntaxHighlighting(newline2);
+                        let pastelement = {
+                            element: newline2,
+                            type: "create",
+                            index: getElementIndexInParent(newline2)
+                        };
+                        newpast.push(pastelement);
+                    }
+                    newline.focus();
+                    const newRange = document.createRange();
+                    newRange.setStart(newline.firstChild || newline, spaces.length);
+                    newRange.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+                    addJsSyntaxHighlighting(celine);
+                    updateSelectedClasses();
+                }
+            }
+            else if (event.key == 'Backspace' && nodelete == false) {
+                lasteventsparentsection = section;
+                if (celine.textContent != "") {
+                    let pastelemen3 = {
+                        element: celine,
+                        type: "text",
+                        text: celine.textContent
+                    };
+                    newpast.push(pastelemen3);
+                }
+                
+                function handleBackspaceWithMatchingCharacters(event) {
+                    if (event.key !== 'Backspace') return;
+                    const selection = window.getSelection();
+                    if (!selection.rangeCount) return;
+                    const range = selection.getRangeAt(0);
+                    const cursorOffset = range.startOffset;
+                    const celine = range.startContainer;
+                    
+                    if (!celine || celine.nodeType !== Node.TEXT_NODE) return;
+                    
+                    const text = celine.textContent;
+                    
+                    const matchingPairs = {
+                        '(': ')',
+                        '{': '}',
+                        '[': ']',
+                        '"': '"',
+                        "'": "'",
+                        '`': '`'
+                    };
+                    
+                    const previousChar = text.charAt(cursorOffset - 1);
+                    const nextChar = text.charAt(cursorOffset);
+                    
+                    if (matchingPairs[previousChar] === nextChar) {
+                        event.preventDefault();
+                        document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                            suggestioncontainerv.remove();
+                        });
+                        
+                        const updatedText = text.slice(0, cursorOffset - 1) + text.slice(cursorOffset + 1);
+                        celine.textContent = updatedText;
+                        
+                        const newCursorPosition = cursorOffset - 1;
+                        range.setStart(celine, newCursorPosition);
+                        range.collapse(true);
+                        
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                }
+                
+                handleBackspaceWithMatchingCharacters(event);
+                let selection = window.getSelection();
+                let range = selection.getRangeAt(0);
+                
+                if (range.startOffset === 0 && celine) {
+                    event.preventDefault();
+                    document.querySelectorAll('.suggestioncontainer').forEach(suggestioncontainerv => {
+                        suggestioncontainerv.remove();
+                    });
+                    
+                    const previousLine = celine.previousElementSibling;
+                    if (previousLine) {
+                        updateSelectedClasses();
+                        
+                        const currentLineText = celine.textContent;
+                        const previousLineText = previousLine.textContent;
+                        
+                        let pastelement2 = {
+                            element: celine,
+                            type: "delete",
+                            index: getElementIndexInParent(celine)
+                        };
+                        newpast.push(pastelement2);
+                        if (celine.classList.contains('hiddenlinesparent')) {
+                            celine.classList.remove('hiddenlinesparent');
+                            showHiddenElements(celine);
+                        }
+                        celine.remove();
+                        if (!section.querySelector('.code-editor-line.selected')) {
+                            section.querySelectorAll('.eslbtn').forEach(dline => {
+                                if (!dline.classList.contains('disabled')) {
+                                    dline.classList.add('disabled');
+                                }
+                            });
+                        }
+                        
+                        let pastelemen3 = {
+                            element: previousLine,
+                            type: "text",
+                            text: previousLine.textContent
+                        };
+                        newpast.push(pastelemen3);
+                        
+                        previousLine.textContent = previousLineText + currentLineText;
+                        
+                        const newRange = document.createRange();
+                        const textLength = previousLine.textContent.length;
+                        
+                        newRange.setStart(previousLine.firstChild || previousLine, textLength - currentLineText.length);
+                        newRange.collapse(true);
+                        
+                        selection.removeAllRanges();
+                        selection.addRange(newRange);
+                    }
+                }
+            }
+            else if (event.key == '>') {
+                lasteventsparentsection = section;
+                let pastelement = {
+                    element: celine,
+                    type: "text",
+                    text: celine.textContent
+                };
+                newpast.push(pastelement);
+
+                let selection = window.getSelection();
+                let range = selection.getRangeAt(0);
+                let cursorOffset = range.startOffset;
+
+                let text = celine.textContent.substring(0, cursorOffset);
+                let openTagMatch = text.match(/<(\w+)([^>]*)$/);
+
+                if (openTagMatch) {
+                    let tagName = openTagMatch[1];
+                    if (selfClosingTags.includes(tagName)){
+                        return;
+                    }else {
+                        event.preventDefault();
+                    }
+                    let tagEnd = `</${tagName}>`;
+                    let textAfterCursor = celine.textContent.substring(cursorOffset);
+                    celine.textContent = text + '>' + tagEnd + textAfterCursor;
+
+                    range.setStart(celine.firstChild, cursorOffset + 1);
+                    range.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            }
+            else if (event.key == '{') {
+                event.preventDefault();
+                insertClosingCharacter('{', '}');
+            }
+            else if (event.key == '[') {
+                event.preventDefault();
+                insertClosingCharacter('[', ']');
+            }
+            else if (event.key == '(') {
+                event.preventDefault();
+                insertClosingCharacter('(', ')');
+            }
+            else if (event.key == ']') {
                 checkAndSkipClosingCharacter(']');
             }
-            if (event.key === '}') {
+            else if (event.key == '}') {
                 checkAndSkipClosingCharacter('}');
             }
-            if (event.key === '"') {
+            else if (event.key == '"') {
                 checkAndSkipornotClosingCharacter('"');
             }
-            if (event.key === "'") {
+            else if (event.key == "'") {
                 checkAndSkipornotClosingCharacter("'");
             }
-            if (event.key === ')') {
+            else if (event.key == ')') {
                 checkAndSkipClosingCharacter(')');
             }
-            if (event.key === ';') {
+            else if (event.key == ';') {
                 checkAndSkipClosingCharacter(';');
             }
-            if (event.key === '„') {
+            else if (event.key == '„') {
                 checkAndSkipornotClosingCharacter('"');
             }
-            if (event.key === '“') {
+            else if (event.key == '“') {
                 checkAndSkipornotClosingCharacter('"');
             }
-            if (event.key === "‘") {
+            else if (event.key == "‘") {
                 checkAndSkipornotClosingCharacter('\'');
             }
-            if (event.key === "‚") {
+            else if (event.key == "‚") {
                 checkAndSkipornotClosingCharacter('\'');
             }
             if (newpast.length > 0) {
