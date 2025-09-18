@@ -7914,7 +7914,7 @@
             const alpha = document.getElementById('rectangleBorderAlpha').value / 100;
             const rgba = hexToRgba(rectangleBorderColor, alpha);
             console.log(alpha);
-            const transparentRgba = hexToRgba(rectangleBorderColor, 0.5);
+            const transparentRgba = hexToRgba(rectangleBorderColor, 0.8);
             themetoedit.style.setProperty('--half-transparent-border-color', transparentRgba);
             themetoedit.style.setProperty('--rectangleborder', rgba);
             themetoedit.style.setProperty('--deviceborder-color', rgba);
@@ -10963,9 +10963,9 @@
                                 newspannum.classList.add('resultnum');
                                 newspannum.textContent = getElementIndexInParent(lineelement) + 1 + ". ";
                                 newspan.appendChild(newspannum);
-                                newspan.append(lineelement.textContent);
+                                newspan.append(lineelement.textContent.trim());
                             }else {
-                                newspan.textContent = lineelement.textContent;
+                                newspan.textContent = lineelement.textContent.trim();
                             }
                             codesearchresults.appendChild(newspan);
 
