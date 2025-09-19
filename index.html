@@ -2126,16 +2126,66 @@
         }
 
         #custom-dialog, .timeinputcontainer {
-            background: var(--background-color);
+            background: rgba(255, 255, 255, 0.1);
             padding: 30px;
-            border: 1px solid var(--rectangleborder);
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
             text-align: center;
             position: relative;
             animation: fadeInDialog 0.4s ease-in-out;
+        }
+        
+        #prompt-options {
+            display: none;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            font-size: 1em;
+            color: var(--black-color);
+            flex-direction: column;
+            overflow: hidden;
+            overflow-y: auto;
+            max-height: 200px;
+            width: 95%;
+            margin-left: 2.5%;
+        }
+        
+        #prompt-options span {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0;
+            font-size: 1em;
+            padding: 10px;
+            color: var(--black-color);
+            margin-bottom: 2px;
+            position: relative;
+        }
+        #prompt-options span:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        #prompt-options span.unSupported {
+            color: red;
+            font-weight: bold;
+        }
+        #prompt-options span.unSupported:after {
+            content: "!";
+            background: red;
+            color: white;
+            position: absolute;
+            font-weight: bold;
+            top: 0;
+            right: 0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
         }
 
         #close-dialog, #closetimeinputoverlay {
@@ -2144,7 +2194,7 @@
             right: 15px;
             cursor: pointer;
             font-size: 24px;
-            color: var(--rectangleborder);
+            color: var(--black-color);
             transition: color 0.2s;
         }
 
@@ -2166,7 +2216,7 @@
             width: 95%;
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid var(--rectangleborder);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             font-size: 16px;
             margin-bottom: 15px;
             color: var(--black-color);
@@ -2180,8 +2230,8 @@
             margin-top: 10px;
             padding: 12px;
             width: 100%;
-            background: var(--spencialbtnbackground-color);
-            color: var(--black-color);
+            background: var(--switchcheckedbackground-color);
+            color: #ffffff;
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -2217,7 +2267,7 @@
             border-radius: 3px;
             font-size: 14px;
             animation: easeinanimationfrb 0.3s;
-            position: absolute;
+            position: fixed;
             top: 5px;
             left: 5px;
         }
@@ -3250,6 +3300,7 @@
             border: none;
             border-radius: 5px;
             margin-bottom: 10px;
+            padding: 10px;
         }
         #replaceoptions:focus {
             outline: none;
@@ -3289,7 +3340,7 @@
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             border-radius: 10px;
-            background: var(--background-color);
+            background: transparent;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -3458,8 +3509,14 @@
         }
         
         .leidresult span {
-            overflow: hidden;
             padding: 10px;
+            width: 70%;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .notpartofesyntax {
+            word-break: break-word;
         }
         
         .leidresult button {
@@ -4100,10 +4157,15 @@
         }
         .sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink:before {
             color: var(--switchcheckedbackground-color);
-            content: "ay";
+            content: "✓";
             font-size: 1.1em;
             margin-right: 10px;
         }
+        
+        .sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink.unsupported:before {
+            content: "•";
+        }
+        
         .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink.currentfile {
             background: var(--lightgrey-color);
             border-radius: 5px;
@@ -4314,6 +4376,15 @@
             align-items: center;
             flex-direction: column;
         }
+        .undolimitnum {
+            padding: 10px;
+            font-size: 1.1em;
+            color: var(--black-color);
+            background: transparent;
+            border: 1px solid var(--rectangleborder);
+            border-radius: 5px;
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -4425,7 +4496,7 @@
                                         <input type="text" id="computer-url-input" placeholder="file..." list="filenameoptions">
                                     </div>
                                     <div class="btn-group">
-                                        <button onclick="textCode('computer-url-input', 'computer-frame');createConfetti()">⌕</button>
+                                        <button onclick="textCode('computer-url-input', 'computer-frame');createConfetti()">run</button>
                                     </div>
                                 </div>
                                 <div class="iframe-container">
@@ -4659,7 +4730,7 @@
             </div>
             <div class="commandsoverlay-container" onclick="hideelement('class', 'commandsoverlay-container', event)">
                 <div class="commandsdisplay-container">
-                    <button class="closecommandoverlaybtn" onclick="hidecommandoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidecommandoverlay()">× close</button>
                     <br>
                     <h2>commands</h2>
                     <br>
@@ -4770,7 +4841,7 @@
             </div>
             <div class="singsoverlay-container" onclick="hideelement('class', 'singsoverlay-container', event)">
                 <div class="topandbottomsignsdisplay-container">
-                    <button class="closecommandoverlaybtn" onclick="hidesignexplenationoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidesignexplenationoverlay()">× close</button>
                     <br>
                     <h2>top - (selected)</h2>
                     <br>
@@ -4864,7 +4935,7 @@
             </div>
             <div id="theme-overlay" class="theme-overlay" onclick="hideelement('class', 'theme-overlay', event)">
                 <div class="theme-option-container">
-                    <button class="closecommandoverlaybtn" onclick="hidethemeoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidethemeoverlay()">× close</button>
                     <h3>theme</h3>
                     <br>
                     <div class="themeoption" onclick="removeallthemes()">
@@ -5069,7 +5140,7 @@
             </div>
             <div id="testregexoverlay" class="testregexoverlay" onclick="hideelement('class', 'testregexoverlay', event)">
                 <div id="testregexcontainer" class="testregexcontainer">
-                    <button class="closecommandoverlaybtn" onclick="hidetestregexoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidetestregexoverlay()">× close</button>
                     <br>
                     <h3>regex</h3>
                     <br>
@@ -5100,7 +5171,7 @@
             </div>
             <div id="replaceoverlay" class="replaceoverlay" onclick="hideelement('class', 'replaceoverlay', event)">
                 <div id="replacecontainer" class="replacecontainer">
-                    <button class="closecommandoverlaybtn" onclick="hidereplaceoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidereplaceoverlay()">× close</button>
                     <br>
                     <h3>replace all</h3>
                     <br>
@@ -5120,7 +5191,7 @@
             </div>
             <div id="chooseanimationoverlay" class="chooseanimationoverlay" onclick="hideelement('class', 'chooseanimationoverlay', event)">
                 <div id="chooseanimationcontainer" class="chooseanimationcontainer">
-                    <button class="closecommandoverlaybtn" onclick="hidechooseanimationoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidechooseanimationoverlay()">× close</button>
                     <br>
                     <h3>Animation</h3>
                     <br>
@@ -5135,7 +5206,7 @@
             </div>
             <div id="chooseceebtnposoverlay" class="chooseceebtnposoverlay" onclick="hideelement('class', 'chooseceebtnposoverlay', event)">
                 <div id="chooseceebtnposcontainer" class="chooseceebtnposcontainer">
-                    <button class="closecommandoverlaybtn" onclick="hidebtnpositionsettingsoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidebtnpositionsettingsoverlay()">× close</button>
                     <br>
                     <h3>button position</h3>
                     <br>
@@ -5188,7 +5259,7 @@
             </div>
             <div id="codefunctionssettingsoverlay" class="codefunctionssettingsoverlay" onclick="hideelement('class', 'codefunctionssettingsoverlay', event)">
                 <div id="codefunctionssettingscontainer" class="codefunctionssettingscontainer">
-                    <button class="closecommandoverlaybtn" onclick="hidecodefunctionssettingsoverlay()">×</button>
+                    <button class="closecommandoverlaybtn" onclick="hidecodefunctionssettingsoverlay()">× close</button>
                     <br>
                     <h3 class="cfsch3">(function name)</h3>
                     <br>
@@ -5286,6 +5357,26 @@
                             </label>
                             <span class="cfscscswitchdesname">undo button animation</span>
                         </div>
+                        
+                        <div class="cfscscundo cfscscf undolimit">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="undolimit" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname">undo limit</span>
+                        </div>
+                        <select name="undolimitnum" class="cfscscundo cfscscf undolimitnum">
+                            <option value="5">5× limit</option>
+                            <option value="10">10× limit</option>
+                            <option value="20">20× limit</option>
+                            <option value="30">30× limit</option>
+                            <option value="40">40× limit</option>
+                            <option value="50" selected>50× limit</option>
+                            <option value="60">60× limit</option>
+                            <option value="80">80× limit</option>
+                            <option value="100">100× limit</option>
+                            <option value="150">150× limit</option>
+                        </select>
                         <button class="cfscscundo cfscscf clearpasttoundobtn" id="clearpasttoundobtn" onclick="clearpasttoundo()">clear file past</button>
                     </div>
                 </div>
@@ -5296,6 +5387,7 @@
                     <p id="custom-message"></p>
                     <div id="prompt-input-container" style="display: none;">
                         <input type="text" id="custom-input" maxlength="250" placeholder="Enter a value">
+                        <div id="prompt-options"></div>
                         <button id="submit-prompt">Submit</button>
                     </div>
                     <button id="close-alert">OK</button>
@@ -5351,6 +5443,7 @@
     <div class="shortNotification"></div>
     <div class="viewoverlayfa"><div class="charactercountcontainer">characters: <span class="charactercountnum">0</span></div><button class="codingreplayreadybtn">ready</button></div>
     <script>
+        const supportedpl = [".js", ".css", ".html", ".htm"];
         function clampCssVarToMaxPx(cssVarName, maxPx) {
             const value = getComputedStyle(document.documentElement).getPropertyValue(cssVarName).trim();
             
@@ -7360,9 +7453,7 @@
                 }
             }
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
             }
@@ -7499,7 +7590,31 @@
                 }
         
                 function MergeFiles() {
+                    const promptInput = document.getElementById('custom-input');
+                    const promptOptions = document.querySelector('#prompt-options');
+                    const allFilePaths = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
+                    if (allFilePaths.length > 0) {
+                        promptOptions.innerHTML = "";
+                        promptOptions.style.display = "flex";
+                    }
+                    allFilePaths.forEach(filePathOp => {
+                        const filePathOpSpan = document.createElement("span");
+                        filePathOpSpan.textContent = filePathOp;
+                        filePathOpSpan.addEventListener("click", () => {
+                            promptInput.value = filePathOp;
+                        });
+                        
+                        if (!supportedpl.some(sEnds => filePathOp.endsWith(sEnds))) {
+                            filePathOpSpan.classList.add("unSupported");
+                        }
+                        
+                        promptOptions.appendChild(filePathOpSpan);
+                    });
                     showPrompt('merge with file:', (filename) => {
+                        if (allFilePaths.length > 0) {
+                            promptOptions.innerHTML = "";
+                            promptOptions.style.display = "none";
+                        }
                         let allfilenames = document.querySelectorAll('.filedot .filePathInput');
                         let allfilenamesarray = Array.from(allfilenames).map(input => input.value);
                         if (!allfilenamesarray.includes(filename)) {
@@ -7914,7 +8029,6 @@
             const rectangleBorderColor = document.getElementById('rectangleBorderColor').value;
             const alpha = document.getElementById('rectangleBorderAlpha').value / 100;
             const rgba = hexToRgba(rectangleBorderColor, alpha);
-            console.log(alpha);
             const transparentRgba = hexToRgba(rectangleBorderColor, 0.8);
             themetoedit.style.setProperty('--half-transparent-border-color', transparentRgba);
             themetoedit.style.setProperty('--rectangleborder', rgba);
@@ -8637,6 +8751,7 @@
         const promptInputContainer = document.getElementById('prompt-input-container');
         const promptInput = document.getElementById('custom-input');
         const submitPromptButton = document.getElementById('submit-prompt');
+        const promptOptions = document.querySelector('#prompt-options');
         const closeDialog = document.getElementById('close-dialog');
         
         
@@ -8647,7 +8762,7 @@
                 closeAlertButton.style.display = 'block';
                 overlay.style.display = 'flex';
                 closeAlertButton.onclick = () => {
-                    if (typeof callback === 'function') {
+                    if (typeof callback == 'function') {
                         closeCustomDialog();
                         callback();
                     }
@@ -8690,6 +8805,8 @@
         function closeCustomDialog() {
             overlay.style.display = 'none';
             promptInput.value = '';
+            promptOptions.innerHTML = "";
+            promptOptions.style.display = "none";
         }
         
         overlay.addEventListener('click', (e) => {
@@ -9121,6 +9238,7 @@
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
             navBarremoveeventlistenerscrollandadditagain();
             handleFileNameInputChange(newNavDot);
+            sidebarfilelink.click();
         }
         async function createNewFile(filename) {
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
@@ -9245,6 +9363,7 @@
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
             navBarremoveeventlistenerscrollandadditagain();
             handleFileNameInputChange(newNavDot);
+            sidebarfilelink.click();
         }
         async function createNewFilefortemplatecode(filename, optionalText = '') {
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
@@ -9252,6 +9371,7 @@
                 showAlert('you have a file with the name ' + filename + ' please change the file name and try again');
                 return;
             }
+            
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
 
@@ -9336,7 +9456,9 @@
     <button class="edit-btn">≡</button>
 </div>
 <button class="close">×</button>`;
-            newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
+            newRectangle.addEventListener('click', (event) => {
+                editthisfile(container.children.length - 1, event);
+            });
             overlayContainer.appendChild(newRectangle);
 
             document.querySelector('.searchforafilenamereadybtn').style.display = "none";
@@ -9403,6 +9525,7 @@
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
             navBarremoveeventlistenerscrollandadditagain();
             handleFileNameInputChange(newNavDot);
+            sidebarfilelink.click();
         }
 
         function downloadFile(name) {
@@ -9509,6 +9632,9 @@
             sidebarfilelinklink.textContent = safeValue;
             sidebarfilelinklink.innerHTML += `<div class="threedots">⋮</div>`;
             sidebarfilelinklink.className = "sidebarfilelinklink";
+            if (!supportedpl.some(sEnds => safeValue.endsWith(sEnds))) {
+                sidebarfilelinklink.classList.add("unsupported");
+            }
             if (document.querySelector('.sidebarfilelinklink.currentfile')){
                 document.querySelector('.sidebarfilelinklink.currentfile').classList.remove('currentfile');
             }
@@ -9825,8 +9951,10 @@
                             line.textContent = line.textContent.replace(regexforreplacing, replacementtext);
                             addJsSyntaxHighlighting(line);
                         });
+                    shortNotificationmessageelement("file content successfully updated");
                 } catch(err){
                     let error = err;
+                    shortNotificationmessageelement("an Error occurred while replecing");
                 }
             } else {
                 Array.from(lines)
@@ -9842,11 +9970,10 @@
                         line.textContent = line.textContent.replaceAll(replacethistext, replacementtext);
                         addJsSyntaxHighlighting(line);
                     });
+                shortNotificationmessageelement("file content successfully updated");
             }
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
@@ -9964,11 +10091,13 @@
             }
 
             let navBar = document.getElementById('nav-bar');
+            let deletedFileName = "";
             if (navBar) {
                 let deletethisnavdot = navBar.querySelector('.nav-dot[data-index="' + number + '"]');
                 if (deletethisnavdot) {
                     let filePathInput = deletethisnavdot.querySelector('.filePathInput');
                     let deletethisnavdotvalue = filePathInput ? filePathInput.value : null;
+                    deletedFileName = deletethisnavdotvalue;
                     deletethisnavdot.remove();
 
                     document.querySelectorAll('.nav-dot').forEach((navdot, index) => {
@@ -10027,6 +10156,9 @@
                     fold.querySelector('span').click();
                 }
             });
+            if (deletedFileName && deletedFileName.textContent != "") {
+                shortNotificationmessageelement(deletedFileName + " successfully deleted");
+            }
         }
         
         function editthisfile(number, event = null){
@@ -10109,9 +10241,7 @@
                 }
             }
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
@@ -10125,6 +10255,9 @@
             }
         }
         function deleteAllCommentsInLines() {
+            if (!section) {
+                showAlert('we did not find the file');
+            }
             const sectionlinecontainer = section.querySelector(".code-editor-container");
             if (!sectionlinecontainer) {
                 showAlert('we did not find the files content');
@@ -10175,9 +10308,7 @@
             });
 
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
@@ -10951,8 +11082,6 @@
                                 };
                                 return;
                             }
-                            console.log("hi")
-
                             const newspan = document.createElement('span');
                             newspan.classList.add('result');
                             
@@ -11607,9 +11736,7 @@
                 });
             }
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
@@ -11649,9 +11776,7 @@
             }
             unselectalllines();
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
@@ -11775,9 +11900,7 @@
                     });
                 }
                 if (newpast.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
+                    pasteventPrep();
                     futureevents[lasteventsparentsection.id] = [];
                     pastevents[lasteventsparentsection.id].push(newpast);
                     enablepastbtn();
@@ -11855,9 +11978,7 @@
                     });
                 }
                 if (newpast.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
+                    pasteventPrep();
                     futureevents[lasteventsparentsection.id] = [];
                     pastevents[lasteventsparentsection.id].push(newpast);
                     enablepastbtn();
@@ -11944,9 +12065,7 @@
             }
             
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
             }
@@ -11975,9 +12094,7 @@
             }
 
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
             }
@@ -12010,9 +12127,7 @@
             }
 
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
             }
@@ -12295,9 +12410,7 @@
                 element.classList.remove('selected');
                 checkifselectedlines();
                 if (newpast.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
+                    pasteventPrep();
                     futureevents[lasteventsparentsection.id] = [];
                     pastevents[lasteventsparentsection.id].push(newpast);
                     enablepastbtn();
@@ -12665,10 +12778,10 @@
             const patterns = [
                 { regex: /class="([^"]+)"/g, prefix: '.', split: true },
                 { regex: /id="([^"]+)"/g, prefix: '#' },
-                { regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
+                /*{ regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
                 { regex: /const\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
                 { regex: /var\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
-                { regex: /let\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
+                { regex: /let\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },*/
                 { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.', split: true },
                 { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.', split: true },
                 { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
@@ -12686,7 +12799,17 @@
                 }
             });
             
-            return Array.from(matches);
+            const returnArray = Array.from(matches);
+            const allCssVariables = [];
+            section.querySelectorAll('.syntaxvariable').forEach(cassVariables => {
+                if (!allCssVariables.includes(cassVariables.textContent)) {
+                    allCssVariables.push(cassVariables.textContent);
+                }
+            });
+            if (allCssVariables.length > 0) {
+                returnArray.push(...allCssVariables);
+            }
+            return returnArray;
         }
         
         function extractUniqueIds(code) {
@@ -12746,9 +12869,7 @@
                         };
                         newpast.push(pastelement);
                         if (newpast.length > 0) {
-                            if (!pastevents[lasteventsparentsection.id]) {
-                                pastevents[lasteventsparentsection.id] = [];
-                            }
+                            pasteventPrep();
                             pastevents[lasteventsparentsection.id].push(newpast);
                             enablepastbtn();
                         }
@@ -12922,9 +13043,7 @@
             }
             
             if (newpast2.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast2);
                 enablepastbtn();
             }
@@ -13047,9 +13166,7 @@
                 newpast2.push(pastelement2);
             
                 if (newpast2.length > 0) {
-                    if (!pastevents[lasteventsparentsection.id]) {
-                        pastevents[lasteventsparentsection.id] = [];
-                    }
+                    pasteventPrep();
                     pastevents[lasteventsparentsection.id].push(newpast2);
                     enablepastbtn();
                 }
@@ -13194,12 +13311,10 @@
                 { regex: /([.,&|;])/g, className: "syntaxsign" },
                 { regex: /\b\d+(\.\d+)?\b/g, className: "syntaxnumber" },
                 { regex: /\b[a-zA-Z_]\w*\b(?=\s*=)/g, className: "syntaxvariable" },
-                { regex: /\b\w+(?=\()/g, className: "syntaxcommand" },
+                { regex: /\b\w+(?=\()/g, className: "syntaxvariable" },
                 { regex: /\b(console|Math\.\w+|Date|window|document)\b/g, className: "syntaxcommand" },
                 { regex: /(?<=\.)\b\w+\b/g, className: "syntaxvariable" },
-                { regex: /\b(?:align-content|align-items|align-self|all|animation(?:-delay|-direction|-duration|-fill-mode|-iteration-count|-name|-play-state|-timing-function)?|appearance|backdrop-filter|backface-visibility|background(?:-attachment|-blend-mode|-clip|-color|-image|-origin|-position|-repeat|-size)?|border(?:-block(?:-color|-end(?:-color|-style|-width)?|-start(?:-color|-style|-width)?|-style|-width)?|-bottom(?:-color|-left-radius|-right-radius|-style|-width)?|-collapse|-color|-end-end-radius|-end-start-radius|-image(?:-outset|-repeat|-slice|-source|-width)?|-inline(?:-color|-end(?:-color|-style|-width)?|-start(?:-color|-style|-width)?|-style|-width)?|-left(?:-color|-style|-width)?|-radius|-right(?:-color|-style|-width)?|-spacing|-start-end-radius|-start-start-radius|-style|-top(?:-color|-left-radius|-right-radius|-style|-width)?|-width)?|box-decoration-break|box-shadow|box-sizing|break-(?:after|before|inside)|caption-side|caret-color|clear|clip(?:-path)?|color|column(?:-count|-fill|-gap|-rule(?:-color|-style|-width)?|-span|-width)?|columns|content|counter-(?:increment|reset)|cursor|direction|display|empty-cells|filter|flex(?:-basis|-direction|-flow|-grow|-shrink|-wrap)?|float|font(?:-family|-feature-settings|-kerning|-language-override|-optical-sizing|-size(?:-adjust)?|-stretch|-style|-synthesis|-variant(?:-alternates|-caps|-east-asian|-ligatures|-numeric|-position)?|-variation-settings|-weight)?|gap|grid(?:-area|-auto-(?:columns|flow|rows)|-column(?:-end|-gap|-start)?|-gap|-row(?:-end|-gap|-start)?|-template(?:-areas|-columns|-rows)?)?|height|hyphens|image-rendering|inherit|initial|inline-size|inset(?:-block(?:-end|-start)?|-inline(?:-end|-start)?)?|isolation|justify-(?:content|items|self)|left|letter-spacing|line-(?:break|height)|list-style(?:-image|-position|-type)?|margin(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|mask(?:-border(?:-mode|-outset|-repeat|-slice|-source|-width)?|-clip|-composite|-image|-mode|-origin|-position|-repeat|-size|-type)?|max-(?:block-size|height|inline-size|width)|min-(?:block-size|height|inline-size|width)|mix-blend-mode|object-(?:fit|position)|offset(?:-(?:anchor|distance|path|position|rotate))?|opacity|order|orphans|outline(?:-color|-offset|-style|-width)?|overflow(?:-(?:anchor|block|inline|wrap|x|y))?|overscroll-behavior(?:-(?:block|inline|x|y))?|padding(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|page-break-(?:after|before|inside)|paint-order|perspective(?:-origin)?|place-(?:content|items|self)|pointer-events|position|quotes|resize|right|rotate|row-gap|ruby-(?:align|position)|scale|scroll-(?:behavior|margin(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|padding(?:-block(?:-end|-start)?|-bottom|-inline(?:-end|-start)?|-left|-right|-top)?|snap-(?:align|stop|type))|shape-(?:image-threshold|margin|outside)|tab-size|table-layout|text-(?:align(?:-last)?|combine-upright|decoration(?:-color|-line|-skip(?:-ink)?|-style|-thickness)?|emphasis(?:-color|-position|-style)?|indent|justify|orientation|overflow|rendering|shadow|transform(?:-offset|position)?|underline(?:-offset|-position)?)|top|transform(?:-(?:box|origin|style))?|transition(?:-(?:delay|duration|property|timing-function))?|unicode-bidi|user-select|vertical-align|visibility|white-space|widows|width|will-change|word-(?:break|spacing|wrap)|writing-mode|z-index|zoom)\b(?=\s*:)/g
-, className: "syntaxcommand" },
-                { regex: /\b\w+(?=:)/g, className: "syntaxcommand" },
+                { regex: /\b[\w\-]+(?=:)/g, className: "syntaxcommand" },
                 { regex: /\w+/g, className: "notpartofesyntax" }
             ];
             
@@ -13267,7 +13382,10 @@
                                 span.onclick = () => {
                                     notify("edit regex", "open", () => {
                                         showRegexTester(span.textContent, (back) => {
-                                            if (back) span.textContent = back;
+                                            if (back) {
+                                                span.textContent = back;
+                                                shortNotificationmessageelement("regex successfully updated");
+                                            }
                                         });
                                     });
                                 };
@@ -13294,6 +13412,10 @@
                                         });
                                     }
                                 };
+                            }
+                            if (span.textContent.replace(/[^A-Za-z]/g, '') != "") {
+                                const safeClassName = 'spanwithtext' + span.textContent.replace(/[^A-Za-z0-9_-]/g, '');
+                                span.classList.add(safeClassName, "highlightable");
                             }
                             
                             container.appendChild(span);
@@ -13583,7 +13705,6 @@
                                 cursor: getElCPos
                             };
                             newpast.push(pastelement);
-                            event.preventDefault();
                         }
                         range.deleteContents();
                     }
@@ -13608,9 +13729,7 @@
                         newpast.push(pastelement2);
                     }
                     if (newpast.length > 0) {
-                        if (!pastevents[lasteventsparentsection.id]) {
-                            pastevents[lasteventsparentsection.id] = [];
-                        }
+                        pasteventPrep();
                         pastevents[lasteventsparentsection.id].push(newpast);
                         enablepastbtn();
                     }
@@ -14021,11 +14140,19 @@
                 checkAndSkipornotClosingCharacter('\'');
             }
             if (newpast.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+            }
+        }
+        const undolimitnum = document.querySelector('.undolimitnum');
+        const undolimit = document.querySelector('.undolimit input[type="checkbox"]');
+        function pasteventPrep() {
+            if (!pastevents[lasteventsparentsection.id]) {
+                pastevents[lasteventsparentsection.id] = [];
+            }
+            if (undolimit.checked == true && pastevents[lasteventsparentsection.id].length > parseInt(undolimitnum.value)) {
+                pastevents[lasteventsparentsection.id] = pastevents[lasteventsparentsection.id].slice(-(parseInt(undolimitnum.value) - 1));
             }
         }
         
@@ -14123,24 +14250,466 @@
                 }
             });
         }
-        const cssKeywordsAndProperties = [
-            "color", "background", "font-size", "margin", "padding", "border", "display", "position",
-            "grid", "flex", "none", "inline", "inline-block", "block", "align-items", "justify-content", "z-index", "width", "height", "max-width",
-            "max-height", "min-width", "min-height", "box-sizing", "border-radius", "overflow", "opacity",
-            "visibility", "box-shadow", "text-shadow", "font-family", "font-weight", "font-style", "line-height",
-            "letter-spacing", "word-spacing", "text-align", "text-decoration", "text-transform", "white-space",
-            "vertical-align", "list-style", "cursor", "filter", "transition", "animation", "background-color",
-            "background-image", "background-position", "background-size", "background-repeat", "background-attachment",
-            "border-top", "border-right", "border-bottom", "border-left", "border-color", "border-style",
-            "border-width", "border-collapse", "border-spacing", "position", "top", "right", "bottom", "left",
-            "float", "clear", "clip", "resize", "box-align", "align-content", "justify-items", "align-self",
-            "grid-template-columns", "grid-template-rows", "grid-column", "grid-row", "grid-gap", "grid-template-areas",
-            "gap", "column-gap", "row-gap", "order", "flex-wrap", "flex-direction", "flex-basis", "flex-grow", "flex-shrink",
-            "justify-self", "align-items", "align-content", "object-fit", "object-position", "clip-path", "filter",
-            "transform", "transform-origin", "perspective", "backface-visibility", "z-index", "box-sizing", "border-box",
-            "content", "counter-reset", "counter-increment", "quotes", "writing-mode", "direction", "text-orientation",
-            "scroll-behavior", "resize", "user-select", "contain", "will-change", "pointer-events", "clip-path", "object-fit",
+        const allCssProperties = [
+          "-apple-pay-button-style",
+          "-apple-pay-button-type",
+          "accent-color",
+          "align-content",
+          "align-items",
+          "align-self",
+          "alignment-baseline",
+          "anchor-name",
+          "anchor-scope",
+          "animation",
+          "animation-composition",
+          "animation-delay",
+          "animation-direction",
+          "animation-duration",
+          "animation-fill-mode",
+          "animation-iteration-count",
+          "animation-name",
+          "animation-play-state",
+          "animation-range-end",
+          "animation-range-start",
+          "animation-timeline",
+          "animation-timing-function",
+          "appearance",
+          "aspect-ratio",
+          "backdrop-filter",
+          "backface-visibility",
+          "background",
+          "background-attachment",
+          "background-blend-mode",
+          "background-clip",
+          "background-color",
+          "background-image",
+          "background-origin",
+          "background-position",
+          "background-position-x",
+          "background-position-y",
+          "background-repeat",
+          "background-size",
+          "baseline-shift",
+          "block",
+          "block-size",
+          "border",
+          "border-block-end-color",
+          "border-block-end-style",
+          "border-block-end-width",
+          "border-block-start-color",
+          "border-block-start-style",
+          "border-block-start-width",
+          "border-bottom",
+          "border-bottom-color",
+          "border-bottom-left-radius",
+          "border-bottom-right-radius",
+          "border-bottom-style",
+          "border-bottom-width",
+          "border-box",
+          "border-collapse",
+          "border-color",
+          "border-end-end-radius",
+          "border-end-start-radius",
+          "border-image-outset",
+          "border-image-repeat",
+          "border-image-slice",
+          "border-image-source",
+          "border-image-width",
+          "border-inline-end-color",
+          "border-inline-end-style",
+          "border-inline-end-width",
+          "border-inline-start-color",
+          "border-inline-start-style",
+          "border-inline-start-width",
+          "border-left",
+          "border-left-color",
+          "border-left-style",
+          "border-left-width",
+          "border-radius",
+          "border-right",
+          "border-right-color",
+          "border-right-style",
+          "border-right-width",
+          "border-spacing",
+          "border-start-end-radius",
+          "border-start-start-radius",
+          "border-style",
+          "border-top",
+          "border-top-color",
+          "border-top-left-radius",
+          "border-top-right-radius",
+          "border-top-style",
+          "border-top-width",
+          "border-width",
+          "bottom",
+          "box-align",
+          "box-shadow",
+          "box-sizing",
+          "break-after",
+          "break-before",
+          "break-inside",
+          "buffered-rendering",
+          "caption-side",
+          "caret-color",
+          "clear",
+          "clip",
+          "clip-path",
+          "clip-rule",
+          "color",
+          "color-interpolation",
+          "color-interpolation-filters",
+          "color-scheme",
+          "column-count",
+          "column-fill",
+          "column-gap",
+          "column-rule-color",
+          "column-rule-style",
+          "column-rule-width",
+          "column-span",
+          "column-width",
+          "contain",
+          "contain-intrinsic-block-size",
+          "contain-intrinsic-height",
+          "contain-intrinsic-inline-size",
+          "contain-intrinsic-width",
+          "container-name",
+          "container-type",
+          "content",
+          "content-visibility",
+          "counter-increment",
+          "counter-reset",
+          "counter-set",
+          "cursor",
+          "cx",
+          "cy",
+          "direction",
+          "display",
+          "dominant-baseline",
+          "dynamic-range-limit",
+          "empty-cells",
+          "fill",
+          "fill-opacity",
+          "fill-rule",
+          "filter",
+          "flex",
+          "flex-basis",
+          "flex-direction",
+          "flex-grow",
+          "flex-shrink",
+          "flex-wrap",
+          "float",
+          "flood-color",
+          "flood-opacity",
+          "font-family",
+          "font-feature-settings",
+          "font-kerning",
+          "font-optical-sizing",
+          "font-palette",
+          "font-size",
+          "font-size-adjust",
+          "font-style",
+          "font-synthesis-small-caps",
+          "font-synthesis-style",
+          "font-synthesis-weight",
+          "font-variant-alternates",
+          "font-variant-caps",
+          "font-variant-east-asian",
+          "font-variant-ligatures",
+          "font-variant-numeric",
+          "font-variant-position",
+          "font-variation-settings",
+          "font-weight",
+          "font-width",
+          "gap",
+          "glyph-orientation-horizontal",
+          "glyph-orientation-vertical",
+          "grid",
+          "grid-auto-columns",
+          "grid-auto-flow",
+          "grid-auto-rows",
+          "grid-column",
+          "grid-column-end",
+          "grid-column-start",
+          "grid-gap",
+          "grid-row",
+          "grid-row-end",
+          "grid-row-start",
+          "grid-template-areas",
+          "grid-template-columns",
+          "grid-template-rows",
+          "hanging-punctuation",
+          "height",
+          "hyphenate-character",
+          "hyphens",
+          "image-orientation",
+          "image-rendering",
+          "inline",
+          "inline-block",
+          "inline-size",
+          "inset-block-end",
+          "inset-block-start",
+          "inset-inline-end",
+          "inset-inline-start",
+          "isolation",
+          "justify-content",
+          "justify-items",
+          "justify-self",
+          "left",
+          "letter-spacing",
+          "lighting-color",
+          "line-break",
+          "line-height",
+          "list-style",
+          "list-style-image",
+          "list-style-position",
+          "list-style-type",
+          "margin",
+          "margin-block-end",
+          "margin-block-start",
+          "margin-bottom",
+          "margin-inline-end",
+          "margin-inline-start",
+          "margin-left",
+          "margin-right",
+          "margin-top",
+          "margin-trim",
+          "marker-end",
+          "marker-mid",
+          "marker-start",
+          "mask-border-outset",
+          "mask-border-repeat",
+          "mask-border-slice",
+          "mask-border-source",
+          "mask-border-width",
+          "mask-clip",
+          "mask-composite",
+          "mask-image",
+          "mask-mode",
+          "mask-origin",
+          "mask-repeat",
+          "mask-size",
+          "mask-type",
+          "math-style",
+          "max-block-size",
+          "max-height",
+          "max-inline-size",
+          "max-width",
+          "min-block-size",
+          "min-height",
+          "min-inline-size",
+          "min-width",
+          "mix-blend-mode",
+          "none",
+          "object-fit",
+          "object-position",
+          "offset-anchor",
+          "offset-distance",
+          "offset-path",
+          "offset-position",
+          "offset-rotate",
+          "opacity",
+          "order",
+          "orphans",
+          "outline-color",
+          "outline-offset",
+          "outline-style",
+          "outline-width",
+          "overflow",
+          "overflow-block",
+          "overflow-inline",
+          "overflow-wrap",
+          "overflow-x",
+          "overflow-y",
+          "overscroll-behavior-block",
+          "overscroll-behavior-inline",
+          "overscroll-behavior-x",
+          "overscroll-behavior-y",
+          "padding",
+          "padding-block-end",
+          "padding-block-start",
+          "padding-bottom",
+          "padding-inline-end",
+          "padding-inline-start",
+          "padding-left",
+          "padding-right",
+          "padding-top",
+          "paint-order",
+          "perspective",
+          "perspective-origin",
+          "pointer-events",
+          "position",
+          "position-anchor",
+          "position-area",
+          "position-try-fallbacks",
+          "position-try-order",
+          "print-color-adjust",
+          "quotes",
+          "r",
+          "resize",
+          "right",
+          "rotate",
+          "row-gap",
+          "ruby-align",
+          "ruby-overhang",
+          "ruby-position",
+          "rx",
+          "ry",
+          "scale",
+          "scroll-behavior",
+          "scroll-margin-block-end",
+          "scroll-margin-block-start",
+          "scroll-margin-bottom",
+          "scroll-margin-inline-end",
+          "scroll-margin-inline-start",
+          "scroll-margin-left",
+          "scroll-margin-right",
+          "scroll-margin-top",
+          "scroll-padding-block-end",
+          "scroll-padding-block-start",
+          "scroll-padding-bottom",
+          "scroll-padding-inline-end",
+          "scroll-padding-inline-start",
+          "scroll-padding-left",
+          "scroll-padding-right",
+          "scroll-padding-top",
+          "scroll-snap-align",
+          "scroll-snap-stop",
+          "scroll-snap-type",
+          "scroll-timeline-axis",
+          "scroll-timeline-name",
+          "scrollbar-gutter",
+          "scrollbar-width",
+          "shape-image-threshold",
+          "shape-margin",
+          "shape-outside",
+          "shape-rendering",
+          "speak-as",
+          "stop-color",
+          "stop-opacity",
+          "stroke",
+          "stroke-color",
+          "stroke-dasharray",
+          "stroke-dashoffset",
+          "stroke-linecap",
+          "stroke-linejoin",
+          "stroke-miterlimit",
+          "stroke-opacity",
+          "stroke-width",
+          "tab-size",
+          "table-layout",
+          "text-align",
+          "text-align-last",
+          "text-anchor",
+          "text-autospace",
+          "text-box-edge",
+          "text-box-trim",
+          "text-combine-upright",
+          "text-decoration",
+          "text-decoration-color",
+          "text-decoration-line",
+          "text-decoration-skip-ink",
+          "text-decoration-style",
+          "text-decoration-thickness",
+          "text-emphasis-color",
+          "text-emphasis-position",
+          "text-emphasis-style",
+          "text-indent",
+          "text-orientation",
+          "text-overflow",
+          "text-rendering",
+          "text-shadow",
+          "text-transform",
+          "text-underline-offset",
+          "text-underline-position",
+          "text-wrap-mode",
+          "text-wrap-style",
+          "timeline-scope",
+          "top",
+          "touch-action",
+          "transform",
+          "transform-box",
+          "transform-origin",
+          "transform-style",
+          "transition",
+          "transition-behavior",
+          "transition-delay",
+          "transition-duration",
+          "transition-property",
+          "transition-timing-function",
+          "translate",
+          "unicode-bidi",
+          "user-select",
+          "vector-effect",
+          "vertical-align",
+          "view-timeline-axis",
+          "view-timeline-inset",
+          "view-timeline-name",
+          "view-transition-class",
+          "view-transition-name",
+          "visibility",
+          "white-space",
+          "white-space-collapse",
+          "widows",
+          "width",
+          "will-change",
+          "word-break",
+          "word-spacing",
+          "writing-mode",
+          "x",
+          "y",
+          "z-index",
+          "zoom"
+        ];
+        const cssKeywords = [
+            // Global
+            "inherit", "initial", "unset", "revert",
             
+            // Display / Box
+            "block", "inline", "grid", "list-item", "run-in", "table",
+            "static", "absolute", "fixed", "sticky",
+            "visible", "hidden", "collapse",
+            "left", "right", "both", "inline-start", "inline-end",
+            "content-box",
+            "scroll", "clip",
+            
+            // Flex / Grid
+            "row", "row-reverse", "column", "column-reverse",
+            "nowrap", "wrap", "wrap-reverse",
+            "flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly",
+            "stretch", "baseline", "self-start", "self-end",
+            
+            // Text / Font
+            "underline", "overline", "line-through", "blink",
+            "uppercase", "lowercase", "capitalize", "full-width",
+            "left", "right", "center", "justify", "start", "end", "match-parent",
+            "normal", "pre", "pre-wrap", "pre-line", "break-spaces", "nowrap",
+            
+            // Font styles
+            "italic", "oblique", "normal",
+            "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900",
+            
+            // List style
+            "disc", "circle", "square", "decimal", "decimal-leading-zero", "lower-roman",
+            "upper-roman", "lower-greek", "lower-latin", "upper-latin", "armenian", "georgian",
+            "lower-alpha", "upper-alpha", "none",
+            
+            // Cursor
+            "auto", "default", "pointer", "text", "wait", "crosshair", "move", "help",
+            "not-allowed", "grab", "grabbing", "progress", "alias", "copy",
+            
+            // Border / Outline
+            "solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset",
+            
+            // Functions (used as values)
+            "rgb()", "rgba()", "hsl()", "hsla()", "url()", "var()", "calc()", "min()", "max()", "clamp()",
+            "rgb(0,0,0)", "rgb(255,255,255)", "rgba(0,0,0,1)", "rgba(255,255,255,1)",
+            "hsl(0,0%,0%)", "hsl(0,0%,100%)", "hsla(0,0%,0%,1)", "hsla(0,0%,100%,1)",
+            "url('black.png')", "url('white.png')", "var(--black)", "var(--white)",
+            "calc(0px)", "calc(100px)", "min(0,1)", "max(0,1)", "clamp(0,0,0)", "clamp(0,100,100)",
+            
+            // Others
+            "all", "visiblePainted", "visibleFill", "visibleStroke",
+            "painted", "bounding-box",
             "@import", "@media", "@font-face", "@keyframes", "@supports", "@page",
             "@charset", "@namespace", "@document", "@viewport", "@counter-style",
             
@@ -14189,10 +14758,10 @@
             "setTimeout", "setInterval", "clearTimeout", "clearInterval"
         ];
         const cssProperties = [
-            "accentColor", "alignContent", "alignItems", "alignSelf", "all", "animation", "animationDelay",
+            "accentColor", "alignContent", "alignItems", "alignSelf", "animationDelay",
             "animationDirection", "animationDuration", "animationFillMode", "animationIterationCount",
             "animationName", "animationPlayState", "animationTimingFunction", "backfaceVisibility",
-            "background", "backgroundAttachment", "backgroundBlendMode", "backgroundClip", "backgroundColor",
+            "backgroundAttachment", "backgroundBlendMode", "backgroundClip", "backgroundColor",
             "backgroundImage", "backgroundOrigin", "backgroundPosition", "backgroundPositionX", "backgroundPositionY",
             "backgroundRepeat", "backgroundSize", "border", "borderBottom", "borderBottomColor",
             "borderBottomLeftRadius", "borderBottomRightRadius", "borderBottomStyle", "borderBottomWidth",
@@ -14204,8 +14773,7 @@
             "borderTopWidth", "borderWidth", "bottom", "boxDecorationBreak", "boxShadow", "boxSizing",
             "captionSide", "clear", "clip", "color", "columnCount", "columnFill", "columnGap", "columnRule",
             "columnRuleColor", "columnRuleStyle", "columnRuleWidth", "columns", "columnSpan", "columnWidth",
-            "content", "counterIncrement", "counterReset", "cursor", "direction", "display", "emptyCells",
-            "filter", "flex", "flexBasis", "flexDirection", "flexFlow", "flexGrow", "flexShrink", "flexWrap",
+            "content", "counterIncrement", "counterReset", "direction", "display", "emptyCells", "flexBasis", "flexDirection", "flexFlow", "flexGrow", "flexShrink", "flexWrap",
             "float", "font", "fontFamily", "fontFeatureSettings", "fontKerning", "fontSize", "fontSizeAdjust",
             "fontStretch", "fontStyle", "fontVariant", "fontVariantCaps", "fontVariantEastAsian",
             "fontVariantLigatures", "fontVariantNumeric", "fontWeight", "gap", "grid", "gridArea",
@@ -14216,15 +14784,276 @@
             "listStyle", "listStyleImage", "listStylePosition", "listStyleType", "margin", "marginBottom",
             "marginLeft", "marginRight", "marginTop", "maxHeight", "maxWidth", "minHeight", "minWidth",
             "objectFit", "objectPosition", "opacity", "order", "outline", "outlineColor", "outlineOffset",
-            "outlineStyle", "outlineWidth", "overflow", "overflowWrap", "overflowX", "overflowY", "padding",
+            "outlineStyle", "outlineWidth", "overflow", "overflowWrap", "overflowX", "overflowY",
             "paddingBottom", "paddingLeft", "paddingRight", "paddingTop", "pageBreakAfter", "pageBreakBefore",
-            "pageBreakInside", "perspective", "perspectiveOrigin", "pointerEvents", "position", "quotes",
+            "pageBreakInside", "perspectiveOrigin", "pointerEvents", "position", "quotes",
             "resize", "right", "scrollBehavior", "tableLayout", "textAlign", "textAlignLast", "textDecoration",
             "textDecorationColor", "textDecorationLine", "textDecorationStyle", "textIndent", "textJustify",
             "textOverflow", "textShadow", "textTransform", "top", "transform", "transformOrigin",
             "transformStyle", "transition", "transitionDelay", "transitionDuration", "transitionProperty",
             "transitionTimingFunction", "unicodeBidi", "userSelect", "verticalAlign", "visibility",
             "whiteSpace", "width", "wordBreak", "wordSpacing", "wordWrap", "writingMode", "zIndex"
+        ];
+        const webkitProperties = [
+            "-webkit-align-content",
+            "-webkit-align-items",
+            "-webkit-align-self",
+            "-webkit-animation",
+            "-webkit-animation-delay",
+            "-webkit-animation-direction",
+            "-webkit-animation-duration",
+            "-webkit-animation-fill-mode",
+            "-webkit-animation-iteration-count",
+            "-webkit-animation-name",
+            "-webkit-animation-play-state",
+            "-webkit-animation-timing-function",
+            "-webkit-appearance",
+            "-webkit-backdrop-filter",
+            "-webkit-background-clip",
+            "-webkit-background-composite",
+            "-webkit-background-origin",
+            "-webkit-background-size",
+            "-webkit-border-before",
+            "-webkit-border-before-color",
+            "-webkit-border-before-style",
+            "-webkit-border-before-width",
+            "-webkit-border-image",
+            "-webkit-border-radius",
+            "-webkit-border-top-left-radius",
+            "-webkit-border-top-right-radius",
+            "-webkit-border-bottom-left-radius",
+            "-webkit-border-bottom-right-radius",
+            "-webkit-box-align",
+            "-webkit-box-decoration-break",
+            "-webkit-box-direction",
+            "-webkit-box-flex",
+            "-webkit-box-flex-group",
+            "-webkit-box-lines",
+            "-webkit-box-ordinal-group",
+            "-webkit-box-orient",
+            "-webkit-box-pack",
+            "-webkit-box-reflect",
+            "-webkit-box-shadow",
+            "-webkit-clip-path",
+            "-webkit-color-correction",
+            "-webkit-column-count",
+            "-webkit-column-gap",
+            "-webkit-column-rule",
+            "-webkit-column-rule-color",
+            "-webkit-column-rule-style",
+            "-webkit-column-rule-width",
+            "-webkit-column-span",
+            "-webkit-column-width",
+            "-webkit-columns",
+            "-webkit-filter",
+            "-webkit-flex",
+            "-webkit-flex-basis",
+            "-webkit-flex-direction",
+            "-webkit-flex-flow",
+            "-webkit-flex-grow",
+            "-webkit-flex-shrink",
+            "-webkit-flex-wrap",
+            "-webkit-font-feature-settings",
+            "-webkit-font-kerning",
+            "-webkit-font-smoothing",
+            "-webkit-font-variant-ligatures",
+            "-webkit-hyphens",
+            "-webkit-justify-content",
+            "-webkit-line-break",
+            "-webkit-line-clamp",
+            "-webkit-margin-before",
+            "-webkit-margin-after",
+            "-webkit-margin-start",
+            "-webkit-margin-end",
+            "-webkit-mask",
+            "-webkit-mask-box-image",
+            "-webkit-mask-box-image-outset",
+            "-webkit-mask-box-image-repeat",
+            "-webkit-mask-box-image-slice",
+            "-webkit-mask-box-image-source",
+            "-webkit-mask-box-image-width",
+            "-webkit-mask-clip",
+            "-webkit-mask-composite",
+            "-webkit-mask-image",
+            "-webkit-mask-origin",
+            "-webkit-mask-position",
+            "-webkit-mask-repeat",
+            "-webkit-mask-size",
+            "-webkit-max-logical-height",
+            "-webkit-max-logical-width",
+            "-webkit-min-logical-height",
+            "-webkit-min-logical-width",
+            "-webkit-opacity",
+            "-webkit-order",
+            "-webkit-overflow-scrolling",
+            "-webkit-padding-before",
+            "-webkit-padding-after",
+            "-webkit-padding-start",
+            "-webkit-padding-end",
+            "-webkit-perspective",
+            "-webkit-perspective-origin",
+            "-webkit-print-color-adjust",
+            "-webkit-rtl-ordering",
+            "-webkit-ruby-position",
+            "-webkit-shape-image-threshold",
+            "-webkit-shape-margin",
+            "-webkit-shape-outside",
+            "-webkit-tap-highlight-color",
+            "-webkit-text-combine",
+            "-webkit-text-decoration",
+            "-webkit-text-decoration-color",
+            "-webkit-text-decoration-line",
+            "-webkit-text-decoration-style",
+            "-webkit-text-emphasis",
+            "-webkit-text-emphasis-color",
+            "-webkit-text-emphasis-position",
+            "-webkit-text-emphasis-style",
+            "-webkit-text-fill-color",
+            "-webkit-text-orientation",
+            "-webkit-text-security",
+            "-webkit-text-size-adjust",
+            "-webkit-text-stroke",
+            "-webkit-text-stroke-color",
+            "-webkit-text-stroke-width",
+            "-webkit-transform",
+            "-webkit-transform-origin",
+            "-webkit-transform-style",
+            "-webkit-transition",
+            "-webkit-transition-delay",
+            "-webkit-transition-duration",
+            "-webkit-transition-property",
+            "-webkit-transition-timing-function",
+            "-webkit-user-drag",
+            "-webkit-user-modify",
+            "-webkit-user-select",
+            "-webkit-writing-mode"
+        ];
+        const mozProperties = [
+            "-moz-appearance",
+            "-moz-backface-visibility",
+            "-moz-background-clip",
+            "-moz-background-inline-policy",
+            "-moz-background-origin",
+            "-moz-background-size",
+            "-moz-binding",
+            "-moz-border-bottom-colors",
+            "-moz-border-end-color",
+            "-moz-border-end-style",
+            "-moz-border-end-width",
+            "-moz-border-left-colors",
+            "-moz-border-right-colors",
+            "-moz-border-start-color",
+            "-moz-border-start-style",
+            "-moz-border-start-width",
+            "-moz-border-top-colors",
+            "-moz-box-align",
+            "-moz-box-direction",
+            "-moz-box-flex",
+            "-moz-box-ordinal-group",
+            "-moz-box-orient",
+            "-moz-box-pack",
+            "-moz-box-shadow",
+            "-moz-column-count",
+            "-moz-column-fill",
+            "-moz-column-gap",
+            "-moz-column-rule",
+            "-moz-column-rule-color",
+            "-moz-column-rule-style",
+            "-moz-column-rule-width",
+            "-moz-column-width",
+            "-moz-columns",
+            "-moz-context-properties",
+            "-moz-float-edge",
+            "-moz-font-feature-settings",
+            "-moz-font-language-override",
+            "-moz-force-broken-image-icon",
+            "-moz-hyphens",
+            "-moz-image-region",
+            "-moz-margin-end",
+            "-moz-margin-start",
+            "-moz-orient",
+            "-moz-outline-radius",
+            "-moz-outline-radius-bottomleft",
+            "-moz-outline-radius-bottomright",
+            "-moz-outline-radius-topleft",
+            "-moz-outline-radius-topright",
+            "-moz-padding-end",
+            "-moz-padding-start",
+            "-moz-perspective",
+            "-moz-perspective-origin",
+            "-moz-stack-sizing",
+            "-moz-tab-size",
+            "-moz-text-blink",
+            "-moz-text-decoration-color",
+            "-moz-text-decoration-line",
+            "-moz-text-decoration-style",
+            "-moz-transform",
+            "-moz-transform-origin",
+            "-moz-transform-style",
+            "-moz-transition",
+            "-moz-transition-delay",
+            "-moz-transition-duration",
+            "-moz-transition-property",
+            "-moz-transition-timing-function",
+            "-moz-user-focus",
+            "-moz-user-input",
+            "-moz-user-modify",
+            "-moz-user-select",
+            "-moz-window-shadow"
+        ];
+        const msProperties = [
+            "-ms-accelerator",
+            "-ms-align-self",
+            "-ms-block-progression",
+            "-ms-content-zoom-limit",
+            "-ms-content-zoom-limit-max",
+            "-ms-content-zoom-limit-min",
+            "-ms-content-zoom-snap",
+            "-ms-content-zoom-snap-points",
+            "-ms-content-zoom-snap-type",
+            "-ms-flow-from",
+            "-ms-flow-into",
+            "-ms-grid-column",
+            "-ms-grid-column-align",
+            "-ms-grid-column-span",
+            "-ms-grid-columns",
+            "-ms-grid-row",
+            "-ms-grid-row-align",
+            "-ms-grid-row-span",
+            "-ms-grid-rows",
+            "-ms-high-contrast-adjust",
+            "-ms-hyphenate-limit-chars",
+            "-ms-hyphenate-limit-lines",
+            "-ms-hyphenate-limit-zone",
+            "-ms-hyphens",
+            "-ms-ime-align",
+            "-ms-interpolation-mode",
+            "-ms-overflow-style",
+            "-ms-scroll-chaining",
+            "-ms-scroll-limit",
+            "-ms-scroll-limit-x-max",
+            "-ms-scroll-limit-x-min",
+            "-ms-scroll-limit-y-max",
+            "-ms-scroll-limit-y-min",
+            "-ms-scroll-rails",
+            "-ms-scroll-snap-points-x",
+            "-ms-scroll-snap-points-y",
+            "-ms-scroll-snap-type",
+            "-ms-scroll-snap-x",
+            "-ms-scroll-snap-y",
+            "-ms-scroll-translation",
+            "-ms-text-combine-horizontal",
+            "-ms-text-overflow",
+            "-ms-touch-action",
+            "-ms-touch-select",
+            "-ms-transform",
+            "-ms-transform-origin",
+            "-ms-transition",
+            "-ms-transition-delay",
+            "-ms-transition-duration",
+            "-ms-transition-property",
+            "-ms-transition-timing-function",
+            "-ms-user-select"
         ];
         const csscolors = [
             "transparent",
@@ -14378,27 +15207,228 @@
             "YellowGreen"
         ];
         const vendorCSSProperties = [
-            "WebkitAlignContent", "WebkitAlignItems", "WebkitAlignSelf", "WebkitAnimation", "WebkitAnimationDelay",
-            "WebkitAnimationDirection", "WebkitAnimationDuration", "WebkitAnimationFillMode",
-            "WebkitAnimationIterationCount", "WebkitAnimationName", "WebkitAnimationPlayState",
-            "WebkitAnimationTimingFunction", "WebkitAppearance", "WebkitBackfaceVisibility", "WebkitBackgroundClip",
-            "WebkitBackgroundOrigin", "WebkitBackgroundSize", "WebkitBorderBottomLeftRadius",
-            "WebkitBorderBottomRightRadius", "WebkitBorderRadius", "WebkitBorderTopLeftRadius",
-            "WebkitBorderTopRightRadius", "WebkitBoxShadow", "WebkitBoxSizing", "WebkitFilter", "WebkitFlex",
-            "WebkitFlexBasis", "WebkitFlexDirection", "WebkitFlexFlow", "WebkitFlexGrow", "WebkitFlexShrink",
-            "WebkitFlexWrap", "WebkitJustifyContent", "WebkitOrder", "WebkitPerspective", "WebkitPerspectiveOrigin",
-            "WebkitTransform", "WebkitTransformOrigin", "WebkitTransformStyle", "WebkitTransition",
-            "WebkitTransitionDelay", "WebkitTransitionDuration", "WebkitTransitionProperty", "WebkitTransitionTimingFunction",
-            "MozAnimation", "MozAnimationDelay", "MozAnimationDirection", "MozAnimationDuration", "MozAnimationFillMode",
-            "MozAnimationIterationCount", "MozAnimationName", "MozAnimationPlayState", "MozAnimationTimingFunction",
-            "MozAppearance", "MozBoxShadow", "MozBoxSizing", "MozFlex", "MozFlexBasis", "MozFlexDirection", "MozFlexFlow",
-            "MozFlexGrow", "MozFlexShrink", "MozFlexWrap", "MozJustifyContent", "MozOrder", "MozPerspective",
-            "MozPerspectiveOrigin", "MozTransform", "MozTransformOrigin", "MozTransformStyle", "MozTransition",
-            "MozTransitionDelay", "MozTransitionDuration", "MozTransitionProperty", "MozTransitionTimingFunction",
-            "msFlex", "msFlexDirection", "msFlexFlow", "msFlexGrow", "msFlexShrink", "msFlexWrap", "msGridColumns",
-            "msGridRows", "msGridColumn", "msGridColumnAlign", "msGridColumnSpan", "msGridRow", "msGridRowAlign",
-            "msGridRowSpan", "msGridRowOverflow", "msGridColumnOverflow", "msTransform", "msTransformOrigin",
-            "msTransition", "msTransitionDelay", "msTransitionDuration", "msTransitionProperty", "msTransitionTimingFunction",
+            "WebkitAlignContent",
+            "WebkitAlignItems",
+            "WebkitAlignSelf",
+            "WebkitAnimation",
+            "WebkitAnimationDelay",
+            "WebkitAnimationDirection",
+            "WebkitAnimationDuration",
+            "WebkitAnimationFillMode",
+            "WebkitAnimationIterationCount",
+            "WebkitAnimationName",
+            "WebkitAnimationPlayState",
+            "WebkitAnimationTimingFunction",
+            "WebkitAppearance",
+            "WebkitBackfaceVisibility",
+            "WebkitBackgroundClip",
+            "WebkitBackgroundOrigin",
+            "WebkitBackgroundSize",
+            "WebkitBorderBefore",
+            "WebkitBorderBeforeColor",
+            "WebkitBorderBeforeStyle",
+            "WebkitBorderBeforeWidth",
+            "WebkitBorderImage",
+            "WebkitBorderRadius",
+            "WebkitBorderTopLeftRadius",
+            "WebkitBorderTopRightRadius",
+            "WebkitBorderBottomLeftRadius",
+            "WebkitBorderBottomRightRadius",
+            "WebkitBoxAlign",
+            "WebkitBoxDecorationBreak",
+            "WebkitBoxDirection",
+            "WebkitBoxFlex",
+            "WebkitBoxFlexGroup",
+            "WebkitBoxLines",
+            "WebkitBoxOrdinalGroup",
+            "WebkitBoxOrient",
+            "WebkitBoxPack",
+            "WebkitBoxReflect",
+            "WebkitBoxShadow",
+            "WebkitClipPath",
+            "WebkitColumnCount",
+            "WebkitColumnGap",
+            "WebkitColumnRule",
+            "WebkitColumnRuleColor",
+            "WebkitColumnRuleStyle",
+            "WebkitColumnRuleWidth",
+            "WebkitColumnSpan",
+            "WebkitColumnWidth",
+            "WebkitColumns",
+            "WebkitFilter",
+            "WebkitFlex",
+            "WebkitFlexBasis",
+            "WebkitFlexDirection",
+            "WebkitFlexFlow",
+            "WebkitFlexGrow",
+            "WebkitFlexShrink",
+            "WebkitFlexWrap",
+            "WebkitFontFeatureSettings",
+            "WebkitFontKerning",
+            "WebkitFontSmoothing",
+            "WebkitFontVariantLigatures",
+            "WebkitHyphens",
+            "WebkitJustifyContent",
+            "WebkitLineClamp",
+            "WebkitMask",
+            "WebkitMaskBoxImage",
+            "WebkitMaskBoxImageOutset",
+            "WebkitMaskBoxImageRepeat",
+            "WebkitMaskBoxImageSlice",
+            "WebkitMaskBoxImageSource",
+            "WebkitMaskBoxImageWidth",
+            "WebkitMaskClip",
+            "WebkitMaskComposite",
+            "WebkitMaskImage",
+            "WebkitMaskOrigin",
+            "WebkitMaskPosition",
+            "WebkitMaskRepeat",
+            "WebkitMaskSize",
+            "WebkitPerspective",
+            "WebkitPerspectiveOrigin",
+            "WebkitPrintColorAdjust",
+            "WebkitTextFillColor",
+            "WebkitTextStroke",
+            "WebkitTextStrokeColor",
+            "WebkitTextStrokeWidth",
+            "WebkitTransform",
+            "WebkitTransformOrigin",
+            "WebkitTransformStyle",
+            "WebkitTransition",
+            "WebkitTransitionDelay",
+            "WebkitTransitionDuration",
+            "WebkitTransitionProperty",
+            "WebkitTransitionTimingFunction",
+            "WebkitUserDrag",
+            "WebkitUserModify",
+            "WebkitUserSelect",
+            "WebkitWritingMode",
+            
+            "msAccelerator",
+            "msAlignSelf",
+            "msBlockProgression",
+            "msContentZoomLimit",
+            "msContentZoomLimitMax",
+            "msContentZoomLimitMin",
+            "msContentZoomSnap",
+            "msContentZoomSnapPoints",
+            "msContentZoomSnapType",
+            "msFlowFrom",
+            "msFlowInto",
+            "msGridColumn",
+            "msGridColumnAlign",
+            "msGridColumnSpan",
+            "msGridColumns",
+            "msGridRow",
+            "msGridRowAlign",
+            "msGridRowSpan",
+            "msGridRows",
+            "msHighContrastAdjust",
+            "msHyphenateLimitChars",
+            "msHyphenateLimitLines",
+            "msHyphenateLimitZone",
+            "msHyphens",
+            "msImeAlign",
+            "msInterpolationMode",
+            "msOverflowStyle",
+            "msScrollChaining",
+            "msScrollLimit",
+            "msScrollLimitXMax",
+            "msScrollLimitXMin",
+            "msScrollLimitYMax",
+            "msScrollLimitYMin",
+            "msScrollRails",
+            "msScrollSnapPointsX",
+            "msScrollSnapPointsY",
+            "msScrollSnapType",
+            "msScrollSnapX",
+            "msScrollSnapY",
+            "msScrollTranslation",
+            "msTextCombineHorizontal",
+            "msTextOverflow",
+            "msTouchAction",
+            "msTouchSelect",
+            "msTransform",
+            "msTransformOrigin",
+            "msTransition",
+            "msTransitionDelay",
+            "msTransitionDuration",
+            "msTransitionProperty",
+            "msTransitionTimingFunction",
+            "msUserSelect",
+            
+            "MozAppearance",
+            "MozBackfaceVisibility",
+            "MozBackgroundClip",
+            "MozBackgroundInlinePolicy",
+            "MozBackgroundOrigin",
+            "MozBackgroundSize",
+            "MozBinding",
+            "MozBorderBottomColors",
+            "MozBorderEndColor",
+            "MozBorderEndStyle",
+            "MozBorderEndWidth",
+            "MozBorderLeftColors",
+            "MozBorderRightColors",
+            "MozBorderStartColor",
+            "MozBorderStartStyle",
+            "MozBorderStartWidth",
+            "MozBorderTopColors",
+            "MozBoxAlign",
+            "MozBoxDirection",
+            "MozBoxFlex",
+            "MozBoxOrdinalGroup",
+            "MozBoxOrient",
+            "MozBoxPack",
+            "MozBoxShadow",
+            "MozColumnCount",
+            "MozColumnFill",
+            "MozColumnGap",
+            "MozColumnRule",
+            "MozColumnRuleColor",
+            "MozColumnRuleStyle",
+            "MozColumnRuleWidth",
+            "MozColumnWidth",
+            "MozColumns",
+            "MozContextProperties",
+            "MozFloatEdge",
+            "MozFontFeatureSettings",
+            "MozFontLanguageOverride",
+            "MozForceBrokenImageIcon",
+            "MozHyphens",
+            "MozImageRegion",
+            "MozMarginEnd",
+            "MozMarginStart",
+            "MozOrient",
+            "MozOutlineRadius",
+            "MozOutlineRadiusBottomLeft",
+            "MozOutlineRadiusBottomRight",
+            "MozOutlineRadiusTopLeft",
+            "MozOutlineRadiusTopRight",
+            "MozPaddingEnd",
+            "MozPaddingStart",
+            "MozPerspective",
+            "MozPerspectiveOrigin",
+            "MozStackSizing",
+            "MozTabSize",
+            "MozTextBlink",
+            "MozTextDecorationColor",
+            "MozTextDecorationLine",
+            "MozTextDecorationStyle",
+            "MozTransform",
+            "MozTransformOrigin",
+            "MozTransformStyle",
+            "MozTransition",
+            "MozTransitionDelay",
+            "MozTransitionDuration",
+            "MozTransitionProperty",
+            "MozTransitionTimingFunction",
+            "MozUserFocus",
+            "MozUserInput",
+            "MozUserModify",
+            "MozUserSelect",
+            "MozWindowShadow",
+            
             "OAnimation", "OAnimationDelay", "OAnimationDirection", "OAnimationDuration", "OAnimationFillMode",
             "OAnimationIterationCount", "OAnimationName", "OAnimationPlayState", "OAnimationTimingFunction",
             "OTransition", "OTransitionDelay", "OTransitionDuration", "OTransitionProperty", "OTransitionTimingFunction"
@@ -14421,26 +15451,21 @@
             "<progress>", "<meter>", "<canvas>", "<svg>", "<path>", "<g>", "<circle>", "<rect>", "<line>", "<polygon>",
             "<polyline>", "<text>", "<style>", "<link>", "<meta>", "<title>", "<base>", "<script>", "<noscript>", "<iframe>",
             "<audio>", "<video>", "<source>", "<track>", "<object>", "<param>", "<embed>", "<picture>", "<map>", "<area>",
-            "<use>"
+            "<use>",
+            "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "blockquote", "body",
+            "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del",
+            "details", "dfn", "dialog", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer",
+            "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hr", "html", "i", "iframe", "img", "input",
+            "ins", "kbd", "label", "legend", "li", "link", "main", "map", "mark", "meta", "meter", "nav", "noscript",
+            "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "pre", "progress", "q", "rp",
+            "rt", "ruby", "s", "samp", "script", "section", "select", "small", "source", "span", "strong", "style",
+            "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time",
+            "title", "tr", "track", "u", "ul", "var", "video", "wbr"
         ];
         function setupAutocomplete(inputElement) {
-            if (!section){
+            if (!section || !section.classList.contains('autocompleteenabled') || !inputElement || !inputElement.parentElement || inputElement.textContent == ""){
                 return;
             }
-            if (!section.classList.contains('autocompleteenabled')){
-                return;
-            }
-            if (!inputElement) {
-                return;
-            }
-            if (!inputElement.parentElement) {
-                return;
-            }
-            if (inputElement.textContent == ""){
-                return;
-            }
-            
-
             const cursorPosition = getCursorPosition(inputElement);
             const ctext = inputElement.textContent;
             if (ctext.trim() != "") {
@@ -14459,9 +15484,7 @@
             };
             newpast2.push(pastelement2);
             if (newpast2.length > 0) {
-                if (!pastevents[lasteventsparentsection.id]) {
-                    pastevents[lasteventsparentsection.id] = [];
-                }
+                pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast2);
                 enablepastbtn();
             }
@@ -14477,7 +15500,7 @@
                 allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
             }
             
-            const suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywordsAndProperties, ...jsSyntax, ...htmlTags, ...csscolors];
+            const suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywords, ...jsSyntax, ...htmlTags, ...csscolors, ...webkitProperties, ...allCssProperties, ...mozProperties, ...msProperties];
             
             if (inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked && document.querySelector('.commandassuggestion input[type="checkbox"]')?.checked) {
                 suggestionsList.push(...commandsice);
