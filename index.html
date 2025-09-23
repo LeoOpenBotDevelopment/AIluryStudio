@@ -13705,6 +13705,9 @@
                                 cursor: getElCPos
                             };
                             newpast.push(pastelement);
+                            if (event.key == 'Backspace') {
+                                event.preventDefault();
+                            }
                         }
                         range.deleteContents();
                     }
