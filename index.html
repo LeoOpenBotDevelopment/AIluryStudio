@@ -13687,7 +13687,7 @@
             let nodelete = false;
             
             let newpast = [];
-
+            
             function getCursorPositionThree(element) {
                 const selection = window.getSelection();
                 if (!selection.rangeCount) return null;
@@ -13697,7 +13697,7 @@
                         nodelete = true;
                         if (celine){
                             lasteventsparentsection = section;
-                            const getElCPos = getCursorPosition(celine);
+                            const getElCPos = getCursorPosition(celine) + selectedText.length;
                             let pastelement = {
                                 element: celine,
                                 type: "text",
