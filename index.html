@@ -7846,6 +7846,7 @@
             themetoedit.style.removeProperty('--lightdarkgrey-color');
             themetoedit.style.removeProperty('--lightgrey-color');
             themetoedit.style.removeProperty('--background-color');
+            themetoedit.style.removeProperty('--safariheaderbackground-color');
             themetoedit.style.removeProperty('--half-transparent-bg-color');
             themetoedit.style.removeProperty('--half-transparent-border-color');
             themetoedit.style.removeProperty('--white-color');
@@ -8004,6 +8005,7 @@
             const transparentRgba = hexToRgba(selectedColor, 0.1);
             themetoedit.style.setProperty('--half-transparent-bg-color', transparentRgba);
             themetoedit.style.setProperty('--background-color', rgba);
+            themetoedit.style.setProperty('--safariheaderbackground-color', rgba);
             themetoedit.style.setProperty('--white-color', rgba);
             themetoedit.style.setProperty('--commandlistbackground-color', rgba);
             themetoedit.style.setProperty('--codeeditoreditbtnbackground-color', rgba);
@@ -9003,6 +9005,7 @@
             }
             const newRectangle = document.createElement('div');
             newRectangle.classList.add('rectangle');
+            newRectangle.id = "image-rectangle";
             let newfilenameinfo = getImageInfo(fileName);
             newRectangle.setAttribute('data-name', newfilenameinfo.name);
             newRectangle.setAttribute('data-type', newfilenameinfo.format);
