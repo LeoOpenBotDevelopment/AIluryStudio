@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ailury - Pure Code</title>
+    <!-- Fonts: Inter for text, Space Grotesk for display, JetBrains Mono for code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables for Easy Theming (Dark/Light Mode) --- */
+        :root {
+            /* Light Mode Defaults */
+            --bg-color: #FAFAFA;
+            --text-color: #111827;
+            --secondary-text-color: #6b7280;
+            --card-bg-light: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(0, 0, 0, 0.06);
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --divider-color: #e5e7eb;
+            --code-bg: rgba(255, 255, 255, 0.4);
+            --line-number-color: #e5e7eb;
+            --code-shadow: rgba(0, 0, 0, 0.1);
+            --navbar-shadow: rgba(0, 0, 0, 0.1);
+            --nav-bg: transparent;
+        }
+        
+        .dark {
+            /* Dark Mode Overrides */
+            --bg-color: #050505;
+            --text-color: #F9FAFB;
+            --secondary-text-color: #A1A1AA;
+            --card-bg-light: rgba(15, 15, 17, 0.6);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --divider-color: #1f2937;
+            --code-bg: rgba(10, 10, 12, 0.8);
+            --line-number-color: #374151;
+            --code-shadow: rgba(255, 255, 255, 0.05);
+            --navbar-shadow: rgba(255, 255, 255, 0.05);
+            --nav-bg: transparent;
+        }
+
+        /* --- Base & Reset Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            /* CRITICAL FIX: Add padding at the top to clear the fixed navbar (5rem height) */
+            padding-top: 5rem; 
+        }
+
+        /* Utility Classes */
+        .max-w-content { max-width: 1280px; } /* max-w-6xl */
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .padding-x { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .padding-y-lg { padding-top: 6rem; padding-bottom: 6rem; } /* py-24 */
+        .padding-t-xl { padding-top: 8rem; } /* pt-32 */
+        .margin-b-xl { margin-bottom: 4rem; } /* mb-16 */
+
+        /* --- Global Components --- */
+
+        /* Glass Effect */
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: var(--card-bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        /* Fonts */
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Section Headers */
+        .section-header-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            transition: color 0.5s ease;
+        }
+
+        /* Divider */
+        .section-divider {
+            margin: 8rem auto;
+            max-width: 6rem;
+            height: 2px;
+            background: var(--divider-color);
+            border: none;
+            border-radius: 1px;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(to right, #06b6d4, #2563eb); /* cyan-500 to blue-600 */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .dark .gradient-text {
+            background: linear-gradient(to right, #67e8f9, #93c5fd); /* cyan-300 to blue-400 */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* --- Layout & Responsiveness --- */
+        
+        .hero-section {
+            position: relative;
+            z-index: 10;
+            /* Remove min-height: 100vh here as we want it to start immediately after padding-top */
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 2rem; /* Additional padding at the top of the hero section content */
+            padding-bottom: 6rem;
+        }
+        
+        .headline {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            max-width: 4rem; /* This looks like a bug. Should be larger for text */
+            line-height: 1.1;
+        }
+        
+        .sidebar {
+            width: 3.5rem;
+            border-right: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem 0;
+            gap: 1.5rem;
+            color: #9ca3af;
+            flex-shrink: 0;
+        }
+        
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .engine-split {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .customization-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar { display: flex; }
+            .headline { font-size: 4.5rem; max-width: 48rem; } /* Corrected max-width */
+            .editor-container { max-width: 64rem; }
+            
+            .philosophy-grid {
+                grid-template-columns: 1fr 2fr 1fr;
+            }
+            
+            .engine-split {
+                flex-direction: row;
+            }
+            .code-view { width: 58.3333%; } /* 7/12 */
+            .preview-view { width: 41.6667%; } /* 5/12 */
+            
+            .customization-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* --- Background Orbs (Emitters) --- */
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            top: 5%; left: 20%; width: 600px; height: 600px;
+            background: rgba(6, 190, 212, 0.2);
+            animation: float 10s ease-in-out infinite;
+        }
+        .dark .orb-1 {
+            background: rgba(6, 190, 212, 0.1);
+            mix-blend-mode: screen;
+            filter: blur(100px);
+        }
+
+        .orb-2 {
+            top: 10%; right: 20%; width: 500px; height: 500px;
+            background: rgba(94, 234, 212, 0.2);
+            animation: float 12s ease-in-out 2s infinite;
+        }
+        .dark .orb-2 {
+            background: rgba(20, 184, 166, 0.1);
+            mix-blend-mode: screen;
+        }
+        
+        /* --- Navigation --- */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.3s ease;
+            /* Removed border-radius and border */
+            border: none;
+            border-radius: 0;
+        }
+
+        /* Styling for when the navbar is scrolled */
+        #navbar.scrolled {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: var(--card-bg-light);
+            border-bottom: 1px solid var(--border-color); /* Added border back only on scroll */
+            box-shadow: 0 10px 15px -3px var(--navbar-shadow);
+        }
+
+
+        .nav-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            height: 5rem; /* 80px */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo-circle {
+            width: 2rem; 
+            height: 2rem; 
+            border-radius: 0.75rem; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            background-image: url(IMG_6676.jpeg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: 0;
+        }
+        
+        .nav-link {
+            color: var(--secondary-text-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: var(--text-color);
+        }
+
+        .theme-toggle {
+            width: 2.5rem; 
+            height: 2.5rem; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: background 0.2s;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* --- Hero Card Styling (3D Preview) --- */
+        .editor-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            perspective: 1200px;
+            margin-top: 3rem;
+        }
+
+        .tilt-card {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out, box-shadow 0.5s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-radius: 1rem;
+            position: relative; /* Needed for z-index context */
+            z-index: 50;
+            box-shadow: 0 25px 50px -12px var(--shadow-color);
+        }
+
+        .toolbar {
+            height: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            justify-content: space-between;
+            background: rgba(249, 250, 251, 0.5);
+            flex-shrink: 0;
+            color: #9ca3af;
+        }
+        .dark .toolbar {
+             background: rgba(255, 255, 255, 0.05);
+        }
+        .toolbar-dots { display: flex; gap: 0.5rem; }
+        .toolbar-dots div {
+            width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .editor-body {
+            flex: 1;
+            display: flex;
+            position: relative;
+            min-height: 0;
+            background-color: var(--code-bg);
+        }
+
+        /* Code Area & Line Numbers */
+        .code-area {
+            flex: 1;
+            padding: 2rem;
+            font-size: 0.875rem;
+            line-height: 2;
+            overflow: hidden;
+            position: relative; /* CRITICAL: Set position for absolute popup children */
+        }
+        .code-area::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to right, #80808012 1px, transparent 1px), linear-gradient(to bottom, #80808012 1px, transparent 1px);
+            background-size: 1.5rem 1.5rem;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .code-line {
+            display: flex;
+            position: relative;
+            z-index: 10;
+        }
+        .line-num {
+            width: 2rem;
+            color: var(--line-number-color);
+            user-select: none;
+        }
+        
+        /* Cursor Styling (FIXED vertical alignment) */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .text-cursor {
+            width: 2px; 
+            height: 1.1em; 
+            background-color: #06b6d4; 
+            margin: 0; 
+            animation: pulse 1s infinite;
+            border-radius: 0.5px; 
+            display: inline-block;
+            vertical-align: -0.1em; /* FIX: Pushes the cursor down slightly to center it better */
+            margin-top: 6px;
+        }
+
+        /* Syntax Highlighting */
+        .token-k { color: #9333ea; }
+        .token-f { color: #2563eb; }
+        .token-s { color: #16a34a; }
+        .token-c { color: #94a3b8; }
+
+        .dark .token-k { color: #c084fc; } 
+        .dark .token-f { color: #60a5fa; } 
+        .dark .token-s { color: #86efac; }
+        .dark .token-c { color: #64748b; }
+
+        /* Smart Suggestion Popup */
+        .suggestion-popup {
+            position: absolute;
+            top: 1.5rem; 
+            left: 20rem; 
+            right: auto; 
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 7rem;
+            font-size: 0.75rem;
+            z-index: 9000; 
+            transform: translateZ(30px);
+        }
+        .suggestion-popup-title {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #9ca3af;
+            letter-spacing: 0.05em;
+        }
+        .suggestion-popup button {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .suggestion-popup button:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        /* --- Section 1: Philosophy (T-BAR Layout) --- */
+        .center-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        .palette-button {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* --- Section 2: Engine (Split Screen Layout) --- */
+        .preview-toolbar {
+            background: rgba(6, 190, 212, 0.1);
+            height: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            justify-content: space-between;
+        }
+        .dark .preview-toolbar {
+            background: rgba(22, 78, 99, 0.3);
+        }
+        .preview-body {
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 15rem;
+        }
+        .dark .preview-body {
+            background-color: #020203;
+        }
+
+        /* --- Section 3: Customization --- */
+        .card-border-pink { border-left: 4px solid #ec4899; }
+        .card-border-purple { border-left: 4px solid #a855f7; }
+        .card-border-cyan { border-left: 4px solid #06b6d4; }
+
+
+        /* --- Footer --- */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(243, 244, 246, 0.5);
+            background-color: #f9fafb;
+        }
+        .dark footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: #020203;
+        }
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.4;
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .copycodebtn {
+            color: gray;
+        }
+        .dark .copycodebtn {
+            color: lightgray;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Background Emitters (Cyan Only - Strictly Top Hero Section) -->
+    <div class="fixed">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-content">
+            
+            <!-- Logo -->
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div class="nav-logo-circle"></div>
+                <span class="font-display" style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em;">ailury</span>
+            </div>
+
+            <!-- Center Links -->
+            <div style="display: none; align-items: center; gap: 2rem;" class="mobile-hidden desktop-flex">
+                <a href="#philosophy" class="nav-link">Philosophy</a>
+                <a href="#engine" class="nav-link">Engine</a>
+                <a href="#customize" class="nav-link">Customization</a>
+            </div>
+
+            <!-- Right Actions -->
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <!-- Theme Toggle -->
+                <button onclick="toggleTheme()" class="theme-toggle">
+                    <i class="fa-regular fa-moon hidden dark-only" style="color: white; font-size: 1.125rem;"></i>
+                    <i class="fa-regular fa-sun block light-only" style="color: orange; font-size: 1.125rem;"></i>
+                </button>
+
+                <a href="https://ailury.com/" style="display: none; padding: 0.5rem 1.25rem; border-radius: 0.5rem; background-color: #111827; color: white; font-size: 0.875rem; font-weight: 600; transition: opacity 0.2s; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);" class="mobile-hidden desktop-block">
+                    Get Access
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="hero-section padding-x">
+        <div class="max-w-content mx-auto" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            
+            <!-- Badge -->
+            <div style="margin-bottom: 2rem; padding: 0.25rem 1rem; border-radius: 9999px; border: 1px solid rgba(6, 190, 212, 0.2); background: rgba(6, 190, 212, 0.05); color: #0e7490; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;">
+                v2.0 Public
+            </div>
+
+            <!-- Headline -->
+            <h1 class="font-display headline" style="max-width: 48rem;">
+                Edit your code <br>
+                <span class="gradient-text">from anywhere.</span>
+            </h1>
+
+            <!-- Subtext -->
+            <p style="font-size: 1.125rem; color: var(--secondary-text-color); text-align: center; max-width: 42rem; margin-bottom: 3rem; line-height: 1.625;">
+                Ailury. The perfect code editor for mobile coders; from mobile coders for mobile coders. 
+            </p>
+
+            <!-- 3D Editor Preview -->
+            <div class="editor-container">
+                
+                <!-- The Card -->
+                <div id="editor-card" class="tilt-card glass-panel">
+                    
+                    <!-- Toolbar -->
+                    <div class="toolbar">
+                        <div class="toolbar-dots">
+                            <div style="background-color: #FF5F57;"></div>
+                            <div style="background-color: #FEBC2E;"></div>
+                            <div style="background-color: #28C840;"></div>
+                        </div>
+                        <div style="font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fa-solid fa-lock" style="font-size: 10px;"></i>
+                            index.html
+                        </div>
+                        <div style="width: 3rem;"></div> <!-- Spacer -->
+                    </div>
+
+                    <!-- Editor Body -->
+                    <div class="editor-body">
+                        
+                        <!-- Sidebar -->
+                        <div class="sidebar">
+                            <i class="fa-regular fa-file cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
+                            <i class="fa-solid fa-magnifying-glass cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
+                            <i class="fa-solid fa-code cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
+                        </div>
+
+                        <!-- Code Area -->
+                        <div class="code-area font-mono">
+                            
+                            <div class="code-line">
+                                <span class="line-num">1</span>
+                                <span>&lt;!DOCTYPE html&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">2</span>
+                                <span>&lt;<span class="token-k">html</span> lang="<span class="token-s">en</span>"&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">3</span>
+                                <span style="padding-left: 1rem;">&lt;<span class="token-k">head</span>&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">4</span>
+                                <span style="padding-left: 2rem;">&lt;<span class="token-k">title</span>&gt;Demo&lt;/<span class="token-k">title</span>&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">5</span>
+                                <span style="padding-left: 1rem;">&lt;/<span class="token-k">head</span>&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">6</span>
+                                <span style="padding-left: 1rem;">&lt;<span class="token-k">body</span>&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">7</span>
+                                <span style="padding-left: 2rem;">&lt;<span class="token-f">div</span> class="<span class="token-s">ailury-canvas</span>"&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">8</span>
+                                <span style="padding-left: 3rem;">&lt;<span class="token-f">h1</span>&gt;Focus on what matters.&lt;/<span class="token-f">h</span></span><span class="text-cursor"></span>
+                                <div class="glass-panel suggestion-popup">
+                                    <div class="suggestion-popup-title">Suggestions</div>
+                                    <div style="color: #4b5563;" class="dark-text-override">
+                                        &lt;h1&gt;<br>
+                                        &lt;h2&gt;<br>
+                                        &lt;h3&gt;<br>
+                                        &lt;h4&gt;<br>
+                                        &lt;h5&gt;<br>
+                                        &lt;h6&gt;<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">9</span>
+                                <span style="padding-left: 2rem;">&lt;/<span class="token-f">div</span>&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">10</span>
+                                <span style="padding-left: 1rem;">&lt;/<span class="token-k">body</span>&gt;</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="line-num">11</span>
+                                <span>&lt;/<span class="token-k">html</span>&gt;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Horizontal Divider -->
+    <hr class="section-divider" id="philosophy">
+
+    <!-- Section 1: Philosophy (T-BAR Layout) -->
+    <section class="padding-y-lg padding-x max-w-content mx-auto">
+        <header style="text-align: center; margin-bottom: 4rem;">
+            <h2 class="section-header-title font-display">
+                The Mobile-First Philosophy.
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+                    Ailury has countless tools to edit code without having to edit code manually.
+            </p>
+        </header>
+
+        <div class="philosophy-grid">
+            
+            <!-- Side Card 1: Touch Optimized -->
+            <div class="glass-panel" style="padding: 2rem; display: flex; flex-direction: column; cursor: default;">
+                <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: rgba(6, 190, 212, 0.1); color: #06b6d4; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-tablet-screen-button"></i>
+                </div>
+                <h3 class="font-display font-bold text-xl mb-3" style="font-size: 1.25rem; margin-bottom: 0.75rem;">Pure Touch Input</h3>
+                <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
+                    Access contextual tool palettes and input controls that make complex coding fluid on smaller screens. No keyboard needed.
+                </p>
+            </div>
+            
+            <!-- Central Visual Feature: Tool Palette Representation -->
+            <div class="glass-panel center-card">
+                <div style="text-align: center;">
+                    <h3 class="font-display font-bold text-2xl mb-2" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Open, Setup, and Start Coding</h3>
+                    <p style="color: var(--secondary-text-color); margin-bottom: 1.5rem; max-width: 28rem;">
+                        We focus on usability by making it very easy to setup our editor. 
+                    </p>
+                </div>
+                
+                <!-- Mock Tool Palette UI -->
+                <div class="glass-panel" style="padding: 1rem; border-radius: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.06); max-width: 24rem; width: 100%;">
+                    <button class="palette-button" style="background: rgba(6, 190, 212, 0.1); color: #06b6d4;">
+                        <i class="fa-solid fa-paste" style="margin-right: 0.25rem;"></i> Paste Link
+                    </button>
+                    <button class="palette-button" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
+                        <i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 0.25rem;"></i> Choose Your Theme
+                    </button>
+                    <button class="palette-button" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;">
+                        <i class="fa-solid fa-list" style="margin-right: 0.25rem;"></i> Choose Your Layout
+                    </button>
+                    <button class="palette-button" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                        <i class="fa-solid fa-chart-simple" style="margin-right: 0.25rem;"></i> Start coding
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Side Card 2: Code without Editing -->
+            <div class="glass-panel" style="padding: 2rem; display: flex; flex-direction: column; cursor: default;">
+                <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: rgba(168, 85, 247, 0.1); color: #a855f7; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-hand-pointer"></i>
+                </div>
+                <h3 class="font-display font-bold text-xl mb-3" style="font-size: 1.25rem; margin-bottom: 0.75rem;">Zero Typing</h3>
+                <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
+                    Move, wrap, and delete lines of code using simple, optimized <strong>gestures</strong> designed specifically for touchscreens.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Divider -->
+    <hr class="section-divider" id="engine">
+
+    <!-- Section 2: The Engine (Split Screen Layout) -->
+    <section class="padding-y-lg padding-x max-w-content mx-auto">
+        <header style="text-align: center; margin-bottom: 4rem;">
+            <h2 class="section-header-title font-display">
+                The Engine For Productivity.
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+                Start faster, test quicker, and ship with confidence.
+            </p>
+        </header>
+
+        <div class="engine-split">
+            <!-- Code View (7/12 width) -->
+            <div class="glass-panel code-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
+                <!-- Toolbar for Code View (Removed inline style for better dark mode compatibility) -->
+                <div class="toolbar">
+                    <div style="font-size: 0.75rem; font-weight: 500; color: #9ca3af; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-code" style="font-size: 10px;"></i> Editor View
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fa-solid fa-file-export text-gray-400 text-sm cursor-pointer" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm cursor-pointer" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
+                    </div>
+                </div>
+                <div style="padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; line-height: 1.625; height: 100%; background-color: var(--code-bg);">
+                    <div class="code-line">
+                        <span class="line-num">1</span>
+                        <span class="token-c">&lt;!-- Simple HTML card component --&gt;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">2</span>
+                        <span>&lt;<span class="token-f">div</span> class="<span class="token-s">card</span>"&gt;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">3</span>
+                        <span style="padding-left: 1rem;">&lt;<span class="token-f">h2</span>&gt;Nice and Simple&lt;/<span class="token-f">h2</span>&gt;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">4</span>
+                        <span style="padding-left: 1rem;">&lt;<span class="token-f">p</span>&gt;This is a card made with HTML.&lt;/<span class="token-f">p</span>&gt;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">5</span>
+                        <span>&lt;/<span class="token-f">div</span>&gt;</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview/Template Card (5/12 width) -->
+            <div class="glass-panel preview-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
+                <div class="preview-toolbar">
+                    <div style="font-size: 0.75rem; font-weight: 500; color: #0e7490; display: flex; align-items: center; gap: 0.5rem;" class="dark-text-cyan-override">
+                        <i class="fa-solid fa-eye" style="font-size: 10px;"></i> Live Preview
+                    </div>
+                    <i class="fa-solid fa-mobile" style="color: #0e7490; font-size: 0.875rem;" class="dark-text-cyan-override"></i>
+                </div>
+                
+                <!-- Mock Live Preview Content -->
+                <div class="preview-body">
+                    <div style="width: 100%; height: auto; background-color: white; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 1.5rem; border: 1px solid #e5e7eb;" class="dark-card-override">
+                        <div style="height: 0.75rem; width: 25%; background-color: #3b82f6; border-radius: 0.125rem; margin-bottom: 1rem;"></div>
+                        <div style="height: 0.5rem; width: 100%; background-color: #e5e7eb; border-radius: 0.125rem; margin-bottom: 0.5rem;" class="dark-gray-bg-override"></div>
+                        <div style="height: 0.5rem; width: 83.3333%; background-color: #e5e7eb; border-radius: 0.125rem;" class="dark-gray-bg-override"></div>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--secondary-text-color);">
+                        Test your code instantly in the editor
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Divider -->
+    <hr class="section-divider" id="customize">
+
+    <!-- Section 3: Infinite Customization (Flat Grid Layout) -->
+    <section class="padding-y-lg padding-x max-w-content mx-auto">
+        <header style="text-align: center; margin-bottom: 4rem;">
+            <h2 class="section-header-title font-display">
+                Personalize Everything.
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+                Customize every pixel, layout, and background to match your ideal flow.
+            </p>
+        </header>
+
+        <div class="customization-grid">
+            
+            <!-- Customization Card 1: Themes -->
+            <div class="glass-panel p-8 card-border-pink" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
+                <i class="fa-solid fa-swatchbook" style="color: #ec4899; font-size: 1.875rem; margin-bottom: 1rem;"></i>
+                <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Endless Themes</h4>
+                <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
+                    Select from built-in themes or use the creation tools to make your own themes for a truly personal environment.
+                </p>
+            </div>
+
+            <!-- Customization Card 2: Layout -->
+            <div class="glass-panel p-8 card-border-purple" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
+                <i class="fa-solid fa-arrows-left-right" style="color: #a855f7; font-size: 1.875rem; margin-bottom: 1rem;"></i>
+                <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Fluid Tool Layout</h4>
+                <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
+                    Easily resize the sidebar or hide it entirely, and choose the tool layout for maximum efficiency on any device size.
+                </p>
+            </div>
+
+            <!-- Customization Card 3: Grid -->
+            <div class="glass-panel p-8 card-border-cyan" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
+                <i class="fa-solid fa-table-cells-large" style="color: #06b6d4; font-size: 1.875rem; margin-bottom: 1rem;"></i>
+                <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Workspace Grids</h4>
+                <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
+                    Choose different grids for your background to enhance visual structure or concentration—from subtle dots to full coordinates.
+                </p>
+            </div>
+        </div>
+    </section>
+    <hr class="section-divider" id="integrate">
+    <section class="padding-y-lg padding-x max-w-content mx-auto">
+        <header style="text-align: center; margin-bottom: 4rem;">
+            <h2 class="section-header-title font-display">
+                Integrate our editor
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+                We allow our editor to be integrated through iframes. You can also redirect your users to our editor with preditermined HTML, CSS or JavaScript code.
+            </p>
+        </header>
+            <div class="glass-panel code-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
+                <!-- Toolbar for Code View (Removed inline style for better dark mode compatibility) -->
+                <div class="toolbar">
+                    <div style="font-size: 0.75rem; font-weight: 500; color: #9ca3af; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-code" style="font-size: 10px;"></i> Use This Code
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fa-solid fa-copy text-sm cursor-pointer copycodebtn" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
+                    </div>
+                </div>
+                <div style="padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; line-height: 1.625; height: 100%; background-color: var(--code-bg);">
+                    <div class="code-line">
+                        <span class="line-num">1</span>
+                        <span class="token-c">// Integrate and execute this code to open the editor with specific code set by you</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">2</span>
+                        <span><span class="token-f">localStorage</span>.<span class="token-f">setItem</span>(<span class="token-s">"AIluryStudioPendingFileName"</span>, <span class="token-s">"FileName.js"</span>);</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">3</span>
+                        <span class="token-c">// ^- set the file name</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">4</span>
+                        <span><span class="token-f">localStorage</span>.<span class="token-f">setItem</span>(<span class="token-s">"AIluryStudioPendingFileContent"</span>, <span class="token-s">"console.log('The File Content')"</span>);</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">5</span>
+                        <span class="token-c">// ^- set the files content</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">6</span>
+                        <span><span class="token-f">localStorage</span>.<span class="token-f">setItem</span>(<span class="token-s">"AIluryStudioPendingFileRun"</span>, <span class="token-s">"false"</span>);</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">7</span>
+                        <span class="token-c">// choose "false" if you want to redirect for code editing and choose "true" if you want te redirect for code testing/running</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">8</span>
+                        <span><span class="token-f">localStorage</span>.<span class="token-f">setItem</span>(<span class="token-s">"AIluryStudioPendingFileType"</span>, <span class="token-s">"js"</span>);</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">9</span>
+                        <span class="token-c">// ^- set what file type you are transfering. html/css/js are the options</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">10</span>
+                        <span class="token-c"></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">11</span>
+                        <span class="token-c">// Now open AIlury Programming Studio</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-num">12</span>
+                        <span><span class="token-f">window</span>.location.<span class="token-f">href</span> = <span class="token-s">'https://ailury.com'</span>;</span>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Minimal Footer -->
+    <footer>
+        <div class="max-w-content mx-auto padding-x" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.5;">
+                <div style="width: 1rem; height: 1rem; background-color: #9ca3af; border-radius: 50%;"></div>
+                <span class="font-display" style="font-weight: 700; letter-spacing: -0.025em;">ailury</span>
+            </div>
+            <div class="font-mono" style="font-size: 0.75rem; color: #6b7280;">
+                © 2025 Ailury.com. Everyone can code.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copythistext(text) {
+            try {
+                dontcopy = true;
+                const newtextarea = document.createElement('textarea');
+                newtextarea.value = text;
+                document.body.appendChild(newtextarea);
+                newtextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(newtextarea);
+                dontcopy = false;
+            } catch (error) {
+                const thiserrorwascatched = error;
+            }
+        }
+        function copyopencodepretext(button) {
+            if (button.classList.contains('copied')) return;
+            button.classList.add('copied');
+            button.classList.remove("fa-copy");
+            button.classList.add("fa-check");
+            copythistext(`
+localStorage.setItem("AIluryStudioPendingFileName", "FileName.js");
+// ^- set the file name
+localStorage.setItem("AIluryStudioPendingFileContent", "console.log('The File Content')");
+// ^- set the files content
+localStorage.setItem("AIluryStudioPendingFileRun", "false");
+// choose "false" if you want to redirect for code editing and choose "true" if you want te redirect for code testing/running
+localStorage.setItem("AIluryStudioPendingFileType", "js");
+// ^- set what file type you are transfering. html/css/js are the options
+
+// Now open AIlury Programming Studio
+window.location.href = 'https://ailury.com';
+`);
+            setTimeout(() => {
+                button.classList.remove('copied');
+                button.classList.remove("fa-check");
+                button.classList.add("fa-copy");
+            }, 1500);
+        }
+        const copycodebtn = document.querySelector('.copycodebtn');
+        copycodebtn.onclick = () => {
+            copyopencodepretext(copycodebtn);
+        };
+        // Check if the current environment is mobile based on screen width for responsive classes
+        function isMobile() {
+            return window.matchMedia("(max-width: 767px)").matches;
+        }
+
+        // --- Theme Management ---
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const sunIcon = document.querySelector('.light-only');
+            const moonIcon = document.querySelector('.dark-only');
+
+            if (sunIcon && moonIcon) {
+                if (isDark) {
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                } else {
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                }
+            }
+
+            // Apply hover colors based on current theme for pure CSS
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.style.color = isDark ? '#A1A1AA' : '#6b7280';
+                link.addEventListener('mouseenter', () => {
+                    link.style.color = isDark ? 'white' : '#111827'; /* Use var(--text-color) */
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.color = isDark ? '#A1A1AA' : '#6b7280'; /* Use var(--secondary-text-color) */
+                });
+            });
+        }
+
+        function initializeTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateThemeIcons();
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+        }
+        
+        // --- 3D Tilt Logic for Hero Card ---
+        const card = document.getElementById('editor-card');
+        const container = document.querySelector('.editor-container');
+
+        if (card && container) {
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation (inverted for natural 3D look)
+                const rotateX = ((y - centerY) / centerY) * -2; 
+                const rotateY = ((x - centerX) / centerX) * 2;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            });
+            
+            // Mobile (touch) logic for a slight fixed tilt
+            if (isMobile()) {
+                 card.style.transform = 'rotateX(-2deg) rotateY(4deg) scale(0.98)';
+            }
+        }
+
+        // --- Navbar Scroll Effect ---
+        function handleScroll() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                // Apply the 'scrolled' styling
+                nav.classList.add('scrolled');
+            } else {
+                // Remove the 'scrolled' styling
+                nav.classList.remove('scrolled');
+            }
+        }
+
+        // --- Run on Load ---
+        window.onload = () => {
+            initializeTheme();
+            handleScroll();
+            // Attach scroll listener
+            window.addEventListener('scroll', handleScroll);
+        };
+        
+        // --- Responsive Class Handling ---
+        // Dynamically hide/show elements based on mobile view
+        function updateResponsiveClasses() {
+            const desktopElements = document.querySelectorAll('.desktop-flex, .desktop-block');
+            const isDesktop = !isMobile();
+
+            desktopElements.forEach(el => {
+                if (el.classList.contains('desktop-flex')) {
+                    el.style.display = isDesktop ? 'flex' : 'none';
+                } else if (el.classList.contains('desktop-block')) {
+                    el.style.display = isDesktop ? 'block' : 'none';
+                }
+            });
+        }
+        
+        // Initial call and on resize
+        updateResponsiveClasses();
+        window.addEventListener('resize', updateResponsiveClasses);
+        
+    </script>
+</body>
+</html>
