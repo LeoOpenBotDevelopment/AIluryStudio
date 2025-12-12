@@ -12595,7 +12595,7 @@
                     };
                     
                     const oldIndex = allLines.indexOf(selectedline);
-                    const minmaxednumber = Math.min(Math.max(oldIndex + m__down, 0), allLines.length - 1);
+                    let minmaxednumber = Math.min(Math.max(oldIndex + m__down, 0), allLines.length - 1);
                     while (allLines[minmaxednumber] && allLines[minmaxednumber].classes.includes("hidden")) {
                         minmaxednumber++;
                     }
