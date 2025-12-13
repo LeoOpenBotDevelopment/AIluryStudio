@@ -4548,7 +4548,7 @@
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
-                <button id="togglethemecontainerbtn" onclick="showOverlay('.theme-overlay')">theme</button>
+                <button id="togglethemecontainerbtn" onclick="showOverlay('.theme-overlay', 'theme')">theme</button>
                 <button id="toggleanimationcontainerbtn" onclick="showOverlay('.chooseanimationoverlay', 'animation')">animations</button>
                 <button id="togglelayoutcontainerbtn" class="sbtnpossettingsoverlay" onclick="showOverlay('.chooseceebtnposoverlay', 'layout')">layout</button>
             </div>
@@ -5046,7 +5046,7 @@
             </div>
             <div id="theme-overlay" class="theme-overlay" onclick="hideelement('class', 'theme-overlay', event)">
                 <div class="theme-option-container">
-                    <button class="closecommandoverlaybtn" onclick="hideOverlay('.theme-overlay')">× close</button>
+                    <button class="closecommandoverlaybtn" onclick="hideOverlay('.theme-overlay', 'theme')">× close</button>
                     <h3>theme</h3>
                     <br>
                     <div class="themeoption" onclick="removeallthemes()">
