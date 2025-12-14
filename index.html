@@ -11093,6 +11093,15 @@
             document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
                 link.style.display = "flex";
             });
+            document.querySelectorAll('.section > .code-editor-container').forEach((link, index) => {
+                if (link.querySelector(".code-editor-container")) {
+                    link.querySelector(".code-editor-container").remove();
+                }
+                if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
+                    index++;
+                }
+                addLoadingAbility(link, index);
+            });
             document.querySelectorAll('#folderh3').forEach(fold => {
                 if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
                     fold.remove();
