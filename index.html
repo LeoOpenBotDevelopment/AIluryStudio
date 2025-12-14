@@ -9328,146 +9328,187 @@
                 }
             });
         }
+                // Global queue variable to ensure sequential execution
+        let addFileQueue = Promise.resolve();
+        
         async function addNewFile(filename, file) {
+            // We chain every call to the end of the queue. 
+            // This forces them to run one after another, never in parallel.
+            addFileQueue = addFileQueue.then(async () => {
+                try {
+                    await processNewFile(filename, file);
+                } catch (error) {
+                    console.error("Error adding file:", error);
+                }
+            });
+            
+            return addFileQueue;
+        }
+        
+        // The actual logic, moved to a separate function called by the queue
+        async function processNewFile(filename, file) {
+            // 1. Check for duplicates NOW (inside the queue), so it's accurate
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
-            if (allfilenames.includes(filename)){
+            if (allfilenames.includes(filename)) {
                 return;
             }
+        
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
-            
+        
+            // 2. Read the file FIRST. We await this so we have the content 
+            // before we start calculating DOM indexes.
+            const fileContent = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(e);
+                reader.readAsText(file);
+            });
+        
+            // 3. Update global ID counter
             correntids++;
-            
+        
+            // 4. Create Section
             const newSection = document.createElement('div');
             newSection.classList.add('section');
-            const newSectionNum = container.children.length;
+            // Because we are in a queue, container.children.length is now safe and accurate
+            const newSectionNum = container.children.length; 
             newSection.id = `section${newSectionNum}`;
+            
+            // Static HTML content
             newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
         <div class="code-editor-container" id="linenumberingon">
         </div>
         <div class="code-editor-btns"><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
+        
             container.appendChild(newSection);
+        
+            // 5. Process File Content and Update editorFiles
+            let newEditorFiles = [];
+            const lines = fileContent.split('\n');
+            lines.forEach((lineText) => {
+                correntids += 1;
+                const line = { id: correntids, classes: ['code-editor-line'], text: lineText };
+                newEditorFiles.push(line);
+            });
             
-            const reader = new FileReader();
-            let body = document.querySelector('body');
-            const editorContainer = newSection.querySelector('.code-editor-container');
-            reader.onload = (e) => {
-                let newEditorFiles = [];
-                const lines = e.target.result.split('\n');
-                lines.forEach((lineText) => {
-                    correntids += 1;
-                    const line = {id:correntids,classes:['code-editor-line'],text:lineText};
-                    newEditorFiles.push(line);
-                });
-                editorFiles.push(newEditorFiles);
-                newSection.onclick = () => {
-                    if (document.querySelector('.suggestioncontainer')) {
-                        document.querySelector('.suggestioncontainer').remove();
-                    }
-                };
-                addLoadingAbility(newSection.querySelector('.code-editor-container'), Array.from(document.querySelectorAll('.code-editor-container:not(.viewport)')).length - 1);
+            // IMPORTANT: Because of the queue, this push is now guaranteed to happen 
+            // in the same order as the DOM elements.
+            editorFiles.push(newEditorFiles);
+        
+            newSection.onclick = () => {
+                if (document.querySelector('.suggestioncontainer')) {
+                    document.querySelector('.suggestioncontainer').remove();
+                }
             };
             
-            reader.readAsText(file);
-
+            // Add loading ability (Logic from your original code)
+            addLoadingAbility(newSection.querySelector('.code-editor-container'), Array.from(document.querySelectorAll('.code-editor-container:not(.viewport)')).length - 1);
+        
+            // 6. Create Nav Dot
             const newNavDot = document.createElement('div');
             newNavDot.classList.add('nav-dot', 'filedot');
-
-            newNavDot.setAttribute('data-index', container.children.length - 1);
+            // Safe index calculation
+            const newIndex = container.children.length - 1; 
+            newNavDot.setAttribute('data-index', newIndex);
             newNavDot.innerHTML = `
-      <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="${filename}">
-    `;
+                <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="${filename}">
+            `;
             newNavDot.setAttribute('onclick', 'dotonclick()');
             navBar.appendChild(newNavDot);
-
+        
+            // 7. Input Event Listeners
             let filePathInputblablabla = newNavDot.querySelector('.filePathInput');
             let timeout;
-
+        
             filePathInputblablabla.addEventListener('input', (event) => {
                 handleFileNameInputChange(event.target.parentElement);
             });
-            
+        
             filePathInputblablabla.addEventListener('mousedown', startOverlayEnlarge);
             filePathInputblablabla.addEventListener('touchstart', startOverlayEnlarge);
-
             filePathInputblablabla.addEventListener('mouseup', stopOverlayEnlarge);
             filePathInputblablabla.addEventListener('mouseleave', stopOverlayEnlarge);
             filePathInputblablabla.addEventListener('touchend', stopOverlayEnlarge);
-
+        
             function startOverlayEnlarge(event) {
                 timeout = setTimeout(() => {
                     document.querySelector('.overlay-container').style.display = "flex";
                     document.querySelector('.overlay-container').style.animation = "none";
                     void document.querySelector('.overlay-container').offsetWidth;
-                    if (transitionanimation != "none") {
+                    if (typeof transitionanimation !== 'undefined' && transitionanimation != "none") {
                         document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
                     }
                 }, 700);
             }
-
+        
             function stopOverlayEnlarge() {
                 clearTimeout(timeout);
             }
-
+        
+            // 8. Update DataList
             const dataList = document.getElementById('filenameoptions');
             const option = document.createElement('option');
             option.value = filename;
             option.id = `option${newNavDot.getAttribute('data-index')}`;
             dataList.appendChild(option);
-
+        
+            // 9. Overlay Rectangle Logic
             const overlayContainer = document.querySelector('.overlay-container .content-container');
             const newRectangle = document.createElement('div');
             newRectangle.classList.add('rectangle');
             newRectangle.innerHTML = `<span class="notclickable">${filename}</span>
-<div class="rectangle-buttons">
-    <button class="edit-btn">≡</button>
-</div>
-<button class="close">×</button>`;
-            newRectangle.setAttribute('onclick', `editthisfile(${container.children.length - 1}, event)`);
+                <div class="rectangle-buttons">
+                    <button class="edit-btn">≡</button>
+                </div>
+                <button class="close">×</button>`;
+            newRectangle.setAttribute('onclick', `editthisfile(${newIndex}, event)`);
             overlayContainer.appendChild(newRectangle);
-
+        
             document.querySelector('.searchforafilenamereadybtn').style.display = "none";
             document.querySelector('.searchforafilename').value = "";
             document.querySelectorAll('.rectangle').forEach(rect => {
                 rect.style.display = "flex";
             });
-
-            if (newRectangle.querySelector('.download-btn')){
+        
+            if (newRectangle.querySelector('.download-btn')) {
                 newRectangle.querySelector('.download-btn').onclick = () => {
                     downloadFile(filename);
                 }
             }
-
+        
             newRectangle.querySelector('.close').addEventListener('click', () => {
                 newRectangle.classList.remove('enlarged');
             });
-
+        
             let timer;
             newRectangle.addEventListener('mousedown', startEnlarge);
             newRectangle.addEventListener('touchstart', startEnlarge);
             newRectangle.addEventListener('mouseup', stopEnlarge);
             newRectangle.addEventListener('mouseleave', stopEnlarge);
             newRectangle.addEventListener('touchend', stopEnlarge);
-
+        
             function startEnlarge() {
                 timer = setTimeout(() => {
                     newRectangle.classList.add('enlarged');
                 }, 700);
             }
-
+        
             function stopEnlarge() {
                 clearTimeout(timer);
             }
-
+        
+            // 10. Sidebar Link
             let sidebarfilelink = document.createElement('button');
             sidebarfilelink.textContent = filename;
             sidebarfilelink.innerHTML += `<div class="threedots">⋮</div>`;
             sidebarfilelink.className = 'sidebarfilelinklink';
             sidebarfilelink.id = 'sidebarfilelinklink' + newNavDot.getAttribute('data-index');
             sidebarfilelink.setAttribute('onclick', `editthisfile(${newNavDot.getAttribute('data-index')}, event)`);
-            
-
+        
             document.querySelector('.sidebarbardivbuttondiv1').appendChild(sidebarfilelink);
+            
+            // Final cleanup
             await updateDataIndex('nav-bar');
             newNavDot.classList.add('nav-dot', 'navdot' + newNavDot.getAttribute('data-index'));
             newRectangle.id = "rectangle" + newNavDot.getAttribute('data-index');
@@ -10957,6 +10998,7 @@
 
         function deletethisfile(number) {
             if (!number || (number && isNaN(parseInt(number)))) return;
+            console.log(number)
             let sid = document.getElementById("section" + number)?.id;
             let sidesid = sid && sid == section.id;
             if (sidesid) {
@@ -10964,6 +11006,7 @@
             }
             if (editorFiles[parseInt(number)]) {
                 editorFiles.splice(parseInt(number), 1);
+                console.log(editorFiles)
             }
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
@@ -10977,13 +11020,22 @@
                     if (futureevents[sectionKey]) {
                         futureevents["section" + index] = futureevents[sectionKey];
                     }
-                    if (rect.id !== 'image-rectangle') {
+                    if (rect.id != 'image-rectangle') {
                         rect.id = "rectangle" + index;
                         if (rect.querySelector('.rectangle-buttons .delete-btn') && rect.querySelector('.rectangle-buttons .edit-btn')){
-                            rect.querySelector('.rectangle-buttons .delete-btn').setAttribute('onclick', `deletethisfile(${index})`);
-                            rect.querySelector('.rectangle-buttons .edit-btn').setAttribute('onclick', `editthisfile(${index})`);
+                            const rectbtnsdelete = rect.querySelector('.rectangle-buttons .delete-btn');
+                            const rectbtnsedit = rect.querySelector('.rectangle-buttons .edit-btn');
+                            rectbtnsdelete.onclick = null;
+                            rectbtnsdelete.removeAttribute('onclick');
+                            rectbtnsdelete.onclick = () => deletethisfile(index);
+                            
+                            rectbtnsdelete.onclick = null;
+                            rectbtnsdelete.removeAttribute('onclick');
+                            rectbtnsdelete.onclick = () => editthisfile(index, event);
                         }
-                        rect.setAttribute('onclick', `editthisfile(${index}, event)`);
+                        rect.onclick = null;
+                        rect.removeAttribute('onclick');
+                        rect.onclick = () => editthisfile(index, event);
                     }
                 });
             }
@@ -11018,17 +11070,6 @@
                     }
                 }
             }
-
-            let container = document.getElementById('container');
-            if (container) {
-                let deletethissection = container.querySelector('.section[id="section' + number + '"]');
-                if (deletethissection) {
-                    deletethissection.remove();
-                    document.querySelectorAll('.section').forEach((sectionv, index) => {
-                        sectionv.id = "section" + index;
-                    });
-                }
-            }
             
             let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
             if (sidebarfilelinklink) {
@@ -11040,6 +11081,13 @@
                     }
                     sidebarfilelink.id = 'sidebarfilelinklink' + index;
                     sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
+                });
+            }
+            let deletethissection = container.querySelector('#section' + number);
+            if (deletethissection) {
+                deletethissection.remove();
+                document.querySelectorAll('.section').forEach((sectionv, index) => {
+                    sectionv.id = "section" + index;
                 });
             }
             document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
