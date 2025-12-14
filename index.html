@@ -5768,7 +5768,7 @@
             allRegex.forEach(obj => {
                 const { rt, wt } = obj;
                 
-                if (resultText.includes(wt)) {
+                if (resultText.includes(wt) && wt != "--") {
                     resultText = resultText.replaceAll(wt, rt);
                 }
             });
@@ -7636,6 +7636,7 @@
                 });
             }
             const allLines = editorFiles[parseInt(editorIndex)];
+            if (allLines == undefined) return;
             const allselectedlines = allLines.filter(el => el.classes.includes('focusedline'));
             if (allLines && allselectedlines) {
                 clearTimeout(focuslinetimeout);
@@ -10190,47 +10191,14 @@
         let inputDiv = section.querySelector('.code-editor-container');
         
         function updateAttribute(line, wantededitorIndex = editorIndex) {
-            if (line && line.getAttribute('line-index') != null){
+            if (line && line.getAttribute('line-index') != null && !isNaN(parseInt(wantededitorIndex)) && editorFiles[parseInt(wantededitorIndex)]){
                 const elAtIndex = editorFiles[parseInt(wantededitorIndex)][parseInt(line.getAttribute('line-index'))];
                 if (elAtIndex) {
                     editorFiles[parseInt(wantededitorIndex)][parseInt(line.getAttribute('line-index'))].text = line.textContent;
-                    const isTemporary = line.classList.contains("temporaryLine");
-                    if (isTemporary) line.classList.remove("temporaryLine");
                     editorFiles[parseInt(wantededitorIndex)][parseInt(line.getAttribute('line-index'))].classes = [...line.classList];
-                    if (isTemporary) line.classList.add("temporaryLine");
                 } else {
                     line.textContent = '';
                     line.style.display = 'none';
-                }
-            } else if (line) {
-                const isTemporary = line.classList.contains("temporaryLine");
-                if (isTemporary) line.classList.remove("temporaryLine");
-                const newElement = {id:line.id,classes:[...line.classList],text:line.textContent};
-                if (isTemporary) line.classList.add("temporaryLine");
-                if (line.previousElementSibling && line.previousElementSibling.getAttribute('line-index')) {
-                    const index = parseInt(line.previousElementSibling.getAttribute('line-index'));
-                    editorFiles[parseInt(wantededitorIndex)].splice(index + 1, 0, newElement);
-                } else if (line.nextElementSibling) {
-                    const index = parseInt(line.nextElementSibling.getAttribute('line-index'));
-                    editorFiles[parseInt(wantededitorIndex)].splice(index - 1, 0, newElement);
-                } else if (!line.previousElementSibling && !line.nextElementSibling) {
-                    editorFiles[parseInt(wantededitorIndex)].push(newElement);
-                    line.setAttribute('line-index', 0);
-                }
-                if (!line.getAttribute('line-index') || line.getAttribute('line-index') == undefined) {
-                    line.classList.add('temporaryLine');
-                    let startIndex = 0;
-                    if (line.previousElementSibling?.getAttribute('line-index') != null) {
-                        startIndex = parseInt(line.previousElementSibling.getAttribute('line-index')) + 1;
-                    }
-                    line.setAttribute('line-index', startIndex);
-                    
-                    let current = line.nextElementSibling;
-                    let count = startIndex + 1;
-                    while (current) {
-                        current.setAttribute('line-index', count++);
-                        current = current.nextElementSibling;
-                    }
                 }
             }
         }
@@ -10451,7 +10419,6 @@
         
                 spacerTop.style.height = `${topHeight}px`;
                 spacerBottom.style.height = `${bottomHeight}px`;
-                editor.querySelectorAll(".temporaryLine").forEach(tel => tel.remove());
                 editor.querySelectorAll(".code-editor-line:not([line-index])").forEach(tel => tel.remove());
                 for (let i = visibleLines - 1; i >= 0; i--) {
                     const visibleIdx = startVisible + i;
@@ -11528,16 +11495,19 @@
                 if (filePathInputva && filePathInputva.value == filename) {
                     let sectionv = fd.getAttribute('data-index');
                     if (!sectionv || isNaN(parseInt(sectionv))) return;
+                    if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= parseInt(sectionv)) {
+                        sectionv = parseInt(sectionv) + 1;
+                    }
                     const allLines = editorFiles[parseInt(sectionv)];
-                    if (allLines) {
+                    if (allLines && allLines != undefined) {
                         allLines.forEach(line => {
                             fileContent += normalizeSpaces(line.text) + "\n";
                         });
                         fileContent = removeAbbreviations(fileContent);
-                        return;
                     }
                 }
             });
+            
             return fileContent;
         }
         
