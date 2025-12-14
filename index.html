@@ -11099,8 +11099,8 @@
                 }
                 if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
                     index++;
-                    addLoadingAbility(link, index);
                 }
+                addLoadingAbility(link, index);
             });
             document.querySelectorAll('#folderh3').forEach(fold => {
                 if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
