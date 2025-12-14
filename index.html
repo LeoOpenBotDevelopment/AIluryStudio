@@ -10963,7 +10963,7 @@
                 document.getElementById('sidebarfilelinklink0').click();
             }
             if (editorFiles[parseInt(number)]) {
-                editorFiles.splice(editorFiles.indexOf(number), 1);
+                editorFiles.splice(parseInt(number), 1);
             }
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
