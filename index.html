@@ -10998,15 +10998,15 @@
 
         function deletethisfile(number) {
             if (!number || (number && isNaN(parseInt(number)))) return;
-            console.log(number)
+            
             let sid = document.getElementById("section" + number)?.id;
             let sidesid = sid && sid == section.id;
             if (sidesid) {
                 document.getElementById('sidebarfilelinklink0').click();
             }
+            resolvePendingPast();
             if (editorFiles[parseInt(number)]) {
                 editorFiles.splice(parseInt(number), 1);
-                console.log(editorFiles)
             }
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
@@ -11094,13 +11094,15 @@
                 link.style.display = "flex";
             });
             document.querySelectorAll('.section > .code-editor-container').forEach((link, index) => {
-                if (link.querySelector(".code-editor-container")) {
-                    link.querySelector(".code-editor-container").remove();
-                }
                 if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
                     index++;
                 }
-                addLoadingAbility(link, index);
+                if (index >= parseInt(number)) {
+                    if (link.querySelector(".code-editor-container")) {
+                        link.querySelector(".code-editor-container").remove();
+                    }
+                    addLoadingAbility(link, index);
+                }
             });
             document.querySelectorAll('#folderh3').forEach(fold => {
                 if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
