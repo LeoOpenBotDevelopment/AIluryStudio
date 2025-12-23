@@ -4562,8 +4562,8 @@
             </div>
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfilebtnssection')"><</span> files</h3>
             <div class="sidebarbardivbuttondiv sidebarfilebtnssection">
-                <button id="showallfilescontainerbtn" onclick="showallfilescontainer()">files</button>
-                <button id="showalltemplatescontainerbtn" onclick="showalltemplatescontainer()">templates</button>
+                <button id="showallfilescontainerbtn" onclick="showOverlay('.overlay-container', 'files')">files</button>
+                <button id="showalltemplatescontainerbtn" onclick="showOverlay('.overlay5-container', 'templates')">templates</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1 sidebarfilebtnssection">
                 <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
@@ -4874,7 +4874,7 @@
                     delete comments
                 </div>
             </div>
-            <div class="commandsoverlay-container" onclick="hideelement('class', 'commandsoverlay-container', event)">
+            <div class="commandsoverlay-container anOverlay" onclick="hideelement('class', 'commandsoverlay-container', event)">
                 <div class="commandsdisplay-container">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.commandsoverlay-container')">× close</button>
                     <br>
@@ -4986,13 +4986,13 @@
                 </div>
             </div>
             <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
-            <div class="overlay-container" onclick="hideelement('class', 'overlay-container', event, 'filesoverlay')">
+            <div class="overlay-container anOverlay" onclick="hideOverlay('.overlay-container', 'files', event)">
                 <!-- Content Container (mit Top Bar drin) -->
                 <div class="content-container">
                     <!-- Top Bar -->
                     <div class="top-bar">
-                        <button class="overlay-back-btn" onclick="hideelement('class', 'overlay-container', event, 'filesoverlay')">×</button>
-                        <button class="overlay-close-btn" onclick="hideelement('class', 'overlay-container', event, 'filesoverlay')">close</button>
+                        <button class="overlay-back-btn" onclick="hideOverlay('.overlay-container', 'files')">×</button>
+                        <button class="overlay-close-btn" onclick="hideOverlay('.overlay-container', 'files')">close</button>
                         <input type="file" id="fileInput" style="display: none;" accept=".txt, .css, .js, .html, image/*" multiple>
                         <button onclick="clickthiselement('#fileInput')" class="upload-btn">upload</button>
                         <button class="viewthisfile" onclick="viewthisfile()">view</button>
@@ -5033,18 +5033,18 @@
                     </div>
                 </div>
             </div>
-            <div class="overlay5-container" onclick="hideelement('class', 'overlay5-container', event, 'templatesoverlay')">
+            <div class="overlay5-container anOverlay" onclick="hideOverlay('.overlay5-container', 'templates', event)">
                 <!-- Content Container (mit Top Bar drin) -->
                 <div class="content5-container">
                     <!-- Top Bar -->
                     <div class="top5-bar">
-                        <button class="overlay5-back-btn" onclick="hideelement('class', 'overlay5-container', event, 'templatesoverlay')">×</button>
-                        <button class="overlay5-close-btn" onclick="hideelement('class', 'overlay5-container', event, 'templatesoverlay')">close</button>
+                        <button class="overlay5-back-btn" onclick="hideOverlay('.overlay5-container', 'templates')">×</button>
+                        <button class="overlay5-close-btn" onclick="hideOverlay('.overlay5-container', 'templates')">close</button>
                         <button class="create-file-btn" onclick="requestcreatenewfile()">add file</button>
                     </div>
                 </div>
             </div>
-            <div id="theme-overlay" class="theme-overlay" onclick="hideelement('class', 'theme-overlay', event)">
+            <div id="theme-overlay" class="theme-overlay anOverlay" onclick="hideOverlay('.theme-overlay', 'theme', event)">
                 <div class="theme-option-container">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.theme-overlay', 'theme')">× close</button>
                     <h3>theme</h3>
@@ -5253,7 +5253,7 @@
                     </div>
                 </div>
             </div>
-            <div id="testregexoverlay" class="testregexoverlay" onclick="hideelement('class', 'testregexoverlay', event)">
+            <div id="testregexoverlay" class="testregexoverlay anOverlay" onclick="hideelement('class', 'testregexoverlay', event)">
                 <div id="testregexcontainer" class="testregexcontainer">
                     <button class="closecommandoverlaybtn" onclick="hidetestregexoverlay()">× close</button>
                     <br>
@@ -5287,7 +5287,7 @@
                     <button id="useButton">Use Regex</button>
                 </div>
             </div>
-            <div id="replaceoverlay" class="replaceoverlay" onclick="hideelement('class', 'replaceoverlay', event)">
+            <div id="replaceoverlay" class="replaceoverlay anOverlay" onclick="hideelement('class', 'replaceoverlay', event)">
                 <div id="replacecontainer" class="replacecontainer">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.replaceoverlay')">× close</button>
                     <br>
@@ -5307,7 +5307,7 @@
                     <button id="replacebtn" onclick="replacetext('replaceinput', 'replacementinput')">replace</button>
                 </div>
             </div>
-            <div id="chooseanimationoverlay" class="chooseanimationoverlay" onclick="hideelement('class', 'chooseanimationoverlay', event)">
+            <div id="chooseanimationoverlay" class="chooseanimationoverlay anOverlay" onclick="hideOverlay('.chooseanimationoverlay', 'animation', event)">
                 <div id="chooseanimationcontainer" class="chooseanimationcontainer">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.chooseanimationoverlay', 'animation')">× close</button>
                     <br>
@@ -5322,7 +5322,7 @@
                     </div>
                 </div>
             </div>
-            <div id="chooseceebtnposoverlay" class="chooseceebtnposoverlay" onclick="hideelement('class', 'chooseceebtnposoverlay', event)">
+            <div id="chooseceebtnposoverlay" class="chooseceebtnposoverlay anOverlay" onclick="hideOverlay('.chooseceebtnposoverlay', 'layout', event)">
                 <div id="chooseceebtnposcontainer" class="chooseceebtnposcontainer">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.chooseceebtnposoverlay', 'layout')">× close</button>
                     <br>
@@ -5382,7 +5382,7 @@
                     </div>
                 </div>
             </div>
-            <div id="codefunctionssettingsoverlay" class="codefunctionssettingsoverlay" onclick="hideelement('class', 'codefunctionssettingsoverlay', event)">
+            <div id="codefunctionssettingsoverlay" class="codefunctionssettingsoverlay anOverlay" onclick="hideelement('class', 'codefunctionssettingsoverlay', event)">
                 <div id="codefunctionssettingscontainer" class="codefunctionssettingscontainer">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.codefunctionssettingsoverlay')">× close</button>
                     <br>
@@ -5573,6 +5573,13 @@
         <div class="explanationContainer"></div>
     </div>
     <script>
+        const typesAndBtns = {
+            "theme": document.querySelector('#togglethemecontainerbtn'),
+            "layout": document.querySelector('#togglelayoutcontainerbtn'),
+            "animation": document.querySelector('#toggleanimationcontainerbtn'),
+            "files": document.querySelector('#showallfilescontainerbtn'),
+            "templates": document.querySelector('#showalltemplatescontainerbtn')
+        };
         let noKeyDown = false;
         let undoing = false;
         const allRegex = [
@@ -5965,20 +5972,23 @@
         function shortNotificationmessageelement(text) {
             let relement = document.querySelector('.shortNotification');
             relement.textContent = text;
+            relement.style.display = "block";
             if (shortNotificationtimeout){
                 clearTimeout(shortNotificationtimeout);
                 shortNotificationtimeout = null;
+            } else {
+                relement.style.animation = "none";
+                void relement.offsetWidth;
+                relement.style.animation = "swipeindown 0.5s ease-out";
             }
-            relement.style.display = "block";
-            relement.style.animation = "none";
-            void relement.offsetWidth;
-            relement.style.animation = "swipeindown 0.5s ease-out";
             shortNotificationtimeout = setTimeout(() => {
                 relement.style.animation = "none";
                 void relement.offsetWidth;
                 relement.style.animation = "swipeoutup 0.5s ease-out";
                 setTimeout(() => {
                     relement.style.display = "none";
+                    clearTimeout(shortNotificationtimeout);
+                    shortNotificationtimeout = null;
                 }, 500);
             }, 3000);
         }
@@ -7249,17 +7259,23 @@
         }
         
         
-        function toggleConsole(thiselementwasclicked){
+        function toggleConsole(thiselementwasclicked, showNotification = true){
             thiselementwasclicked.classList.toggle("Active");
             if (thiselementwasclicked.classList.contains('Active')){
                 document.querySelector('.showconsolebtn').style.display = "inline-block";
+                if (showNotification) {
+                    shortNotificationmessageelement("The console has been enabled");
+                }
             }else {
                 document.querySelector('.showconsolebtn').style.display = "none";
                 hideOverlay('.consoleconteiner');
+                if (showNotification) {
+                    shortNotificationmessageelement("The console has been disabled");
+                }
             }
         }
         
-        toggleConsole(document.querySelector('.consoletogglebtn'));
+        toggleConsole(document.querySelector('.consoletogglebtn'), false);
         
         
         function stopTimeline() {
@@ -8760,32 +8776,7 @@
             document.body.className = "";
         }
         
-        function showalltemplatescontainer() {
-            document.getElementById('showalltemplatescontainerbtn').classList.add("ActiveOverlay");
-            const socoverlay5container = document.querySelector('.overlay5-container');
-            if (socoverlay5container.style.display != "flex") {
-                socoverlay5container.style.display = "flex";
-                socoverlay5container.style.animation = "none";
-                void socoverlay5container.offsetWidth;
-                if (transitionanimation != "none") {
-                    socoverlay5container.style.animation = transitionanimation + "in 0.5s ease-out";
-                }
-            }
-            closesidebaronsmallscreensizes();
-        }
-        function showallfilescontainer() {
-            document.getElementById('showallfilescontainerbtn').classList.add("ActiveOverlay");
-            const socoverlaycontainer = document.querySelector('.overlay-container');
-            if (socoverlaycontainer.style.display != "flex") {
-                socoverlaycontainer.style.display = "flex";
-                socoverlaycontainer.style.animation = "none";
-                void socoverlaycontainer.offsetWidth;
-                if (transitionanimation != "none") {
-                    socoverlaycontainer.style.animation = transitionanimation + "in 0.5s ease-out";
-                }
-            }
-            closesidebaronsmallscreensizes();
-        }
+        
         function closesidebaronsmallscreensizes() {
             if (document.querySelector('.divcodeeditor-container').classList.contains('smallsidebarenabled')){
                 document.querySelector('.divcodeeditor-container').classList.remove('smallsidebarenabled');
@@ -8797,11 +8788,11 @@
             hideOverlay('.chooseanimationoverlay', 'animation');
             hideOverlay('.commandsoverlay-container');
             closeviewthisfile();
-            document.querySelector('.overlay-close-btn').click();
-            document.querySelector('.overlay5-close-btn').click();
+            hideOverlay('.overlay-container', 'files');
+            hideOverlay('.overlay5-container', 'templates');
             closesidebaronsmallscreensizes();
             hideOverlay("#testregexoverlay");
-            hideOverlay('.theme-overlay');
+            hideOverlay('.theme-overlay', 'theme');
             hideOverlay('.replaceoverlay');
             hideOverlay('.chooseceebtnposoverlay', 'layout');
             if (document.querySelector('.notificationmessage').style.display != "none") {
@@ -8864,22 +8855,15 @@
             }
         });
         
-        const togglethemecontainerbtn = document.querySelector('#togglethemecontainerbtn');
-        const toggleanimationcontainerbtn = document.querySelector('#toggleanimationcontainerbtn');
-        const togglelayoutcontainerbtn = document.querySelector('#togglelayoutcontainerbtn');
-        
         function hideelementwithswipe(relement, type = "undefined") {
             if (relement.style.display == "none") {
                 return;
             }
-            if (type == "theme") {
-                togglethemecontainerbtn.classList.remove("ActiveOverlay");
-            } else if (type == "layout") {
-                togglelayoutcontainerbtn.classList.remove("ActiveOverlay");
-            } else if (type == "animation") {
-                toggleanimationcontainerbtn.classList.remove("ActiveOverlay");
+            if (typesAndBtns[type]) {
+                typesAndBtns[type].classList.remove("ActiveOverlay");
             }
             relement.style.animation = "none";
+            relement.style.zIndex = "auto";
             void relement.offsetWidth;
             if (transitionanimation != "none") {
                 relement.style.animation = transitionanimation + "out 0.5s ease-out";
@@ -8896,15 +8880,15 @@
                 hideelementwithswipe(relement, type);
                 return;
             }
-            if (type == "theme") {
-                togglethemecontainerbtn.classList.add("ActiveOverlay");
-            } else if (type == "layout") {
-                togglelayoutcontainerbtn.classList.add("ActiveOverlay");
-            } else if (type == "animation") {
-                toggleanimationcontainerbtn.classList.add("ActiveOverlay");
+            if (typesAndBtns[type]) {
+                typesAndBtns[type].classList.add("ActiveOverlay");
             }
             relement.style.display = "flex";
             relement.style.animation = "none";
+            document.querySelectorAll(".anOverlay").forEach(el => {
+                el.style.zIndex = "auto";
+            });
+            relement.style.zIndex = "100";
             void relement.offsetWidth;
             if (transitionanimation != "none") {
                 relement.style.animation = transitionanimation + "in 0.5s ease-out";
@@ -8973,7 +8957,8 @@
                 showelementwithswipe(sohtestregexoverlay);
             }
         }
-        function hideOverlay(name, extra = null) {
+        function hideOverlay(name, extra = null, event = null) {
+            if (event && event.target != event.currentTarget) return;
             const sohtestregexoverlay = document.querySelector(name);
             if (extra) {
                 hideelementwithswipe(sohtestregexoverlay, extra);
@@ -10145,15 +10130,11 @@
             }
         });
         
-        function hideelement(type, name, event, isfo = "undefined"){
+        function hideelement(type, name, event){
             if (event.target !== event.currentTarget) {
                 return;
             }
-            if (isfo == "filesoverlay") {
-                document.getElementById('showallfilescontainerbtn').classList.remove("ActiveOverlay");
-            } else if (isfo == "templatesoverlay") {
-                document.getElementById('showalltemplatescontainerbtn').classList.remove("ActiveOverlay");
-            }
+            
             if (type == 'class'){
                 const ewcname = document.querySelector('.' + name);
                 ewcname.style.animation = "none";
@@ -11339,7 +11320,7 @@
             }
             if (noSelectTime && anyway == false) return;
             const elementLineIndex = element.getAttribute("line-index");
-            currentLineOpTargetIndex = elementLineIndex && !isNaN(parseInt(elementLineIndex)) ? parseInt(elementLineIndex) : null;
+            currentLineOpTargetIndex = elementLineIndex != undefined && elementLineIndex != null && !isNaN(parseInt(elementLineIndex)) ? parseInt(elementLineIndex) : null;
             if (element.classList.contains('code-editor-line')) {
                 positionElementAbove(document.querySelector('.lineoptions'), element);
             } else {
@@ -13794,8 +13775,12 @@
             }
             
             const celineEIndex = celine.getAttribute("line-index");
+            if (!celineEIndex) {
+                shownotificationmessage("something went wrong while pasting");
+                return;
+            }
             const lineIndex = parseInt(celineEIndex);
-            if (!celineEIndex || isNaN(lineIndex)) {
+            if (lineIndex == null || lineIndex == undefined || isNaN(lineIndex)) {
                 shownotificationmessage("something went wrong while pasting");
                 return;
             }
@@ -14047,7 +14032,7 @@
             const celineEIndex = celine.getAttribute("line-index");
             if (!celineEIndex) return;
             const lineIndex = parseInt(celineEIndex);
-            if (!lineIndex || isNaN(parseInt(lineIndex))) return;
+            if (lineIndex == null || isNaN(lineIndex)) return;
             function insertClosingCharacter(replacetext, openingChar, closingChar) {
                 let text = celine.textContent;
                 let index = text.indexOf(replacetext);
@@ -14583,18 +14568,25 @@
             return pre.toString().length;
         }
         
-        function insertClosingCharacterFor(celine, selection, range, cursorOffset, openingChar, closingChar, newpast, cursorPosition) {
+        function insertClosingCharacterFor(celine, selection, range, cursorOffset, openingChar, closingChar, newpast, cursorPosition, selectedText = "") {
             const allLines = editorFiles[parseInt(editorIndex)];
             const celineEIndex = celine.getAttribute("line-index");
             if (!celineEIndex) return;
             const lineIndex = parseInt(celineEIndex);
-            if (isNaN(lineIndex)) return;
+            if (lineIndex == null || lineIndex == undefined || isNaN(lineIndex)) return;
             pushPastTo(newpast, { element: { ...allLines[lineIndex] }, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
             const text = celine.textContent;
-            const after = text.substring(cursorOffset);
-            celine.textContent = text.substring(0, cursorOffset) + openingChar + closingChar + after;
+            let after = closingChar + text.substring(cursorOffset);
+            let before = text.substring(0, cursorOffset);
+            if (selectedText != null && selectedText != undefined && selectedText != "" && (openingChar == "\"" || openingChar == "'")) {
+                before = before + openingChar + selectedText;
+            } else {
+                before = before + openingChar;
+            }
+            celine.textContent = before + after;
             const node = celine.firstChild || celine;
-            range.setStart(node, cursorOffset + openingChar.length);
+            
+            range.setStart(node, before.length);
             range.collapse(true);
             selection.removeAllRanges();
             selection.addRange(range);
@@ -14614,7 +14606,7 @@
                 const celineEIndex = celine.getAttribute("line-index");
                 if (!celineEIndex) return false;
                 const lineIndex = parseInt(celineEIndex);
-                if (isNaN(lineIndex)) return false;
+                if (lineIndex == null || lineIndex == undefined || isNaN(lineIndex)) return false;
                 pushPastTo(newpast, { element: {...allLines[lineIndex]}, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
                 return false;
             }
@@ -14670,12 +14662,13 @@
             const celineEIndex = celine.getAttribute("line-index");
             if (!celineEIndex) return;
             const lineIndex = parseInt(celineEIndex);
-            if (isNaN(lineIndex)) return;
+            if (lineIndex == null || lineIndex == undefined || isNaN(lineIndex)) return;
+            let selectedText = "";
             function handleSelectionDeletionIfAny() {
                 const sel = window.getSelection();
                 if (!sel || !sel.rangeCount) return null;
                 const range = sel.getRangeAt(0);
-                const selectedText = range.toString();
+                selectedText = range.toString();
                 if (selectedText !== "" && event.key !== "Tab") {
                     nodelete = true;
                     if (celine) {
@@ -14701,6 +14694,7 @@
             
             const cursorPosition = celine ? handleSelectionDeletionIfAny() : null;
             
+            console.log(selectedText)
             const keyLen = event.key ? event.key.length : 0;
             if (!INVALID_KEYS.has(event.key) && keyLen <= 1) {
                 lasteventsparentsection = section;
@@ -15062,7 +15056,7 @@
                     const allLines = editorFiles[parseInt(editorIndex)];
                     pushPastTo(newpast, { element: {...allLines[lineIndex]}, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
                     event.preventDefault();
-                    insertClosingCharacterFor(celine, selection, range, cursorOffset, '"', '"', newpast, cursorPosition);
+                    insertClosingCharacterFor(celine, selection, range, cursorOffset, '"', '"', newpast, cursorPosition, selectedText);
                 }
                 updateAttribute(celine);
             }
@@ -15074,7 +15068,7 @@
                     const allLines = editorFiles[parseInt(editorIndex)];
                     pushPastTo(newpast, { element: {...allLines[lineIndex]}, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
                     event.preventDefault();
-                    insertClosingCharacterFor(celine, selection, range, cursorOffset, "'", "'", newpast, cursorPosition);
+                    insertClosingCharacterFor(celine, selection, range, cursorOffset, "'", "'", newpast, cursorPosition, selectedText);
                 }
                 updateAttribute(celine);
             }
@@ -15092,7 +15086,7 @@
                     const allLines = editorFiles[parseInt(editorIndex)];
                     pushPastTo(newpast, { element: {...allLines[lineIndex]}, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
                     event.preventDefault();
-                    insertClosingCharacterFor(celine, selection, range, cursorOffset, '"', '"', newpast, cursorPosition);
+                    insertClosingCharacterFor(celine, selection, range, cursorOffset, '"', '"', newpast, cursorPosition, selectedText);
                 }
                 updateAttribute(celine);
             }
@@ -15104,7 +15098,7 @@
                     const allLines = editorFiles[parseInt(editorIndex)];
                     pushPastTo(newpast, { element: {...allLines[lineIndex]}, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
                     event.preventDefault();
-                    insertClosingCharacterFor(celine, selection, range, cursorOffset, "'", "'", newpast, cursorPosition);
+                    insertClosingCharacterFor(celine, selection, range, cursorOffset, "'", "'", newpast, cursorPosition, selectedText);
                 }
                 updateAttribute(celine);
             }
@@ -16420,7 +16414,7 @@
             const celineEIndex = inputElement.getAttribute("line-index");
             if (!celineEIndex) return;
             const lineIndex = parseInt(celineEIndex);
-            if (!lineIndex || isNaN(parseInt(lineIndex))) return;
+            if (lineIndex == null || lineIndex == undefined || isNaN(parseInt(lineIndex))) return;
             const cursorPosition = getCursorPosition(inputElement);
             const ctext = inputElement.textContent;
             if (ctext.trim() != "") {
