@@ -8863,7 +8863,7 @@
                 typesAndBtns[type].classList.remove("ActiveOverlay");
             }
             relement.style.animation = "none";
-            relement.style.zIndex = "auto";
+            relement.style.zIndex = "1000";
             void relement.offsetWidth;
             if (transitionanimation != "none") {
                 relement.style.animation = transitionanimation + "out 0.5s ease-out";
@@ -8886,9 +8886,9 @@
             relement.style.display = "flex";
             relement.style.animation = "none";
             document.querySelectorAll(".anOverlay").forEach(el => {
-                el.style.zIndex = "auto";
+                el.style.zIndex = "1000";
             });
-            relement.style.zIndex = "100";
+            relement.style.zIndex = "1100";
             void relement.offsetWidth;
             if (transitionanimation != "none") {
                 relement.style.animation = transitionanimation + "in 0.5s ease-out";
@@ -14249,7 +14249,22 @@
                                 span.appendChild(colorInput);
                                 
                                 colorInput.addEventListener("input", () => {
+                                    const allLines = editorFiles[parseInt(editorIndex)];
+                                    const spanCCEL = spanspan.closest(".code-editor-line");
+                                    const celineEIndex = spanCCEL.getAttribute("line-index");
+                                    if (!celineEIndex) return;
+                                    const lineIndex = parseInt(celineEIndex);
+                                    if (lineIndex == null || lineIndex == undefined || isNaN(lineIndex) || allLines[lineIndex] == null || allLines[lineIndex] == undefined) return;
+                                    let newpast = {
+                                        element: allLines[lineIndex],
+                                        type: "text",
+                                        text: allLines[lineIndex].text,
+                                        index: lineIndex
+                                    };
+                                    lasteventsparentsection = section;
+                                    pendNewPast(lasteventsparentsection, [newpast]);
                                     spanspan.textContent = colorInput.value;
+                                    updateAttribute(spanCCEL);
                                 });
                             } else if (className.includes("syntaxregex")) {
                                 
