@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ailury - Pure Code</title>
-    <!-- Fonts: Inter for text, Space Grotesk for display, JetBrains Mono for code -->
+    <title>Ailury Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS Variables for Easy Theming (Dark/Light Mode) --- */
         :root {
-            /* Light Mode Defaults */
             --bg-color: #FAFAFA;
             --text-color: #111827;
             --secondary-text-color: #6b7280;
@@ -30,7 +26,6 @@
         }
         
         .dark {
-            /* Dark Mode Overrides */
             --bg-color: #050505;
             --text-color: #F9FAFB;
             --secondary-text-color: #A1A1AA;
@@ -44,8 +39,6 @@
             --navbar-shadow: rgba(255, 255, 255, 0.05);
             --nav-bg: transparent;
         }
-
-        /* --- Base & Reset Styles --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -63,21 +56,14 @@
             transition: background-color 0.5s ease, color 0.5s ease;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
-            /* CRITICAL FIX: Add padding at the top to clear the fixed navbar (5rem height) */
             padding-top: 5rem; 
         }
-
-        /* Utility Classes */
-        .max-w-content { max-width: 1280px; } /* max-w-6xl */
+        .max-w-content { max-width: 1280px; }
         .mx-auto { margin-left: auto; margin-right: auto; }
         .padding-x { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .padding-y-lg { padding-top: 6rem; padding-bottom: 6rem; } /* py-24 */
-        .padding-t-xl { padding-top: 8rem; } /* pt-32 */
-        .margin-b-xl { margin-bottom: 4rem; } /* mb-16 */
-
-        /* --- Global Components --- */
-
-        /* Glass Effect */
+        .padding-y-lg { padding-top: 6rem; padding-bottom: 6rem; }
+        .padding-t-xl { padding-top: 8rem; }
+        .margin-b-xl { margin-bottom: 4rem; }
         .glass-panel {
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -87,12 +73,8 @@
             box-shadow: 0 20px 40px -10px var(--shadow-color);
             transition: all 0.3s ease;
         }
-
-        /* Fonts */
         .font-display { font-family: 'Space Grotesk', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
-
-        /* Section Headers */
         .section-header-title {
             font-size: clamp(2rem, 5vw, 4rem);
             line-height: 1.1;
@@ -101,8 +83,6 @@
             color: var(--text-color);
             transition: color 0.5s ease;
         }
-
-        /* Divider */
         .section-divider {
             margin: 8rem auto;
             max-width: 6rem;
@@ -112,31 +92,26 @@
             border-radius: 1px;
             transition: background-color 0.5s ease;
         }
-
-        /* Gradient Text */
         .gradient-text {
-            background: linear-gradient(to right, #06b6d4, #2563eb); /* cyan-500 to blue-600 */
+            background: linear-gradient(to right, #06b6d4, #2563eb);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         .dark .gradient-text {
-            background: linear-gradient(to right, #67e8f9, #93c5fd); /* cyan-300 to blue-400 */
+            background: linear-gradient(to right, #67e8f9, #93c5fd);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-
-        /* --- Layout & Responsiveness --- */
         
         .hero-section {
             position: relative;
             z-index: 10;
-            /* Remove min-height: 100vh here as we want it to start immediately after padding-top */
             display: flex;
             align-items: center;
             flex-direction: column;
-            padding-top: 2rem; /* Additional padding at the top of the hero section content */
+            padding-top: 2rem;
             padding-bottom: 6rem;
         }
         
@@ -145,7 +120,7 @@
             font-weight: 700;
             text-align: center;
             margin-bottom: 1.5rem;
-            max-width: 4rem; /* This looks like a bug. Should be larger for text */
+            max-width: 4rem;
             line-height: 1.1;
         }
         
@@ -181,7 +156,7 @@
 
         @media (min-width: 768px) {
             .sidebar { display: flex; }
-            .headline { font-size: 4.5rem; max-width: 48rem; } /* Corrected max-width */
+            .headline { font-size: 4.5rem; max-width: 48rem; }
             .editor-container { max-width: 64rem; }
             
             .philosophy-grid {
@@ -191,19 +166,17 @@
             .engine-split {
                 flex-direction: row;
             }
-            .code-view { width: 58.3333%; } /* 7/12 */
+            .code-view { width: 58.3333%; }
             .copy-code-view {
                 width: 90%;
                 margin-left: 5%;
             }
-            .preview-view { width: 41.6667%; } /* 5/12 */
+            .preview-view { width: 41.6667%; }
             
             .customization-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
-
-        /* --- Background Orbs (Emitters) --- */
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
             33% { transform: translate(30px, -30px) scale(1.05); }
@@ -240,7 +213,6 @@
             mix-blend-mode: screen;
         }
         
-        /* --- Navigation --- */
         #navbar {
             position: fixed;
             top: 0;
@@ -248,17 +220,14 @@
             width: 100%;
             z-index: 100;
             transition: all 0.3s ease;
-            /* Removed border-radius and border */
             border: none;
             border-radius: 0;
         }
-
-        /* Styling for when the navbar is scrolled */
         #navbar.scrolled {
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             background: var(--card-bg-light);
-            border-bottom: 1px solid var(--border-color); /* Added border back only on scroll */
+            border-bottom: 1px solid var(--border-color);
             box-shadow: 0 10px 15px -3px var(--navbar-shadow);
         }
 
@@ -268,7 +237,7 @@
             margin: 0 auto;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
-            height: 5rem; /* 80px */
+            height: 5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -312,7 +281,6 @@
             cursor: pointer;
         }
         
-        /* --- Hero Card Styling (3D Preview) --- */
         .editor-container {
             position: relative;
             width: 100%;
@@ -330,7 +298,7 @@
             display: flex;
             flex-direction: column;
             border-radius: 1rem;
-            position: relative; /* Needed for z-index context */
+            position: relative;
             z-index: 50;
             box-shadow: 0 25px 50px -12px var(--shadow-color);
         }
@@ -361,15 +329,13 @@
             min-height: 0;
             background-color: var(--code-bg);
         }
-
-        /* Code Area & Line Numbers */
         .code-area {
             flex: 1;
             padding: 2rem;
             font-size: 0.875rem;
             line-height: 2;
             overflow: hidden;
-            position: relative; /* CRITICAL: Set position for absolute popup children */
+            position: relative;
         }
         .code-area::before {
             content: "";
@@ -391,7 +357,6 @@
             user-select: none;
         }
         
-        /* Cursor Styling (FIXED vertical alignment) */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
@@ -404,11 +369,9 @@
             animation: pulse 1s infinite;
             border-radius: 0.5px; 
             display: inline-block;
-            vertical-align: -0.1em; /* FIX: Pushes the cursor down slightly to center it better */
+            vertical-align: -0.1em;
             margin-top: 6px;
         }
-
-        /* Syntax Highlighting */
         .token-k { color: #9333ea; }
         .token-f { color: #2563eb; }
         .token-s { color: #16a34a; }
@@ -418,8 +381,6 @@
         .dark .token-f { color: #60a5fa; } 
         .dark .token-s { color: #86efac; }
         .dark .token-c { color: #64748b; }
-
-        /* Smart Suggestion Popup */
         .suggestion-popup {
             position: absolute;
             top: 1.5rem; 
@@ -457,8 +418,6 @@
         .suggestion-popup button:hover {
             background: rgba(59, 130, 246, 0.2);
         }
-        
-        /* --- Section 1: Philosophy (T-BAR Layout) --- */
         .center-card {
             display: flex;
             flex-direction: column;
@@ -476,8 +435,6 @@
             border: none;
             cursor: pointer;
         }
-
-        /* --- Section 2: Engine (Split Screen Layout) --- */
         .preview-toolbar {
             background: rgba(6, 190, 212, 0.1);
             height: 2.5rem;
@@ -502,14 +459,9 @@
         .dark .preview-body {
             background-color: #020203;
         }
-
-        /* --- Section 3: Customization --- */
         .card-border-pink { border-left: 4px solid #ec4899; }
         .card-border-purple { border-left: 4px solid #a855f7; }
         .card-border-cyan { border-left: 4px solid #06b6d4; }
-
-
-        /* --- Footer --- */
         footer {
             padding: 3rem 0;
             border-top: 1px solid rgba(243, 244, 246, 0.5);
@@ -542,33 +494,22 @@
     </style>
 </head>
 <body class="antialiased">
-
-    <!-- Background Emitters (Cyan Only - Strictly Top Hero Section) -->
     <div class="fixed">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
-
-    <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-content">
-            
-            <!-- Logo -->
             <div style="display: flex; align-items: center; gap: 0.75rem;">
                 <div class="nav-logo-circle"></div>
                 <span class="font-display" style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em;">ailury</span>
             </div>
-
-            <!-- Center Links -->
             <div style="display: none; align-items: center; gap: 2rem;" class="mobile-hidden desktop-flex">
                 <a href="#philosophy" class="nav-link">Philosophy</a>
                 <a href="#engine" class="nav-link">Engine</a>
                 <a href="#customize" class="nav-link">Customization</a>
             </div>
-
-            <!-- Right Actions -->
             <div style="display: flex; align-items: center; gap: 1rem;">
-                <!-- Theme Toggle -->
                 <button onclick="toggleTheme()" class="theme-toggle">
                     <i class="fa-regular fa-moon hidden dark-only" style="color: white; font-size: 1.125rem;"></i>
                     <i class="fa-regular fa-sun block light-only" style="color: orange; font-size: 1.125rem;"></i>
@@ -580,34 +521,23 @@
             </div>
         </div>
     </nav>
-
-    <!-- Hero Section -->
     <main class="hero-section padding-x">
         <div class="max-w-content mx-auto" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             
-            <!-- Badge -->
             <div style="margin-bottom: 2rem; padding: 0.25rem 1rem; border-radius: 9999px; border: 1px solid rgba(6, 190, 212, 0.2); background: rgba(6, 190, 212, 0.05); color: #0e7490; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;">
                 v2.0 Public
             </div>
-
-            <!-- Headline -->
             <h1 class="font-display headline" style="max-width: 48rem;">
                 Edit your code <br>
                 <span class="gradient-text">from anywhere.</span>
             </h1>
-
-            <!-- Subtext -->
             <p style="font-size: 1.125rem; color: var(--secondary-text-color); text-align: center; max-width: 42rem; margin-bottom: 3rem; line-height: 1.625;">
                 Ailury. The perfect code editor for mobile coders; from mobile coders for mobile coders. 
             </p>
-
-            <!-- 3D Editor Preview -->
             <div class="editor-container">
                 
-                <!-- The Card -->
                 <div id="editor-card" class="tilt-card glass-panel">
                     
-                    <!-- Toolbar -->
                     <div class="toolbar">
                         <div class="toolbar-dots">
                             <div style="background-color: #FF5F57;"></div>
@@ -618,20 +548,15 @@
                             <i class="fa-solid fa-lock" style="font-size: 10px;"></i>
                             index.html
                         </div>
-                        <div style="width: 3rem;"></div> <!-- Spacer -->
+                        <div style="width: 3rem;"></div>
                     </div>
-
-                    <!-- Editor Body -->
                     <div class="editor-body">
                         
-                        <!-- Sidebar -->
                         <div class="sidebar">
                             <i class="fa-regular fa-file cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
                             <i class="fa-solid fa-magnifying-glass cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
                             <i class="fa-solid fa-code cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
                         </div>
-
-                        <!-- Code Area -->
                         <div class="code-area font-mono">
                             
                             <div class="code-line">
@@ -695,11 +620,7 @@
             </div>
         </div>
     </main>
-
-    <!-- Horizontal Divider -->
     <hr class="section-divider" id="philosophy">
-
-    <!-- Section 1: Philosophy (T-BAR Layout) -->
     <section class="padding-y-lg padding-x max-w-content mx-auto">
         <header style="text-align: center; margin-bottom: 4rem;">
             <h2 class="section-header-title font-display">
@@ -712,7 +633,6 @@
 
         <div class="philosophy-grid">
             
-            <!-- Side Card 1: Touch Optimized -->
             <div class="glass-panel" style="padding: 2rem; display: flex; flex-direction: column; cursor: default;">
                 <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: rgba(6, 190, 212, 0.1); color: #06b6d4; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
                     <i class="fa-solid fa-tablet-screen-button"></i>
@@ -723,7 +643,6 @@
                 </p>
             </div>
             
-            <!-- Central Visual Feature: Tool Palette Representation -->
             <div class="glass-panel center-card">
                 <div style="text-align: center;">
                     <h3 class="font-display font-bold text-2xl mb-2" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Open, Setup, and Start Coding</h3>
@@ -732,7 +651,6 @@
                     </p>
                 </div>
                 
-                <!-- Mock Tool Palette UI -->
                 <div class="glass-panel" style="padding: 1rem; border-radius: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.06); max-width: 24rem; width: 100%;">
                     <button class="palette-button" style="background: rgba(6, 190, 212, 0.1); color: #06b6d4;">
                         <i class="fa-solid fa-paste" style="margin-right: 0.25rem;"></i> Paste Link
@@ -749,7 +667,6 @@
                 </div>
             </div>
             
-            <!-- Side Card 2: Code without Editing -->
             <div class="glass-panel" style="padding: 2rem; display: flex; flex-direction: column; cursor: default;">
                 <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: rgba(168, 85, 247, 0.1); color: #a855f7; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
                     <i class="fa-solid fa-hand-pointer"></i>
@@ -761,11 +678,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Horizontal Divider -->
     <hr class="section-divider" id="engine">
-
-    <!-- Section 2: The Engine (Split Screen Layout) -->
     <section class="padding-y-lg padding-x max-w-content mx-auto">
         <header style="text-align: center; margin-bottom: 4rem;">
             <h2 class="section-header-title font-display">
@@ -777,9 +690,7 @@
         </header>
 
         <div class="engine-split">
-            <!-- Code View (7/12 width) -->
             <div class="glass-panel code-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
-                <!-- Toolbar for Code View (Removed inline style for better dark mode compatibility) -->
                 <div class="toolbar">
                     <div style="font-size: 0.75rem; font-weight: 500; color: #9ca3af; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fa-solid fa-code" style="font-size: 10px;"></i> Editor View
@@ -812,8 +723,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Preview/Template Card (5/12 width) -->
             <div class="glass-panel preview-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
                 <div class="preview-toolbar">
                     <div style="font-size: 0.75rem; font-weight: 500; color: #0e7490; display: flex; align-items: center; gap: 0.5rem;" class="dark-text-cyan-override">
@@ -822,7 +731,6 @@
                     <i class="fa-solid fa-mobile" style="color: #0e7490; font-size: 0.875rem;" class="dark-text-cyan-override"></i>
                 </div>
                 
-                <!-- Mock Live Preview Content -->
                 <div class="preview-body">
                     <div style="width: 100%; height: auto; background-color: white; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 1.5rem; border: 1px solid #e5e7eb;" class="dark-card-override">
                         <div style="height: 0.75rem; width: 25%; background-color: #3b82f6; border-radius: 0.125rem; margin-bottom: 1rem;"></div>
@@ -836,11 +744,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Horizontal Divider -->
     <hr class="section-divider" id="customize">
-
-    <!-- Section 3: Infinite Customization (Flat Grid Layout) -->
     <section class="padding-y-lg padding-x max-w-content mx-auto">
         <header style="text-align: center; margin-bottom: 4rem;">
             <h2 class="section-header-title font-display">
@@ -852,8 +756,6 @@
         </header>
 
         <div class="customization-grid">
-            
-            <!-- Customization Card 1: Themes -->
             <div class="glass-panel p-8 card-border-pink" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
                 <i class="fa-solid fa-swatchbook" style="color: #ec4899; font-size: 1.875rem; margin-bottom: 1rem;"></i>
                 <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Endless Themes</h4>
@@ -861,8 +763,6 @@
                     Select from built-in themes or use the creation tools to make your own themes for a truly personal environment.
                 </p>
             </div>
-
-            <!-- Customization Card 2: Layout -->
             <div class="glass-panel p-8 card-border-purple" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
                 <i class="fa-solid fa-arrows-left-right" style="color: #a855f7; font-size: 1.875rem; margin-bottom: 1rem;"></i>
                 <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Fluid Tool Layout</h4>
@@ -870,8 +770,6 @@
                     Easily resize the sidebar or hide it entirely, and choose the tool layout for maximum efficiency on any device size.
                 </p>
             </div>
-
-            <!-- Customization Card 3: Grid -->
             <div class="glass-panel p-8 card-border-cyan" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
                 <i class="fa-solid fa-table-cells-large" style="color: #06b6d4; font-size: 1.875rem; margin-bottom: 1rem;"></i>
                 <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Workspace Grids</h4>
@@ -892,7 +790,6 @@
             </p>
         </header>
             <div class="glass-panel copy-code-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
-                <!-- Toolbar for Code View (Removed inline style for better dark mode compatibility) -->
                 <div class="toolbar">
                     <div style="font-size: 0.75rem; font-weight: 500; color: #9ca3af; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fa-solid fa-code" style="font-size: 10px;"></i> Use This Code
@@ -954,7 +851,6 @@
             </div>
     </section>
 
-    <!-- Minimal Footer -->
     <footer>
         <div class="max-w-content mx-auto padding-x" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1.5rem;">
             <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.5;">
@@ -1010,12 +906,9 @@ window.location.href = 'https://ailury.com';
         copycodebtn.onclick = () => {
             copyopencodepretext(copycodebtn);
         };
-        // Check if the current environment is mobile based on screen width for responsive classes
         function isMobile() {
             return window.matchMedia("(max-width: 767px)").matches;
         }
-
-        // --- Theme Management ---
         function updateThemeIcons() {
             const isDark = document.documentElement.classList.contains('dark');
             const sunIcon = document.querySelector('.light-only');
@@ -1030,15 +923,13 @@ window.location.href = 'https://ailury.com';
                     moonIcon.style.display = 'none';
                 }
             }
-
-            // Apply hover colors based on current theme for pure CSS
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.style.color = isDark ? '#A1A1AA' : '#6b7280';
                 link.addEventListener('mouseenter', () => {
-                    link.style.color = isDark ? 'white' : '#111827'; /* Use var(--text-color) */
+                    link.style.color = isDark ? 'white' : '#111827';
                 });
                 link.addEventListener('mouseleave', () => {
-                    link.style.color = isDark ? '#A1A1AA' : '#6b7280'; /* Use var(--secondary-text-color) */
+                    link.style.color = isDark ? '#A1A1AA' : '#6b7280';
                 });
             });
         }
@@ -1062,7 +953,6 @@ window.location.href = 'https://ailury.com';
             updateThemeIcons();
         }
         
-        // --- 3D Tilt Logic for Hero Card ---
         const card = document.getElementById('editor-card');
         const container = document.querySelector('.editor-container');
 
@@ -1075,7 +965,6 @@ window.location.href = 'https://ailury.com';
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // Calculate rotation (inverted for natural 3D look)
                 const rotateX = ((y - centerY) / centerY) * -2; 
                 const rotateY = ((x - centerX) / centerX) * 2;
 
@@ -1086,34 +975,23 @@ window.location.href = 'https://ailury.com';
                 card.style.transform = `rotateX(0deg) rotateY(0deg)`;
             });
             
-            // Mobile (touch) logic for a slight fixed tilt
             if (isMobile()) {
                  card.style.transform = 'rotateX(-2deg) rotateY(4deg) scale(0.98)';
             }
         }
-
-        // --- Navbar Scroll Effect ---
         function handleScroll() {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                // Apply the 'scrolled' styling
                 nav.classList.add('scrolled');
             } else {
-                // Remove the 'scrolled' styling
                 nav.classList.remove('scrolled');
             }
         }
-
-        // --- Run on Load ---
         window.onload = () => {
             initializeTheme();
             handleScroll();
-            // Attach scroll listener
             window.addEventListener('scroll', handleScroll);
         };
-        
-        // --- Responsive Class Handling ---
-        // Dynamically hide/show elements based on mobile view
         function updateResponsiveClasses() {
             const desktopElements = document.querySelectorAll('.desktop-flex, .desktop-block');
             const isDesktop = !isMobile();
@@ -1126,8 +1004,6 @@ window.location.href = 'https://ailury.com';
                 }
             });
         }
-        
-        // Initial call and on resize
         updateResponsiveClasses();
         window.addEventListener('resize', updateResponsiveClasses);
         
