@@ -11476,8 +11476,8 @@
                 if (filePathInputva && filePathInputva.value == filename) {
                     let sectionv = fd.getAttribute('data-index');
                     if (!sectionv || isNaN(parseInt(sectionv))) return;
-                    if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= parseInt(sectionv)) {
-                        sectionv = parseInt(sectionv) + 1;
+                    if (getElementIndexInParent(document.querySelector('.viewcontainer')) <= parseInt(sectionv)) {
+                        sectionv = parseInt(sectionv) - 1;
                     }
                     const allLines = editorFiles[parseInt(sectionv)];
                     if (allLines && allLines != undefined) {
