@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Invert Image Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --blue: #0a84ff;
+    --glass: rgba(255,255,255,0.08);
+    --border: rgba(255,255,255,0.18);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
+    background: radial-gradient(circle at top, #222, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    padding: 24px;
+}
+
+.card {
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.subtitle {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 20px;
+}
+
+.upload {
+    position: relative;
+    border-radius: 16px;
+    background:
+        linear-gradient(var(--glass), var(--glass)) padding-box,
+        linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.05)) border-box;
+    border: 1px solid transparent;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.15),
+        0 0 0 0 rgba(10,132,255,0);
+}
+
+.upload:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.upload input {
+    display: none;
+}
+
+.upload-label {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+canvas {
+    width: 100%;
+    border-radius: 14px;
+    margin-top: 16px;
+    display: none;
+}
+
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button.secondary {
+    background: rgba(255,255,255,0.12);
+}
+
+.footer {
+    margin-top: 16px;
+    font-size: 12px;
+    opacity: 0.55;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h1>Smart Invert</h1>
+        <div class="subtitle">Apple-style color inversion for images</div>
+
+        <label class="upload">
+            <input type="file" accept="image/*" id="upload">
+            <div class="upload-label">Tap to upload an image</div>
+        </label>
+
+        <canvas id="canvas"></canvas>
+
+        <button id="downloadBtn" style="display:none;">Download Image</button>
+
+        <div class="footer">
+            Smart Invert is visually approximated for the web
+        </div>
+
+    </div>
+</div>
+
+<script>
+const upload = document.getElementById("upload");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const downloadBtn = document.getElementById("downloadBtn");
+
+upload.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const img = new Image();
+    img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0);
+
+        // Smart invert approximation
+        ctx.globalCompositeOperation = "difference";
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = "source-over";
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const d = imageData.data;
+
+        for (let i = 0; i < d.length; i += 4) {
+            d[i] = Math.min(255, d[i] * 1.05);
+            d[i+1] = Math.min(255, d[i+1] * 1.02);
+            d[i+2] = Math.min(255, d[i+2] * 0.98);
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+
+        canvas.style.display = "block";
+        downloadBtn.style.display = "block";
+    };
+
+    img.src = URL.createObjectURL(file);
+});
+
+downloadBtn.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.download = "smart-invert.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+});
+</script>
+
+</body>
+</html>
