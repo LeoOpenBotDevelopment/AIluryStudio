@@ -5564,8 +5564,8 @@
     <script>
         const templateObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    templateObserver.disconnect(entry.target);
+                if (entry.isIntersecting && !entry.target.classList.contains('set')) {
+                    //templateObserver.disconnect(entry.target);
                     fetch('templates/' + entry.target.getAttribute('filePath').replace(/^\/+/, ''))
                         .then(response => {
                             if (!response.ok) console.log(`Error while loading ${templateFilePath}`);
@@ -5573,13 +5573,18 @@
                         })
                         .then(text => {
                             entry.target.srcdoc = text;
+                            entry.target.classList.add('set');
                         })
                         .catch(err => {
                             console.log(err);
                         });
+                } else {
+                    entry.target.srcdoc = "";
+                    entry.target.classList.remove('set');
                 }
             });
         }, { threshold: 0.1 });
+        
         const typesAndBtns = {
             "theme": document.querySelector('#togglethemecontainerbtn'),
             "layout": document.querySelector('#togglelayoutcontainerbtn'),
