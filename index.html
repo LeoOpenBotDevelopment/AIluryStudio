@@ -3197,7 +3197,7 @@
             margin-top: 20px;
         }
         
-        .userregulationsandconditions button {
+        .userregulationsandconditions #acceptBtn {
             margin-top: 30px;
             margin-bottom: 20px;
             background: var(--switchcheckedbackground-color);
@@ -4525,6 +4525,40 @@
         .FileSettingsMoreBtn:hover {
             background: var(--lightgrey-color);
         }
+        
+        #termsandconditionstoprivacypolicyNavBar {
+            background: var(--bg-color);
+            border: none;
+            border-radius: 25px;
+            padding: 10px;
+            display: flex;
+            width: fit-content;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+        #termsandconditionstoprivacypolicyNavBar button {
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 10px;
+            background: var(--bg-color);
+            font-size: 1em;
+            color: var(--switchcheckedbackground-color);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            transition: 1s;
+        }
+        #termsandconditionstoprivacypolicyNavBar button:first-child {
+            margin-right: 10px;
+        }
+        #termsandconditionstoprivacypolicyNavBar button.selectedSection {
+            transform: translateY(-5px);
+            background: var(--lightgrey-color);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            color: var(--contrast-color);
+        }
+        .privacyPolicySection {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -4835,7 +4869,7 @@
                         <label class="switch">
                             <input type="checkbox" class="switchbox" data-update-aceclass="autocompleteenabled" onchange="updateautocompleteenabledordisabledcheckbox(this)" checked>
                             <span class="slider"></span>
-                        </label> suggestions
+                        </label> <div class="symbolspancontainer"> suggestions <button class="cldeeditfunctionsettings" onclick="openfunctionsettings('suggestions')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -5474,7 +5508,13 @@
                             </label>
                             <span class="cfscscswitchdesname">undo button animation</span>
                         </div>
-                        
+                        <div class="cfscscsuggestions cfscscf suggestuniquevalues">
+                            <label class="switch">
+                                <input type="checkbox" data-checked="suggestuniquevalues" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cfscscswitchdesname">Suggest unique values</span>
+                        </div>
                         <div class="cfscscundo cfscscf undolimit">
                             <label class="switch">
                                 <input type="checkbox" data-checked="undolimit" checked>
@@ -5537,23 +5577,46 @@
     </div>
     <div class="userregulationsandconditionsoverlay">
         <div class="userregulationsandconditions">
-            <h2>Terms and Conditions of Use for AIlury Studio</h2>
-            
-            <ul>
-                <li><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service — whether directly, through another service, program, automated system, third-party tool, or by any other means. Your actions, whether manual or automated, are fully attributed to you as the user, and you bear sole responsibility for any resulting consequences. Use of the service through indirect methods does not exempt you from compliance with these terms.</li>
-            </ul>
-            <p>By using AIlury Studio, you agree to the following terms and conditions:</p>
-            <ul>
-                <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform or any part of the website.</li>
-                <li><strong>No Exploiting Bugs:</strong> You must not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
-                <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
-                <li><strong>No Malicious Activity:</strong> Uploading, writing, pasting, crearing or running malicious code, scripts, or programs that can harm or disrupt the platform is strictly prohibited.</li>
-                <li><strong>Responsibility:</strong> You are responsible for any code you create, paste, upload, write and run using this website.</li>
-            </ul>
-            
-            <p>Do you accept all terms and conditions? By using the code editor, you accept these terms and conditions by default. Accessing or manipulating this platform through a separate program also constitutes acceptance of these terms.</p>
-            
-            <button onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">I understand and accept</button>
+            <div class="startSections termsAndConditionsSection">
+                <h2>Terms and Conditions of Use for AIlury Studio</h2>
+                
+                <ul>
+                    <li><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool. All actions, whether manual or automated, are fully attributed to you, and you are solely responsible for any resulting consequences. Indirect use does not exempt you from compliance with these terms.</li>
+                </ul>
+                <p>By using AIlury Studio, you agree to the following terms and conditions:</p>
+                <ul>
+                    <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform or any part of the website.</li>
+                    <li><strong>No Exploiting Bugs:</strong> You must not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
+                    <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
+                    <li><strong>No Malicious Activity:</strong> Uploading, writing, pasting, creating, or running malicious code, scripts, or programs that may harm or disrupt the platform is strictly prohibited.</li>
+                    <li><strong>Responsibility:</strong> You are fully responsible for any code you create, paste, upload, write, or run using this website.</li>
+                </ul>
+            </div>
+            <div class="startSections privacyPolicySection">
+                <h2>Privacy Policy for AIlury Studio</h2>
+                
+                <ul>
+                    <li><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio, and “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool.</li>
+                </ul>
+                
+                <p>By using AIlury Studio, you agree to the following privacy policies:</p>
+                
+                <ul>
+                    <li><strong>No Data Collection:</strong> AIlury Studio does not collect, record, track, or analyze personal data, usage data, identifiers, analytics, or metadata.</li>
+                    <li><strong>Runtime-Only Data Handling:</strong> Any code or content entered into the editor exists only temporarily during the active runtime of the website and becomes inaccessible once the page is refreshed or closed.</li>
+                    <li><strong>No Server Storage:</strong> AIlury Studio does not store user code or content on any servers, databases, or external systems.</li>
+                    <li><strong>No Data Sharing:</strong> AIlury Studio does not share, sell, transmit, or communicate user data or code to third parties or external services.</li>
+                    <li><strong>Local Storage (Future Feature):</strong> If local storage functionality is introduced, any saved data will be stored exclusively within the user’s own browser environment and will not be uploaded, transmitted, or accessible outside of the user’s device.</li>
+                    <li><strong>No Accounts or Authentication:</strong> AIlury Studio does not offer login, registration, or account-based features and does not associate data with user identities.</li>
+                    <li><strong>No Payments:</strong> AIlury Studio does not process payments and does not request billing or financial information.</li>
+                </ul>
+            </div>
+            <div id="termsandconditionstoprivacypolicyNavBar">
+                <button id="toTermsandconditions" class="selectedSection" onclick="showTermsAndConditions(this)">terms and conditions</button>
+                <button id="toPrivacypolicy" onclick="showPrivacyPolicies(this)">privacy policy</button>
+            </div>
+            <p>Do you accept all terms, conditions, and privacy policies? By using the code editor, you accept them by default. Accessing or manipulating this platform through a separate program also constitutes acceptance of the terms, conditions, and privacy policies.</p>
+            <button id="acceptBtn" onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">I understand and accept</button>
         </div>
     </div>
     <div class="importantnotificationmessageelement"></div>
@@ -5562,6 +5625,28 @@
         <div class="explanationContainer"></div>
     </div>
     <script>
+        const termsAndConditionsSection = document.querySelector('.termsAndConditionsSection');
+        const privacyPolicySection = document.querySelector(".privacyPolicySection");
+        function showTermsAndConditions(button) {
+            termsAndConditionsSection.style.display = "block";
+            privacyPolicySection.style.display = "none";
+            document.querySelectorAll('.selectedSection').forEach(btn => {
+                btn.classList.remove('selectedSection');
+            });
+            if (button) {
+                button.classList.add('selectedSection');
+            }
+        }
+        function showPrivacyPolicies(button) {
+            privacyPolicySection.style.display = "block";
+            termsAndConditionsSection.style.display = "none";
+            document.querySelectorAll('.selectedSection').forEach(btn => {
+                btn.classList.remove('selectedSection');
+            });
+            if (button) {
+                button.classList.add('selectedSection');
+            }
+        }
         const templateObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !entry.target.classList.contains('set')) {
@@ -6772,6 +6857,10 @@
             "undo": {
                 title: "undo",
                 description: "undo changes in your file."
+            },
+            "suggestions": {
+                title: "suggestions",
+                description: "Get word suggestions, when typing."
             }
         };
         
@@ -13713,10 +13802,10 @@
             const patterns = [
                 { regex: /class="([^"]+)"/g, prefix: '.', split: true },
                 { regex: /id="([^"]+)"/g, prefix: '#' },
-                /*{ regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
+                { regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
                 { regex: /const\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
                 { regex: /var\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
-                { regex: /let\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },*/
+                { regex: /let\s+([a-zA-Z0-9_$]+)\s*=/g, prefix: '' },
                 { regex: /\.classList\.add\(\s*['"]([^'"]+)['"]\s*\)/g, prefix: '.', split: true },
                 { regex: /\.className\s*=\s*['"]([^'"]+)['"]/g, prefix: '.', split: true },
                 { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' }
@@ -13824,7 +13913,28 @@
             const preCaretRange = range.cloneRange();
             preCaretRange.selectNodeContents(celine);
             preCaretRange.setEnd(range.startContainer, range.startOffset);
-            const cursorOffset = preCaretRange.toString().length;
+            //const cursorOffset = preCaretRange.toString().length;
+            const newpast2 = [{
+                element: { ...allLines[lineIndex] },
+                type: "text",
+                text: replaceNormalSpaces(celine.textContent),
+                index: lineIndex
+            }];
+            function handleSelectionDeletionIfAny() {
+                const sel = window.getSelection();
+                if (!sel || !sel.rangeCount) return null;
+                const range = sel.getRangeAt(0);
+                selectedText = range.toString();
+                if (selectedText !== "" && event.key !== "Tab") {
+                    range.deleteContents();
+                }
+                const pre = range.cloneRange();
+                pre.selectNodeContents(celine || document);
+                pre.setEnd(range.startContainer, range.startOffset);
+                return pre.toString().length;
+            }
+            
+            const cursorOffset = celine ? handleSelectionDeletionIfAny() : preCaretRange.toString().length;
             
             const currentText = replaceNormalSpaces(celine.textContent);
             const textBeforeCursor = currentText.slice(0, cursorOffset);
@@ -13865,12 +13975,6 @@
             }
             
             lasteventsparentsection = section;
-            const newpast2 = [{
-                element: {...allLines[lineIndex]},
-                type: "text",
-                text: currentText,
-                index: lineIndex
-            }];
             
             const lineCount = processedLines.length;
             
@@ -14174,8 +14278,8 @@
             const jstextstring = [
                 { regex: /(?<!\\)`(?![^"]*"(?:[^"\\]*\\.)*[^"]*$)(?![^']*'(?:[^'\\]*\\.)*[^']*$)(?![^/]*\/(?:[^/\\]*\\.)*[^/]*\/[gimsuy]*)(?![^/]*\/\/.*)[^`]*/, className: "syntaxstring" }
             ];
-            let allfilenames = extractUniqueIds(div.parentElement.querySelector('.code-editor-container')?.textContent || "");
-            let allfilenames2 = extractUniqueClasses(div.parentElement.querySelector('.code-editor-container')?.textContent || "");
+            /*let allfilenames = extractUniqueIds(div.parentElement.querySelector('.code-editor-container')?.textContent || "");
+            let allfilenames2 = extractUniqueClasses(div.parentElement.querySelector('.code-editor-container')?.textContent || "");*/
             function escapeRegex(str) {
                 return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             }
@@ -14619,7 +14723,8 @@
             const text = celine.textContent;
             let after = closingChar + text.substring(cursorOffset);
             let before = text.substring(0, cursorOffset);
-            if (selectedText != null && selectedText != undefined && selectedText != "" && (openingChar == "\"" || openingChar == "'")) {
+            //&& (openingChar == "\"" || openingChar == "'" || openingChar == "[" || openingChar == "(")
+            if (selectedText != null && selectedText != undefined && selectedText != "") {
                 before = before + openingChar + selectedText;
             } else {
                 before = before + openingChar;
@@ -15069,17 +15174,17 @@
             }
             else if (event.key === '{') {
                 event.preventDefault();
-                if (selection && range) insertClosingCharacterFor(celine, selection, range, cursorOffset, '{', '}', newpast, cursorPosition);
+                if (selection && range) insertClosingCharacterFor(celine, selection, range, cursorOffset, '{', '}', newpast, cursorPosition, selectedText);
                 updateAttribute(celine);
             }
             else if (event.key === '[') {
                 event.preventDefault();
-                if (selection && range) insertClosingCharacterFor(celine, selection, range, cursorOffset, '[', ']', newpast, cursorPosition);
+                if (selection && range) insertClosingCharacterFor(celine, selection, range, cursorOffset, '[', ']', newpast, cursorPosition, selectedText);
                 updateAttribute(celine);
             }
             else if (event.key === '(') {
                 event.preventDefault();
-                if (selection && range) insertClosingCharacterFor(celine, selection, range, cursorOffset, '(', ')', newpast, cursorPosition);
+                if (selection && range) insertClosingCharacterFor(celine, selection, range, cursorOffset, '(', ')', newpast, cursorPosition, selectedText);
                 updateAttribute(celine);
             }
             else if (event.key === ']') {
@@ -16467,9 +16572,10 @@
             
             
             const commandsice = [...Object.keys(commandToSymbol).map(key => key.toUpperCase()), ...Object.keys(shortCutCommands)];
-
-            const uniquevalues = extractUniqueValues(inputElement.parentElement.textContent);
-
+            let uniquevalues = [];
+            if (document.querySelector('.suggestuniquevalues input[type="checkbox"]').checked == true) {
+                uniquevalues = extractUniqueValues([...editorFiles[parseInt(editorIndex)]].map(val => val.text).join(''));
+            }
             let allfilenames;
             if (document.querySelector('#image-rectangle .image-name')) {
                 allfilenames = [...Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value), ...Array.from(document.querySelectorAll('#image-rectangle .image-name')).map(input => input.textContent)];
