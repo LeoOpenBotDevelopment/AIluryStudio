@@ -1480,6 +1480,9 @@
             overflow-y: scroll;
             transition: var(--tr);
         }
+        .content5-container {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+        }
 
         .sidebarenabled .content-container, .sidebarenabled .content5-container{
             width: calc(100vw - var(--sibebar-width));
@@ -1694,6 +1697,9 @@
             transition: var(--tr);
             overflow: hidden;
             box-sizing: border-box;
+        }
+        .halfrectagle {
+            height: 70dvh;
         }
         @keyframes easeinanimationfrb {
             0% {
@@ -2477,7 +2483,7 @@
         }
         .sidebarbardivbuttondiv button{
             background: var(--bg-color);
-            border: 1px solid var(--border-color);
+            border: none;
             color: var(--contrast-color);
             display: flex;
             padding: 10px;
@@ -2487,6 +2493,7 @@
             margin-bottom: 5px;
             transition: var(--tr);
             overflow: hidden;
+            position: relative;
         }
         .sidebarbardivbuttondiv:not(.sidebarbardivbuttondiv1) button:before {
             content: "";
@@ -2751,7 +2758,16 @@
             align-items: flex-start;
             z-index: 2000;
         }
-
+        
+        @keyframes optionContainerPopinAnimation {
+            0% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
         .options-container {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.1);
@@ -2763,6 +2779,7 @@
             padding: 10px;
             width: 200px;
             color: var(--contrast-color);
+            animation: optionContainerPopinAnimation 0.2s ease-in;
         }
 
         .option-item {
@@ -2806,10 +2823,7 @@
                 opacity: 0;
             }
         }
-        .sidebarbardivbuttondiv button{
-            background: var(--bg-color);
-            border: none;
-        }
+        
         #closemenuforsmallscreen h3{
             font-weight: 600;
             color: #333;
@@ -2821,6 +2835,7 @@
             background: rgba(150, 150, 150, 0.1);
         }
         .customthemecodeinput{
+            margin: 0;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             color: var(--contrast-color);
@@ -2829,7 +2844,6 @@
             text-align: left;
             font-size: 1em;
             border-radius: 5px;
-            margin-bottom: 5px;
             transition: var(--tr);
             width: 100%;
             overflow: hidden;
@@ -3632,6 +3646,29 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            max-width: 500px;
+            position: relative;
+        }
+        .caexampleLabel {
+            background: var(--bg-color);
+            color: var(--contrast-color);
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+            border-radius: 0;
+            border-bottom-left-radius: 10px;
+            font-size: 1em;
+            position: absolute;
+            padding: 10px;
+            top: 0;
+            right: 0;
+        }
+        .chooseanimationexamplecontainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
         
         .caexample button {
@@ -3640,7 +3677,7 @@
             border: none;
             border-radius: 5px;
             background: var(--lightgrey-color);
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
         
         @keyframes swipeinout {
@@ -4559,6 +4596,79 @@
         .privacyPolicySection {
             display: none;
         }
+        .leftLabelAndIcon {
+            display: inline-block;
+            width: calc(100% - 40px);
+            pointer-events: none;
+        }
+        .leftToggleContainer {
+            width: 40px;
+            height: 22px;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            background: var(--bg-color);
+            margin: 0;
+            position: relative;
+            transition: 0.5s;
+        }
+        .leftToggleDot {
+            width: 16px;
+            height: 16px;
+            background: var(--lightgrey-color);
+            border: none;
+            border-radius: 50%;
+            position: absolute;
+            transition: 0.5s;
+            top: 2px;
+            left: 3px;
+        }
+        .functionsbbdbdb.Active .leftToggleContainer {
+            background: var(--lightgrey-color);
+            border: 1px solid var(--bg-color);
+        }
+        .functionsbbdbdb.Active .leftToggleDot {
+            left: 19px;
+            background: var(--switchcheckedbackground-color);
+        }
+        @keyframes openedSectionArrowAnimation {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            40% {
+                transform: translate(6px, -6px) scale(1.1);
+            }
+        }
+        .openedSign {
+            color: var(--switchcheckedbackground-color);
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-size: 1.1em;
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            line-height: 1;
+            display: none;
+            animation: openedSectionArrowAnimation 0.8s ease;
+        }
+        .ActiveOverlay .openedSign {
+            display: inline-block;
+        }
+        .inputThemeOption {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #copyThemeCodeBtn {
+            width: fit-content;
+            height: fit-content;
+            padding: 10px 20px;
+            margin: 0;
+            margin-left: 10px;
+        }
+        .currentTheme {
+            border: 2px solid var(--switchcheckedbackground-color);
+        }
     </style>
 </head>
 <body>
@@ -4572,22 +4682,23 @@
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
-                <button id="togglethemecontainerbtn" onclick="showOverlay('.theme-overlay', 'theme')">theme</button>
-                <button id="toggleanimationcontainerbtn" onclick="showOverlay('.chooseanimationoverlay', 'animation')">animations</button>
-                <button id="togglelayoutcontainerbtn" class="sbtnpossettingsoverlay" onclick="showOverlay('.chooseceebtnposoverlay', 'layout')">layout</button>
+                <button id="togglethemecontainerbtn" onclick="showOverlay('.theme-overlay', 'theme')">theme<span class="openedSign">↗</span></button>
+                <button id="toggleanimationcontainerbtn" onclick="showOverlay('.chooseanimationoverlay', 'animation')">animations<span class="openedSign">↗</span></button>
+                <button id="togglelayoutcontainerbtn" class="sbtnpossettingsoverlay" onclick="showOverlay('.chooseceebtnposoverlay', 'layout')">layout<span class="openedSign">↗</span></button>
             </div>
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfuncbtnssection')"><</span> functions</h3>
             <div class="sidebarbardivbuttondiv sidebarfuncbtnssection">
                 <button onclick="togglefilesettings()" class="showfilesettingsbtn" id="nontotfunctionbtn"><span>✎</span>file settings</button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarfuncbtnssection">
-                <button id="TimelineToggleBTN" class="functionsbbdbdb toggletimelinebtn" onclick="toggleTineline(this)"><span>◵</span>Timeline</button>
-                <button id="ConsoleToggleBTN" class="functionsbbdbdb consoletogglebtn Active" onclick="toggleConsole(this)"><span>▷</span>console</button>
+                <button id="TimelineToggleBTN" class="functionsbbdbdb toggletimelinebtn" onclick="toggleTineline(this)"><div class="leftLabelAndIcon"><span>◵</span>Timeline</div><div class="leftToggleContainer"><div class="leftToggleDot"></div></div></button>
+                <button id="ConsoleToggleBTN" class="functionsbbdbdb consoletogglebtn Active" onclick="toggleConsole(this)"><div class="leftLabelAndIcon"><span>▷</span>Console</div><div class="leftToggleContainer"><div class="leftToggleDot"></div></div></button>
+                <button id="showElementInfoToggleBTN" class="functionsbbdbdb showElementInfo" onclick="togglePreviewElementInfo(this)"><div class="leftLabelAndIcon"><span>⌄</span>Info</div><div class="leftToggleContainer"><div class="leftToggleDot"></div></div></button>
             </div>
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarfilebtnssection')"><</span> files</h3>
             <div class="sidebarbardivbuttondiv sidebarfilebtnssection">
-                <button id="showallfilescontainerbtn" onclick="showOverlay('.overlay-container', 'files')">files</button>
-                <button id="showalltemplatescontainerbtn" onclick="showOverlay('.overlay5-container', 'templates')">templates</button>
+                <button id="showallfilescontainerbtn" onclick="showOverlay('.overlay-container', 'files')">files<span class="openedSign">↗</span></button>
+                <button id="showalltemplatescontainerbtn" onclick="showOverlay('.overlay5-container', 'templates')">templates<span class="openedSign">↗</span></button>
             </div>
             <div class="sidebarbardivbuttondiv sidebarbardivbuttondiv1 sidebarfilebtnssection">
                 <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
@@ -5072,57 +5183,57 @@
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.theme-overlay', 'theme')">× close</button>
                     <h3>theme</h3>
                     <br>
-                    <div class="themeoption" onclick="removeallthemes()">
+                    <div class="themeoption currentTheme defaultThemeOp" onclick="removeallthemes()">
                         <span class="switchtothememaincolorspan" style="background: linear-gradient(to right, #F2F2F7, #0d1117);"></span>
                         <span class="switchtothemetitlespan">none</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('enhanceddefaultdark-theme')">
+                    <div class="themeoption" onclick="switchtotheme('enhanceddefaultdark-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: linear-gradient(to right, #0156CD, #020615);"></span>
                         <span class="switchtothemetitlespan">enhanced dark</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('dark-theme')"><span class="switchtothememaincolorspan" style="background: #011D57"></span><span class="switchtothemetitlespan">dark</span>
+                    <div class="themeoption" onclick="switchtotheme('dark-theme', this)"><span class="switchtothememaincolorspan" style="background: #011D57"></span><span class="switchtothemetitlespan">dark</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('light-theme')">
+                    <div class="themeoption" onclick="switchtotheme('light-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: #E8EAEE"></span>
                         <span class="switchtothemetitlespan">light</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('gray-theme')">
+                    <div class="themeoption" onclick="switchtotheme('gray-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: #393A43"></span>
                         <span class="switchtothemetitlespan">gray</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('vintage-theme')">
+                    <div class="themeoption" onclick="switchtotheme('vintage-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: gray"></span>
                         <span class="switchtothemetitlespan">vintage</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('candy-theme')">
+                    <div class="themeoption" onclick="switchtotheme('candy-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: lightpink"></span>
                         <span class="switchtothemetitlespan">candy</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('green-theme')">
+                    <div class="themeoption" onclick="switchtotheme('green-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: green"></span>
                         <span class="switchtothemetitlespan">green</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('red-theme')">
+                    <div class="themeoption" onclick="switchtotheme('red-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: red"></span>
                         <span class="switchtothemetitlespan">red</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('lightblue-theme')">
+                    <div class="themeoption" onclick="switchtotheme('lightblue-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: lightblue"></span>
                         <span class="switchtothemetitlespan">light blue</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('darkpurple-theme')">
+                    <div class="themeoption" onclick="switchtotheme('darkpurple-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: #5C2D91"></span>
                         <span class="switchtothemetitlespan">dark purple</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('lightyellow-theme')">
+                    <div class="themeoption" onclick="switchtotheme('lightyellow-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: yellow"></span>
                         <span class="switchtothemetitlespan">light yellow</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('lightgreen-theme')">
+                    <div class="themeoption" onclick="switchtotheme('lightgreen-theme', this)">
                         <span class="switchtothememaincolorspan" style="background: #00B600"></span>
                         <span class="switchtothemetitlespan">light green</span>
                     </div>
-                    <div class="themeoption2" id="customthemeoption" onclick="switchtotheme('custom-theme')">
+                    <div class="themeoption2" id="customthemeoption" onclick="switchtotheme('custom-theme', this)">
                         <div class="themeoption customtextthemeoption">
                             <span class="switchtothememaincolorspan" style="background: var(--switchcheckedbackground-color)"></span>
                             <span class="switchtothemetitlespan">custom</span></div>
@@ -5268,8 +5379,9 @@
                             <input type="range" id="syntaxhtmltagcontentcolorAlpha" min="0" max="100" value="100" onchange="updatesyntaxhtmltagcontentcolor()">
                         </div>
                         <br>
-                        <div class="themeoption">
+                        <div class="themeoption inputThemeOption">
                             <input class="customthemecodeinput" type="text" id="customthemecodeinput" onkeydown="themeinputonkeydownforenetr(event)" placeholder="enter your theme code...">
+                            <button id="copyThemeCodeBtn" onclick="copyThemeCode(this)">Copy</button>
                         </div>
                         <button onclick="addcustomthemetoallthemes()">add new theme</button>
                         </div>
@@ -5337,11 +5449,11 @@
                     <h3>Animation</h3>
                     <br>
                     <div class="chooseanimationexamplecontainer">
-                        <div class="caexample caexample1 selectedanimation" onclick="chengeanimation(this, 'swipe')"><button></button></div>
-                        <div class="caexample caexample2" onclick="chengeanimation(this, 'ease')"><button></button></div>
-                        <div class="caexample caexample3" onclick="chengeanimation(this, 'roll')"><button></button></div>
-                        <div class="caexample caexample4" onclick="chengeanimation(this, 'pop')"><button></button></div>
-                        <div class="caexample caexample5" onclick="chengeanimation(this, 'none')"><button></button></div>
+                        <div class="caexample caexample1 selectedanimation" onclick="chengeanimation(this, 'swipe')"><button></button> <span class="caexampleLabel">Slide</span></div>
+                        <div class="caexample caexample2" onclick="chengeanimation(this, 'ease')"><button></button> <span class="caexampleLabel">Ease</span></div>
+                        <div class="caexample caexample3" onclick="chengeanimation(this, 'roll')"><button></button> <span class="caexampleLabel">Roll</span></div>
+                        <div class="caexample caexample4" onclick="chengeanimation(this, 'pop')"><button></button> <span class="caexampleLabel">Pop</span></div>
+                        <div class="caexample caexample5" onclick="chengeanimation(this, 'none')"><button></button> <span class="caexampleLabel">None</span></div>
                     </div>
                 </div>
             </div>
@@ -6012,6 +6124,23 @@
                             console.log(err);
                         });
                 });
+            }
+        }
+        function copyThemeCode(thisElementWasClicked) {
+            if (!thisElementWasClicked.classList.contains("onCopyTimeLimit")) {
+                const themeCodeInputElement = document.getElementById("customthemecodeinput");
+                if (themeCodeInputElement.value.trim() != "") {
+                    thisElementWasClicked.classList.add("onCopyTimeLimit");
+                    thisElementWasClicked.textContent = "Copied";
+                    copythistext(themeCodeInputElement.value);
+                    shortNotificationmessageelement("The theme code has been copied.");
+                    setTimeout(() => {
+                        thisElementWasClicked.textContent = "Copy";
+                        thisElementWasClicked.classList.remove("onCopyTimeLimit");
+                    }, 2000);
+                } else {
+                    shortNotificationmessageelement("There is no theme code to be copied.");
+                }
             }
         }
         function typeEffect(element, newText, callback) {
@@ -7372,7 +7501,14 @@
             return { hours, minutes };
         }
         
-        
+        function togglePreviewElementInfo(el) {
+            el.classList.toggle("Active");
+            if (el.classList.contains('Active')) {
+                shortNotificationmessageelement("Info on elements in the preview window will be shown.");
+            } else {
+                shortNotificationmessageelement("Info on elements in the preview window won't be shown.");
+            }
+        }
         function toggleConsole(thiselementwasclicked, showNotification = true){
             thiselementwasclicked.classList.toggle("Active");
             if (thiselementwasclicked.classList.contains('Active')){
@@ -8837,7 +8973,11 @@
             });
         }
         
-        function switchtotheme(theme) {
+        function switchtotheme(theme, el = null) {
+            document.querySelectorAll(".currentTheme").forEach(themeOp => themeOp.classList.remove("currentTheme"));
+            if (el) {
+                el.classList.add("currentTheme");
+            }
             lastchosentheme = theme;
             if (!alldefaultthemes[theme]){
                 removeThemeProperties();
@@ -8885,6 +9025,8 @@
         }
         
         function removeallthemes() {
+            document.querySelectorAll(".currentTheme").forEach(themeOp => themeOp.classList.remove("currentTheme"));
+            document.querySelector('.defaultThemeOp').classList.add("currentTheme");
             removeThemeProperties();
             document.body.classList.remove("custom-theme");
             document.body.className = "";
@@ -11627,7 +11769,7 @@
                 const fileContent = checkiffile(src);
                 return fileContent ? `<script>\n${fileContent}\n<\/script>` : match;
             });
-            const filerequests = `
+            let filerequests = `
     <\/script>
     <script>
         const fileReplacements = ${JSON.stringify(allimages)};
@@ -11675,9 +11817,431 @@
 
     <\/script>
             `;
+            if (document.querySelector('.showElementInfo').classList.contains('Active')) {
+                    filerequests += `
+<script>
+    const overlayElsid = 'overlay-' + crypto.randomUUID();
+    let target = null;
+    let elOverlay = null;
+    let dropdownDiv = null;
+    let searchvalue = "";
+    let isOnFirstSection = true;
+    document.addEventListener('click', (e) => {
+        showElInfo = false;
+        if (!e) return;
+        if (e.target == target) showElInfo = true;
+        target = e.target;
+        if (!(target instanceof Element)) return;
+        if (target.classList.contains(overlayElsid)) return;
+        function closeDropDown() {
+            if (elOverlay) {
+                elOverlay.remove();
+            }
+            if (dropdownDiv) {
+                dropdownDiv.remove();
+            }
+            elOverlay = null;
+            dropdownDiv = null;
+        }
+        closeDropDown();
+        if (target == document.body) return;
+        
+        function getBlackOrWhite(el) {
+            let node = el;
+          
+            while (node && node !== document.documentElement) {
+                const style = getComputedStyle(node);
+                if (style.backgroundImage && style.backgroundImage !== 'none') {
+                    return '#000000';
+                }
+            
+                const bg = style.backgroundColor;
+                
+                if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
+                    node = node.parentElement;
+                    continue;
+                }
+                const tmp = document.createElement('div');
+                tmp.style.color = bg;
+                document.body.appendChild(tmp);
+            
+                const rgb = getComputedStyle(tmp).color;
+                document.body.removeChild(tmp);
+            
+                const m = rgb.match(/\d+/g);
+                if (!m) return '#000000';
+            
+                const r = +m[0], g = +m[1], b = +m[2];
+            
+                const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+            
+                return luminance < 140 ? '#ffffff' : '#000000';
+            }
+          
+            return '#000000';
+        }
+        const rect = target.getBoundingClientRect();
+        elOverlay = document.createElement('div');
+        document.body.appendChild(elOverlay);
+        const elOverlayStyles = {
+            border: '2px dashed' + getBlackOrWhite(target),
+            borderRadius: '2px',
+            background: 'transparent',
+            width: rect.width + 'px',
+            height: rect.height + 'px',
+            margin: '0',
+            padding: '0',
+            position: 'absolute',
+            top: rect.top + window.scrollY + 'px',
+            left: rect.left + window.scrollX + 'px',
+            pointerEvents: 'none',
+            zIndex: '9999'
+        };
+        for (const key in elOverlayStyles) {
+            elOverlay.style[key] = elOverlayStyles[key];
+        }
+        if (showElInfo == true) {
+            dropdownDiv = document.createElement('div');
+            
+            const dropdownContentList = document.createElement('div');
+            
+            const dropdownOptions = document.createElement('div');
+            const dropdownCloseBtn = document.createElement('button');
+            
+            const dropdownOptionsBtn1 = document.createElement('button');
+            const dropdownOptionsBtn2 = document.createElement('button');
+            
+            const dropdownInput = document.createElement('input');
+            
+            const elsStyles = {
+                dropdownDiv: {
+                    el: dropdownDiv,
+                    style: {
+                        border: '1px solid rgba(255, 255, 255, 0.7)',
+                        borderRadius: '5px',
+                        background: 'rgba(255, 255, 255, 0.5)',
+                        width: '320px',
+                        margin: '0',
+                        padding: '10px',
+                        position: 'absolute',
+                        //top: rect.top + rect.height + window.scrollY + 10 + 'px',
+                        left: rect.left + window.scrollX + 'px',
+                        zIndex: '9999',
+                        color: 'black',
+                        maxHeight: "420px",
+                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                        overflow: "hidden",
+                        alignItems: "flex-start",
+                        backdropFilter: "blur(10px)",
+                        webkitBackdropFilter: "blur(10px)"
+                    }
+                },
+                dropdownInput: {
+                    el: dropdownInput,
+                    style: {
+                        width: "100%",
+                        padding: "10px",
+                        margin: "0",
+                        color: "black",
+                        border: "none",
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+                        borderRadius: "0",
+                        fontSize: "13px",
+                        background: "transparent",
+                        outline: "none",
+                        position: "relative"
+                    }
+                },
+                dropdownContentList: {
+                    el: dropdownContentList,
+                    style: {
+                        width: "100%",
+                        padding: "10px",
+                        margin: "0",
+                        maxHeight: "295px",
+                        color: "black",
+                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                        borderRadius: "3px",
+                        fontSize: "13px",
+                        background: "transparent",
+                        marginTop: "10px",
+                        position: "relative",
+                        overflow: "hidden",
+                        alignItems: "flex-start",
+                        overflowY: "auto"
+                    }
+                },
+                dropdownCloseBtn: {
+                    el: dropdownCloseBtn,
+                    style: {
+                        padding: "0",
+                        margin: "0",
+                        color: "black",
+                        border: "none",
+                        borderRadius: "3px",
+                        fontSize: "17px",
+                        background: "transparent",
+                        position: "absolute",
+                        fontWeight: "bold",
+                        top: "2px",
+                        right: "4px"
+                    }
+                },
+                dropdownOptions: {
+                    el: dropdownOptions,
+                    style: {
+                        width: "100%",
+                        padding: "0",
+                        margin: "0",
+                        marginTop: "10px",
+                        color: "black",
+                        border: "none",
+                        borderRadius: "3px",
+                        background: "transparent",
+                        display: "flex",
+                        justifyContent: "space-between"
+                    }
+                },
+                dropdownOptionsBtn1: {
+                    el: dropdownOptionsBtn1,
+                    style: {
+                        width: "47%",
+                        padding: "10px",
+                        margin: "0",
+                        color: "white",
+                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                        borderRadius: "10px",
+                        fontSize: "13px",
+                        background: "black",
+                        outline: "none",
+                        position: "relative",
+                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                        display: "inline-block"
+                    }
+                },
+                dropdownOptionsBtn2: {
+                    el: dropdownOptionsBtn2,
+                    style: {
+                        width: "47%",
+                        padding: "10px",
+                        margin: "0",
+                        color: "black",
+                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                        borderRadius: "10px",
+                        fontSize: "13px",
+                        background: "white",
+                        outline: "none",
+                        position: "relative",
+                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                        display: "inline-block"
+                    }
+                }
+            }
+            const listItemCSS = {
+                width: "100%",
+                padding: "0",
+                margin: "0",
+                color: "black",
+                border: "none",
+                borderRadius: "0",
+                fontSize: "13px",
+                background: "transparent",
+                paddingBottom: "5px",
+                fontWeight: "bold",
+                paddingTop: "5px",
+                overflowWrap: "break-word",
+                wordWrap: "break-word"
+            };
+            for (const key in elsStyles) {
+                const { el, style } = elsStyles[key];
+                
+                for (const prop in style) {
+                    el.style[prop] = style[prop];
+                }
+                el.className = overlayElsid;
+            }
+            
+            function getFullCSSList(el) {
+                const styles = getComputedStyle(el);
+                let css = [];
+                
+                for (const prop of styles) {
+                    css.push(\`<span style="color: #FF8C00" class="\${overlayElsid}">\${prop}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> <span style="color: #0051A8" class="\${overlayElsid}">\${styles.getPropertyValue(prop)}</span><span style="color: #a0a0a0" class="\${overlayElsid}">;</span>\\n\`);
+                }
+                
+                return css;
+            }
+            
+            document.body.appendChild(dropdownDiv);
+            
+            dropdownDiv.appendChild(dropdownInput);
+            dropdownDiv.appendChild(dropdownOptions);
+            dropdownDiv.appendChild(dropdownContentList);
+            
+            dropdownDiv.appendChild(dropdownCloseBtn);
+            dropdownCloseBtn.textContent = "×";
+            
+            dropdownOptions.appendChild(dropdownOptionsBtn1);
+            dropdownOptions.appendChild(dropdownOptionsBtn2);
+            dropdownOptionsBtn1.textContent = "CSS";
+            dropdownOptionsBtn2.textContent = "HTML";
+            
+            dropdownInput.value = searchvalue;
+            dropdownInput.placeholder = "search for value...";
+            
+            const escaped = str => str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
+            const cssAttrList = getFullCSSList(target);
+            //const htmlValuesList = target.attributes;
+            const htmlFullValuesList = {
+                ".className": target.className.split(/\s+/).join(", "),
+                ".textContent": target.textContent,
+                ".innerHTML": escaped(target.innerHTML),
+                ".value": target.value,
+                ".disabled": target.disabled,
+                ".checked": target.checked,
+                ".readonly": target.readOnly,
+                ".required": target.required,
+                ".selected": target.selected,
+                ".multiple": target.multiple,
+                ".hidden": target.hidden,
+                ".autofocus": target.autofocus,
+                ".type": target.type,
+                ".name": target.name,
+                ".placeholder": target.placeholder,
+                ".min": target.min,
+                ".max": target.max,
+                ".step": target.step,
+                ".pattern": target.pattern,
+                ".size": target.size,
+                ".maxLength": target.maxLength,
+                ".id": target.id,
+                ".style": target.style.cssText,
+                ".title": target.title,
+                ".lang": target.lang,
+                ".dir": target.dir,
+                ".tabIndex": target.tabIndex,
+                ".draggable": target.draggable,
+                ".contentEditable": target.contentEditable,
+                ".spellcheck": target.spellcheck,
+                ".role": target.getAttribute("role"),
+                ".dataset": JSON.stringify(target.dataset)
+                //...htmlValuesList
+            };
+            let cssAttrElList = [];
+            dropdownContentList.innerHTML = "";
+    
+            function addCssAttrList() {
+                cssAttrElList = [];
+                dropdownContentList.innerHTML = "";
+                cssAttrList.forEach(listItem => {
+                    const listItemEl = document.createElement('div');
+                    for (const key in listItemCSS) {
+                        listItemEl.style[key] = listItemCSS[key];
+                    }
+                    listItemEl.innerHTML = listItem;
+                    listItemEl.className = overlayElsid;
+                    dropdownContentList.appendChild(listItemEl);
+                    cssAttrElList.push(listItemEl);
+                });
+                dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + 'px';
+            }
+            function addHTMLValuesList() {
+                cssAttrElList = [];
+                dropdownContentList.innerHTML = "";
+                for (const objItem in htmlFullValuesList) {
+                    const listItemEl = document.createElement('div');
+                    for (const key in listItemCSS) {
+                        listItemEl.style[key] = listItemCSS[key];
+                    }
+                    listItemEl.innerHTML = \`<span style="color: #FF8C00" class="\${overlayElsid}">\${objItem}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> \`;
+                    const pre = document.createElement('pre');
+                    pre.innerHTML = htmlFullValuesList[objItem];
+                    pre.style.overflowWrap = "break-word";
+                    pre.style.wordWrap = "break-word";
+                    pre.style.whiteSpace = "pre-wrap";
+                    pre.style.color = "#0051A8";
+                    pre.className = overlayElsid;
+                    listItemEl.className = overlayElsid;
+                    dropdownContentList.appendChild(listItemEl);
+                    listItemEl.appendChild(pre);
+                    let prehidden = false;
+                    listItemEl.onclick = () => {
+                        if (prehidden == true) {
+                            prehidden = false;
+                            pre.innerHTML = htmlFullValuesList[objItem];
+                            pre.style.color = "#0051A8";
+                        } else {
+                            prehidden = true;
+                            pre.innerHTML = "hidden...";
+                            pre.style.color = "red";
+                        }
+                    };
+                    cssAttrElList.push(listItemEl);
+                };
+                dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + 'px';
+            }
+            function searchForValue() {
+                cssAttrElList.forEach(el => {
+                    if (el.textContent.toLowerCase().includes(dropdownInput.value.toLowerCase())) {
+                        el.style.display = "block";
+                    } else {
+                        el.style.display = "none";
+                    }
+                });
+            }
+            addCssAttrList();
+            dropdownOptionsBtn1.onclick = () => {
+                addCssAttrList();
+                searchForValue();
+                dropdownOptionsBtn1.style.background = "black";
+                dropdownOptionsBtn1.style.color = "white";
+                dropdownOptionsBtn2.style.background = "white";
+                dropdownOptionsBtn2.style.color = "black";
+                isOnFirstSection = true;
+            };
+            dropdownOptionsBtn2.onclick = () => {
+                addHTMLValuesList();
+                searchForValue();
+                dropdownOptionsBtn2.style.background = "black";
+                dropdownOptionsBtn2.style.color = "white";
+                dropdownOptionsBtn1.style.background = "white";
+                dropdownOptionsBtn1.style.color = "black";
+                isOnFirstSection = false;
+            };
+            if (isOnFirstSection == false) {
+                dropdownOptionsBtn2.click();
+            }
+            
+            searchForValue();
+            
+            dropdownCloseBtn.onclick = () => closeDropDown();
+            
+            dropdownInput.oninput = () => {
+                searchvalue = dropdownInput.value;
+                searchForValue();
+            };
+        }
+    });
+    window.addEventListener('resize', () => {
+        if (target && elOverlay && (elOverlay instanceof Element) && (elOverlay instanceof Element)) {
+            const rect = target.getBoundingClientRect();
+            elOverlay.style.width = rect.width + 'px';
+            elOverlay.style.height = rect.height + 'px';
+            elOverlay.style.top = rect.top + window.scrollY + 'px';
+            elOverlay.style.left = rect.left + window.scrollX + 'px';
+        }
+        if (target && dropdownDiv && (elOverlay instanceof Element) && (dropdownDiv instanceof Element)) {
+            const rect = target.getBoundingClientRect();
+            dropdownDiv.style.width = rect.width + 'px';
+            dropdownDiv.style.top = rect.top + window.scrollY + 'px';
+            dropdownDiv.style.left = rect.top + rect.height + window.scrollY + 'px';
+        }
+    });
+<\/script>`;
+            }
             htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, filerequests);
             if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
-                const extracode = `
+                let extracode = `
     <\/script>
     <script>
         window.addEventListener('message', (event) => {
@@ -13578,6 +14142,7 @@
             "showallfilescontainerbtn": "Click this to see all the text and image files and you can, search for files, add files, upload files, and view the current file.",
             "TimelineToggleBTN": "Click this to set a timer. scroll up or down on the numbers and when you have the correct amount of time set, click \"start\" and you'll see a vertical time line on the right side of the side-bar. you can turn of the timer by clicking on this button a second time, and you can pause and reser the timer by clicking on the timeline.",
             "ConsoleToggleBTN": "This is a toggle button for the console. The console is disabled by default because it may create bugs in your code, depending on its complexity. If you turn on the console and you are testing your code, just click \"test\" a second time to refresh the view and the console will now apply to the test window.",
+            "showElementInfoToggleBTN": "This is a toggle button for a feature that allows you to select elements on your site in the preview window and open an information dropdown that displays the selected element’s CSS and HTML property values. This can help you verify whether specific elements on your site have the desired properties.",
             "showalltemplatescontainerbtn": "Click this if you want to use some templates or get some inspiration. Make sure to read and agree to the licence before using any of the templates.",
             "toggleexternalsidebartext": "This button expands the files secion on this side-bar.",
             "pastbtn": "This is the undo button. You can edit its behavior in the \"file settings\".",
