@@ -12143,7 +12143,7 @@
                     dropdownContentList.appendChild(listItemEl);
                     cssAttrElList.push(listItemEl);
                 });
-                dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + 'px';
+                dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
             }
             function addHTMLValuesList() {
                 cssAttrElList = [];
