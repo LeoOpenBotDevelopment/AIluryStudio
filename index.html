@@ -376,9 +376,6 @@
             border-radius: 0;
             transition: var(--tr);
         }
-        .smallNavBar .nav-bar:not(.expanded) .nav-dot, .sidebarenabled.smallNavBar .nav-bar:not(.expanded) .nav-dot {
-            border-radius: 29px;
-        }
 
         .nav-bar .nav-dot:hover {
             transform: scale(1);
@@ -1166,6 +1163,9 @@
             .smallNavBar .nav-bar, .sidebarenabled.smallNavBar .nav-bar {
                 border-radius: 29px;
                 transform: scale(0.9);
+            }
+            .smallNavBar .nav-bar:not(.expanded) .nav-dot, .sidebarenabled.smallNavBar .nav-bar:not(.expanded) .nav-dot {
+                border-radius: 29px;
             }
             .sbtnpossettingsoverlay, #togglelayoutcontainerbtn {
                 display: flex;
