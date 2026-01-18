@@ -347,10 +347,7 @@
             border-left: 0;
             transition: var(--tr);
         }
-        .smallNavBar .nav-bar, .sidebarenabled.smallNavBar .nav-bar {
-            border-radius: 29px;
-            transform: scale(0.9);
-        }
+        
         .nav-bar.expanded, .sidebarenabled .nav-bar.expanded {
             background: var(--bg-color);
             transition: var(--tr);
@@ -1166,6 +1163,10 @@
             display: none;
         }
         @media(min-width: 900px) {
+            .smallNavBar .nav-bar, .sidebarenabled.smallNavBar .nav-bar {
+                border-radius: 29px;
+                transform: scale(0.9);
+            }
             .sbtnpossettingsoverlay, #togglelayoutcontainerbtn {
                 display: flex;
             }
