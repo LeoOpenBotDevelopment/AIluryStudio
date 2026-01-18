@@ -12478,11 +12478,15 @@
             codesearchresults.innerHTML = "";
     
             if (codesearchresults.style.display == "flex"){
-                document.addEventListener("click", (event) => {
+                function eventCode(event) {
                     if (!event.target.classList.contains('comtiniueresultsbtn') && !event.target.classList.contains('codesearchresults') && !event.target.classList.contains('result') && !event.target.classList.contains('code-search-input')) {
                         hidecodesearchresults();
                     }
-                });
+                    
+                    document.removeEventListener("click", eventCode);
+                }
+                
+                document.addEventListener("click", eventCode);
             }
 
             if (inputvalue) {
@@ -12559,11 +12563,11 @@
                             resultsnumber++;
                             resultsnumber2++;
                             
-                            newspan.addEventListener('click', () => {
+                            newspan.onclick = () => {
                                 hidecodesearchresults();
-                                const linenumber = allLines.includes(lineelement) ? allLines.indexOf(lineelement) + 1 : 0;
+                                const linenumber = allLines.includes(lineelement) ? allLines.indexOf(lineelement) : 0;
                                 scrolltolinenumber(linenumber);
-                            });
+                            };
                         }
                     }
                 }
