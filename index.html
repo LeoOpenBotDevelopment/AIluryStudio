@@ -15086,7 +15086,26 @@
                                     notify("edit regex", "open", () => {
                                         showRegexTester(removeAbbreviations(span.textContent), (back) => {
                                             if (back) {
+                                                const allLines = editorFiles[parseInt(editorIndex, 10)];
+                                                const spanCCEL = span.closest(".code-editor-line");
+                                                if (!spanCCEL) return;
+                                                
+                                                const celineEIndex = spanCCEL.getAttribute("line-index");
+                                                if (!celineEIndex) return;
+                                                
+                                                const lineIndex = parseInt(celineEIndex, 10);
+                                                if (!allLines || !allLines[lineIndex]) return;
+                                                const newpast = {
+                                                    element: allLines[lineIndex],
+                                                    type: "text",
+                                                    text: allLines[lineIndex].text,
+                                                    index: lineIndex
+                                                };
+                                                
+                                                lasteventsparentsection = section;
+                                                pendNewPast(lasteventsparentsection, [newpast]);
                                                 span.textContent = addAbbreviations(back);
+                                                updateAttribute(spanCCEL);
                                                 shortNotificationmessageelement("regex successfully updated");
                                             }
                                         });
