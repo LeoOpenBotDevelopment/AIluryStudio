@@ -4716,6 +4716,16 @@
             font-style: italic;
             font-size: 1em;
         }
+        .togglesidebarbuttonatview {
+            border: none;
+            background: transparent;
+            color: var(--contrast-color);
+            font-size: 1.2em;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            z-index: 5;
+        }
     </style>
 </head>
 <body>
@@ -4789,6 +4799,7 @@
                     </div>
                 </div>
                 <div class="section viewcontainer" id="section3">
+                    <button class="togglesidebarbuttonatview" onclick="togglesidebarbuttonfunction()">☰</button>
                     <button class="showconsolebtn" onclick="showOverlay('.consoleconteiner')">▷</button>
                     <div class="swipe-container">
                         <div class="view">
