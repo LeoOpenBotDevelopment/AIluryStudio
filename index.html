@@ -5800,17 +5800,23 @@
             const updatedPolicies = document.getElementById("updatedPolicies");
             const userregulationsandconditions = document.querySelector(".userregulationsandconditions");
             const localStoragePolicyCode = localStorage.getItem("AIluryStudioPolicyCode");
-            if (localStoragePolicyCode && userregulationsandconditions.getAttribute("data-update-code") != localStoragePolicyCode) {
-                updatedPolicies.style.display = "block";
+            if (userregulationsandconditions) {
+                if (updatedPolicies && localStoragePolicyCode && userregulationsandconditions.getAttribute("data-update-code") != localStoragePolicyCode) {
+                    updatedPolicies.style.display = "block";
+                }
+                localStorage.setItem("AIluryStudioPolicyCode", userregulationsandconditions.getAttribute("data-update-code"));
             }
-            localStorage.setItem("AIluryStudioPolicyCode", userregulationsandconditions.getAttribute("data-update-code"));
         }
         updatedPoliciesCheck();
         const termsAndConditionsSection = document.querySelector('.termsAndConditionsSection');
         const privacyPolicySection = document.querySelector(".privacyPolicySection");
         function showTermsAndConditions(button) {
-            termsAndConditionsSection.style.display = "block";
-            privacyPolicySection.style.display = "none";
+            if (termsAndConditionsSection) {
+                termsAndConditionsSection.style.display = "block";
+            }
+            if (privacyPolicySection) {
+                privacyPolicySection.style.display = "none";
+            }
             document.querySelectorAll('.selectedSection').forEach(btn => {
                 btn.classList.remove('selectedSection');
             });
@@ -5819,8 +5825,12 @@
             }
         }
         function showPrivacyPolicies(button) {
-            privacyPolicySection.style.display = "block";
-            termsAndConditionsSection.style.display = "none";
+            if (privacyPolicySection) {
+                privacyPolicySection.style.display = "block";
+            }
+            if (termsAndConditionsSection) {
+                termsAndConditionsSection.style.display = "none";
+            }
             document.querySelectorAll('.selectedSection').forEach(btn => {
                 btn.classList.remove('selectedSection');
             });
@@ -5937,12 +5947,7 @@
             [],
             []
         ];
-        function addstartercodetofiles() {
-            const section0 = document.getElementById('section0');
-            const section1 = document.getElementById('section1');
-            const section2 = document.getElementById('section2');
-            
-            let sec0text = `<!DOCTYPE html>
+        let sec0text = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5955,11 +5960,15 @@
     <script src="script.js"><\/script>
 </body>
 </html>\n`;
-            let sec1text = `body {
+        let sec1text = `body {
     height: 100vh;
     width: 100vw;
 }`;
-            let sec2text = `console.log('Hello World');\n`;
+        let sec2text = `console.log('Hello World');\n`;
+        function addstartercodetofiles() {
+            const section0 = document.getElementById('section0');
+            const section1 = document.getElementById('section1');
+            const section2 = document.getElementById('section2');
             
             const vAIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
             const vAIluryStudioPendingFileContent = localStorage.getItem("AIluryStudioPendingFileContent");
@@ -9847,7 +9856,18 @@
         <div class="code-editor-btns"><button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
             
-            editorFiles.push([{ id: correntids, classes: ['code-editor-line'], text: "" }]);
+            const lines = filename.endsWith('.html') ? sec0text.split('\n')
+                : filename.endsWith('.htm') ? sec0text.split('\n') 
+                : filename.endsWith('.css') ? sec1text.split('\n') 
+                : filename.endsWith('.js') ? sec2text.split('\n')
+                : [];
+            let newEditorFiles = [];
+            lines.forEach((lineText) => {
+                correntids += 1;
+                const line = { id: correntids, classes: ['code-editor-line'], text: lineText };
+                newEditorFiles.push(line);
+            });
+            editorFiles.push(newEditorFiles);
             const newNavDot = document.createElement('div');
             newNavDot.classList.add('nav-dot', 'filedot');
             newNavDot.setAttribute('data-index', container.children.length - 1);
@@ -14508,7 +14528,7 @@
             const allLines = editorFiles[parseInt(editorIndex)];
             event.preventDefault();
             
-            if (cPasting) return;
+            if (cPasting == true) return;
             const notificationMessage = document.querySelector('.notificationmessage');
             if (notificationMessage?.style.display !== "none") {
                 hidenotificationmessage();
@@ -14619,6 +14639,8 @@
                 
                 updateSelectedClasses(0, () => {
                     setTimeout(() => {
+                        cPasting = false;
+                        noKeyDown = false;
                         celine.focus();
                         setCursorPosition(celine, caretPosition);
                         
@@ -14630,8 +14652,6 @@
                         }
                         
                         preserveCursorAndHighlight(celine);
-                        cPasting = false;
-                        noKeyDown = false;
                     }, 0);
                 });
                 
@@ -14659,6 +14679,8 @@
             updateAttribute(celine);
             updateSelectedClasses(0, () => {
                 scrolltolinenumber(lastLine, undefined, undefined, () => {
+                    cPasting = false;
+                    noKeyDown = false;
                     const theNewCeline = section.querySelector(`.code-editor-line[line-index="${lastLine}"]`);
                     if (!theNewCeline) return;
                     
@@ -14676,8 +14698,6 @@
                     }
                     
                     preserveCursorAndHighlight(theNewCeline);
-                    cPasting = false;
-                    noKeyDown = false;
                 });
             });
         }
