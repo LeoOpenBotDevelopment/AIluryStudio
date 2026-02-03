@@ -8410,7 +8410,7 @@
                     if (document.querySelector(`#${number}`) && thisfilepath) {
                         optionItem.onclick = () => {
                             overlay.remove();
-                            duplicatefile(thisfilepath);
+                            duplicatefile(number, thisfilepath);
                         };
                     } else {
                         return;
@@ -14197,8 +14197,8 @@
             }
         }
         
-        function duplicatefile(filename) {
-            const allLines = editorFiles[editorIndex];
+        function duplicatefile(fileindex, filename) {
+            const allLines = editorFiles[fileindex];
             if (allLines.length) {
                 let linetexts = "";
                 allLines.forEach(selectedline => {
