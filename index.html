@@ -11317,33 +11317,6 @@
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
                 dissolve(rectangleToDelete, 250);
-                /*document.querySelectorAll('.rectangle').forEach((rect, index) => {
-                    const sectionKey = rect.id.replace('rectangle', '');
-                    if (pastevents[sectionKey]) {
-                        pastevents["section" + index] = pastevents[sectionKey];
-                    }
-
-                    if (futureevents[sectionKey]) {
-                        futureevents["section" + index] = futureevents[sectionKey];
-                    }
-                    if (rect.id != 'image-rectangle') {
-                        rect.id = "rectangle" + index;
-                        if (rect.querySelector('.rectangle-buttons .delete-btn') && rect.querySelector('.rectangle-buttons .edit-btn')){
-                            const rectbtnsdelete = rect.querySelector('.rectangle-buttons .delete-btn');
-                            const rectbtnsedit = rect.querySelector('.rectangle-buttons .edit-btn');
-                            rectbtnsdelete.onclick = null;
-                            rectbtnsdelete.removeAttribute('onclick');
-                            rectbtnsdelete.onclick = () => deletethisfile(index);
-                            
-                            rectbtnsdelete.onclick = null;
-                            rectbtnsdelete.removeAttribute('onclick');
-                            rectbtnsdelete.onclick = () => editthisfile(index, event);
-                        }
-                        rect.onclick = null;
-                        rect.removeAttribute('onclick');
-                        rect.onclick = () => editthisfile(index, event);
-                    }
-                });*/
             }
 
             let navBar = document.getElementById('nav-bar');
@@ -11356,21 +11329,12 @@
                     deletedFileName = deletethisnavdotvalue;
                     deletethisnavdot.remove();
 
-                    /*document.querySelectorAll('.nav-dot').forEach((navdot, index) => {
-                        navdot.classList.remove('navdot' + navdot.getAttribute('data-index'));
-                        navdot.classList.add('navdot' + index);
-                        navdot.setAttribute('data-index', index);
-                    });*/
-
                     if (deletethisnavdotvalue) {
                         let filenameOptions = document.getElementById('filenameoptions');
                         if (filenameOptions) {
                             let optionToDelete = filenameOptions.querySelector(`option[value="${deletethisnavdotvalue}"]`);
                             if (optionToDelete) {
                                 optionToDelete.remove();
-                                /*document.querySelectorAll('#filenameoptions option').forEach((option, index) => {
-                                    option.id = "option" + Object.keys(editorFiles)[index];
-                                });*/
                             }
                         }
                     }
@@ -11381,36 +11345,15 @@
             if (sidebarfilelinklink) {
                 sidebarfilelinklink.className = "sidebarfilelinklink";
                 dissolve(sidebarfilelinklink, 150);
-                /*document.querySelectorAll(".sidebarfilelinklink").forEach((sidebarfilelink, index) => {
-                    if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
-                        index++;
-                    }
-                    sidebarfilelink.id = 'sidebarfilelinklink' + index;
-                    sidebarfilelink.setAttribute('onclick', `editthisfile(${index}, event)`);
-                });*/
             }
             
             let deletethissection = document.getElementById(number);
             if (deletethissection) {
                 deletethissection.remove();
-                /*document.querySelectorAll('.section').forEach((sectionv, index) => {
-                    sectionv.id = "section" + index;
-                });*/
             }
             document.querySelectorAll('.sidebarfilelinklink').forEach(link => {
                 link.style.display = "flex";
             });
-            /*document.querySelectorAll('.section > .code-editor-container').forEach((link, index) => {
-                if (parseInt(document.querySelector('.viewcontainer').id.replace('section', '')) <= index) {
-                    index++;
-                }
-                if (index >= parseInt(number)) {
-                    if (link.querySelector(".code-editor-container")) {
-                        link.querySelector(".code-editor-container").remove();
-                    }
-                    addLoadingAbility(link, Object.keys(editorFiles)[index]);
-                }
-            });*/
             document.querySelectorAll('#folderh3').forEach(fold => {
                 if (!document.querySelector('.' + fold.getAttribute('data-valuewr'))) {
                     fold.remove();
@@ -11426,7 +11369,6 @@
         }
         
         function editthisfile(specfileid, event = null){
-            //console.log(specfileid);
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
@@ -13107,21 +13049,7 @@
                 scrolleivs();
             });
         }
-
-        /*function updateDataIndex(divId) {
-            const container = document.getElementById(divId);
-            const elements = container.children;
-            for (let i = 0; i < elements.length; i++) {
-                elements[i].setAttribute('data-index', i);
-            }
-        }
-        function updateClass(divclass) {
-            const container = document.querySelector("." + divId);
-            const elements = container.children;
-            for (let i = 0; i < elements.length; i++) {
-                elements[i].id = `section${i}`;
-            }
-        }*/
+        
         function dotonclick() {
             if (!section){
                 return;
@@ -14945,8 +14873,7 @@
             const jstextstring = [
                 { regex: /(?<!\\)`(?![^"]*"(?:[^"\\]*\\.)*[^"]*$)(?![^']*'(?:[^'\\]*\\.)*[^']*$)(?![^/]*\/(?:[^/\\]*\\.)*[^/]*\/[gimsuy]*)(?![^/]*\/\/.*)[^`]*/, className: "syntaxstring" }
             ];
-            /*let allfilenames = extractUniqueIds(div.parentElement.querySelector('.code-editor-container')?.textContent || "");
-            let allfilenames2 = extractUniqueClasses(div.parentElement.querySelector('.code-editor-container')?.textContent || "");*/
+            
             function escapeRegex(str) {
                 return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             }
