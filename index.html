@@ -4847,23 +4847,22 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="consoleconteiner">
-                <div class="consoletopbar">
-                    <span class="consoletitle">console</span>
-                    <div class="consolebtncontainer">
-                        <button class="consolebtn" id="clearconsole" onclick="clearconsole();changedeletebtn(this)">⌧</button>
-                        <button class="consolebtn" id="closeconsole" onclick="hideelement('class', 'consoleconteiner', event)">×</button>
+                    <div class="consoleconteiner">
+                        <div class="consoletopbar">
+                            <span class="consoletitle">console</span>
+                            <div class="consolebtncontainer">
+                                <button class="consolebtn" id="clearconsole" onclick="clearconsole();changedeletebtn(this)">⌧</button>
+                                <button class="consolebtn" id="closeconsole" onclick="hideelement('class', 'consoleconteiner', event)">×</button>
+                            </div>
+                        </div>
+                        <div class="console">
+                            
+                        </div>
+                        <div class="consoleinputcontainer">
+                            <label for="consoletextarea"><button class="consoletextarealabelbtn">▷</button></label>
+                            <textarea class="consoletextarea" id="consoletextarea" name="consoletextarea" rows="1" cols="10" onkeydown="runcodeincurrentiframe(this, event)"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="console">
-            
-                </div>
-                <div class="consoleinputcontainer">
-                    <label for="consoletextarea"><button class="consoletextarealabelbtn">▷</button></label>
-                    <textarea class="consoletextarea" id="consoletextarea" name="consoletextarea" rows="1" cols="10" onkeydown="runcodeincurrentiframe(this, event)"></textarea>
                 </div>
             </div>
         
