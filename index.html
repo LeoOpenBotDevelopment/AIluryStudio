@@ -1958,7 +1958,6 @@
             top: 10px;
             left: 10px;
             font-size: 2dvh;
-            z-index: 1112;
             transition: var(--tr);
         }
 
@@ -4802,6 +4801,7 @@
                     </div>
                 </div>
                 <div class="section viewcontainer" id="forview">
+                    <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
                     <button class="showconsolebtn" onclick="showOverlay('.consoleconteiner')">▷</button>
                     <button class="togglesidebarbuttonatview" onclick="togglesidebarbuttonfunction()">☰</button>
                     <div class="swipe-container">
@@ -5179,7 +5179,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
+            
             <div class="overlay-container anOverlay" onclick="hideOverlay('.overlay-container', 'files', event)">
                 <!-- Content Container (mit Top Bar drin) -->
                 <div class="content-container">
