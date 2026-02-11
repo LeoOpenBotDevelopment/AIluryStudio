@@ -1752,13 +1752,13 @@
             animation: easeinanimationfrb 0.3s;
         }
 
-        .rectangle:not(#image-rectangle) .rectangle-buttons {
+        .rectangle:not(#image-rectangle):not(.enlarged) .rectangle-buttons {
             padding: 0;
             top: -1px;
             right: -1px;
             background: var(--full-opacity-bg-color);
         }
-        .rectangle:not(#image-rectangle) .rectangle-buttons:after {
+        .rectangle:not(#image-rectangle):not(.enlarged) .rectangle-buttons:after {
             content: "";
             width: 10px;
             height: 10px;
@@ -1773,7 +1773,7 @@
             box-shadow: 5px -4px 0px var(--full-opacity-bg-color);
             animation: easeinanimationfrb 0.3s;
         }
-        .rectangle:not(#image-rectangle) .rectangle-buttons:before {
+        .rectangle:not(#image-rectangle):not(.enlarged) .rectangle-buttons:before {
             content: "";
             width: 10px;
             height: 10px;
@@ -1788,7 +1788,7 @@
             box-shadow: 5px -4px 0px var(--full-opacity-bg-color);
             animation: easeinanimationfrb 0.3s;
         }
-        .rectangle:not(#image-rectangle) .edit-btn {
+        .rectangle:not(#image-rectangle):not(.enlarged) .edit-btn {
             border: none;
             background: var(--full-opacity-bg-color);
             border-bottom: 1px solid var(--border-color);
@@ -1983,6 +1983,7 @@
             word-break: break-word;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             transition: var(--tr);
+            animation: popupOverlayAnimation 0.4s ease;
         }
         .resultnum {
             color: var(--linenumber-color);
@@ -2365,9 +2366,8 @@
             font-family: 'Arial', sans-serif;
             letter-spacing: 0.5px;
         }
-
         .Symbol-Span {
-            background-color: var(--switchcheckedbackground-color);
+            background: var(--switchcheckedbackground-color);
             color: white;
             font-size: 18px;
             font-weight: bold;
@@ -2378,6 +2378,11 @@
             transition: background-color 0.3s, transform 0.2s;
             min-width: 40px;
             cursor: default;
+        }
+        .shortcutcommandlist .Symbol-Span {
+            background: var(--bg-color);
+            color: var(--contrast-color);
+            border: 2px solid var(--border-color);
         }
 
         @media (max-width: 600px) {
@@ -2884,11 +2889,11 @@
         .syntaxsign { color: var(--syntaxsign-color); }
         .syntaxstring { color: var(--syntaxstring-color); }
         .syntaxnumber { color: var(--syntaxnumber-color); }
-        .syntaxcomment { color: var(--syntaxcomment-color); }
+        .syntaxcomment, .syntaxcomment .syntaxvariable, .syntaxcomment .syntaxregex, .syntaxcomment .syntaxhex { color: var(--syntaxcomment-color); }
         .syntaxvariable { color: var(--syntaxvariable-color); }
         .syntaxcommand { color: var(--syntaxcommand-color); }
         .syntaxkeyword { color: var(--syntaxkeyword-color); }
-        .syntaxhtmlcomment { color: var(--syntaxhtmlcomment-color); }
+        .syntaxhtmlcomment, .syntaxhtmlcomment .syntaxvariable, .syntaxhtmlcomment .syntaxregex, .syntaxhtmlcomment .syntaxhex { color: var(--syntaxhtmlcomment-color); }
         .syntaxregex { color: var(--syntaxregex-color); }
         .syntaxhtmltagcontent { color: var(--syntaxhtmltagcontent-color); }
         .syntaxspaceienabled .code-editor-line:not(.hiddenlinesparent, .selected) .syntaxspace:before {
@@ -4521,7 +4526,7 @@
             transform: translateY(-5px);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
-        @keyframes explanationContainerAnimation {
+        @keyframes popupOverlayAnimation {
             0% {
                 transform: translateY(-10%);
                 opacity: 0;
@@ -4546,7 +4551,7 @@
             overflow: hidden;
             overflow-y: auto;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            animation: explanationContainerAnimation 1s;
+            animation: popupOverlayAnimation 0.5s ease;
         }
         .explanationOverlayContainer {
             height: 100dvh;
@@ -14895,6 +14900,14 @@
                 ")",
                 "g"
             );
+            let commentPatterns = [
+                { regex: /(?<=^\s*)[\s \u00A0]{4}/g, className: "syntaxspace" },
+                { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
+                { regex: /(?<=rgba\(\s*)\d+\s*,\s*\d+\s*,\s*\d+,/, className: "syntaxrgb syntaxrgba" },
+                { regex: /(?<=rgb\(\s*)\d+\s*,\s*\d+\s*,\s*\d+(?=\s*\))/, className: "syntaxrgb" },
+                { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
+                { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" }
+            ];
             
             let spatterns = [
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
@@ -15158,8 +15171,10 @@
                     if (!closeRegex.test(currentdiv.textContent)) {
                         let currentdivtextcontent = currentdiv.textContent;
                         currentdiv.innerHTML = "";
-
-                        currentdiv.textContent = currentdivtextcontent;
+                        
+                        const container = document.createDocumentFragment();
+                        processText(currentdivtextcontent, container, commentPatterns);
+                        currentdiv.appendChild(container);
                         currentdiv.classList.add('syntaxcomment');
                         updateAttribute(currentdiv, fileEditorIndex);
                     } else {
@@ -15204,7 +15219,9 @@
                 }else if (div.previousElementSibling && div.previousElementSibling.classList.contains('syntaxcomment') && !div.classList.contains('syntaxcomment') && !closeRegex.test(text)){
                     div.classList.add('syntaxcomment');
                     div.innerHTML = "";
-                    div.textContent = text;
+                    const container = document.createDocumentFragment();
+                    processText(text, container, commentPatterns);
+                    div.appendChild(container);
                     
                     let currentdiv = div.nextElementSibling;
                     while (currentdiv && !closeRegex.test(currentdiv.textContent)) {
@@ -15238,7 +15255,10 @@
                         let currentdivtextcontent = currentdiv.textContent;
                         currentdiv.innerHTML = "";
                         
-                        currentdiv.textContent = currentdivtextcontent;
+                        
+                        const container = document.createDocumentFragment();
+                        processText(currentdivtextcontent, container, commentPatterns);
+                        currentdiv.appendChild(container);
                         currentdiv.classList.add('syntaxhtmlcomment');
                         updateAttribute(currentdiv, fileEditorIndex);
                     } else {
@@ -15282,7 +15302,9 @@
                 } else if (div.previousElementSibling && div.previousElementSibling.classList.contains('syntaxhtmlcomment') && !div.classList.contains('syntaxhtmlcomment') && !closeRegex.test(text)) {
                     div.classList.add('syntaxhtmlcomment');
                     div.innerHTML = "";
-                    div.textContent = text;
+                    const container = document.createDocumentFragment();
+                    processText(text, container, commentPatterns);
+                    div.appendChild(container);
                     
                     let currentdiv = div.nextElementSibling;
                     while (currentdiv && !closeRegex.test(currentdiv.textContent)) {
@@ -15300,7 +15322,16 @@
                 }
                 
             }
-
+            const divChildWC = document.querySelector(".cssvardef");
+            if (divChildWC) {
+                const allDivChildWC = document.querySelectorAll(".cssvardef");
+                allDivChildWC.forEach(child => {
+                    child.classList.remove("cssvardef");
+                });
+                div.classList.add('cssvardef');
+            } else if (div.classList.contains('cssvardef')) {
+                div.classList.remove('cssvardef');
+            }
             if (!div.classList.contains('syntaxhtmlcomment')){
                 checkifcontinuedcomment();
             }
@@ -15317,18 +15348,10 @@
                 const container = document.createDocumentFragment();
                 processText(code, container, spatterns);
                 div.appendChild(container);
-                const divChildWC = document.querySelector(".cssvardef");
-                if (divChildWC) {
-                    const allDivChildWC = document.querySelectorAll(".cssvardef");
-                    allDivChildWC.forEach(child => {
-                        child.classList.remove("cssvardef");
-                    });
-                    div.classList.add('cssvardef');
-                } else if (div.classList.contains('cssvardef')) {
-                    div.classList.remove('cssvardef');
-                }
             }else {
-                div.textContent = code;
+                const container = document.createDocumentFragment();
+                processText(code, container, commentPatterns);
+                div.appendChild(container);
             }
             if (!div.classList.contains('syntaxhtmlcomment')){
                 checkcomments(div, code);
