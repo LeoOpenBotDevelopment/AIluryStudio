@@ -8387,7 +8387,7 @@
                     const allLinesFromThisSection = editorFiles[number];
                     if (allLinesFromThisSection){
                         const textToCopy = [...allLinesFromThisSection]
-                            .map(line => line?.text || "")
+                            .map(line => normalizeSpaces(line?.text || ""))
                             .join("\n");
                         optionItem.onclick = () => {
                             overlay.remove();
