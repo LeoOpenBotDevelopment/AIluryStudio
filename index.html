@@ -11690,6 +11690,7 @@
                 if (elInList.classes.includes('hiddenlinesparent')) {
                     elInList.classes.splice(elInList.classes.indexOf('hiddenlinesparent'), 1);
                 }
+                targetElementv.classList.remove('hiddenlinesparent');
                 showHiddenElements(elInList);
             }else if (targetElementv.classList.contains('selected')) {
                 let anothersuperselectedline = false;
@@ -14680,6 +14681,10 @@
             let nextElementValid = false;
             if (nextElement && element.text.trim() != "" && !element.classes.includes('hiddenlinesparent')){
                 element.classes.push('hiddenlinesparent');
+                const theLine = document.getElementById(`${element.id}`);
+                if (theLine) {
+                    theLine.classList.add("hiddenlinesparent");
+                }
             }else {
                 return;
             }
