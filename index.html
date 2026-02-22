@@ -3196,7 +3196,8 @@
             width: 100vw;
             max-width: 800px;
             display: flex;
-            padding: 10px;
+            padding: 30px;
+            padding-top: 10px;
             box-sizing: border-box;
             color: var(--contrast-color);
             background: var(--bg-color);
@@ -3205,15 +3206,26 @@
             border: 1px solid var(--border-color);
             max-height: 95dvh;
             word-break: break-word;
-            font-size: 1em;
+            font-size: 0.9em;
             overflow: hidden;
             overflow-y: scroll;
             position: relative;
+            border-radius: 20px;
+        }
+        .definitionOfYaW {
+            font-size: 1em;
+            color: var(--contrast-color);
+            background: var(--lightgrey-color);
+            border: none;
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 10px;
         }
         .userregulationsandconditions ul {
-            list-style-type: none;
-            padding: 0;
+            list-style-type: disc;
+            padding: 5px;
             margin: 0;
+            margin-left: 15px;
             margin-top: 20px;
         }
         
@@ -3233,7 +3245,33 @@
         
         .userregulationsandconditions h2 {
             color: var(--contrast-color);
-            margin-top: 20px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            position: sticky;
+            top: -10px;
+            width: 100%;
+            background: linear-gradient(0deg, transparent, var(--bg-color));
+            font-size: 1.5em;
+        }
+        
+        @media(max-width: 700px) {
+            .definitionOfYaW {
+                font-size: 0.8em;
+            }
+            .userregulationsandconditions {
+                padding: 10px;
+            }
+            .userregulationsandconditions > p {
+                font-size: 0.8em;
+            }
+            .userregulationsandconditions ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+            .userregulationsandconditions h2 {
+                font-size: 1.1em;
+            }
         }
         
         .userregulationsandconditions #acceptBtn {
@@ -5758,9 +5796,7 @@
             <div class="startSections termsAndConditionsSection">
                 <h2>Terms and Conditions of Use for AIlury Studio</h2>
                 
-                <ul>
-                    <li><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool. All actions, whether manual or automated, are fully attributed to you, and you are solely responsible for any resulting consequences. Indirect use does not exempt you from compliance with these terms.</li>
-                </ul>
+                <div class="definitionOfYaW"><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool. All actions, whether manual or automated, are fully attributed to you, and you are solely responsible for any resulting consequences. Indirect use does not exempt you from compliance with these terms.</div>
                 <p>By using AIlury Studio, you agree to the following terms and conditions:</p>
                 <ul>
                     <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform or any part of the website.</li>
@@ -5773,8 +5809,7 @@
             <div class="startSections privacyPolicySection">
                 <h2>Privacy Policy for AIlury Studio</h2>
                 
-                <ul>
-                    <li><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio, and “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool.</li>
+                <div class="definitionOfYaW"><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio, and “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool.</div>
                 </ul>
                 
                 <p>By using AIlury Studio, you agree to the following privacy policies:</p>
@@ -11374,7 +11409,7 @@
                 shortNotificationmessageelement(deletedFileName + " successfully deleted");
             }
         }
-        
+        let lasttransitionanimation = "none";
         function editthisfile(specfileid, event = null){
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
@@ -11390,7 +11425,7 @@
                 let navBar = document.getElementById('nav-bar');
                 let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + specfileid + '"]');
                 if (scrolltothissection){
-                    let lasttransitionanimation = transitionanimation;
+                    lasttransitionanimation = transitionanimation;
                     transitionanimation = "ease";
                     event.target.classList.add('openfileenlarged');
                     scrolltothissection.scrollIntoView({ behavior: 'smooth' });
@@ -11400,7 +11435,6 @@
                         setTimeout(() => {
                             event.target.classList.remove('openfileenlarged');
                         }, 500);
-                        transitionanimation = lasttransitionanimation;
                     }, 500)
                 }
             }else {
@@ -11408,6 +11442,7 @@
                 let navBar = document.getElementById('nav-bar');
                 let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + specfileid + '"]');
                 if (scrolltothissection) {
+                    lasttransitionanimation = "none";
                     scrolltothissection.scrollIntoView({ behavior: 'smooth' });
                     document.querySelector('.overlay-back-btn').click();
                 }
@@ -13000,6 +13035,12 @@
                     newstsection.style.animation = "none";
                     void newstsection.offsetWidth;
                     newstsection.style.animation = transitionanimation + "in 0.3s ease-out";
+                    setTimeout(() => {
+                        if (lasttransitionanimation != "none") {
+                            transitionanimation = lasttransitionanimation;
+                            lasttransitionanimation = "none";
+                        }
+                    }, 300);
                 }, 300);
             } else {
                 newstsection.style.display = 'flex';
