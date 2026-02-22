@@ -228,7 +228,7 @@
             -webkit-backdrop-filter: blur(12px);
             background: var(--card-bg-light);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 10px 15px -3px var(--navbar-shadow);
+            box-shadow: 0 15px 40px -3px var(--navbar-shadow);
         }
 
 
@@ -283,10 +283,11 @@
         
         .editor-container {
             position: relative;
-            width: 100%;
+            width: 90vw;
             aspect-ratio: 16 / 10;
             perspective: 1200px;
             margin-top: 3rem;
+            height: 65vw;
         }
 
         .tilt-card {
@@ -301,6 +302,7 @@
             position: relative;
             z-index: 50;
             box-shadow: 0 25px 50px -12px var(--shadow-color);
+            background: var(--bg-color);
         }
 
         .toolbar {
@@ -323,100 +325,32 @@
         }
 
         .editor-body {
-            flex: 1;
+            padding: 0;
             display: flex;
             position: relative;
-            min-height: 0;
-            background-color: var(--code-bg);
+            background-image: url(/img/IMG_9366.jpeg);
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: 0.5s;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
         }
-        .code-area {
-            flex: 1;
-            padding: 2rem;
-            font-size: 0.875rem;
-            line-height: 2;
-            overflow: hidden;
-            position: relative;
+        .dark .editor-body {
+            background-image: url(/img/IMG_9367.jpeg);
         }
-        .code-area::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(to right, #80808012 1px, transparent 1px), linear-gradient(to bottom, #80808012 1px, transparent 1px);
-            background-size: 1.5rem 1.5rem;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .code-line {
-            display: flex;
-            position: relative;
-            z-index: 10;
-        }
-        .line-num {
-            width: 2rem;
-            color: var(--line-number-color);
-            user-select: none;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .text-cursor {
-            width: 2px; 
-            height: 1.1em; 
-            background-color: #06b6d4; 
-            margin: 0; 
-            animation: pulse 1s infinite;
-            border-radius: 0.5px; 
-            display: inline-block;
-            vertical-align: -0.1em;
-            margin-top: 6px;
-        }
-        .token-k { color: #9333ea; }
-        .token-f { color: #2563eb; }
-        .token-s { color: #16a34a; }
-        .token-c { color: #94a3b8; }
-
-        .dark .token-k { color: #c084fc; } 
-        .dark .token-f { color: #60a5fa; } 
-        .dark .token-s { color: #86efac; }
-        .dark .token-c { color: #64748b; }
-        .suggestion-popup {
-            position: absolute;
-            top: 1.5rem; 
-            left: 20rem; 
-            right: auto; 
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            width: 7rem;
-            font-size: 0.75rem;
-            z-index: 9000; 
-            transform: translateZ(30px);
-        }
-        .suggestion-popup-title {
-            font-size: 0.625rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #9ca3af;
-            letter-spacing: 0.05em;
-        }
-        .suggestion-popup button {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            font-weight: 600;
-            transition: background 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-        .suggestion-popup button:hover {
-            background: rgba(59, 130, 246, 0.2);
+        @media(max-width: 700px) {
+            .editor-body {
+                background-image: url(/img/IMG_9369.jpeg);
+            }
+            .dark .editor-body {
+                background-image: url(/img/IMG_9368.jpeg);
+            }
+            .editor-container {
+                width: 70vw;
+                height: 125vw;
+            }
         }
         .center-card {
             display: flex;
@@ -448,16 +382,38 @@
             background: rgba(22, 78, 99, 0.3);
         }
         .preview-body {
-            padding: 1.5rem;
+            padding: 10px;
             background-color: #f9fafb;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 15rem;
+            min-height: 290px;
+            background-image: url(/img/IMG_9372.jpeg);
+            background-size: cover;
+            background-position: right;
+            transition: 0.5s;
         }
         .dark .preview-body {
             background-color: #020203;
+            background-image: url(/img/IMG_9371.jpeg);
+        }
+        .show-code-for-test {
+            padding: 10px;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 290px;
+            background-image: url(/img/IMG_9375.jpeg);
+            background-size: cover;
+            background-position: left;
+            transition: 0.5s;
+        }
+        .dark .show-code-for-test {
+            background-color: #020203;
+            background-image: url(/img/IMG_9377.jpeg);
         }
         .card-border-pink { border-left: 4px solid #ec4899; }
         .card-border-purple { border-left: 4px solid #a855f7; }
@@ -525,7 +481,7 @@
         <div class="max-w-content mx-auto" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             
             <div style="margin-bottom: 2rem; padding: 0.25rem 1rem; border-radius: 9999px; border: 1px solid rgba(6, 190, 212, 0.2); background: rgba(6, 190, 212, 0.05); color: #0e7490; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;">
-                v2.0 Public
+                v2.5 Public
             </div>
             <h1 class="font-display headline" style="max-width: 48rem;">
                 Edit your code <br>
@@ -546,76 +502,11 @@
                         </div>
                         <div style="font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
                             <i class="fa-solid fa-lock" style="font-size: 10px;"></i>
-                            index.html
+                            https://ailury.com/
                         </div>
                         <div style="width: 3rem;"></div>
                     </div>
-                    <div class="editor-body">
-                        
-                        <div class="sidebar">
-                            <i class="fa-regular fa-file cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
-                            <i class="fa-solid fa-magnifying-glass cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
-                            <i class="fa-solid fa-code cursor-pointer" style="color: inherit;" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
-                        </div>
-                        <div class="code-area font-mono">
-                            
-                            <div class="code-line">
-                                <span class="line-num">1</span>
-                                <span>&lt;!DOCTYPE html&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">2</span>
-                                <span>&lt;<span class="token-k">html</span> lang="<span class="token-s">en</span>"&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">3</span>
-                                <span style="padding-left: 1rem;">&lt;<span class="token-k">head</span>&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">4</span>
-                                <span style="padding-left: 2rem;">&lt;<span class="token-k">title</span>&gt;Demo&lt;/<span class="token-k">title</span>&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">5</span>
-                                <span style="padding-left: 1rem;">&lt;/<span class="token-k">head</span>&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">6</span>
-                                <span style="padding-left: 1rem;">&lt;<span class="token-k">body</span>&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">7</span>
-                                <span style="padding-left: 2rem;">&lt;<span class="token-f">div</span> class="<span class="token-s">ailury-canvas</span>"&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">8</span>
-                                <span style="padding-left: 3rem;">&lt;<span class="token-f">h1</span>&gt;Focus on what matters.&lt;/<span class="token-f">h</span></span><span class="text-cursor"></span>
-                                <div class="glass-panel suggestion-popup">
-                                    <div class="suggestion-popup-title">Suggestions</div>
-                                    <div style="color: #4b5563;" class="dark-text-override">
-                                        &lt;/h1&gt;<br>
-                                        &lt;/h2&gt;<br>
-                                        &lt;/h3&gt;<br>
-                                        &lt;/h4&gt;<br>
-                                        &lt;/h5&gt;<br>
-                                        &lt;/h6&gt;<br>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">9</span>
-                                <span style="padding-left: 2rem;">&lt;/<span class="token-f">div</span>&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">10</span>
-                                <span style="padding-left: 1rem;">&lt;/<span class="token-k">body</span>&gt;</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="line-num">11</span>
-                                <span>&lt;/<span class="token-k">html</span>&gt;</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="editor-body"></div>
                 </div>
             </div>
         </div>
@@ -700,27 +591,7 @@
                         <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm cursor-pointer" onmouseenter="this.style.color='#06b6d4'" onmouseleave="this.style.color=''"></i>
                     </div>
                 </div>
-                <div style="padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; line-height: 1.625; height: 100%; background-color: var(--code-bg);">
-                    <div class="code-line">
-                        <span class="line-num">1</span>
-                        <span class="token-c">&lt;!-- Simple HTML card component --&gt;</span>
-                    </div>
-                    <div class="code-line">
-                        <span class="line-num">2</span>
-                        <span>&lt;<span class="token-f">div</span> class="<span class="token-s">card</span>"&gt;</span>
-                    </div>
-                    <div class="code-line">
-                        <span class="line-num">3</span>
-                        <span style="padding-left: 1rem;">&lt;<span class="token-f">h2</span>&gt;Nice and Simple&lt;/<span class="token-f">h2</span>&gt;</span>
-                    </div>
-                    <div class="code-line">
-                        <span class="line-num">4</span>
-                        <span style="padding-left: 1rem;">&lt;<span class="token-f">p</span>&gt;This is a card made with HTML.&lt;/<span class="token-f">p</span>&gt;</span>
-                    </div>
-                    <div class="code-line">
-                        <span class="line-num">5</span>
-                        <span>&lt;/<span class="token-f">div</span>&gt;</span>
-                    </div>
+                <div class="show-code-for-test">
                 </div>
             </div>
             <div class="glass-panel preview-view" style="overflow: hidden; box-shadow: 0 20px 25px -5px var(--code-shadow);">
@@ -732,14 +603,6 @@
                 </div>
                 
                 <div class="preview-body">
-                    <div style="width: 100%; height: auto; background-color: white; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 1.5rem; border: 1px solid #e5e7eb;" class="dark-card-override">
-                        <div style="height: 0.75rem; width: 25%; background-color: #3b82f6; border-radius: 0.125rem; margin-bottom: 1rem;"></div>
-                        <div style="height: 0.5rem; width: 100%; background-color: #e5e7eb; border-radius: 0.125rem; margin-bottom: 0.5rem;" class="dark-gray-bg-override"></div>
-                        <div style="height: 0.5rem; width: 83.3333%; background-color: #e5e7eb; border-radius: 0.125rem;" class="dark-gray-bg-override"></div>
-                    </div>
-                    <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--secondary-text-color);">
-                        Test your code instantly in the editor
-                    </p>
                 </div>
             </div>
         </div>
