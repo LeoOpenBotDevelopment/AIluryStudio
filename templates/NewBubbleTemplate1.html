@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIlury Studio - Premium Bubble Template</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@500;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg-light: #ffffff;
+            --color-bg-dark: #0f172a;
+            --color-text-main: #1e293b;
+            --color-text-muted: #64748b;
+            --color-accent: #6366f1; /* Indigo */
+            --color-gradient-1: linear-gradient(135deg, #6366f1, #a855f7);
+            --color-gradient-2: linear-gradient(135deg, #ec4899, #f43f5e);
+            --color-gradient-3: linear-gradient(135deg, #06b6d4, #3b82f6);
+            --radius: 24px;
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Custom Background --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--color-accent); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--color-text-main); font-weight: 500; font-size: 0.9rem; }
+
+        /* --- Hero Section --- */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .header-content { max-width: 800px; }
+
+        .title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            background: var(--color-gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- CTA Buttons --- */
+        .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: var(--color-gradient-1);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .cta-btn-alt { background: var(--color-bg-light); color: var(--color-text-main); border: 1px solid #ddd; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
+
+        /* --- Features Grid --- */
+        main { padding: 100px 10%; }
+
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-family: 'Outfit', sans-serif; font-size: 2.5rem; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 3rem;
+            border-radius: var(--radius);
+            color: white;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 350px;
+        }
+
+        .feature-card:nth-child(1) { background: var(--color-gradient-1); }
+        .feature-card:nth-child(2) { background: var(--color-gradient-2); }
+        .feature-card:nth-child(3) { background: var(--color-gradient-3); }
+
+        .feature-card:hover { transform: scale(1.03); }
+        .feature-card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+
+        /* --- Contact Form Section --- */
+        .contact-section {
+            background: #f8fafc;
+            padding: 80px 10%;
+            border-radius: 40px;
+            margin: 50px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 4rem 10%;
+            background: var(--color-bg-dark);
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .contact-section { grid-template-columns: 1fr; }
+            nav { padding: 1rem 5%; }
+            .nav-links { display: none; }
+            .subtitle {
+                font-size: 0.7em;
+            }
+            .title {
+                font-size: 2em;
+                margin-top: 30px; 
+            }
+            .contact-section { padding: 1rem; }
+            .feature-card { padding: 1.1rem; }
+            main { padding: 100px 3%; }
+            .contact-section { padding: 80px 7%; }
+            .contact-form { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <a href="#" class="logo">S!TE NAEME</a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="cta-btn" style="padding: 0.6rem 1.5rem; font-size: 0.8rem;">POP</a>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1 class="title">The Future of <br>Bubble Templates</h1>
+            <p class="subtitle">A bubble template that you can expand on.</p>
+            <div class="btn-group">
+                <a href="#features" class="cta-btn">Explore Features</a>
+                <a href="#" class="cta-btn cta-btn-alt">View Live Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="features">
+        <div class="section-header">
+            <h2>Why Choose Bubble?</h2>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div>
+                    <h3>Dynamic Scale</h3>
+                    <p>Fully optimized for everything from ultra-wide monitors to the smallest mobile devices.</p>
+                </div>
+                <span>Learn More →</span>
+            </div>
+            <div class="feature-card">
+                <div>
+                    <h3>No-Code Power</h3>
+                    <p>Designed specifically for you so you don’t have to start from scratch.</p>
+                </div>
+                <span>Integrations →</span>
+            </div>
+            <div class="feature-card">
+                <div>
+                    <h3>Visual Flow</h3>
+                    <p>A bubbly flow keeps users engaged.</p>
+                </div>
+                <span>View Stats →</span>
+            </div>
+        </div>
+
+        <section class="contact-section" id="contact">
+            <div>
+                <h2 style="font-size: 3rem; line-height: 1.1; margin-bottom: 1.5rem;">Let's launch <br>your next idea.</h2>
+                <p>Ready to start creating ?</p>
+            </div>
+            <div class="contact-form">
+                <form onsubmit="event.preventDefault(); alert('Message sent!');">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <textarea placeholder="Your Message" rows="4"></textarea>
+                    <button type="submit" class="cta-btn" style="width: 100%; border: none; cursor: pointer;">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h2 style="margin-bottom: 1rem;">AIlury Studio</h2>
+        <p style="opacity: 0.6; margin-bottom: 2rem;">© 2026 Make a Bubbly experience.</p>
+        <div class="btn-group">
+            <a href="#" style="color: white; margin: 0 10px;">Twitter</a>
+            <a href="#" style="color: white; margin: 0 10px;">Dribbble</a>
+            <a href="#" style="color: white; margin: 0 10px;">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- Three.js Animated Bubbles Background ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const bubbles = [];
+        const bubbleCount = 8;
+
+        for(let i = 0; i < bubbleCount; i++) {
+            const geo = new THREE.SphereGeometry(Math.random() * 2 + 1, 32, 32);
+            const mat = new THREE.MeshBasicMaterial({
+                color: [0x6366f1, 0xec4899, 0x06b6d4][i % 3],
+                transparent: true,
+                opacity: 0.3
+            });
+            const bubble = new THREE.Mesh(geo, mat);
+            
+            bubble.position.set(
+                (Math.random() - 0.5) * 20,
+                (Math.random() - 0.5) * 20,
+                (Math.random() - 0.5) * 10
+            );
+            
+            bubble.velocity = new THREE.Vector3(
+                (Math.random() - 0.5) * 0.02,
+                (Math.random() - 0.5) * 0.02,
+                (Math.random() - 0.5) * 0.02
+            );
+            
+            scene.add(bubble);
+            bubbles.push(bubble);
+        }
+
+        camera.position.z = 15;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            bubbles.forEach(b => {
+                b.position.add(b.velocity);
+                
+                // Bounce logic
+                if (Math.abs(b.position.x) > 12) b.velocity.x *= -1;
+                if (Math.abs(b.position.y) > 12) b.velocity.y *= -1;
+                
+                b.rotation.x += 0.001;
+                b.rotation.y += 0.001;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
+
