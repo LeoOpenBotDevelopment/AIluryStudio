@@ -11559,7 +11559,7 @@
 
                 let text = line.text;
                 
-                text = text.replace(/<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, '').replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '');
+                text = text.replace(/<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, '').replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '').replace(/\/\/.*/g, '');
                 line.text = text;
             });
 
@@ -14962,6 +14962,7 @@
                 { regex: /(?<=^\s*)[\s \u00A0]{4}/g, className: "syntaxspace" },
                 { regex: /<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, className: "syntaxhtmlcomment" },
                 { regex: /\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, className: "syntaxcomment" },
+                { regex: /\/\/.*/g, className: "syntaxcomment" },
                 { regex: /(?<=rgba\(\s*)\d+\s*,\s*\d+\s*,\s*\d+,/, className: "syntaxrgb syntaxrgba syntaxnumber" },
                 { regex: /(?<=rgb\(\s*)\d+\s*,\s*\d+\s*,\s*\d+(?=\s*\))/, className: "syntaxrgb syntaxnumber" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
