@@ -32,7 +32,6 @@
         }
 
         .header-content {
-            max-width: 700px;
             padding: 2rem;
             z-index: 2;
             position: relative;
