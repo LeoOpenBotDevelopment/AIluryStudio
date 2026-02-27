@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immersive 3D Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* --- Theme Variables --- */
+        :root {
+            --bg-base: #f0f2f5;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --accent: #1a73e8; /* Google Blue */
+            
+            /* Glassmorphism Variables */
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            
+            --transition: 0.4s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #121212;
+            --text-main: #e8eaed;
+            --text-muted: #9aa0a6;
+            --accent: #8ab4f8; 
+            
+            --glass-bg: rgba(32, 33, 36, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- Global & Typography --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            transition: background-color var(--transition), color var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* --- The 3D Canvas --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Puts the 3D world behind everything */
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+            display: flex;
+        }
+        .theme-toggle:hover { background: rgba(128, 128, 128, 0.2); }
+
+        /* --- Layout & Glass Panels --- */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 10% 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* --- Typography & Buttons --- */
+        h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; font-weight: 700; text-align: center; }
+        h2 { font-size: 3rem; margin-bottom: 40px; font-weight: 500; }
+        p { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(26, 115, 232, 0.5); }
+
+        /* --- Specific Sections --- */
+        #hero {
+            align-items: center;
+            text-align: center;
+            /* No background panel here to let the centered 3D model shine */
+            pointer-events: none; /* Lets you click 'through' to drag the 3D model if we add controls */
+        }
+        #hero > * { pointer-events: auto; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            width: 100%;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-10px); }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+
+        .tech-pill {
+            background: rgba(128,128,128, 0.15);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 4px 4px 0 0;
+        }
+
+        /* Form */
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(128, 128, 128, 0.1);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus, textarea:focus { border-color: var(--accent); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            .nav-links a.hide-mobile { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <a href="#hero" class="logo">Port<span>folio</span></a>
+        <div class="nav-links">
+            <a href="#about" class="hide-mobile">About</a>
+            <a href="#expertise" class="hide-mobile">Expertise</a>
+            <a href="#projects" class="hide-mobile">Projects</a>
+            <a href="#contact" class="hide-mobile">Contact</a>
+            <button class="theme-toggle" id="theme-toggle">
+                <span class="material-icons" id="theme-icon">dark_mode</span>
+            </button>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <h1>Creative Developer</h1>
+        <p style="max-width: 600px; margin: 0 auto 40px; font-size: 1.4rem;">
+            Bridging the gap between robust engineering and immersive 3D design.
+        </p>
+        <a href="#about" class="btn">Explore My World</a>
+    </section>
+
+    <section id="about">
+        <div class="glass-panel" style="max-width: 800px;">
+            <h2>About Me</h2>
+            <p>I don't just build websites; I craft digital experiences. By combining modern front-end frameworks with WebGL and Three.js, I bring static interfaces to life.</p>
+            <p>With a background in computer science and a passion for interactive design, I strive to build scalable applications that feel intuitive, performant, and deeply engaging.</p>
+        </div>
+    </section>
+
+    <section id="expertise">
+        <h2 style="text-align: center; width: 100%;">Technical Arsenal</h2>
+        <div class="grid">
+            <div class="glass-card">
+                <h3>Frontend Engineering</h3>
+                <p>Building responsive, accessible, and highly performant user interfaces.</p>
+                <div>
+                    <span class="tech-pill">React</span>
+                    <span class="tech-pill">TypeScript</span>
+                    <span class="tech-pill">Next.js</span>
+                </div>
+            </div>
+            <div class="glass-card">
+                <h3>3D & Interaction</h3>
+                <p>Creating immersive web experiences utilizing the GPU for rendering.</p>
+                <div>
+                    <span class="tech-pill">Three.js</span>
+                    <span class="tech-pill">WebGL</span>
+                    <span class="tech-pill">GSAP</span>
+                </div>
+            </div>
+            <div class="glass-card">
+                <h3>Backend Systems</h3>
+                <p>Designing secure APIs and scalable database architectures.</p>
+                <div>
+                    <span class="tech-pill">Node.js</span>
+                    <span class="tech-pill">PostgreSQL</span>
+                    <span class="tech-pill">Docker</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Selected Works</h2>
+        <div class="grid">
+            <div class="glass-card">
+                <h3>Project Alpha</h3>
+                <p>A full-stack web application focusing on real-time data visualization.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Project Beta</h3>
+                <p>An e-commerce platform with an interactive 3D product configurator.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Project Gamma</h3>
+                <p>A web-based interactive data dashboard for enterprise analytics.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Project Delta</h3>
+                <p>Award-winning promotional site with heavy scroll-driven animations.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="glass-panel" style="max-width: 600px; margin: 0 auto; width: 100%;">
+            <h2 style="text-align: center; margin-bottom: 20px;">Let's Talk</h2>
+            <p style="text-align: center;">Have a project in mind? Drop a message.</p>
+            <form onsubmit="event.preventDefault(); alert('Form submitted!');">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // ==========================================
+        // 1. Theme Logic
+        // ==========================================
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        
+        document.body.setAttribute('data-theme', savedTheme);
+        themeIcon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
+            
+            updateLights(newTheme); // Update 3D lighting dynamically
+        });
+
+        // ==========================================
+        // 2. Three.js Immersive Environment Setup
+        // ==========================================
+        const canvas = document.querySelector('#bg-canvas');
+        const scene = new THREE.Scene();
+
+        // We don't use a background color on the scene, we let the CSS background show through
+        // by rendering with alpha: true. 
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // --- Lighting (Crucial for a non-flat, 3D vibe) ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        const pointLight2 = new THREE.PointLight(0x1a73e8, 2); // Google Blue accent light
+        pointLight2.position.set(-5, -5, -5);
+        scene.add(pointLight2);
+
+        function updateLights(theme) {
+            ambientLight.intensity = theme === 'dark' ? 0.3 : 0.8;
+            pointLight.intensity = theme === 'dark' ? 1.5 : 0.8;
+        }
+        updateLights(savedTheme);
+
+        // --- 3D Objects Array to hold different models for sections ---
+        const objects = [];
+
+        // 1. Hero Object: Centered Complex Geometry (Icosahedron)
+        const heroGeo = new THREE.IcosahedronGeometry(3, 1);
+        const heroMat = new THREE.MeshStandardMaterial({ 
+            color: 0x8ab4f8, 
+            wireframe: true // Kept wireframe for the hero for a techy look
+        });
+        const heroMesh = new THREE.Mesh(heroGeo, heroMat);
+        heroMesh.position.set(0, 0, -5); // Centered, slightly pushed back
+        scene.add(heroMesh);
+        objects.push(heroMesh);
+
+        // 2. About Object: Solid Floating Torus
+        const aboutGeo = new THREE.TorusGeometry(2, 0.6, 16, 100);
+        const solidMat = new THREE.MeshStandardMaterial({ 
+            color: 0x1a73e8,
+            roughness: 0.2,
+            metalness: 0.8
+        });
+        const aboutMesh = new THREE.Mesh(aboutGeo, solidMat);
+        // Positioned further down the Y axis so it appears when scrolling
+        aboutMesh.position.set(4, -10, -8); 
+        scene.add(aboutMesh);
+        objects.push(aboutMesh);
+
+        // 3. Expertise Object: Cluster of Cubes
+        const group = new THREE.Group();
+        const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+        for(let i=0; i<15; i++) {
+            const mesh = new THREE.Mesh(boxGeo, solidMat);
+            mesh.position.set(
+                (Math.random() - 0.5) * 10,
+                (Math.random() - 0.5) * 10,
+                (Math.random() - 0.5) * 10
+            );
+            mesh.rotation.set(Math.random(), Math.random(), Math.random());
+            group.add(mesh);
+        }
+        group.position.set(-5, -20, -10);
+        scene.add(group);
+        objects.push(group);
+
+        // 4. Projects Object: Large Wireframe Sphere
+        const projGeo = new THREE.SphereGeometry(4, 32, 32);
+        const projMesh = new THREE.Mesh(projGeo, heroMat);
+        projMesh.position.set(6, -30, -12);
+        scene.add(projMesh);
+        objects.push(projMesh);
+
+        // Add some floating background particles
+        const particleGeo = new THREE.BufferGeometry();
+        const particleCount = 400;
+        const posArray = new Float32Array(particleCount * 3);
+        for(let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 50; // Spread wide
+        }
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particleMat = new THREE.PointsMaterial({ size: 0.05, color: 0x8ab4f8 });
+        const particlesMesh = new THREE.Points(particleGeo, particleMat);
+        scene.add(particlesMesh);
+
+        // --- Scroll Animation Logic ---
+        // Sync the camera's Y position to the window's scroll position
+        function moveCamera() {
+            const t = document.body.getBoundingClientRect().top;
+            
+            // Move camera down as we scroll down
+            camera.position.y = t * 0.01;
+            
+            // Rotate the main hero object based on scroll for extra interaction
+            heroMesh.rotation.x = t * -0.001;
+            heroMesh.rotation.y = t * -0.002;
+        }
+        document.body.onscroll = moveCamera;
+        moveCamera(); // Init position
+
+        // --- Animation Loop ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // Auto-rotation for objects
+            heroMesh.rotation.y += 0.005;
+            heroMesh.rotation.z += 0.002;
+            
+            aboutMesh.rotation.x += 0.01;
+            aboutMesh.rotation.y += 0.005;
+
+            group.rotation.y += 0.002;
+            group.rotation.x += 0.001;
+
+            projMesh.rotation.y -= 0.003;
+
+            // Make particles float slowly upwards
+            particlesMesh.rotation.y = elapsedTime * 0.05;
+            particlesMesh.position.y = Math.sin(elapsedTime * 0.2) * 2;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // --- Resize Handler ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    </script>
+</body>
+</html>
+

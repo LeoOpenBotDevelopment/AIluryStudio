@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER | The Future of Cognition</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg: #f4f1ea;
+            --color-text: #2c2621;
+            --color-accent: #b08d57;
+            --color-glass: rgba(244, 241, 234, 0.8);
+            --color-border: rgba(44, 38, 33, 0.1);
+            --transition-long: 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #12100e;
+            --color-text: #e5dfd3;
+            --color-accent: #d4af37;
+            --color-glass: rgba(18, 16, 14, 0.8);
+            --color-border: rgba(229, 223, 211, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            transition: background-color var(--transition-long);
+            width: 100vw;
+            overflow-x: hidden;
+        }
+
+        
+        #main-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .brand {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--color-accent); }
+
+        
+        section {
+            min-height: 100vh;
+            padding: 10vh 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .content-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        
+        .hero { text-align: center; }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            word-break: break-word;
+            hyphens: auto;
+            overflow-wrap: break-word;
+        }
+
+        .hero h1 i { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; }
+
+        .typewriter-box {
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--color-accent);
+            height: 1.5rem;
+        }
+
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(300px, auto);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .glass-card {
+            background: var(--color-glass);
+            border: 1px solid var(--color-border);
+            padding: 3rem;
+            border-radius: 2rem;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.6s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.02) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .card-span-2 { grid-column: span 2; }
+
+        .glass-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .glass-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: 1fr 1fr; }
+            .card-span-2 { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .bento-grid { grid-template-columns: 1fr; }
+            section { padding: 80px 5%; }
+            .hero h1 { font-size: 4rem; }
+        }
+
+        
+        .cta-gold {
+            background: var(--color-accent);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 100px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .cta-gold:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="main-canvas"></canvas>
+
+    <nav>
+        <a href="#" class="brand">NAEME of site</a>
+        <div class="nav-links">
+            <a href="#vision">Vision</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#ethics">Ethics</a>
+            <button id="mode-toggle" style="background:none; border:none; cursor:pointer; color:var(--color-text); font-size: 20px;">
+                <span id="theme-icon">◐</span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="content-wrap">
+            <h1>Architecture of <i>Elegance.</i></h1>
+            <div class="typewriter-box" id="typing"></div>
+            <a href="#vision" class="cta-gold">Explore the Neural Core</a>
+        </div>
+    </section>
+
+    <section id="vision">
+        <div class="content-wrap">
+            <h2 style="font-family: 'Playfair Display'; font-size: 3.5rem; margin-bottom: 1rem;">Refined Intelligence</h2>
+            <p style="max-width: 600px; margin-bottom: 3rem;">We develop models that understand the nuance between a pause and a silence.</p>
+            
+            <div class="bento-grid">
+                <div class="glass-card card-span-2">
+                    <h3>Cognitive Symmetry</h3>
+                    <p>Our algorithms follow the Fibonacci sequence to ensure data processing mirrors the efficiency of biological neural pathways. It's not just speed; it's harmony.</p>
+                </div>
+                <div class="glass-card" style="background: var(--color-accent); color: white;">
+                    <h3>0.02ms</h3>
+                    <p>The time it takes for Aether to resonate with a human prompt.</p>
+                </div>
+                <div class="glass-card">
+                    <h3>Organic Logic</h3>
+                    <p>Moving away from binary constraints into fluid reasoning.</p>
+                </div>
+                <div class="glass-card card-span-2">
+                    <h3>Global Security</h3>
+                    <p>Privacy that isn't just a feature, but the core foundation of our encrypted beige-cloud infrastructure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. Theme Engine ---
+        const toggle = document.getElementById('mode-toggle');
+        const root = document.documentElement;
+        toggle.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            update3DColors(!isDark);
+        });
+
+        // --- 2. Fancy Typewriter ---
+        const text = "Designing the future through the lens of antiquity.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typing").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        window.onload = typeWriter;
+
+        // --- 3. Three.js Sophisticated Backdrop ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('main-canvas'), alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Create a Particle Field (Generative AI "Cloud")
+        const particlesGeometry = new THREE.BufferGeometry();
+        const count = 3000;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        for(let i = 0; i < count * 3; i++) {
+            positions[i] = (Math.random() - 0.5) * 15;
+            colors[i] = Math.random();
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            sizeAttenuation: true,
+            color: 0xb08d57,
+            transparent: true,
+            opacity: 0.6
+        });
+
+        const points = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(points);
+
+        // Core Sphere (The "Brain")
+        const brainGeo = new THREE.IcosahedronGeometry(2, 5);
+        const brainMat = new THREE.MeshBasicMaterial({ color: 0xb08d57, wireframe: true, transparent: true, opacity: 0.15 });
+        const brain = new THREE.Mesh(brainGeo, brainMat);
+        scene.add(brain);
+
+        camera.position.z = 5;
+
+        // Scroll Integration
+        let scrollY = 0;
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+        });
+
+        function update3DColors(isDark) {
+            particlesMaterial.color.set(isDark ? 0xd4af37 : 0xb08d57);
+            brainMat.color.set(isDark ? 0xd4af37 : 0xb08d57);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = Date.now() * 0.0001;
+            
+            points.rotation.y = time * 0.5;
+            points.rotation.x = scrollY * 0.001; // Movement on scroll
+            
+            brain.rotation.y = -time * 0.3;
+            brain.position.y = Math.sin(time * 10) * 0.1;
+            
+            // Subtle Parallax
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-(mouseY) - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
+

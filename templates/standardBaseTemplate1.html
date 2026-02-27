@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Foundation Template</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            
+            --bg: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent: #0071e3; 
+            --surface: #f5f5f7;
+            --border: #e5e5e5;
+            
+            --container-width: 1100px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        
+        nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--text-main); }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        
+        .btn {
+            display: inline-flex;
+            background: var(--text-main);
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            justify-content: center;
+            align-items: center;
+        }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            background: var(--surface);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .feature-card h3 { margin-bottom: 1rem; font-size: 1.25rem; }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        
+        @media (max-width: 768px) {
+            section { padding: 60px 0; }
+            .nav-links { display: none; } 
+            .hero { text-align: left; }
+            .hero p { margin-left: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">PLATFORM.</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#" class="btn" style="font-size: 0.8rem;">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Build your next idea <br>with precision.</h1>
+            <p>A minimalist foundation for developers who prioritize speed, clarity, and responsive integrity.</p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <a href="#" class="btn">Documentation</a>
+                <a href="#" class="btn" style="background: var(--surface); color: var(--text-main);">View Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="grid">
+                <div class="feature-card">
+                    <h3>Ultra Responsive</h3>
+                    <p>Uses CSS Clamp and Grid to ensure your content looks intentional on a watch or a 4K display.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Expandable Logic</h3>
+                    <p>Clean class naming conventions make it easy to drop in your own components without conflicts.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Performance First</h3>
+                    <p>Zero external libraries. Zero bloat. Just pure, semantic HTML and optimized CSS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="background: var(--surface); border: none;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
+            <div>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">A new standard in flat design.</h2>
+                <p>We removed the shadows, the gradients, and the noise. What's left is a pure focus on your message and your product.</p>
+            </div>
+            <div style="background: #ddd; aspect-ratio: 16/9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #999;">
+                [Image Placeholder]
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 40px 0; text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+        <div class="container">
+            &copy; 2026 Platform Template. Build with efficiency.
+        </div>
+    </footer>
+
+</body>
+</html>
+

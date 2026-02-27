@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRISM | Generative Art Experience</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #ff3e00;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            
+            --pattern-dots: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+            --pattern-grid: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 1s ease;
+        }
+
+        
+        #cursor {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
+        }
+
+        
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        
+        .pattern-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--pattern-dots);
+            background-size: 30px 30px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 4rem;
+            border-radius: 40px;
+            max-width: 900px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        
+        h1 {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            line-height: 0.8;
+            letter-spacing: -5px;
+            text-transform: uppercase;
+            mix-blend-mode: overlay;
+        }
+
+        .outline-text {
+            -webkit-text-stroke: 2px white;
+            color: transparent;
+        }
+
+        h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            font-weight: 300;
+            margin-top: 2rem;
+        }
+
+        
+        nav {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            border: 1px solid white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover {
+            background: white;
+            color: black;
+        }
+
+        
+        .card-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .art-card {
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .art-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff3e00, #ffff00);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <canvas id="canvas-bg"></canvas>
+    <div class="pattern-overlay"></div>
+
+    <nav>
+        <a href="#" class="nav-item">PRISM // ARCHIVE</a>
+        <a href="#" class="nav-item">MENU</a>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-text">
+            <h2>Artistic Intelligence</h2>
+            <h1>Color<br><span class="outline-text">Pattern</span><br>Space</h1>
+        </div>
+    </section>
+
+    <section id="patterns">
+        <div class="content-box">
+            <h2>The Philosophy</h2>
+            <p>Texture is the language of the digital soul. We don't use colors as fills; we use them as rhythms. Every pixel follows a mathematical sequence of chromatic displacement.</p>
+            <div class="card-stack" style="margin-top: 3rem;">
+                <div class="art-card" style="--primary: #00ff88"></div>
+                <div class="art-card" style="--primary: #ff0055"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="hero-text" style="text-align: center;">
+            <h1 style="font-size: 8vw;">Let's <span class="outline-text">Vibrate.</span></h1>
+            <p style="font-family: 'Space Mono';">hello@Example-art.art</p>
+        </div>
+    </section>
+
+    <script>
+        // --- Custom Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // --- Three.js Patterned Ribbon ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-bg'), alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Unique Twist: A mathematical "Mobius" Ribbon
+        const curve = new THREE.TorusKnotGeometry(10, 3, 200, 32);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            emissive: 0x222222,
+            shininess: 100
+        });
+
+        const mesh = new THREE.Mesh(curve, material);
+        scene.add(mesh);
+
+        // Lighting to show off patterns
+        const pLight = new THREE.PointLight(0xff3e00, 2, 50);
+        pLight.position.set(5, 5, 5);
+        scene.add(pLight);
+
+        const sLight = new THREE.PointLight(0x00ffff, 2, 50);
+        sLight.position.set(-5, -5, 5);
+        scene.add(sLight);
+
+        camera.position.z = 25;
+
+        // Scroll Logic: Change Pattern Rhythm
+        let currentScroll = 0;
+        window.addEventListener('scroll', () => {
+            currentScroll = window.scrollY;
+            
+            // Twist the geometry based on scroll
+            mesh.rotation.x = currentScroll * 0.002;
+            mesh.rotation.y = currentScroll * 0.001;
+
+            // Change background colors based on section
+            const section = Math.floor(currentScroll / window.innerHeight);
+            const colors = ['#0a0a0a', '#1a0a2e', '#2e1a0a'];
+            document.body.style.backgroundColor = colors[section % colors.length];
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = Date.now() * 0.001;
+            
+            mesh.rotation.z += 0.005;
+            
+            // Make lights pulse
+            pLight.intensity = 1 + Math.sin(time) * 0.5;
+            sLight.intensity = 1 + Math.cos(time) * 0.5;
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
+

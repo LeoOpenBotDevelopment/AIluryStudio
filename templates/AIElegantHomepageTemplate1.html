@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER AI | Intelligence Refined</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            /* Warm Earthy Palette */
+            --cream: #f5f2ed;
+            --beige: #e5dfd3;
+            --taupe: #8c7d70;
+            --chocolate: #2d241e;
+            --accent-gold: #c5a059;
+            
+            --glass-light: rgba(245, 242, 237, 0.7);
+            --glass-dark: rgba(45, 36, 30, 0.8);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --cream: #1a1614;
+            --beige: #2d241e;
+            --taupe: #a8988a;
+            --chocolate: #f5f2ed;
+            --glass-light: rgba(26, 22, 20, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--chocolate);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            transition: background-color 0.8s var(--transition), color 0.8s var(--transition);
+        }
+
+        /* --- 3D Canvas --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--chocolate);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover { opacity: 1; }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        /* Fancy Typing Effect */
+        .typing-container {
+            font-size: 1.5rem;
+            min-height: 1.6em;
+            color: var(--taupe);
+            font-weight: 300;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: var(--accent-gold);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* --- Content Blocks --- */
+        .section {
+            padding: 120px 10%;
+            position: relative;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: var(--glass-light);
+            border: 1px solid rgba(140, 125, 112, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 30px;
+            transition: transform 0.4s var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+        }
+
+        .card-large { grid-column: span 8; }
+        .card-small { grid-column: span 4; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--chocolate), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-button {
+            margin-top: 40px;
+            padding: 18px 45px;
+            background: var(--chocolate);
+            color: var(--cream);
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-gold);
+            transform: scale(1.05);
+        }
+
+        #theme-btn {
+            background: none;
+            border: 1px solid var(--taupe);
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--chocolate);
+        }
+
+        @media (max-width: 900px) {
+            .card-large, .card-small { grid-column: span 12; }
+            .logo { display: none; }
+            #theme-btn { white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <nav>
+        <div class="logo">NAEME OF SITE</div>
+        <div class="nav-links">
+            <a href="#">Ethics</a>
+            <a href="#">Models</a>
+            <a href="#">Enterprise</a>
+            <button id="theme-btn">Toggle Mood</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="gradient-text">Human Intelligence,<br><i>Evolved.</i></h1>
+        <div class="typing-container">
+            <span id="type-text"></span><span class="cursor">|</span>
+        </div>
+        <button class="cta-button">Begin Exploration</button>
+    </section>
+
+    <section class="section">
+        <h2 style="font-family: var(--font-serif); font-size: 3rem;">Cognitive Architecture</h2>
+        <div class="bento-grid">
+            <div class="card card-large">
+                <h3 style="font-size: 2rem; margin-bottom: 15px;">Neural Synthesis</h3>
+                <p>Our models don't just process data; they understand context, culture, and nuance. Aether AI is built on a "Golden-Ratio" architecture that prioritizes organic reasoning over brute-force calculation.</p>
+            </div>
+            <div class="card card-small" style="background: var(--accent-gold); color: white;">
+                <h3>99.4%</h3>
+                <p>Accuracy in linguistic nuance and emotional resonance.</p>
+            </div>
+            <div class="card card-small">
+                <h3>Private by Design</h3>
+                <p>Local-first processing for the world's most sensitive entities.</p>
+            </div>
+            <div class="card card-large">
+                <h3 style="font-size: 2rem; margin-bottom: 15px;">The Earthy Foundation</h3>
+                <p>We believe AI should feel natural. Our interface uses organic color theory to reduce cognitive load, making high-level data analysis feel like a walk through a quiet gallery.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- Typing Effect Logic ---
+        const textElement = document.getElementById('type-text');
+        const phrases = [
+            "Refining the boundaries of thought.",
+            "AI that feels surprisingly human.",
+            "The intersection of art and logic.",
+            "Earthy tones for a digital age."
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIdx];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // --- Three.js "Silk/Sand" Background ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Geometry: A large plane with many segments for waves
+        const geometry = new THREE.PlaneGeometry(20, 20, 64, 64);
+        const material = new THREE.MeshStandardMaterial({
+            color: 0xc5a059,
+            wireframe: false,
+            side: THREE.DoubleSide,
+            flatShading: false,
+            metalness: 0.1,
+            roughness: 0.8
+        });
+        const plane = new THREE.Mesh(geometry, material);
+        plane.rotation.x = -Math.PI / 2.5;
+        scene.add(plane);
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 10, 5);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+        camera.position.z = 8;
+        camera.position.y = 2;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = Date.now() * 0.0005;
+            
+            // Animate vertices to create "Dune" waves
+            const positions = geometry.attributes.position.array;
+            for (let i = 0; i < positions.length; i += 3) {
+                const x = positions[i];
+                const y = positions[i + 1];
+                positions[i + 2] = Math.sin(x * 0.5 + time) * Math.cos(y * 0.5 + time) * 1.5;
+            }
+            geometry.attributes.position.needsUpdate = true;
+            
+            renderer.render(scene, camera);
+        }
+
+        // --- Theme Toggle ---
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            const current = document.body.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', target);
+            material.color.set(target === 'dark' ? 0x2d241e : 0xc5a059);
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        type();
+        animate();
+    </script>
+</body>
+</html>
+
