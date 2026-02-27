@@ -1,13 +1,13 @@
 [
-  "NewBubbleTemplate.txt",
-  "Bubble.txt", 
-  "DarkBubble.txt", 
-  "Soft.txt", 
-  "smartInvert.txt", 
   "3dAbstractTemplate.txt", 
   "AIElegantHomepageTemplate.txt",
-  "AntiqueElegantTemplate.txt",
   "DigitalArtisticGalerieTemplate.txt",
   "standardBaseTemplate.txt",
-  "Calculator.txt"
+  "Calculator.txt",
+  "NewBubbleTemplate.txt",
+  "Bubble.txt", 
+  "AntiqueElegantTemplate.txt",
+  "DarkBubble.txt", 
+  "Soft.txt", 
+  "smartInvert.txt"
 ]
