@@ -14967,7 +14967,7 @@
                 { regex: /(?<=rgb\(\s*)\d+\s*,\s*\d+\s*,\s*\d+(?=\s*\))/, className: "syntaxrgb syntaxnumber" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
 
-                { regex: /\b(@charset|@namespace|@viewport|@counter-style|await|break|const|continue|debugger|delete|false|in|instanceof|new|null|return|super|this|throw|true|typeof|var|void|yield|let|static|undefined|NaN|Infinity|eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|BigInt|Math|Date|String|RegExp|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|Map|Set|WeakMap|WeakSet|ArrayBuffer|SharedArrayBuffer|Atomics|DataView|JSON|Promise|Generator|Reflect|Proxy|Intl|WebAssembly)\b/g, className: "syntaxkeyword" },
+                { regex: /\b(?<=^|[:()[\]{}.\s])(@charset|@namespace|@viewport|@counter-style|await|break|const|continue|debugger|delete|false|in|instanceof|new|null|return|super|this|throw|true|typeof|var|void|yield|let|static|undefined|NaN|Infinity|eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|BigInt|Math|Date|String|RegExp|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|Map|Set|WeakMap|WeakSet|ArrayBuffer|SharedArrayBuffer|Atomics|DataView|JSON|Promise|Generator|Reflect|Proxy|Intl|WebAssembly|solid|dashed|dotted|double|groove|ridge|inset|outset)\b(?=$|[:()[\]{}.\s])/g, className: "syntaxkeyword" },
                 { regex: /\b(case|catch|class(?!=)|default|do|else|enum|export|extends|finally|for|function|if|import|switch|try|while|with|implements|interface|package|private|protected|public|async|GeneratorFunction|AsyncFunction)\b/g, className: "syntaxblock" },
                 { regex: /@(container|page|supports|keyframes|import|font-face|media|document)\b/g, className: "syntaxkeyword" },
                 
@@ -14975,16 +14975,18 @@
                 { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
                 { regex: /(?<=<\/?)([^\s>/]+)(?=[\s>])/g, className: "syntaxhtmltagcontent" },
                 { regex: signregex, className: "syntaxoperator" },
-                { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" },
+                { regex: /(#|0x)([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" },
                 { regex: /([\[\]{}()])/g, className: "syntaxbracket" },
                 
                 { regex: /([.,&|;])/g, className: "syntaxsign" },
                 { regex: /\b\d+(\.\d+)?\b/g, className: "syntaxnumber" },
+                { regex: /[-+]?(?:\d*\.\d+|\d+)(?:px|rem|em|%|vh|vw|dvh|vmin|vmax|ch|ex|s|cm|mm|deg|in|pt|pc)?/g, className: "syntaxnumber" },
                 { regex: /\b[a-zA-Z_]\w*\b(?=\s*=)/g, className: "syntaxvariable" },
-                { regex: /\b\w+(?=\()/g, className: "syntaxvariable" },
+                { regex: /\b[\w\-]+(?=\()/g, className: "syntaxvariable" },
                 { regex: /\b(console|Math\.\w+|Date|window|document)\b/g, className: "syntaxcommand" },
-                { regex: /(?<=\.)\b\w+\b/g, className: "syntaxvariable" },
-                { regex: /\#\b\w+\b/g, className: "syntaxvariable" },
+                { regex: /(?<=\.)\b[\w\-]+\b/g, className: "syntaxvariable" },
+                { regex: /(?<=\:\s*)\b[\w\-\s]+\b(?=;)/g, className: "syntaxkeyword" },
+                { regex: /\#\b[\w\-]+\b/g, className: "syntaxvariable" },
                 { regex: /\b[\w\-]+(?=:)/g, className: "syntaxcommand" },
                 { regex: /\w+/g, className: "notpartofesyntax" }
             ];
@@ -15085,6 +15087,7 @@
                                 });
                             }
                             else if (className.includes("syntaxhex")) {
+                                const starter = span.textContent.trim().startsWith("0x") ? "0x" : "#";
                                 function expandHex(shortHex) {
                                     let shortHexR = shortHex.replace(/^#/, '');
                                     if (shortHexR.length === 3) {
@@ -15103,7 +15106,7 @@
                                 const colorInput = document.createElement("input");
                                 colorInput.type = "color";
                                 try {
-                                    colorInput.value = expandHex(span.textContent);
+                                    colorInput.value = expandHex(span.textContent.replace(starter, "#"));
                                 } catch (e) {
                                     colorInput.value = "#000000";
                                 }
@@ -15128,7 +15131,7 @@
                                     };
                                     lasteventsparentsection = section;
                                     pendNewPast(lasteventsparentsection, [newpast]);
-                                    spanspan.textContent = colorInput.value;
+                                    spanspan.textContent = colorInput.value.replace("#", starter);
                                     updateAttribute(spanCCEL);
                                 });
                             } else if (className.includes("syntaxregex")) {
