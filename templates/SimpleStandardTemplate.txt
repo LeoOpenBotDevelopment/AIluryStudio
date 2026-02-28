@@ -146,6 +146,9 @@
             align-items: center;
             justify-content: center;
         }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
