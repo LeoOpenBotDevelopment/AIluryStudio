@@ -154,7 +154,7 @@
 
     <header>
         <div class="header-content">
-            <h1 class="title">AIlury Studio Template </h1>
+            <h1 class="title">Dark Bubbles Bubble</h1>
             <p class="subtitle">A website with colorful motion effects and unique designs</p>
             <a class="cta-btn">Explore More</a>
         </div>
@@ -162,21 +162,21 @@
 
     <main>
         <section class="feature">
-            <h2>Creative Section 1</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            <h2>Creative</h2>
+            <p>Creative Bubbles are better than non-creative bubbles.</p>
         </section>
         <section class="feature">
-            <h2>Innovative Section 2</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            <h2>Innovative</h2>
+            <p>Flat floating bubbles enhance the background of any site.</p>
         </section>
         <section class="feature">
-            <h2>Modern Section 3</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+            <h2>Modern</h2>
+            <p>Color makes sites stand out and when it's done right it can have a massive positive impact.</p>
         </section>
     </main>
 
     <footer>
-        <p>Lorem ipsum dolor.</p>
+        <p>blow bubbles.</p>
     </footer>
 </body>
 </html>
