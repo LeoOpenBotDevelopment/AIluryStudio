@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Design Homepage</title>
+    <style>
+        :root {
+            /* Light Mode Palette */
+            --bg-body: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #202124;
+            --text-sub: #5f6368;
+            --primary: #1a73e8; /* Google Blue */
+            --border: #dadce0;
+            --surface: #f8f9fa;
+            --shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Palette */
+            --bg-body: #202124;
+            --bg-card: #2d2e31;
+            --text-main: #e8eaed;
+            --text-sub: #9aa0a6;
+            --primary: #8ab4f8;
+            --border: #3c4043;
+            --surface: #303134;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            transition: background 0.3s ease;
+        }
+
+        /* NAVIGATION */
+        nav {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border);
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: var(--bg-body);
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+        .logo { font-size: 22px; font-weight: 500; color: var(--text-main); }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-sub);
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 20px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--primary);
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover { box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15); }
+
+        /* HERO SECTION */
+        .hero {
+            max-width: 1000px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-sub);
+            margin-bottom: 32px;
+        }
+
+        /* GRID SECTION */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 { margin-bottom: 12px; font-weight: 500; }
+        .card p { color: var(--text-sub); font-size: 14px; }
+
+        /* THEME TOGGLE */
+        #theme-btn {
+            background: var(--surface);
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <div class="logo">NAEME</div>
+            <div class="nav-links">
+                <a href="#">Solutions</a>
+                <a href="#">Products</a>
+                <a href="#">Pricing</a>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button id="theme-btn" title="Toggle Theme">🌓</button>
+            <button class="btn">Sign In</button>
+            <button class="btn btn-primary">Get Started</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Work cleaner. Work faster.</h1>
+        <p>A flat, modular interface designed for high-performance teams who value clarity and speed.</p>
+        <div style="display: flex; justify-content: center; gap: 12px;">
+            <button class="btn btn-primary" style="padding: 12px 32px;">Try for free</button>
+            <button class="btn" style="padding: 12px 32px;">View Demo</button>
+        </div>
+    </section>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Cloud Integration</h3>
+            <p>Directly sync your workflow with existing infrastructure using our flat API architecture.</p>
+        </div>
+        <div class="card">
+            <h3>Smart Analytics</h3>
+            <p>Visualize data without the noise. High-contrast charts and real-time reporting.</p>
+        </div>
+        <div class="card">
+            <h3>Secure Access</h3>
+            <p>Enterprise-grade security built into every layer of the user experience.</p>
+        </div>
+    </div>
+
+    <script>
+        const themeBtn = document.getElementById('theme-btn');
+        const root = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('flat-theme') || 'light';
+        root.setAttribute('data-theme', savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('flat-theme', next);
+        });
+    </script>
+</body>
+</html>
+

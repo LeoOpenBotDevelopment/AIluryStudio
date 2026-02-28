@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dream Template</title>
+    <style>
+        :root {
+            /* Light Mode - Airy & Clean */
+            --bg: #fdfdfd;
+            --surface: #ffffff;
+            --text-main: #1d1d1f;
+            --text-sub: #6e6e73;
+            --accent: #0071e3;
+            --glass: rgba(255, 255, 255, 0.7);
+            --border: rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode - Deep & Immersive */
+            --bg: #000000;
+            --surface: #1c1c1e;
+            --text-main: #f5f5f7;
+            --text-sub: #86868b;
+            --accent: #2997ff;
+            --glass: rgba(28, 28, 30, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        /* --- GLASS NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
+
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        
+        .nav-link { 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-size: 0.9rem; 
+            font-weight: 500;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .nav-link:hover { opacity: 1; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--text-sub);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* --- BUTTONS --- */
+        .cta-group { display: flex; gap: 15px; }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+        }
+
+        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* --- BENTO GRID --- */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 20px;
+        }
+
+        .bento-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+        .bento-item:hover { transform: translateY(-5px); }
+
+        .large { grid-column: span 2; grid-row: span 2; }
+        .wide { grid-column: span 2; }
+
+        .bento-item h3 { margin-bottom: 10px; font-weight: 600; }
+        .bento-item p { color: var(--text-sub); font-size: 0.95rem; }
+
+        /* --- THEME TOGGLE --- */
+        #theme-toggle {
+            background: var(--text-main);
+            color: var(--bg);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; grid-auto-rows: auto; }
+            .large, .wide { grid-column: span 1; grid-row: span 1; }
+            .nav-right .nav-link { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NAEME</div>
+        <div class="nav-right">
+            <a href="#" class="nav-link">Showcase</a>
+            <a href="#" class="nav-link">Process</a>
+            <button id="theme-toggle" aria-label="Toggle Mode">✦</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Less noise.<br>More signal.</h1>
+        <p>Clean and simple web builder. Easy template creator.</p>
+        <div class="cta-group">
+            <a href="#" class="btn btn-primary">Get Access</a>
+            <a href="#" class="btn" style="color: var(--text-main); border: 1px solid var(--border);">Learn More</a>
+        </div>
+    </header>
+
+    <section class="grid-container">
+        <div class="bento-item large">
+            <span style="font-size: 2rem;">🚀</span>
+            <h3>Next-Gen Performance</h3>
+            <p>Built with vanilla components to ensure your site scores 100 on every metric that matters.</p>
+        </div>
+        <div class="bento-item">
+            <h3>Responsive</h3>
+            <p>Fluid layouts that feel at home on any screen.</p>
+        </div>
+        <div class="bento-item">
+            <h3>Typeface</h3>
+            <p>Inter Variable for maximum readability.</p>
+        </div>
+        <div class="bento-item wide">
+            <h3>Dark Mode Native</h3>
+            <p>Automatically respects user system settings with a buttery-smooth manual override.</p>
+        </div>
+    </section>
+
+    <script>
+        const btn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // On Load
+        const saved = localStorage.getItem('dream-theme');
+        if (saved) html.setAttribute('data-theme', saved);
+
+        btn.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const next = isDark ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('dream-theme', next);
+            
+            // Haptic-style animation for the button
+            btn.style.transform = 'scale(0.8)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 100);
+        });
+
+        // Subtle parallax effect for bento cards
+        document.addEventListener('mousemove', (e) => {
+            const amount = 5;
+            const x = (e.clientX / window.innerWidth - 0.5) * amount;
+            const y = (e.clientY / window.innerHeight - 0.5) * amount;
+            document.querySelector('.hero h1').style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body>
+</html>
+
