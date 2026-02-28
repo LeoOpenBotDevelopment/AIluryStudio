@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIlury Studio | Monumental Art</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --text: #ffffff;
+            --accent: #ff4d00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.2;
+        }
+
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        section {
+            min-height: 140vh; /* Extra height to allow 3D elements to breathe */
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            position: relative;
+        }
+
+        /* --- Editorial Typography --- */
+        h1, h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .container { max-width: 1200px; width: 100%; }
+
+        p {
+            max-width: 400px;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.7;
+            margin-top: 2rem;
+            line-height: 1.6;
+        }
+
+        .tag {
+            font-family: 'Plus Jakarta Sans';
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* --- Nav & UI --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 40px 8%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 800; letter-spacing: -1px; font-size: 1.5rem; }
+
+        footer {
+            padding: 100px 8%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AILURY.STUDIO</div>
+        <div style="font-size: 0.7rem; border: 1px solid white; padding: 5px 15px; border-radius: 20px;">EDITION 2026</div>
+    </nav>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="content-wrapper">
+        <section>
+            <div class="container">
+                <span class="tag">01 // Foundation</span>
+                <h1>Grand<br>Visions.</h1>
+                <p>Placeholder for the studio's primary mission. This section introduces the scale of our digital artifacts.</p>
+            </div>
+        </section>
+
+        <section style="justify-content: flex-end; text-align: right;">
+            <div class="container">
+                <span class="tag">02 // Geometry</span>
+                <h2>Chrome<br>Flux.</h2>
+                <p style="margin-left: auto;">Detailed placeholder regarding the interaction between light and metallic surfaces in a virtual vacuum.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="tag">03 // Archive</span>
+                <h2>Spatial<br>Order.</h2>
+                <p>Informative text describing how we organize abstract chaos into structured digital experiences.</p>
+            </div>
+        </section>
+
+        <section style="justify-content: center; text-align: center; min-height: 100vh;">
+            <div class="container">
+                <span class="tag">Contact</span>
+                <h2 style="font-size: 8vw; font-style: normal;">LET'S BUILD.</h2>
+                <p style="margin: 2rem auto;">HELLO@AILURY-MONUMENT.ART</p>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 AILURY STUDIO - ALL PLACEHOLDERS INTENDED FOR ARTISTIC DEMONSTRATION.
+        </footer>
+    </div>
+
+    <script>
+        // --- Three.js Monumental Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-bg'), antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Group for monumental objects
+        const objectGroup = new THREE.Group();
+        scene.add(objectGroup);
+
+        // Lights (Essential for the "Liquid Chrome" look)
+        const light1 = new THREE.DirectionalLight(0xffffff, 1);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const light2 = new THREE.PointLight(0xff4d00, 2); // Orange Accent Light
+        light2.position.set(-10, -5, 0);
+        scene.add(light2);
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambient);
+
+        // Huge Sculptures
+        const geometries = [
+            new THREE.TorusKnotGeometry(4, 1.2, 128, 32),
+            new THREE.IcosahedronGeometry(5, 0),
+            new THREE.TorusGeometry(6, 2, 16, 100),
+            new THREE.OctahedronGeometry(4, 0)
+        ];
+
+        const objects = [];
+        for(let i = 0; i < 6; i++) {
+            // Shiny Metallic Material
+            const mat = new THREE.MeshStandardMaterial({ 
+                color: 0x333333, 
+                metalness: 1, 
+                roughness: 0.1, 
+                wireframe: i % 2 === 0 // Mix wireframes and solid chrome
+            });
+            
+            const mesh = new THREE.Mesh(geometries[i % geometries.length], mat);
+            
+            // Strategic placement to interact with text sections
+            mesh.position.set(
+                (i % 2 === 0 ? -1 : 1) * (Math.random() * 5 + 8), // Alternate left/right
+                -i * 25, // Spread down the vertical axis
+                -5
+            );
+            
+            mesh.rotation.set(Math.random() * 5, Math.random() * 5, Math.random() * 5);
+            objectGroup.add(mesh);
+            objects.push(mesh);
+        }
+
+        camera.position.z = 20;
+
+        // --- Smooth Parallax Scroll ---
+        let currentScroll = 0;
+        window.addEventListener('scroll', () => {
+            currentScroll = window.scrollY;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Smoothly move the whole group based on scroll
+            const targetY = (currentScroll * 0.05);
+            objectGroup.position.y = THREE.MathUtils.lerp(objectGroup.position.y, targetY, 0.1);
+
+            // Independent rotations for each piece
+            objects.forEach((obj, idx) => {
+                obj.rotation.x += 0.005;
+                obj.rotation.y += 0.008;
+                // Add a gentle "floating" bounce
+                obj.position.y += Math.sin(Date.now() * 0.001 + idx) * 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
+

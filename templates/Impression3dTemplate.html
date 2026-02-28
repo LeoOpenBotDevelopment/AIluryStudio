@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIlury Studio | Cobalt Abstract</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Work+Sans:wght@300;6work+Sans:wght@600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            /* Light & Airy Palette */
+            --bg-base: #fdfdfd;
+            --text-main: #111111;
+            --text-muted: #888888;
+            --accent-blue: #0047ab; /* Electric Cobalt Blue */
+            
+            /* Gradient Overlays for Patterned Coloring */
+            --pattern-gradient: radial-gradient(circle at 10% 10%, rgba(0, 71, 171, 0.03) 0%, rgba(255, 255, 255, 0) 50%);
+        }
+
+        /* --- Reset & Base --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Work Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 3D Background Canvas --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Puts the 3D void behind everything */
+            pointer-events: none; /* Lets you click 'through' to drag/select text */
+            opacity: 0.8; /* Subtle integration */
+        }
+
+        /* --- Layout --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 10; /* Ensures all HTML content sits above the 3D void */
+        }
+
+        section {
+            min-height: 120vh; /* Extra height to allow 3D elements to drift */
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .container { max-width: 1100px; width: 100%; }
+
+        /* --- Editorial Typography --- */
+        h1, h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 2.5rem;
+            letter-spacing: -3px;
+            color: var(--text-main);
+        }
+
+        h2.section-label {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        p {
+            max-width: 450px;
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            color: white; /* Will invert against difference nav */
+        }
+
+        .logo { font-weight: 800; font-size: 1.3rem; }
+
+        /* --- Artistic Accents --- */
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--text-main);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover { background: var(--accent-blue); }
+
+        footer {
+            padding: 100px 10%;
+            background: #f8f8f8;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">STUDIO NAEME</div>
+        <div style="font-size: 0.7rem; letter-spacing: 3px;">EDITION 2026</div>
+    </nav>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="content-wrapper">
+        <section id="hero">
+            <div class="container">
+                <h2 class="section-label">Aesthetic Studio</h2>
+                <h1>Curating <br>the Invisible.</h1>
+                <p>Placeholder text describing a studio that merges traditional artistic principles with innovative 3D generative frameworks.</p>
+                <a href="#about" class="cta-btn">View Our Process</a>
+            </div>
+        </section>
+
+        <section id="about" style="justify-content: flex-end; text-align: right;">
+            <div class="container">
+                <h2 class="section-label">Our Philosophy</h2>
+                <h2 style="color: var(--accent-blue);">Abstract <br>Geometry.</h2>
+                <p style="margin-left: auto;">Detailed placeholder content regarding the use of mathematical randomness to generate unique visual statements.</p>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="container">
+                <h2 class="section-label">Output Studies</h2>
+                <h2>Chromatic <br>Rhythm.</h2>
+                <p>Informative placeholder regarding the use of light and shadow within this digital framework to achieve depth.</p>
+                <a href="#" class="cta-btn">View Projects</a>
+            </div>
+        </section>
+
+        <section id="contact" style="justify-content: center; text-align: center;">
+            <div class="container">
+                <h2 class="section-label">Connect</h2>
+                <h2 style="font-size: 5vw; line-height: 1;">Let's Vibrate.</h2>
+                <p style="margin: 2rem auto;">HELLO@AILURY-BLUE.ART</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 STUDIO NAEME - ALL PLACEHOLDERS INTENDED FOR ARTISTIC DEMONSTRATION.
+    </footer>
+
+    <script>
+        // --- Three.js Abstract Blue Sculpture Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Group to hold all monumental sculptures
+        const sculptureGroup = new THREE.Group();
+        scene.add(sculptureGroup);
+
+        // Lighting (Essential for depth and the "Electric Cobalt" look)
+        const light1 = new THREE.DirectionalLight(0xffffff, 1);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambient);
+
+        // Create different complex abstract geometries for each section
+        const geometries = [
+            new THREE.TorusKnotGeometry(5, 1.5, 200, 32),
+            new THREE.TorusGeometry(6, 2, 16, 100),
+            new THREE.OctahedronGeometry(6, 0),
+            new THREE.IcosahedronGeometry(7, 0)
+        ];
+
+        const sculptures = [];
+        for(let i = 0; i < 6; i++) {
+            // Shiny Cobalt Material
+            const mat = new THREE.MeshStandardMaterial({ 
+                color: 0x0047ab, 
+                wireframe: Math.random() > 0.5, // 50% are wireframes
+                metalness: 0.1,
+                roughness: 0.8
+            });
+            
+            // Randomly pick geometry
+            const mesh = new THREE.Mesh(geometries[i % geometries.length], mat);
+            
+            // Scatter them along the vertical body axis to appear between text
+            mesh.position.set(
+                (Math.random() - 0.5) * 20, // Scattered horizontally
+                -i * 30, // Stacked vertically down the page
+                -5 // Pushed back for depth
+            );
+            
+            mesh.rotation.set(Math.random() * 5, Math.random() * 5, Math.random() * 5);
+            sculptureGroup.add(mesh);
+            sculptures.push(mesh);
+        }
+
+        camera.position.z = 15;
+
+        // --- Smooth Parallax Scroll Logic ---
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const bodyHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = scrollY / bodyHeight;
+
+            // Move the entire group of sculptures upwards as we scroll
+            sculptureGroup.position.y = progress * 100;
+            
+            // Slight camera tilt on scroll
+            camera.rotation.y = progress * 0.5;
+        });
+
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Gentle auto-rotation for sculptures
+            sculptures.forEach((sculpt, idx) => {
+                sculpt.rotation.x += 0.005 + (idx * 0.001);
+                sculpt.rotation.y += 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
+

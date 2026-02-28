@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOID | Spatial Interface</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --accent: #00ffcc;
+            --bg: #050505;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            height: 500vh; /* Length determines scroll speed through depth */
+        }
+
+        /* --- Persistent UI --- */
+        nav {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .brand {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            letter-spacing: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            z-index: 1000;
+        }
+
+        /* --- Three.js Depth Canvas --- */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* --- Floating Content Layers --- */
+        .content-layer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            max-width: 600px;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 5;
+        }
+
+        .visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .content-layer h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .content-layer p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* --- Sophisticated Patterns --- */
+        .scanline {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 204, 0.02) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Responsive UI Fixes */
+        @media (max-width: 768px) {
+            nav { top: 20px; left: 20px; right: 20px; }
+            .brand { letter-spacing: 4px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanline"></div>
+    <canvas id="canvas-bg"></canvas>
+
+    <nav>
+        <div class="brand">VOID // OS</div>
+        <div style="font-size: 10px;">LAT: -27.59 // LNG: -48.54</div>
+    </nav>
+
+    <div class="content-layer" id="layer-1">
+        <h2>Genesis</h2>
+        <p>The architecture of non-linear space. Navigating through the digital ether via kinetic interaction.</p>
+    </div>
+
+    <div class="content-layer" id="layer-2">
+        <h2>Entropy</h2>
+        <p>Mathematical patterns decaying into visual resonance. Placeholder information regarding aesthetic chaos.</p>
+    </div>
+
+    <div class="content-layer" id="layer-3">
+        <h2>Vibration</h2>
+        <p>Synchronizing the frequency of input and output. Descriptive text regarding the pulse of the system.</p>
+    </div>
+
+    <div class="content-layer" id="layer-4">
+        <h2>Terminal</h2>
+        <p>End of sequence. Connection stable. Placeholder contact data: 000-000-0000</p>
+    </div>
+
+    <div class="scroll-indicator">Scroll to travel through depth</div>
+
+    <script>
+        // --- Three.js Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-bg'), antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Infinite Star/Particle Tunnel
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = 5000;
+        const posArray = new Float32Array(starCount * 3);
+
+        for(let i = 0; i < starCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 100;
+        }
+        starGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const starMat = new THREE.PointsMaterial({ size: 0.05, color: 0x00ffcc });
+        const stars = new THREE.Points(starGeo, starMat);
+        scene.add(stars);
+
+        // Floating Rectangles (Portals)
+        const portals = [];
+        for(let i = 0; i < 10; i++) {
+            const geo = new THREE.PlaneGeometry(10, 10);
+            const mat = new THREE.MeshBasicMaterial({ 
+                color: 0x00ffcc, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.1 
+            });
+            const plane = new THREE.Mesh(geo, mat);
+            plane.position.z = -i * 20;
+            scene.add(plane);
+            portals.push(plane);
+        }
+
+        camera.position.z = 5;
+
+        // --- Scroll Depth Logic ---
+        let scrollY = 0;
+        const layers = [
+            document.getElementById('layer-1'),
+            document.getElementById('layer-2'),
+            document.getElementById('layer-3'),
+            document.getElementById('layer-4')
+        ];
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            
+            // Move camera through the tunnel
+            camera.position.z = 5 - (scrollY * 0.05);
+
+            // Layer Visibility Logic based on Z-position
+            const progress = (scrollY / (document.body.scrollHeight - window.innerHeight));
+            const activeIndex = Math.floor(progress * layers.length);
+
+            layers.forEach((layer, idx) => {
+                if(idx === activeIndex) {
+                    layer.classList.add('visible');
+                    layer.style.transform = `translate(-50%, -50%) scale(${1 + (progress * 0.1)})`;
+                } else {
+                    layer.classList.remove('visible');
+                }
+            });
+        });
+
+        // Mouse Parallax
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Gentle drift
+            stars.rotation.z += 0.0005;
+            
+            // Parallax
+            camera.rotation.y += (mouseX - camera.rotation.y) * 0.05;
+            camera.rotation.x += (-mouseY - camera.rotation.x) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
+
