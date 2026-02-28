@@ -105,7 +105,7 @@
 <body>
 
     <nav>
-        <div class="logo">AILURY.STUDIO</div>
+        <div class="logo">NAEME.STUDIO</div>
         <div style="font-size: 0.7rem; border: 1px solid white; padding: 5px 15px; border-radius: 20px;">EDITION 2026</div>
     </nav>
 
@@ -145,7 +145,7 @@
         </section>
 
         <footer>
-            &copy; 2026 AILURY STUDIO - ALL PLACEHOLDERS INTENDED FOR ARTISTIC DEMONSTRATION.
+            &copy; 2026 NAEME STUDIO - ALL PLACEHOLDERS INTENDED FOR ARTISTIC DEMONSTRATION.
         </footer>
     </div>
 
@@ -241,4 +241,3 @@
     </script>
 </body>
 </html>
-
