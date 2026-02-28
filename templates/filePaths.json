@@ -4,6 +4,7 @@
   "DigitalArtisticGalerieTemplate.txt",
   "standardBaseTemplate.txt",
   "NewBubbleTemplate.txt",
+  "SimpleCleanTemplate.txt",
   "Bubble.txt", 
   "AntiqueElegantTemplate.txt",
   "DarkBubble.txt", 
@@ -11,5 +12,6 @@
   "Soft.txt", 
   "DarkDTemplate.txt", 
   "smartInvert.txt", 
-  "Impression3dTemplate.txt"
+  "Impression3dTemplate.txt",
+  "SimpleStandardTemplate.txt"
 ]
