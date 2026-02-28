@@ -136,29 +136,29 @@
 
     <header>
         <div class="header-content">
-            <h1 class="title">AIlury Studio Template</h1>
-            <p class="subtitle">A Bubble Template from AIlury Studio</p>
+            <h1 class="title">Light Bubble</h1>
+            <p class="subtitle">A website with colorful motion and bubbles</p>
             <a class="cta-btn">Explore</a>
         </div>
     </header>
 
     <main>
         <section class="feature">
-            <h2>section 1</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2>Why bubble ?</h2>
+            <p>Bubbles enhance any site and make them stand out.</p>
         </section>
         <section class="feature">
-            <h2>section 2</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2>What is bubble ?</h2>
+            <p>Bubble is a round colorful thing that looks nice.</p>
         </section>
         <section class="feature">
-            <h2>section 3</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2>Why color ?</h2>
+            <p>Color enhances any website and makes them unique if done correctly.</p>
         </section>
     </main>
 
     <footer>
-        <p>Lorem ipsum dolor.</p>
+        <p>Blow a bubble</p>
     </footer>
 </body>
 </html>
