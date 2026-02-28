@@ -159,28 +159,28 @@
 </head>
 <body>
   <header>
-    <h1>AIlury Studio Template</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+    <h1>Soft Darkness</h1>
+    <p>Darkness doesn't have to be overwhelming, it can be soft.</p>
     <button class="cta">start</button>
   </header>
 
   <main>
     <div class="card">
-      <h2>Lorem ipsum</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+      <h2>Why soft ?</h2>
+      <p>Soft darkness is easier on the eyes and often looks better if done correctly.</p>
     </div>
     <div class="card">
-      <h2>Lorem ipsum</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+      <h2>Why Dark ?</h2>
+      <p>Dark theme is very popular for a good reason.</p>
     </div>
     <div class="card">
-      <h2>Lorem ipsum</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+      <h2>What is Soft Darkness ?</h2>
+      <p>Soft Darkness is darkness but not too dark.</p>
     </div>
   </main>
 
   <footer>
-    Lorem ipsum dolor sit amet.
+    Make Darkness Soft
   </footer>
 </body>
 </html>
