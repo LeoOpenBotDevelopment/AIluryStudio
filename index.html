@@ -2897,6 +2897,10 @@
         .syntaxcommand { color: var(--syntaxcommand-color); }
         .syntaxkeyword { color: var(--syntaxkeyword-color); }
         .syntaxhtmlcomment, .syntaxhtmlcomment .syntaxvariable, .syntaxhtmlcomment .syntaxregex, .syntaxhtmlcomment .syntaxhex { color: var(--syntaxhtmlcomment-color); }
+        .syntaxfilepath, .syntaximgfilepath {
+            color: var(--filepathinput-color);
+            text-decoration: underline;
+        }
         .syntaxregex { color: var(--syntaxregex-color); }
         .syntaxhtmltagcontent { color: var(--syntaxhtmltagcontent-color); }
         .syntaxspaceienabled .code-editor-line:not(.hiddenlinesparent, .selected) .syntaxspace:before {
@@ -9262,8 +9266,8 @@
             }
         }
         
-         function showelementwithswipe(relement, type = "undefined") {
-            if (relement.style.display == "flex"){
+         function showelementwithswipe(relement, type = "undefined", toggle = true) {
+            if (relement.style.display == "flex" && toggle){
                 hideelementwithswipe(relement, type);
                 return;
             }
@@ -9336,12 +9340,12 @@
                 }
             }, 300);
         }
-        function showOverlay(name, extra = null) {
+        function showOverlay(name, extra = null, toggle = true) {
             const sohtestregexoverlay = document.querySelector(name);
             if (extra) {
-                showelementwithswipe(sohtestregexoverlay, extra);
+                showelementwithswipe(sohtestregexoverlay, extra, toggle);
             } else {
-                showelementwithswipe(sohtestregexoverlay);
+                showelementwithswipe(sohtestregexoverlay, undefined, toggle);
             }
         }
         function hideOverlay(name, extra = null, event = null) {
@@ -10297,6 +10301,9 @@
             const newValue = filePathInput.value.trim();
             if (!newValue) {
                 return;
+            }
+            if (filePathInput.value != newValue) {
+                filePathInput.value = newValue;
             }
             let newValueSplit = newValue.split('/').filter(value => {
                 return value.trim().replace(/\W/g, '') != "";
@@ -11420,7 +11427,6 @@
                 shortNotificationmessageelement(deletedFileName + " successfully deleted");
             }
         }
-        let lasttransitionanimation = "none";
         function editthisfile(specfileid, event = null){
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
@@ -11428,16 +11434,14 @@
             if (event && event.target !== event.currentTarget && !event.target.classList.contains('notclickable') && !event.target.classList.contains('close')) {
                 createOptionsContainer(event.target, specfileid);
                 return;
-            }else if (event && event.target.classList.contains('close') || event.target.classList.contains('enlarged')){
+            }else if ((event && event.target.classList.contains('close')) || (event && event.target.classList.contains('enlarged'))){
                 return;
             }
             closesidebaronsmallscreensizes();
-            if (event.target.classList.contains('rectangle')){
+            if (event && event.target.classList.contains('rectangle')){
                 let navBar = document.getElementById('nav-bar');
                 let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + specfileid + '"]');
                 if (scrolltothissection){
-                    lasttransitionanimation = transitionanimation;
-                    transitionanimation = "ease";
                     event.target.classList.add('openfileenlarged');
                     scrolltothissection.scrollIntoView({ behavior: 'smooth' });
                     setTimeout(() => {
@@ -11445,7 +11449,7 @@
                         closeeverything();
                         setTimeout(() => {
                             event.target.classList.remove('openfileenlarged');
-                        }, 500);
+                        }, 580);
                     }, 500)
                 }
             }else {
@@ -11453,7 +11457,6 @@
                 let navBar = document.getElementById('nav-bar');
                 let scrolltothissection = navBar.querySelector('.nav-dot[data-index="' + specfileid + '"]');
                 if (scrolltothissection) {
-                    lasttransitionanimation = "none";
                     scrolltothissection.scrollIntoView({ behavior: 'smooth' });
                     document.querySelector('.overlay-back-btn').click();
                 }
@@ -11829,6 +11832,26 @@
             return text.replace(/\s/g, ' ');
         }
         
+        function checkiffileandgoto(filename) {
+            document.querySelectorAll('.filedot').forEach(fd => {
+                let filePathInputva = fd.querySelector('.filePathInput');
+                if (filePathInputva && filePathInputva.value.trim() == filename) {
+                    let sectionv = fd.getAttribute('data-index');
+                    if (!sectionv) return;
+                    editthisfile(sectionv);
+                }
+            });
+        }
+        
+        function checkiffileandexpand(filename) {
+            document.querySelectorAll('.rectangle#image-rectangle').forEach(fd => {
+                let imageFilePathCon = fd.querySelector('.image-name');
+                if (imageFilePathCon && imageFilePathCon.textContent.trim() == filename) {
+                    fd.classList.add('enlarged');
+                }
+            });
+        }
+        
         function checkiffile(filename) {
             let fileContent = "";
             document.querySelectorAll('.filedot').forEach(fd => {
@@ -11872,471 +11895,474 @@
             let filerequests = `
     <\/script>
     <script>
-        const fileReplacements = ${JSON.stringify(allimages)};
-        
-        if ('fetch' in window) {
-          const originalFetch = window.fetch;
-          window.fetch = function(url, options) {
-            // Bestimme die URL, egal ob als String oder Request-Objekt übergeben
-            let requestUrl = (typeof url === 'string') ? url : url.url;
-            const urlObj = new URL(requestUrl, location.href);
-            const fileName = urlObj.pathname.split("/").pop();
-        
-            // Falls ein Ersatz für den angefragten Dateinamen existiert, leite den Request um
-            if (fileReplacements[fileName]) {
-              return originalFetch(fileReplacements[fileName], options);
+        (function () {
+            const fileReplacements = ${JSON.stringify(allimages)};
+            
+            if ('fetch' in window) {
+              const originalFetch = window.fetch;
+              window.fetch = function(url, options) {
+                // Bestimme die URL, egal ob als String oder Request-Objekt übergeben
+                let requestUrl = (typeof url === 'string') ? url : url.url;
+                const urlObj = new URL(requestUrl, location.href);
+                const fileName = urlObj.pathname.split("/").pop();
+            
+                // Falls ein Ersatz für den angefragten Dateinamen existiert, leite den Request um
+                if (fileReplacements[fileName]) {
+                  return originalFetch(fileReplacements[fileName], options);
+                }
+            
+                // Andernfalls führe den ursprünglichen Request aus
+                return originalFetch(url, options);
+              };
             }
-        
-            // Andernfalls führe den ursprünglichen Request aus
-            return originalFetch(url, options);
-          };
-        }
-
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.type === "attributes" && mutation.attributeName === "src") {
-              const img = mutation.target;
+    
+            const observer = new MutationObserver((mutations) => {
+              mutations.forEach((mutation) => {
+                if (mutation.type === "attributes" && mutation.attributeName === "src") {
+                  const img = mutation.target;
+                  const fileName = img.src.split("/").pop();
+                  if (fileReplacements[fileName]) {
+                    img.src = fileReplacements[fileName];
+                  }
+                }
+              });
+            });
+            
+            // Beobachtet das ganze Dokument nach <img>-Änderungen
+            observer.observe(document, { attributes: true, subtree: true, attributeFilter: ["src"] });
+            
+            // Bereits existierende <img>-Tags direkt ersetzen
+            document.querySelectorAll("img").forEach((img) => {
               const fileName = img.src.split("/").pop();
               if (fileReplacements[fileName]) {
                 img.src = fileReplacements[fileName];
               }
-            }
-          });
-        });
-        
-        // Beobachtet das ganze Dokument nach <img>-Änderungen
-        observer.observe(document, { attributes: true, subtree: true, attributeFilter: ["src"] });
-        
-        // Bereits existierende <img>-Tags direkt ersetzen
-        document.querySelectorAll("img").forEach((img) => {
-          const fileName = img.src.split("/").pop();
-          if (fileReplacements[fileName]) {
-            img.src = fileReplacements[fileName];
-          }
-        });
-
+            });
+        })();
     <\/script>
             `;
             if (document.querySelector('.showElementInfo').classList.contains('Active')) {
                     filerequests += `
 <script>
-    const overlayElsid = 'overlay-' + crypto.randomUUID();
-    let target = null;
-    let elOverlay = null;
-    let dropdownDiv = null;
-    let searchvalue = "";
-    let isOnFirstSection = true;
-    document.addEventListener('click', (e) => {
-        showElInfo = false;
-        if (!e) return;
-        if (e.target == target) showElInfo = true;
-        target = e.target;
-        if (!(target instanceof Element)) return;
-        if (target.classList.contains(overlayElsid)) return;
-        function closeDropDown() {
-            if (elOverlay) {
-                elOverlay.remove();
-            }
-            if (dropdownDiv) {
-                dropdownDiv.remove();
-            }
-            elOverlay = null;
-            dropdownDiv = null;
-        }
-        closeDropDown();
-        if (target == document.body) return;
-        
-        function getBlackOrWhite(el) {
-            let node = el;
-          
-            while (node && node !== document.documentElement) {
-                const style = getComputedStyle(node);
-                if (style.backgroundImage && style.backgroundImage !== 'none') {
-                    return '#000000';
+    (function () {
+        const overlayElsid = 'overlay-' + crypto.randomUUID();
+        let target = null;
+        let elOverlay = null;
+        let dropdownDiv = null;
+        let searchvalue = "";
+        let isOnFirstSection = true;
+        document.addEventListener('click', (e) => {
+            showElInfo = false;
+            if (!e) return;
+            if (e.target == target) showElInfo = true;
+            target = e.target;
+            if (!(target instanceof Element)) return;
+            if (target.classList.contains(overlayElsid)) return;
+            function closeDropDown() {
+                if (elOverlay) {
+                    elOverlay.remove();
                 }
+                if (dropdownDiv) {
+                    dropdownDiv.remove();
+                }
+                elOverlay = null;
+                dropdownDiv = null;
+            }
+            closeDropDown();
+            if (target == document.body) return;
             
-                const bg = style.backgroundColor;
+            function getBlackOrWhite(el) {
+                let node = el;
+              
+                while (node && node !== document.documentElement) {
+                    const style = getComputedStyle(node);
+                    if (style.backgroundImage && style.backgroundImage !== 'none') {
+                        return '#000000';
+                    }
                 
-                if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
-                    node = node.parentElement;
-                    continue;
+                    const bg = style.backgroundColor;
+                    
+                    if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
+                        node = node.parentElement;
+                        continue;
+                    }
+                    const tmp = document.createElement('div');
+                    tmp.style.color = bg;
+                    document.body.appendChild(tmp);
+                
+                    const rgb = getComputedStyle(tmp).color;
+                    document.body.removeChild(tmp);
+                
+                    const m = rgb.match(/\d+/g);
+                    if (!m) return '#000000';
+                
+                    const r = +m[0], g = +m[1], b = +m[2];
+                
+                    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                
+                    return luminance < 140 ? '#ffffff' : '#000000';
                 }
-                const tmp = document.createElement('div');
-                tmp.style.color = bg;
-                document.body.appendChild(tmp);
-            
-                const rgb = getComputedStyle(tmp).color;
-                document.body.removeChild(tmp);
-            
-                const m = rgb.match(/\d+/g);
-                if (!m) return '#000000';
-            
-                const r = +m[0], g = +m[1], b = +m[2];
-            
-                const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-            
-                return luminance < 140 ? '#ffffff' : '#000000';
+              
+                return '#000000';
             }
-          
-            return '#000000';
-        }
-        const rect = target.getBoundingClientRect();
-        elOverlay = document.createElement('div');
-        document.body.appendChild(elOverlay);
-        const elOverlayStyles = {
-            border: '2px dashed' + getBlackOrWhite(target),
-            borderRadius: '2px',
-            background: 'transparent',
-            width: rect.width + 'px',
-            height: rect.height + 'px',
-            margin: '0',
-            padding: '0',
-            position: 'absolute',
-            top: rect.top + window.scrollY + 'px',
-            left: rect.left + window.scrollX + 'px',
-            pointerEvents: 'none',
-            zIndex: '9999'
-        };
-        for (const key in elOverlayStyles) {
-            elOverlay.style[key] = elOverlayStyles[key];
-        }
-        if (showElInfo == true) {
-            dropdownDiv = document.createElement('div');
-            
-            const dropdownContentList = document.createElement('div');
-            
-            const dropdownOptions = document.createElement('div');
-            const dropdownCloseBtn = document.createElement('button');
-            
-            const dropdownOptionsBtn1 = document.createElement('button');
-            const dropdownOptionsBtn2 = document.createElement('button');
-            
-            const dropdownInput = document.createElement('input');
-            
-            const elsStyles = {
-                dropdownDiv: {
-                    el: dropdownDiv,
-                    style: {
-                        border: '1px solid rgba(255, 255, 255, 0.7)',
-                        borderRadius: '5px',
-                        background: 'rgba(255, 255, 255, 0.5)',
-                        width: '320px',
-                        margin: '0',
-                        padding: '10px',
-                        position: 'absolute',
-                        //top: rect.top + rect.height + window.scrollY + 10 + 'px',
-                        left: rect.left + window.scrollX + 'px',
-                        zIndex: '9999',
-                        color: 'black',
-                        maxHeight: "420px",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                        overflow: "hidden",
-                        alignItems: "flex-start",
-                        backdropFilter: "blur(10px)",
-                        webkitBackdropFilter: "blur(10px)"
-                    }
-                },
-                dropdownInput: {
-                    el: dropdownInput,
-                    style: {
-                        width: "100%",
-                        padding: "10px",
-                        margin: "0",
-                        color: "black",
-                        border: "none",
-                        borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
-                        borderRadius: "0",
-                        fontSize: "13px",
-                        background: "transparent",
-                        outline: "none",
-                        position: "relative"
-                    }
-                },
-                dropdownContentList: {
-                    el: dropdownContentList,
-                    style: {
-                        width: "100%",
-                        padding: "10px",
-                        margin: "0",
-                        maxHeight: "295px",
-                        color: "black",
-                        border: "1px solid rgba(255, 255, 255, 0.3)",
-                        borderRadius: "3px",
-                        fontSize: "13px",
-                        background: "transparent",
-                        marginTop: "10px",
-                        position: "relative",
-                        overflow: "hidden",
-                        alignItems: "flex-start",
-                        overflowY: "auto"
-                    }
-                },
-                dropdownCloseBtn: {
-                    el: dropdownCloseBtn,
-                    style: {
-                        padding: "0",
-                        margin: "0",
-                        color: "black",
-                        border: "none",
-                        borderRadius: "3px",
-                        fontSize: "17px",
-                        background: "transparent",
-                        position: "absolute",
-                        fontWeight: "bold",
-                        top: "2px",
-                        right: "4px"
-                    }
-                },
-                dropdownOptions: {
-                    el: dropdownOptions,
-                    style: {
-                        width: "100%",
-                        padding: "0",
-                        margin: "0",
-                        marginTop: "10px",
-                        color: "black",
-                        border: "none",
-                        borderRadius: "3px",
-                        background: "transparent",
-                        display: "flex",
-                        justifyContent: "space-between"
-                    }
-                },
-                dropdownOptionsBtn1: {
-                    el: dropdownOptionsBtn1,
-                    style: {
-                        width: "47%",
-                        padding: "10px",
-                        margin: "0",
-                        color: "white",
-                        border: "1px solid rgba(255, 255, 255, 0.3)",
-                        borderRadius: "10px",
-                        fontSize: "13px",
-                        background: "black",
-                        outline: "none",
-                        position: "relative",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                        display: "inline-block"
-                    }
-                },
-                dropdownOptionsBtn2: {
-                    el: dropdownOptionsBtn2,
-                    style: {
-                        width: "47%",
-                        padding: "10px",
-                        margin: "0",
-                        color: "black",
-                        border: "1px solid rgba(255, 255, 255, 0.3)",
-                        borderRadius: "10px",
-                        fontSize: "13px",
-                        background: "white",
-                        outline: "none",
-                        position: "relative",
-                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                        display: "inline-block"
-                    }
-                }
-            }
-            const listItemCSS = {
-                width: "100%",
-                padding: "0",
-                margin: "0",
-                color: "black",
-                border: "none",
-                borderRadius: "0",
-                fontSize: "13px",
-                background: "transparent",
-                paddingBottom: "5px",
-                fontWeight: "bold",
-                paddingTop: "5px",
-                overflowWrap: "break-word",
-                wordWrap: "break-word"
+            const rect = target.getBoundingClientRect();
+            elOverlay = document.createElement('div');
+            document.body.appendChild(elOverlay);
+            const elOverlayStyles = {
+                border: '2px dashed' + getBlackOrWhite(target),
+                borderRadius: '2px',
+                background: 'transparent',
+                width: rect.width + 'px',
+                height: rect.height + 'px',
+                margin: '0',
+                padding: '0',
+                position: 'absolute',
+                top: rect.top + window.scrollY + 'px',
+                left: rect.left + window.scrollX + 'px',
+                pointerEvents: 'none',
+                zIndex: '9999'
             };
-            for (const key in elsStyles) {
-                const { el, style } = elsStyles[key];
-                
-                for (const prop in style) {
-                    el.style[prop] = style[prop];
-                }
-                el.className = overlayElsid;
+            for (const key in elOverlayStyles) {
+                elOverlay.style[key] = elOverlayStyles[key];
             }
-            
-            function getFullCSSList(el) {
-                const styles = getComputedStyle(el);
-                let css = [];
+            if (showElInfo == true) {
+                dropdownDiv = document.createElement('div');
                 
-                for (const prop of styles) {
-                    css.push(\`<span style="color: #FF8C00" class="\${overlayElsid}">\${prop}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> <span style="color: #0051A8" class="\${overlayElsid}">\${styles.getPropertyValue(prop)}</span><span style="color: #a0a0a0" class="\${overlayElsid}">;</span>\\n\`);
-                }
+                const dropdownContentList = document.createElement('div');
                 
-                return css;
-            }
-            
-            document.body.appendChild(dropdownDiv);
-            
-            dropdownDiv.appendChild(dropdownInput);
-            dropdownDiv.appendChild(dropdownOptions);
-            dropdownDiv.appendChild(dropdownContentList);
-            
-            dropdownDiv.appendChild(dropdownCloseBtn);
-            dropdownCloseBtn.textContent = "×";
-            
-            dropdownOptions.appendChild(dropdownOptionsBtn1);
-            dropdownOptions.appendChild(dropdownOptionsBtn2);
-            dropdownOptionsBtn1.textContent = "CSS";
-            dropdownOptionsBtn2.textContent = "HTML";
-            
-            dropdownInput.value = searchvalue;
-            dropdownInput.placeholder = "search for value...";
-            
-            const escaped = str => str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
-            const cssAttrList = getFullCSSList(target);
-            //const htmlValuesList = target.attributes;
-            const htmlFullValuesList = {
-                ".className": target.className.split(/\s+/).join(", "),
-                ".textContent": target.textContent,
-                ".innerHTML": escaped(target.innerHTML),
-                ".value": target.value,
-                ".disabled": target.disabled,
-                ".checked": target.checked,
-                ".readonly": target.readOnly,
-                ".required": target.required,
-                ".selected": target.selected,
-                ".multiple": target.multiple,
-                ".hidden": target.hidden,
-                ".autofocus": target.autofocus,
-                ".type": target.type,
-                ".name": target.name,
-                ".placeholder": target.placeholder,
-                ".min": target.min,
-                ".max": target.max,
-                ".step": target.step,
-                ".pattern": target.pattern,
-                ".size": target.size,
-                ".maxLength": target.maxLength,
-                ".id": target.id,
-                ".style": target.style.cssText,
-                ".title": target.title,
-                ".lang": target.lang,
-                ".dir": target.dir,
-                ".tabIndex": target.tabIndex,
-                ".draggable": target.draggable,
-                ".contentEditable": target.contentEditable,
-                ".spellcheck": target.spellcheck,
-                ".role": target.getAttribute("role"),
-                ".dataset": JSON.stringify(target.dataset)
-                //...htmlValuesList
-            };
-            let cssAttrElList = [];
-            dropdownContentList.innerHTML = "";
-    
-            function addCssAttrList() {
-                cssAttrElList = [];
-                dropdownContentList.innerHTML = "";
-                cssAttrList.forEach(listItem => {
-                    const listItemEl = document.createElement('div');
-                    for (const key in listItemCSS) {
-                        listItemEl.style[key] = listItemCSS[key];
-                    }
-                    listItemEl.innerHTML = listItem;
-                    listItemEl.className = overlayElsid;
-                    dropdownContentList.appendChild(listItemEl);
-                    cssAttrElList.push(listItemEl);
-                });
-                dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
-            }
-            function addHTMLValuesList() {
-                cssAttrElList = [];
-                dropdownContentList.innerHTML = "";
-                for (const objItem in htmlFullValuesList) {
-                    const listItemEl = document.createElement('div');
-                    for (const key in listItemCSS) {
-                        listItemEl.style[key] = listItemCSS[key];
-                    }
-                    listItemEl.innerHTML = \`<span style="color: #FF8C00" class="\${overlayElsid}">\${objItem}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> \`;
-                    const pre = document.createElement('pre');
-                    pre.innerHTML = htmlFullValuesList[objItem];
-                    pre.style.overflowWrap = "break-word";
-                    pre.style.wordWrap = "break-word";
-                    pre.style.whiteSpace = "pre-wrap";
-                    pre.style.color = "#0051A8";
-                    pre.className = overlayElsid;
-                    listItemEl.className = overlayElsid;
-                    dropdownContentList.appendChild(listItemEl);
-                    listItemEl.appendChild(pre);
-                    let prehidden = false;
-                    listItemEl.onclick = () => {
-                        if (prehidden == true) {
-                            prehidden = false;
-                            pre.innerHTML = htmlFullValuesList[objItem];
-                            pre.style.color = "#0051A8";
-                        } else {
-                            prehidden = true;
-                            pre.innerHTML = "hidden...";
-                            pre.style.color = "red";
+                const dropdownOptions = document.createElement('div');
+                const dropdownCloseBtn = document.createElement('button');
+                
+                const dropdownOptionsBtn1 = document.createElement('button');
+                const dropdownOptionsBtn2 = document.createElement('button');
+                
+                const dropdownInput = document.createElement('input');
+                
+                const elsStyles = {
+                    dropdownDiv: {
+                        el: dropdownDiv,
+                        style: {
+                            border: '1px solid rgba(255, 255, 255, 0.7)',
+                            borderRadius: '5px',
+                            background: 'rgba(255, 255, 255, 0.5)',
+                            width: '320px',
+                            margin: '0',
+                            padding: '10px',
+                            position: 'absolute',
+                            //top: rect.top + rect.height + window.scrollY + 10 + 'px',
+                            left: rect.left + window.scrollX + 'px',
+                            zIndex: '9999',
+                            color: 'black',
+                            maxHeight: "420px",
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                            overflow: "hidden",
+                            alignItems: "flex-start",
+                            backdropFilter: "blur(10px)",
+                            webkitBackdropFilter: "blur(10px)"
                         }
-                    };
-                    cssAttrElList.push(listItemEl);
-                };
-                dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
-            }
-            function searchForValue() {
-                cssAttrElList.forEach(el => {
-                    if (el.textContent.toLowerCase().includes(dropdownInput.value.toLowerCase())) {
-                        el.style.display = "block";
-                    } else {
-                        el.style.display = "none";
+                    },
+                    dropdownInput: {
+                        el: dropdownInput,
+                        style: {
+                            width: "100%",
+                            padding: "10px",
+                            margin: "0",
+                            color: "black",
+                            border: "none",
+                            borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+                            borderRadius: "0",
+                            fontSize: "13px",
+                            background: "transparent",
+                            outline: "none",
+                            position: "relative"
+                        }
+                    },
+                    dropdownContentList: {
+                        el: dropdownContentList,
+                        style: {
+                            width: "100%",
+                            padding: "10px",
+                            margin: "0",
+                            maxHeight: "295px",
+                            color: "black",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            borderRadius: "3px",
+                            fontSize: "13px",
+                            background: "transparent",
+                            marginTop: "10px",
+                            position: "relative",
+                            overflow: "hidden",
+                            alignItems: "flex-start",
+                            overflowY: "auto"
+                        }
+                    },
+                    dropdownCloseBtn: {
+                        el: dropdownCloseBtn,
+                        style: {
+                            padding: "0",
+                            margin: "0",
+                            color: "black",
+                            border: "none",
+                            borderRadius: "3px",
+                            fontSize: "17px",
+                            background: "transparent",
+                            position: "absolute",
+                            fontWeight: "bold",
+                            top: "2px",
+                            right: "4px"
+                        }
+                    },
+                    dropdownOptions: {
+                        el: dropdownOptions,
+                        style: {
+                            width: "100%",
+                            padding: "0",
+                            margin: "0",
+                            marginTop: "10px",
+                            color: "black",
+                            border: "none",
+                            borderRadius: "3px",
+                            background: "transparent",
+                            display: "flex",
+                            justifyContent: "space-between"
+                        }
+                    },
+                    dropdownOptionsBtn1: {
+                        el: dropdownOptionsBtn1,
+                        style: {
+                            width: "47%",
+                            padding: "10px",
+                            margin: "0",
+                            color: "white",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            borderRadius: "10px",
+                            fontSize: "13px",
+                            background: "black",
+                            outline: "none",
+                            position: "relative",
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                            display: "inline-block"
+                        }
+                    },
+                    dropdownOptionsBtn2: {
+                        el: dropdownOptionsBtn2,
+                        style: {
+                            width: "47%",
+                            padding: "10px",
+                            margin: "0",
+                            color: "black",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            borderRadius: "10px",
+                            fontSize: "13px",
+                            background: "white",
+                            outline: "none",
+                            position: "relative",
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                            display: "inline-block"
+                        }
                     }
-                });
-            }
-            addCssAttrList();
-            dropdownOptionsBtn1.onclick = () => {
+                }
+                const listItemCSS = {
+                    width: "100%",
+                    padding: "0",
+                    margin: "0",
+                    color: "black",
+                    border: "none",
+                    borderRadius: "0",
+                    fontSize: "13px",
+                    background: "transparent",
+                    paddingBottom: "5px",
+                    fontWeight: "bold",
+                    paddingTop: "5px",
+                    overflowWrap: "break-word",
+                    wordWrap: "break-word"
+                };
+                for (const key in elsStyles) {
+                    const { el, style } = elsStyles[key];
+                    
+                    for (const prop in style) {
+                        el.style[prop] = style[prop];
+                    }
+                    el.className = overlayElsid;
+                }
+                
+                function getFullCSSList(el) {
+                    const styles = getComputedStyle(el);
+                    let css = [];
+                    
+                    for (const prop of styles) {
+                        css.push(\`<span style="color: #FF8C00" class="\${overlayElsid}">\${prop}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> <span style="color: #0051A8" class="\${overlayElsid}">\${styles.getPropertyValue(prop)}</span><span style="color: #a0a0a0" class="\${overlayElsid}">;</span>\\n\`);
+                    }
+                    
+                    return css;
+                }
+                
+                document.body.appendChild(dropdownDiv);
+                
+                dropdownDiv.appendChild(dropdownInput);
+                dropdownDiv.appendChild(dropdownOptions);
+                dropdownDiv.appendChild(dropdownContentList);
+                
+                dropdownDiv.appendChild(dropdownCloseBtn);
+                dropdownCloseBtn.textContent = "×";
+                
+                dropdownOptions.appendChild(dropdownOptionsBtn1);
+                dropdownOptions.appendChild(dropdownOptionsBtn2);
+                dropdownOptionsBtn1.textContent = "CSS";
+                dropdownOptionsBtn2.textContent = "HTML";
+                
+                dropdownInput.value = searchvalue;
+                dropdownInput.placeholder = "search for value...";
+                
+                const escaped = str => str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
+                const cssAttrList = getFullCSSList(target);
+                //const htmlValuesList = target.attributes;
+                const htmlFullValuesList = {
+                    ".className": target.className.split(/\s+/).join(", "),
+                    ".textContent": target.textContent,
+                    ".innerHTML": escaped(target.innerHTML),
+                    ".value": target.value,
+                    ".disabled": target.disabled,
+                    ".checked": target.checked,
+                    ".readonly": target.readOnly,
+                    ".required": target.required,
+                    ".selected": target.selected,
+                    ".multiple": target.multiple,
+                    ".hidden": target.hidden,
+                    ".autofocus": target.autofocus,
+                    ".type": target.type,
+                    ".name": target.name,
+                    ".placeholder": target.placeholder,
+                    ".min": target.min,
+                    ".max": target.max,
+                    ".step": target.step,
+                    ".pattern": target.pattern,
+                    ".size": target.size,
+                    ".maxLength": target.maxLength,
+                    ".id": target.id,
+                    ".style": target.style.cssText,
+                    ".title": target.title,
+                    ".lang": target.lang,
+                    ".dir": target.dir,
+                    ".tabIndex": target.tabIndex,
+                    ".draggable": target.draggable,
+                    ".contentEditable": target.contentEditable,
+                    ".spellcheck": target.spellcheck,
+                    ".role": target.getAttribute("role"),
+                    ".dataset": JSON.stringify(target.dataset)
+                    //...htmlValuesList
+                };
+                let cssAttrElList = [];
+                dropdownContentList.innerHTML = "";
+        
+                function addCssAttrList() {
+                    cssAttrElList = [];
+                    dropdownContentList.innerHTML = "";
+                    cssAttrList.forEach(listItem => {
+                        const listItemEl = document.createElement('div');
+                        for (const key in listItemCSS) {
+                            listItemEl.style[key] = listItemCSS[key];
+                        }
+                        listItemEl.innerHTML = listItem;
+                        listItemEl.className = overlayElsid;
+                        dropdownContentList.appendChild(listItemEl);
+                        cssAttrElList.push(listItemEl);
+                    });
+                    dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
+                }
+                function addHTMLValuesList() {
+                    cssAttrElList = [];
+                    dropdownContentList.innerHTML = "";
+                    for (const objItem in htmlFullValuesList) {
+                        const listItemEl = document.createElement('div');
+                        for (const key in listItemCSS) {
+                            listItemEl.style[key] = listItemCSS[key];
+                        }
+                        listItemEl.innerHTML = \`<span style="color: #FF8C00" class="\${overlayElsid}">\${objItem}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> \`;
+                        const pre = document.createElement('pre');
+                        pre.innerHTML = htmlFullValuesList[objItem];
+                        pre.style.overflowWrap = "break-word";
+                        pre.style.wordWrap = "break-word";
+                        pre.style.whiteSpace = "pre-wrap";
+                        pre.style.color = "#0051A8";
+                        pre.className = overlayElsid;
+                        listItemEl.className = overlayElsid;
+                        dropdownContentList.appendChild(listItemEl);
+                        listItemEl.appendChild(pre);
+                        let prehidden = false;
+                        listItemEl.onclick = () => {
+                            if (prehidden == true) {
+                                prehidden = false;
+                                pre.innerHTML = htmlFullValuesList[objItem];
+                                pre.style.color = "#0051A8";
+                            } else {
+                                prehidden = true;
+                                pre.innerHTML = "hidden...";
+                                pre.style.color = "red";
+                            }
+                        };
+                        cssAttrElList.push(listItemEl);
+                    };
+                    dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
+                }
+                function searchForValue() {
+                    cssAttrElList.forEach(el => {
+                        if (el.textContent.toLowerCase().includes(dropdownInput.value.toLowerCase())) {
+                            el.style.display = "block";
+                        } else {
+                            el.style.display = "none";
+                        }
+                    });
+                }
                 addCssAttrList();
+                dropdownOptionsBtn1.onclick = () => {
+                    addCssAttrList();
+                    searchForValue();
+                    dropdownOptionsBtn1.style.background = "black";
+                    dropdownOptionsBtn1.style.color = "white";
+                    dropdownOptionsBtn2.style.background = "white";
+                    dropdownOptionsBtn2.style.color = "black";
+                    isOnFirstSection = true;
+                };
+                dropdownOptionsBtn2.onclick = () => {
+                    addHTMLValuesList();
+                    searchForValue();
+                    dropdownOptionsBtn2.style.background = "black";
+                    dropdownOptionsBtn2.style.color = "white";
+                    dropdownOptionsBtn1.style.background = "white";
+                    dropdownOptionsBtn1.style.color = "black";
+                    isOnFirstSection = false;
+                };
+                if (isOnFirstSection == false) {
+                    dropdownOptionsBtn2.click();
+                }
+                
                 searchForValue();
-                dropdownOptionsBtn1.style.background = "black";
-                dropdownOptionsBtn1.style.color = "white";
-                dropdownOptionsBtn2.style.background = "white";
-                dropdownOptionsBtn2.style.color = "black";
-                isOnFirstSection = true;
-            };
-            dropdownOptionsBtn2.onclick = () => {
-                addHTMLValuesList();
-                searchForValue();
-                dropdownOptionsBtn2.style.background = "black";
-                dropdownOptionsBtn2.style.color = "white";
-                dropdownOptionsBtn1.style.background = "white";
-                dropdownOptionsBtn1.style.color = "black";
-                isOnFirstSection = false;
-            };
-            if (isOnFirstSection == false) {
-                dropdownOptionsBtn2.click();
+                
+                dropdownCloseBtn.onclick = () => closeDropDown();
+                
+                dropdownInput.oninput = () => {
+                    searchvalue = dropdownInput.value;
+                    searchForValue();
+                };
             }
-            
-            searchForValue();
-            
-            dropdownCloseBtn.onclick = () => closeDropDown();
-            
-            dropdownInput.oninput = () => {
-                searchvalue = dropdownInput.value;
-                searchForValue();
-            };
-        }
-    });
-    window.addEventListener('resize', () => {
-        if (target && elOverlay && (elOverlay instanceof Element) && (elOverlay instanceof Element)) {
-            const rect = target.getBoundingClientRect();
-            elOverlay.style.width = rect.width + 'px';
-            elOverlay.style.height = rect.height + 'px';
-            elOverlay.style.top = rect.top + window.scrollY + 'px';
-            elOverlay.style.left = rect.left + window.scrollX + 'px';
-        }
-        if (target && dropdownDiv && (elOverlay instanceof Element) && (dropdownDiv instanceof Element)) {
-            const rect = target.getBoundingClientRect();
-            dropdownDiv.style.width = rect.width + 'px';
-            dropdownDiv.style.top = rect.top + window.scrollY + 'px';
-            dropdownDiv.style.left = rect.top + rect.height + window.scrollY + 'px';
-        }
-    });
+        });
+        window.addEventListener('resize', () => {
+            if (target && elOverlay && (elOverlay instanceof Element) && (elOverlay instanceof Element)) {
+                const rect = target.getBoundingClientRect();
+                elOverlay.style.width = rect.width + 'px';
+                elOverlay.style.height = rect.height + 'px';
+                elOverlay.style.top = rect.top + window.scrollY + 'px';
+                elOverlay.style.left = rect.left + window.scrollX + 'px';
+            }
+            if (target && dropdownDiv && (elOverlay instanceof Element) && (dropdownDiv instanceof Element)) {
+                const rect = target.getBoundingClientRect();
+                dropdownDiv.style.width = rect.width + 'px';
+                dropdownDiv.style.top = rect.top + window.scrollY + 'px';
+                dropdownDiv.style.left = rect.top + rect.height + window.scrollY + 'px';
+            }
+        });
+    })();
 <\/script>`;
             }
             htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, filerequests);
@@ -13046,12 +13072,6 @@
                     newstsection.style.animation = "none";
                     void newstsection.offsetWidth;
                     newstsection.style.animation = transitionanimation + "in 0.3s ease-out";
-                    setTimeout(() => {
-                        if (lasttransitionanimation != "none") {
-                            transitionanimation = lasttransitionanimation;
-                            lasttransitionanimation = "none";
-                        }
-                    }, 300);
                 }, 300);
             } else {
                 newstsection.style.display = 'flex';
@@ -13067,7 +13087,7 @@
         }
 
         function scrolleivs() {
-            if (!section){
+            if (!section) {
                 return;
             }
             navDots = document.querySelectorAll('.nav-dot');
@@ -14960,6 +14980,18 @@
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
                 { regex: /#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\b/g, className: "syntaxhex" }
             ];
+            const allExistingFilePaths = new RegExp(
+                `(${Array.from(document.querySelectorAll('.filedot .filePathInput'))
+                .map(el => el.value)
+                .join("|")})`,
+                "g"
+            );
+            const allExistingImgFilePaths = new RegExp(
+                `(Image.jpg${Object.keys(allimages).length > 0 ? "|" + Object.keys(allimages)
+                .map(key => key.trim())
+                .join("|") : ""})`,
+                "g"
+            );
             
             let spatterns = [
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
@@ -14967,6 +14999,8 @@
                 { regex: /<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, className: "syntaxhtmlcomment" },
                 { regex: /\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, className: "syntaxcomment" },
                 { regex: /\/\/.*/g, className: "syntaxcomment" },
+                { regex: allExistingFilePaths, className: "syntaxfilepath" },
+                { regex: allExistingImgFilePaths, className: "syntaximgfilepath" },
                 { regex: /(?<=rgba\(\s*)\d+\s*,\s*\d+\s*,\s*\d+,/, className: "syntaxrgb syntaxrgba syntaxnumber" },
                 { regex: /(?<=rgb\(\s*)\d+\s*,\s*\d+\s*,\s*\d+(?=\s*\))/, className: "syntaxrgb syntaxnumber" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
@@ -14974,7 +15008,6 @@
                 { regex: /\b(?<=^|[:()[\]{}.\s])(@charset|@namespace|@viewport|@counter-style|await|break|const|continue|debugger|delete|false|in|instanceof|new|null|return|super|this|throw|true|typeof|var|void|yield|let|static|undefined|NaN|Infinity|eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|BigInt|Math|Date|String|RegExp|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|Map|Set|WeakMap|WeakSet|ArrayBuffer|SharedArrayBuffer|Atomics|DataView|JSON|Promise|Generator|Reflect|Proxy|Intl|WebAssembly|solid|dashed|dotted|double|groove|ridge|inset|outset)\b(?=$|[:()[\]{}.\s])/g, className: "syntaxkeyword" },
                 { regex: /\b(case|catch|class(?!=)|default|do|else|enum|export|extends|finally|for|function|if|import|switch|try|while|with|implements|interface|package|private|protected|public|async|GeneratorFunction|AsyncFunction)\b/g, className: "syntaxblock" },
                 { regex: /@(container|page|supports|keyframes|import|font-face|media|document)\b/g, className: "syntaxkeyword" },
-                
                 { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable", goto: "def" },
                 { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
                 { regex: /(?<=<\/?)([^\s>/]+)(?=[\s>])/g, className: "syntaxhtmltagcontent" },
@@ -15019,7 +15052,22 @@
                             span.textContent = match[0];
                             span.className = className;
                             span.classList.add("syntax");
-                            if (className.includes("syntaxrgb")) {
+                            if (className.includes("syntaxfilepath")) {
+                                span.onclick = () => {
+                                    notify("open file", "open", () => {
+                                        checkiffileandgoto(span.textContent.trim());
+                                    });
+                                };
+                            } 
+                            else if (className.includes("syntaximgfilepath")) {
+                                span.onclick = () => {
+                                    notify("open image", "open", () => {
+                                        showOverlay('.overlay-container', "files", false);
+                                        checkiffileandexpand(span.textContent);
+                                    });
+                                };
+                            }
+                            else if (className.includes("syntaxrgb")) {
                                 function expandRgb(rgbString) {
                                     if (!rgbString) return "#000000";
                                     
