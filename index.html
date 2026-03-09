@@ -7902,6 +7902,7 @@
         }
         
         function gobacktolastpastevent() {
+            resolvePendingPast();
             noKeyDown = true;
             if (!lasteventsparentsection || undoing == true) return;
             undoing = true;
