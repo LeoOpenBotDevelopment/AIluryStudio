@@ -9880,12 +9880,8 @@
         
             function startOverlayEnlarge(event) {
                 timeout = setTimeout(() => {
-                    document.querySelector('.overlay-container').style.display = "flex";
-                    document.querySelector('.overlay-container').style.animation = "none";
-                    void document.querySelector('.overlay-container').offsetWidth;
-                    if (typeof transitionanimation !== 'undefined' && transitionanimation != "none") {
-                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
-                    }
+                    updateviewthisfilebtn();
+                    showOverlay('.overlay-container', 'files', false);
                 }, 700);
             }
         
@@ -10024,12 +10020,8 @@
 
             function startOverlayEnlarge(event) {
                 timeout = setTimeout(() => {
-                    document.querySelector('.overlay-container').style.display = "flex";
-                    document.querySelector('.overlay-container').style.animation = "none";
-                    void document.querySelector('.overlay-container').offsetWidth;
-                    if (transitionanimation != "none") {
-                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
-                    }
+                    updateviewthisfilebtn();
+                    showOverlay('.overlay-container', 'files', false);
                 }, 700);
             }
 
@@ -10173,12 +10165,8 @@
 
             function startOverlayEnlarge() {
                 timeout = setTimeout(() => {
-                    document.querySelector('.overlay-container').style.display = "flex";
-                    document.querySelector('.overlay-container').style.animation = "none";
-                    void document.querySelector('.overlay-container').offsetWidth;
-                    if (transitionanimation != "none") {
-                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
-                    }
+                    updateviewthisfilebtn();
+                    showOverlay('.overlay-container', 'files', false);
                 }, 700);
             }
 
@@ -10601,12 +10589,7 @@
             function startEnlarge(event) {
                 timer = setTimeout(() => {
                     updateviewthisfilebtn();
-                    document.querySelector('.overlay-container').style.display = "flex";
-                    document.querySelector('.overlay-container').style.animation = "none";
-                    void document.querySelector('.overlay-container').offsetWidth;
-                    if (transitionanimation != "none") {
-                        document.querySelector('.overlay-container').style.animation = transitionanimation + "in 0.5s ease-out";
-                    }
+                    showOverlay('.overlay-container', 'files', false);
                 }, 700);
             }
             
