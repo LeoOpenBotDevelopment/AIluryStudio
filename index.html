@@ -348,7 +348,7 @@
             transition: var(--tr);
         }
         
-        .nav-bar.expanded, .sidebarenabled .nav-bar.expanded {
+        .nav-bar.expanded, .sidebarenabled .nav-bar.expanded, .smallNavBar .nav-bar.expanded, .smallNavBar.sidebarenabled .nav-bar.expanded {
             background: var(--bg-color);
             transition: var(--tr);
             border-radius: 0;
@@ -1160,6 +1160,9 @@
             display: none;
         }
         @media(min-width: 900px) {
+            .smallNavBar.sidebarenabled .allcontainer {
+                border: none;
+            }
             .smallNavBar .nav-bar, .sidebarenabled.smallNavBar .nav-bar {
                 border-radius: 29px;
                 transform: scale(0.9);
@@ -1170,6 +1173,18 @@
             .smallNavBar .sidebarfilelinklink.currentfile, .smallNavBar .sidebarfilelinklinkp.currentfile {
                 border-radius: 20px;
                 padding-left: 15px;
+            }
+            .smallNavBar .sidebarbardiv {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                transform: scale(1);
+                h3 {
+                    border-bottom: none;
+                    background: linear-gradient(90deg, transparent, var(--border-color), transparent) bottom / 100% 1px no-repeat;
+                }
+            }
+            .nothingOpen.smallNavBar .sidebarbardiv {
+                border-radius: 30px;
+                transform: scale(0.98);
             }
             .sbtnpossettingsoverlay, #togglelayoutcontainerbtn {
                 display: flex;
@@ -2457,6 +2472,7 @@
             overflow-x: hidden;
             transition: var(--tr);
             padding-bottom: 55px;
+            border-radius: 0;
         }
         .sidebarenabled .sidebarbardiv{
             display: flex;
@@ -3918,7 +3934,7 @@
             background-image: radial-gradient(var(--griddot-color) 10%, transparent 10%);
         }
         .sidebarbardiv h1 {
-            font-size: 2em;
+            font-size: 1.3em;
             font-weight: bold:
             color: var(--contrast-color);
             margin-top: 0;
@@ -3926,26 +3942,28 @@
             padding-left: 10px;
             padding-bottom: 20px;
             padding-left: 15px;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Arial', sans-serif;
             text-transform: uppercase;
+            font-weight: bold;
             letter-spacing: 2px;
-            position: fixed;
-            width: 100vw;
+            position: sticky;
+            width: calc(100% + 10px);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            left: 1px;
-            top: 1px;
+            left: 0;
+            margin-left: -5px;
+            top: -5px;
             z-index: 5;
             transition: var(--tr);
         }
         .sidebarenabled .sidebarbardiv {
-            padding-top: 80px;
+            /*padding-top: 80px;*/
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
-        .sidebarenabled .sidebarbardiv h1 {
+        /*.sidebarenabled .sidebarbardiv h1 {
             width: calc(var(--sibebar-width) - 2px);
-        }
+        }*/
         @media(max-width: 750px){
             .sidebarbardiv h1 {
                 display: none;
@@ -4786,13 +4804,32 @@
             left: 10px;
             z-index: 100;
         }
+        #AIluryIcon {
+            height: 25px;
+            width: 25px;
+            
+            display: inline-block;
+            margin: 0;
+            margin-bottom: -3px;
+            margin-right: 10px;
+            background: var(--switchcheckedbackground-color);
+
+            mask-image: url(icons/AIluryAppLogo196x196.png);
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            
+            transition: 1s;
+            
+            -webkit-mask-image: url(icons/AIluryAppLogo196x196.png);
+        }
     </style>
 </head>
 <body>
   <!-- ☼ -->
     <div class="divcodeeditor-container sidebarenabled ceefbrlbd">
         <div class="sidebarbardiv">
-            <h1>AIlury</h1>
+            <h1><div id="AIluryIcon"></div>AIlury</h1>
             <button id="closemenuforsmallscreen" onclick="togglesidebarbuttonfunction()">← close Menu</button>
             <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarlooksbtnssection')"><</span> look</h3>
             <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
@@ -5584,10 +5621,10 @@
                     <div class="chooseceebtnposopcontainer">
                         <div class="chooseceebtnposopcontainerswitchcontainer">
                             <label class="switch">
-                                <input type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="togglesmallNavBar(this)">
+                                <input id="roundedUItoggleSwitch" type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="togglesmallNavBar(this)">
                                 <span class="slider"></span>
                             </label>
-                            <span class="chooseceebtnposopcontainerswitchcontainername">small nav bar</span>
+                            <span class="chooseceebtnposopcontainerswitchcontainername">reduced bars</span>
                         </div>
                         <div class="chooseceebtnposopcontainerswitchcontainer ifislandenableddisablethis">
                             <label class="switch">
@@ -6467,6 +6504,22 @@
             } 
             
         }
+        
+        function noWindowsOpen() {
+            const toggle = document.getElementById("roundedUItoggleSwitch");
+            if (!toggle || !toggle.checked) return;
+            
+            const container = document.querySelector(".divcodeeditor-container");
+            if (!container) return;
+            
+            const overlayVisible = document.querySelector(".visibleOverlay, .expanded");
+            
+            if (overlayVisible) {
+                container.classList.remove("nothingOpen");
+            } else if (!overlayVisible) {
+                container.classList.add("nothingOpen");
+            }
+        }
         function togglesmallNavBar(toggleswitch) {
             const divcodeeditorcontainerft = document.querySelector('.divcodeeditor-container');
             if (!divcodeeditorcontainerft) return;
@@ -6556,6 +6609,7 @@
         });
         
         function togglesidebarsec(theh3, theclass) {
+            theh3.style.pointerEvents = "none";
             if (theh3.textContent.trim().startsWith(">")) {
                 theh3.textContent = theh3.textContent.replace('>', '<');
                 theh3.parentElement.style.opacity = "1";
@@ -6565,6 +6619,10 @@
                     relement.style.animation = "none";
                     void relement.offsetWidth;
                     relement.style.animation = "showsidebarsectionanimation 0.5s ease-out";
+                    setTimeout(() => {
+                        relement.style.animation = "none";
+                        void relement.offsetWidth;
+                    }, 500);
                 });
             } else if (theh3.textContent.trim().startsWith("<")) {
                 theh3.textContent = theh3.textContent.replace('<', '>');
@@ -6576,10 +6634,15 @@
                     void relement.offsetWidth;
                     relement.style.animation = "hidesidebarsectionanimation 0.5s ease-out";
                     setTimeout(() => {
+                        relement.style.animation = "none";
+                        void relement.offsetWidth;
                         relement.style.display = "none";
                     }, 500);
                 });
             }
+            setTimeout(() => {
+                theh3.style.pointerEvents = "auto";
+            }, 500);
         }
         function updatefontsize(slider) {
             const value = parseFloat(slider.value);
@@ -9211,6 +9274,7 @@
                 }
                 divcodeeditorcontainer.classList.toggle('sidebarenabled');
             }
+            noWindowsOpen();
         }
         
         const mediaQuery = window.matchMedia('(max-width: 700px)');
@@ -9254,6 +9318,7 @@
             if (typesAndBtns[type]) {
                 typesAndBtns[type].classList.remove("ActiveOverlay");
             }
+            relement.classList.remove("visibleOverlay");
             relement.style.animation = "none";
             relement.style.zIndex = "1000";
             void relement.offsetWidth;
@@ -9265,6 +9330,7 @@
             }else {
                 relement.style.display = "none";
             }
+            noWindowsOpen();
         }
         
          function showelementwithswipe(relement, type = "undefined", toggle = true) {
@@ -9275,6 +9341,7 @@
             if (typesAndBtns[type]) {
                 typesAndBtns[type].classList.add("ActiveOverlay");
             }
+            relement.classList.add("visibleOverlay");
             relement.style.display = "flex";
             relement.style.animation = "none";
             document.querySelectorAll(".anOverlay").forEach(el => {
@@ -9285,6 +9352,7 @@
             if (transitionanimation != "none") {
                 relement.style.animation = transitionanimation + "in 0.5s ease-out";
             }
+            noWindowsOpen();
         }
         
         function shownotificationmessage() {
@@ -12965,6 +13033,7 @@
                 }
             }
             updateFileInfoStats();
+            noWindowsOpen();
         }
 
         const seccontainer = document.querySelector('.seccontainer');
@@ -12981,6 +13050,7 @@
                     if (showfilesettingsbtn) {
                         showfilesettingsbtn.classList.remove("ActiveOverlay");
                     }
+                    noWindowsOpen();
                 }
             }
         });
@@ -12998,6 +13068,7 @@
                     if (showfilesettingsbtn) {
                         showfilesettingsbtn.classList.remove("ActiveOverlay");
                     }
+                    noWindowsOpen();
                 }
             }
         });
@@ -13019,6 +13090,7 @@
                     seccontainer.style.display = 'none';
                     navBar.style.overflow = "scroll";
                     navBar.style.overflowY = "hidden";
+                    noWindowsOpen();
                 }
             }
         }
