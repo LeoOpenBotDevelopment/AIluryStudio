@@ -4046,7 +4046,10 @@
             }
             .sidebarbardiv {
                 max-width: 250px;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
             }
+            
         }
         .ceefbrlbd {
             --ceefbrlb: 0;
@@ -4308,17 +4311,19 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+        .sidebarfilebtnssectionextexternalsidebar .sidebarbardiv > *:not(.sidebarbardivbuttondiv1) {
+            display: none !important;
+        }
+        .sidebarfilebtnssectionextexternalsidebar .sidebarbardiv {
+            padding: 0;
+        }
         .sidebarfilebtnssectionextexternalsidebar .sidebarbardivbuttondiv1 {
             width: 100%;
-            height: 100dvh;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            height: 100%;
             padding: 10px;
-            position: fixed;
-            left: 0;
-            top: 0;
+            position: relative;
+            margin: 0;
             background: var(--full-opacity-bg-color);
-            z-index: 5;
             overflow-y: auto;
             padding-bottom: 55px;
             display: block;
@@ -4369,10 +4374,6 @@
         }
         .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn .closefilesection, .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) #runCodeBtn {
             display: none;
-        }
-        .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarbardivbuttondiv1 {
-            border: 1px solid var(--border-color);
-            border-radius: 0;
         }
         .sidebarenabled.sidebarfilebtnssectionextexternalsidebar .sidebarfilelinklink {
             background: var(--bg-color);
