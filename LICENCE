@@ -1,45 +1,68 @@
-Custom License — Inspired by CC BY-NC 4.0  
+VIEW-ONLY SOURCE LICENSE  
 Copyright (c) 2024 LeoOpenBotDevelopment  
 All rights reserved.
 
 ---
 
-THIS CODE IS PROVIDED FOR INSPIRATIONAL AND EDUCATIONAL PURPOSES ONLY.  
-It is intended to serve as a reference or learning tool — **not** as a foundation for redistribution, repackaging, or derivative works.
+1. PURPOSE
+
+This source code is made publicly accessible solely for the purpose of inspection and study.  
+No other rights are granted unless explicitly stated in this license.
 
 ---
 
-YOU ARE PERMITTED TO:
-- View and study the code to better understand how it works.
-- Experiment with modifications **for personal, private use** on your own machine.
-- Use concepts or patterns as inspiration in your own original, non-commercial code.
+2. PERMITTED USE
+
+You are permitted to:
+
+- View, inspect, and read the source code.
+- Analyze the code for educational or research purposes.
+
+No other rights are granted.
 
 ---
 
-YOU MAY **NOT**:
-- Redistribute, reupload, or publish this code or any modified version of it — regardless of how much has been changed.
-- Use this code or derivatives in any commercial, monetized, or client-related project.
-- Publish or claim credit for work based on this code, even if changes are made to either the frontend or backend.
-- Make “hidden” changes (such as backend rewrites or cosmetic UI changes) and present the result as new or original.
+3. PROHIBITED USE
+
+Unless explicit written permission is granted by the copyright holder, you may NOT:
+
+- Copy the source code in whole or in part.
+- Modify the source code.
+- Redistribute, reupload, or republish the source code.
+- Create derivative works based on the source code.
+- Repackage the source code in any form.
+- Use the source code in any project, product, service, or system.
+- Use the source code in commercial or non-commercial software.
+- Implement, reproduce, or recreate the functionality, structure, architecture, or design of the code in another software project when such work is derived from or informed by this source code.
 
 ---
 
-IMPORTANT NOTE:
+4. NO LICENSE GRANTED
 
-This license **does not override or restrict fair use** where it legally applies.  
-However, copying, modifying, and sharing this code — outside of fair use — requires **explicit permission** from the copyright holder.
-
-This project is meant to **inspire your own original work**, not to be reused, rebranded, or redistributed.
+Access to this repository does not grant any license to use, copy, modify, distribute, or implement this software.  
+All rights not explicitly granted are reserved by the copyright holder.
 
 ---
 
-ATTRIBUTION:
+5. FAIR USE
 
-If you reference this code in any public discussion or internal material, please credit **LeoOpenBotDevelopment**, and do not imply affiliation or endorsement.
+Nothing in this license is intended to limit rights granted by applicable copyright law, including legally recognized fair use.
 
 ---
 
-DISCLAIMER:
+6. ATTRIBUTION
+
+If this code is referenced in academic, educational, or internal discussion, credit should be given to LeoOpenBotDevelopment. Such reference must not imply endorsement or affiliation.
+
+---
+
+7. DISCLAIMER
 
 THIS SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.  
-THE AUTHOR SHALL NOT BE HELD LIABLE FOR ANY CLAIMS, DAMAGES, OR LIABILITY ARISING OUT OF THE USE OF THIS CODE.
+THE AUTHOR SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM ACCESS TO OR USE OF THIS SOURCE CODE.
+
+---
+
+8. ACCEPTANCE
+
+By accessing, viewing, or downloading this repository, you agree to the terms of this license.
