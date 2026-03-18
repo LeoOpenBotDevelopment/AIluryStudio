@@ -3321,6 +3321,8 @@
             bottom: 50px;
             left: 0;
             padding-bottom: 50px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
         .consoletopbar{
             display: flex;
@@ -3332,6 +3334,9 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
         }
         .consoletitle{
             font-size: 1em;
@@ -3360,12 +3365,36 @@
         .consolemessagecontainer {
             padding: 10px;
             width: 100%;
+            max-width: 900px;
             font-size: 1em;
             color: var(--contrast-color);
-            background: var(--bg-color);
+            background: var(--lightgrey-color);
             border: none;
-            border-bottom: 1px solid var(--border-color);
+            border-radius: 10px;
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: popupOverlayAnimation 0.5s ease;
+        }
+        
+        .consolemessagecontainer.consoleGroupToggle {
+            background: transparent;
+        }
+        
+        .consolemessageinfoco {
+            font-size: 0.7em;
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+            color: var(--overlaycolor-color);
+            width: 100%;
+        }
+        .consolemessageinfoco span {
+            border-right: 1px solid var(--overlaycolor-color);
+            padding: 0 10px;
+        }
+        .consolemessageinfoco span:last-child {
+            border: none;
         }
         
         .consolemessage {
@@ -7510,13 +7539,17 @@
             const messagecontainer = document.createElement('div');
             const icon = document.createElement('button');
             const message = document.createElement('span');
+            const topCon = document.createElement('div');
             messagecontainer.className = "consolemessagecontainer";
             messagecontainer.classList.add('consolestatus' + event.data.status);
             message.textContent = event.data.message;
             message.className = "consolemessage";
             icon.className = "consolemessageicon";
-            messagecontainer.appendChild(icon);
-            messagecontainer.appendChild(message);
+            topCon.appendChild(icon);
+            topCon.appendChild(message);
+            
+            messagecontainer.appendChild(topCon);
+            
             if (eds == "clear") {
                 consol.innerHTML = "";
                 message.textContent = "console was cleared";
@@ -7608,6 +7641,23 @@
             }
             if (eds != "time" && eds != "countReset" && eds != "groupEnd"){
                 consol.appendChild(messagecontainer);
+                if (eds != "group") {
+                    const dateInfoText = document.createElement('span');
+                    const messageNumInfoText = document.createElement('span');
+                    const dateTypeText = document.createElement('span');
+                    const infoCo = document.createElement('div');
+                    infoCo.className = "consolemessageinfoco";
+                    infoCo.appendChild(dateInfoText);
+                    infoCo.appendChild(messageNumInfoText);
+                    infoCo.appendChild(dateTypeText);
+                    messagecontainer.appendChild(infoCo);
+                    
+                    dateInfoText.textContent = "date: " + new Date().toLocaleDateString("en-GB");
+                    dateTypeText.textContent = "type: " + eds;
+                    messageNumInfoText.textContent = "log-num: " + Array.from(document.querySelectorAll(".consolemessage")).length;
+                } else {
+                    messagecontainer.classList.add("consoleGroupToggle");
+                }
             }
             if (eds == "count"){
                 message.textContent += ": " + count(edm2);
