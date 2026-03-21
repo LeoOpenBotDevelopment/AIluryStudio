@@ -23,6 +23,10 @@
             --code-shadow: rgba(0, 0, 0, 0.1);
             --navbar-shadow: rgba(0, 0, 0, 0.1);
             --nav-bg: transparent;
+            --token-c: #c0c0c0;
+            --token-f: #5f5f5f;
+            --token-s: #107d16;
+            --av-font-size: 1.25rem;
         }
         
         .dark {
@@ -38,6 +42,9 @@
             --code-shadow: rgba(255, 255, 255, 0.05);
             --navbar-shadow: rgba(255, 255, 255, 0.05);
             --nav-bg: transparent;
+            --token-c: #5c626f;
+            --token-f: #c0c0c0;
+            --token-s: #97c278;
         }
         * {
             box-sizing: border-box;
@@ -153,12 +160,21 @@
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
-
+        
+        .token-c { color: var(--token-c); }
+        .token-s { color: var(--token-s); }
+        .token-f { color: var(--token-f); }
+        
+        .line-num {
+            opacity: 0.5;
+            margin-right: 10px;
+        }
+        
         @media (min-width: 768px) {
             .sidebar { display: flex; }
             .headline { font-size: 4.5rem; max-width: 48rem; }
             .editor-container { max-width: 64rem; }
-            
+            .nav-side-co { width: 30%; }
             .philosophy-grid {
                 grid-template-columns: 1fr 2fr 1fr;
             }
@@ -340,6 +356,10 @@
         .dark .editor-body {
             background-image: url(/img/IMG_9367.jpeg);
         }
+        .hidablepartol {
+            margin: 0;
+            padding: 0;
+        }
         @media(max-width: 700px) {
             .editor-body {
                 background-image: url(/img/IMG_9369.jpeg);
@@ -350,6 +370,12 @@
             .editor-container {
                 width: 70vw;
                 height: 125vw;
+            }
+            .hidablepartol {
+                display: none;
+            }
+            body {
+                --av-font-size: 1rem;
             }
         }
         .center-card {
@@ -459,22 +485,22 @@
     </div>
     <nav id="navbar">
         <div class="nav-content">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 0.75rem;" class="nav-side-co">
                 <div class="nav-logo-circle"></div>
-                <span class="font-display" style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em;">ailury</span>
+                <span class="font-display" style="font-weight: 700; font-size: var(--av-font-size); letter-spacing: -0.025em;">ailury</span>
             </div>
             <div style="display: none; align-items: center; gap: 2rem;" class="mobile-hidden desktop-flex">
                 <a href="#philosophy" class="nav-link">Philosophy</a>
                 <a href="#engine" class="nav-link">Engine</a>
                 <a href="#customize" class="nav-link">Customization</a>
             </div>
-            <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 1rem;" class="nav-side-co">
                 <button onclick="toggleTheme()" class="theme-toggle">
                     <i class="fa-regular fa-moon hidden dark-only" style="color: white; font-size: 1.125rem;"></i>
                     <i class="fa-regular fa-sun block light-only" style="color: orange; font-size: 1.125rem;"></i>
                 </button>
 
-                <a href="https://ailury.com/" style="display: none; padding: 0.5rem 1.25rem; border-radius: 0.5rem; background-color: #111827; color: white; font-size: 0.875rem; font-weight: 600; transition: opacity 0.2s; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);" class="mobile-hidden desktop-block">
+                <a href="https://ailury.com/" style="display: none; padding: 0.5rem var(--av-font-size); border-radius: 0.5rem; background-color: #111827; color: white; font-size: 0.875rem; font-weight: 600; transition: opacity 0.2s; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);" class="mobile-hidden desktop-block">
                     Get Access
                 </a>
             </div>
@@ -505,7 +531,7 @@
                         </div>
                         <div style="font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
                             <i class="fa-solid fa-lock" style="font-size: 10px;"></i>
-                            https://ailury.com/
+                            <span><span class="hidablepartol">https://</span>ailury.com<span class="hidablepartol">/</span></span>
                         </div>
                         <div style="width: 3rem;"></div>
                     </div>
@@ -520,7 +546,7 @@
             <h2 class="section-header-title font-display">
                 The Mobile-First Philosophy.
             </h2>
-            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+            <p style="font-size: var(--av-font-size); color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
                     Ailury has countless tools to edit code without having to edit code manually.
             </p>
         </header>
@@ -531,7 +557,7 @@
                 <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: rgba(6, 190, 212, 0.1); color: #06b6d4; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
                     <i class="fa-solid fa-tablet-screen-button"></i>
                 </div>
-                <h3 class="font-display font-bold text-xl mb-3" style="font-size: 1.25rem; margin-bottom: 0.75rem;">Pure Touch Input</h3>
+                <h3 class="font-display font-bold text-xl mb-3" style="font-size: var(--av-font-size); margin-bottom: 0.75rem;">Accessibility</h3>
                 <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
                     Access contextual tool palettes and input controls that make complex coding fluid on smaller screens. No keyboard needed.
                 </p>
@@ -565,7 +591,7 @@
                 <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: rgba(168, 85, 247, 0.1); color: #a855f7; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
                     <i class="fa-solid fa-hand-pointer"></i>
                 </div>
-                <h3 class="font-display font-bold text-xl mb-3" style="font-size: 1.25rem; margin-bottom: 0.75rem;">Zero Typing</h3>
+                <h3 class="font-display font-bold text-xl mb-3" style="font-size: var(--av-font-size); margin-bottom: 0.75rem;">Zero Typing</h3>
                 <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
                     Move, wrap, and delete lines of code using simple, optimized <strong>gestures</strong> designed specifically for touchscreens.
                 </p>
@@ -578,7 +604,7 @@
             <h2 class="section-header-title font-display">
                 The Engine For Productivity.
             </h2>
-            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+            <p style="font-size: var(--av-font-size); color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
                 Start faster, test quicker, and ship with confidence.
             </p>
         </header>
@@ -616,7 +642,7 @@
             <h2 class="section-header-title font-display">
                 Personalize Everything.
             </h2>
-            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+            <p style="font-size: var(--av-font-size); color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
                 Customize every pixel, layout, and background to match your ideal flow.
             </p>
         </header>
@@ -624,23 +650,23 @@
         <div class="customization-grid">
             <div class="glass-panel p-8 card-border-pink" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
                 <i class="fa-solid fa-swatchbook" style="color: #ec4899; font-size: 1.875rem; margin-bottom: 1rem;"></i>
-                <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Endless Themes</h4>
+                <h4 class="font-display font-bold text-xl mb-2" style="font-size: var(--av-font-size); margin-bottom: 0.5rem;">Endless Themes</h4>
                 <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
                     Select from built-in themes or use the creation tools to make your own themes for a truly personal environment.
                 </p>
             </div>
             <div class="glass-panel p-8 card-border-purple" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
                 <i class="fa-solid fa-arrows-left-right" style="color: #a855f7; font-size: 1.875rem; margin-bottom: 1rem;"></i>
-                <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Fluid Tool Layout</h4>
+                <h4 class="font-display font-bold text-xl mb-2" style="font-size: var(--av-font-size); margin-bottom: 0.5rem;">Fluid Tool Layout</h4>
                 <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
                     Easily resize the sidebar or hide it entirely, and choose the tool layout for maximum efficiency on any device size.
                 </p>
             </div>
             <div class="glass-panel p-8 card-border-cyan" style="padding: 2rem; display: flex; flex-direction: column; align-items: flex-start; cursor: default;">
                 <i class="fa-solid fa-table-cells-large" style="color: #06b6d4; font-size: 1.875rem; margin-bottom: 1rem;"></i>
-                <h4 class="font-display font-bold text-xl mb-2" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Workspace Grids</h4>
+                <h4 class="font-display font-bold text-xl mb-2" style="font-size: var(--av-font-size); margin-bottom: 0.5rem;">Workspace Grids</h4>
                 <p style="color: var(--secondary-text-color); font-size: 0.875rem;">
-                    Choose different grids for your background to enhance visual structure or concentration—from subtle dots to full coordinates.
+                    Choose different grids for your background to enhance visual structure or concentration--from subtle dots to full coordinates.
                 </p>
             </div>
         </div>
@@ -651,7 +677,7 @@
             <h2 class="section-header-title font-display">
                 Integrate our editor
             </h2>
-            <p style="font-size: 1.25rem; color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
+            <p style="font-size: var(--av-font-size); color: var(--secondary-text-color); max-width: 42rem; margin: 0 auto;">
                 We allow our editor to be integrated through iframes. You can also redirect your users to our editor with preditermined HTML, CSS or JavaScript code.
             </p>
         </header>
