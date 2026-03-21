@@ -11366,7 +11366,7 @@
                 try {
                     const regexforreplacing = new RegExp(replacethistext, "g");
                     lines
-                        .filter(el => el.text.match(regexforreplacing))
+                        .filter(el => normalizeSpaces(removeAbbreviations(el.text)).match(regexforreplacing))
                         .reverse()
                         .forEach(line => {
                             const theLine = allLines[allLines.indexOf(line)];
@@ -11377,17 +11377,17 @@
                                 index: allLines.indexOf(line)
                             };
                             newpast.push(pastelement);
-                            const newlinetextar = addAbbreviations(removeAbbreviations(line.text).replace(regexforreplacing, replacementtext));
-                            theLine.text = newlinetextar;
+                            const newlinetextar = addAbbreviations(normalizeSpaces(removeAbbreviations(line.text)).replace(regexforreplacing, replacementtext));
+                            theLine.text = replaceNormalSpaces(newlinetextar);
+                            shortNotificationmessageelement("file content successfully updated");
                         });
-                    shortNotificationmessageelement("file content successfully updated");
                 } catch(err){
                     let error = err;
                     shortNotificationmessageelement("an Error occurred while replecing");
                 }
             } else {
                 lines
-                    .filter(el => el.text.includes(replacethistext))
+                    .filter(el => normalizeSpaces(removeAbbreviations(el.text)).includes(replacethistext))
                     .reverse()
                     .forEach(line => {
                         const theLine = allLines[allLines.indexOf(line)];
@@ -11398,10 +11398,11 @@
                             index: allLines.indexOf(line)
                         };
                         newpast.push(pastelement);
-                        const newlinetextar = addAbbreviations(removeAbbreviations(line.text).replaceAll(replacethistext, replacementtext));
-                        theLine.text = newlinetextar;
+                        const newlinetextar = addAbbreviations(removeAbbreviations(normalizeSpaces(line.text)).replaceAll(replacethistext, replacementtext));
+                        theLine.text = replaceNormalSpaces(newlinetextar);
+                        shortNotificationmessageelement("file content successfully updated");
                     });
-                shortNotificationmessageelement("file content successfully updated");
+                
             }
             if (newpast.length > 0) {
                 resolvePendingPast();
