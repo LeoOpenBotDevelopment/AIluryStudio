@@ -182,24 +182,6 @@
             min-width: calc(100vw - var(--sibebar-width));
         }
         
-        @keyframes easein {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes easeout {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-        
         @keyframes swipein {
             0%{
                 transform: translateY(-100dvh);
@@ -906,12 +888,15 @@
             box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
+            position: relative;
             border: 1em solid var(--deviceborder-color);
             transition: var(--tr);
+            overflow: hidden;
         }
 
         .safari-header {
-            background: var(--bg-color);
+            position: relative;
+            background: transparent;
             height: 44px;
             display: flex;
             align-items: center;
@@ -938,30 +923,6 @@
             mask-size: 100%;
             -webkit-mask-size: 100%;
             cursor: pointer;
-            transition: var(--tr);
-        }
-
-        .url-bar {
-            width: 70%;
-            height: 28px;
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-            background-color: var(--urlbarbackground-color);
-            border-radius: 12px;
-            padding: 0 10px;
-            font-size: 14px;
-            color: #666;
-            transition: var(--tr);
-        }
-
-        .url-bar input {
-            width: 100%;
-            border: none;
-            background: transparent;
-            outline: none;
-            color: var(--contrast-color);
-            font-size: 14px;
             transition: var(--tr);
         }
 
@@ -1061,20 +1022,22 @@
         }
 
         .url-bar {
-            flex-grow: 1;
+            position: relative;
+            width: 100%;
             height: 28px;
             margin: 0 10px;
             display: flex;
             align-items: center;
-            background-color: var(--urlbarbackground-color);
+            background: transparent;
             border-radius: 8px;
-            padding: 0 10px;
+            padding: 0 10px 0 10%;
             font-size: 14px;
             color: #666;
             transition: var(--tr);
         }
 
         .url-bar input {
+            text-align: center;
             width: 100%;
             border: none;
             background: transparent;
@@ -1082,6 +1045,13 @@
             color: var(--contrast-color);
             font-size: 14px;
             transition: var(--tr);
+        }
+        .url-bar:has(input:focus) {
+            background: var(--urlbarbackground-color);
+            padding: 0 10px;
+        }
+        .url-bar input:focus {
+            text-align: left;
         }
 
         .btn-group {
@@ -1105,7 +1075,7 @@
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
             overflow: hidden;
-            background-color: var(--browseriframebackgroundcolor-color);
+            background: var(--browseriframebackgroundcolor-color);
             transition: var(--tr);
         }
         .line-number-input{
@@ -1706,10 +1676,45 @@
             }
         }
         
-        .rectangle, .rectanglep, .halfrectagle {
+        .rectangle, .rectanglep {
             background: var(--full-opacity-bg-color);
             box-shadow: 1px 1px 0px var(--border-color) inset,
                 -1px -1px 0px var(--border-color) inset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            border-radius: 5px;
+            color: var(--rectanglecolorcolor-color);
+            font-size: 18px;
+            position: relative;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            transition: var(--tr);
+            box-sizing: border-box;
+            margin-top: 10px;
+            animation: popslidein 1s ease;
+        }
+        .rectangle:not(#image-rectangle), .rectanglep:not(#image-rectangle) {
+            border-top-left-radius: 0;
+        }
+        .rectangle:not(#image-rectangle):not(.enlarged):after, .rectanglep:not(#image-rectangle):not(.enlarged):after {
+            content: "";
+            position: absolute;
+            height: 14px;
+            top: -14px;
+            left: 0;
+            background: var(--full-opacity-bg-color);
+            width: 33%;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 20px;
+        }
+        .halfrectagle {
+            background: var(--full-opacity-bg-color);
+            box-shadow: 1px 1px 0px var(--border-color) inset,
+            -1px -1px 0px var(--border-color) inset;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -1718,18 +1723,35 @@
             color: var(--rectanglecolorcolor-color);
             font-size: 18px;
             position: relative;
-            min-width: 200px;
             white-space: nowrap;
             text-overflow: ellipsis;
             transition: var(--tr);
             overflow: hidden;
             box-sizing: border-box;
-        }
-        .halfrectagle {
             height: 70dvh;
             align-items: flex-end;
             justify-content: flex-end;
             padding: 10px;
+        }
+        @keyframes spinAnimation {
+            from {
+                transform: translate(-50%, -50%) rotate(0);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        .loadingSpinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top: 5px solid var(--border-color);
+            animation: spinAnimation 1s ease infinite;
         }
         @keyframes easeinanimationfrb {
             0% {
@@ -1877,6 +1899,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             border: none;
             transition: var(--tr);
+            margin: 0;
         }
         
         .rectangle.openfileenlarged {
@@ -3902,6 +3925,16 @@
                 opacity: 0;
             }
         }
+        @keyframes popslidein {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
         .caexample1 button {
             animation: swipeinout 3s infinite;
         }
@@ -4488,6 +4521,7 @@
                 height: calc(100dvh - 50px);
                 width: 100vw;
                 max-width: none;
+                max-height: none;
             }
             .line-number-input:focus{
                 position: fixed;
@@ -4930,7 +4964,7 @@
                                         <div class="back-btn" onclick="cleariframe('mobile-frame')"></div>
                                     </div>
                                     <div class="url-bar">
-                                        <input type="text" id="mobile-url-input" placeholder="file..." list="filenameoptions">
+                                        <input type="text" id="mobile-url-input" placeholder="FileName.html" list="filenameoptions">
                                         <datalist id="filenameoptions">
                                             <option id="optionc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" value="index.html"></option>
                                             <option id="optionsd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77" value="styles.css"></option>
@@ -4953,7 +4987,7 @@
                                         <div class="maximize-btn" onclick="toggleClass('.browser-container', 'fullscreen')"></div>
                                     </div>
                                     <div class="url-bar">
-                                        <input type="text" id="computer-url-input" placeholder="file..." list="filenameoptions">
+                                        <input type="text" id="computer-url-input" placeholder="FileName.html" list="filenameoptions">
                                     </div>
                                     <div class="btn-group">
                                         <button onclick="textCode('computer-url-input', 'computer-frame');createConfetti()">run</button>
@@ -5975,6 +6009,12 @@
                         .then(text => {
                             entry.target.srcdoc = text;
                             entry.target.classList.add('set');
+                            if (entry.target.parentElement) {
+                                const loadingSpinnerEl = entry.target.parentElement.querySelector(".loadingSpinner");
+                                if (loadingSpinnerEl) {
+                                    loadingSpinnerEl.style.display = "none";
+                                }
+                            }
                         })
                         .catch(err => {
                             console.log(err);
@@ -5982,6 +6022,12 @@
                 } else {
                     entry.target.srcdoc = "";
                     entry.target.classList.remove('set');
+                    if (entry.target.parentElement) {
+                        const loadingSpinnerEl = entry.target.parentElement.querySelector(".loadingSpinner");
+                        if (loadingSpinnerEl) {
+                            loadingSpinnerEl.style.display = "block";
+                        }
+                    }
                 }
             });
         }, { threshold: 0.1 });
@@ -6225,6 +6271,7 @@
             const newRectangleAddBtn = document.createElement('button');
             const newRectangleCopyBtn = document.createElement('button');
             const newRectangleCloseBtn = document.createElement('button');
+            const newLoadingSpinner = document.createElement('div');
             
             newRectangle.className = 'halfrectagle';
             newIFrame.id = name + "iframe";
@@ -6243,6 +6290,8 @@
             newRectangleCopyBtn.textContent = "copy";
             newRectangleCloseBtn.textContent = "×";
             
+            newLoadingSpinner.className = "loadingSpinner";
+            
             newRectangle.appendChild(newIFrame);
             newRectangle.appendChild(newSpan);
             
@@ -6252,6 +6301,7 @@
             
             newRectangle.appendChild(newRectangleBtnContainer);
             newRectangle.appendChild(newRectangleCloseBtn);
+            newRectangle.appendChild(newLoadingSpinner);
             
             if (content5Container) {
                 content5Container.appendChild(newRectangle);
@@ -6471,6 +6521,9 @@
             if (value == "") {
                 readybtn.style.display = "none";
                 document.querySelectorAll('.rectangle').forEach(rect => {
+                    rect.style.animation = "none";
+                    void rect.offsetWidth;
+                    rect.style.animation = "popslidein 1s ease-out";
                     rect.style.display = "flex";
                 });
             } else {
@@ -8671,6 +8724,7 @@
             themetoedit.style.removeProperty('--lightgrey-color');
             themetoedit.style.removeProperty('--bg-color');
             themetoedit.style.removeProperty('--full-opacity-bg-color');
+            themetoedit.style.removeProperty('--fileloadingoverlaybackground-color');
             themetoedit.style.removeProperty('--half-transparent-bg-color');
             themetoedit.style.removeProperty('--half-transparent-border-color');
             themetoedit.style.removeProperty('--commandlistbackground-color');
@@ -8818,9 +8872,11 @@
             const alpha = document.getElementById('backgroundAlpha').value / 100;
             const rgba = hexToRgba(selectedColor, alpha);
             const transparentRgba = hexToRgba(selectedColor, 0.1);
+            const transparentLoadingBgRgba = hexToRgba(selectedColor, 0.5);
             themetoedit.style.setProperty('--bg-color', rgba);
             themetoedit.style.setProperty('--full-opacity-bg-color', selectedColor);
             themetoedit.style.setProperty('--half-transparent-bg-color', transparentRgba);
+            themetoedit.style.setProperty('--fileloadingoverlaybackground-color', transparentLoadingBgRgba);
             themetoedit.style.setProperty('--commandlistbackground-color', rgba);
             if (isColorLightOrDark(rgba) == "light"){
                 themetoedit.style.setProperty('--browsercontainerbackground-color', '#fff');
@@ -9378,7 +9434,9 @@
             void relement.offsetWidth;
             if (transitionanimation != "none") {
                 relement.style.animation = transitionanimation + "out 0.5s ease-out";
+                relement.classList.add("timeoutRunning");
                 setTimeout(() => {
+                    relement.classList.remove("timeoutRunning");
                     relement.style.display = "none";
                 }, 500);
             }else {
@@ -9388,6 +9446,9 @@
         }
         
          function showelementwithswipe(relement, type = "undefined", toggle = true) {
+            if (relement.classList.contains("timeoutRunning")) {
+                return;
+            }
             if (relement.style.display == "flex" && toggle){
                 hideelementwithswipe(relement, type);
                 return;
@@ -11921,6 +11982,10 @@
             document.getElementById('mobile-url-input').value = filepath;
             
             document.querySelector('.closeviewthisfilebtn').style.display = "flex";
+            
+            viewcontainer.style.animation = "none";
+            void viewcontainer.offsetWidth;
+            viewcontainer.style.animation = transitionanimation + "in 0.3s ease-out";
         }
         
         function closeviewthisfile() {
