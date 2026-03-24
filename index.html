@@ -2817,9 +2817,12 @@
             opacity: 0.7;
             border-radius: 20px;
         }
-        body:has(.draggingEl) {
+        body:has(.draggingEl), .layouteditswitch {
             user-select: none;
             -webkit-user-select: none;
+        }
+        .layouteditswitch {
+            transition: var(--tr);
         }
         
         .themeoption2 .customtextthemeoption {
@@ -3014,6 +3017,8 @@
             display: block;
             width: 100%;
             margin-top: 10px;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .testregexresults {
             margin-top: 20px;
@@ -5735,21 +5740,21 @@
                     <h3>layout</h3>
                     <br>
                     <div class="chooseceebtnposopcontainer">
-                        <div class="chooseceebtnposopcontainerswitchcontainer">
+                        <div class="chooseceebtnposopcontainerswitchcontainer layouteditswitch" id="reduceBarsSpanTextForInfo">
                             <label class="switch">
                                 <input id="roundedUItoggleSwitch" type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="togglesmallNavBar(this)">
                                 <span class="slider"></span>
                             </label>
                             <span class="chooseceebtnposopcontainerswitchcontainername">reduced bars</span>
                         </div>
-                        <div class="chooseceebtnposopcontainerswitchcontainer ifislandenableddisablethis">
+                        <div class="chooseceebtnposopcontainerswitchcontainer ifislandenableddisablethis layouteditswitch" id="bordersSpanTextForInfo">
                             <label class="switch">
                                 <input type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="toggleceefbrlbd(this)">
                                 <span class="slider"></span>
                             </label>
                             <span class="chooseceebtnposopcontainerswitchcontainername">borders</span>
                         </div>
-                        <div class="chooseceebtnposopcontainerswitchcontainer ifborderenableddisablethis">
+                        <div class="chooseceebtnposopcontainerswitchcontainer ifborderenableddisablethis layouteditswitch" id="islandsBarsSpanTextForInfo">
                             <label class="switch">
                                 <input type="checkbox" data-checked="chooseceebtnposopcontainerswitchcontainer" onchange="togglecebtnislands(this)">
                                 <span class="slider"></span>
@@ -14443,6 +14448,10 @@
             "rightbtn": "This button unfolds all folded code sections.",
             "leftbtn": "This button unselects all selected lines.",
             "clearpasttoundobtn": "This button clears this files history. Other files history are not removed, only this files history.",
+            "applyNewIndentSizesBtn": "This button will apply the new indent size to the file.",
+            "reduceBarsSpanTextForInfo": "This switch makes the sidebar smaller when overlaying windows are closed, and makes the file navigation bar at the bottom smaller, and makes some other minor adjustments to the UI.",
+            "bordersSpanTextForInfo": "This switch makes the borders of the tool bars visible.",
+            "islandsBarsSpanTextForInfo": "This switch makes the tool bars smaller, adds a rounded border to the tool bars, and depending on the position of the tool bar, makes it semi transparent and overlays it partially over the code container.",
             "deleteEmptyLinesBtn": "By clicking this button all lines with no texts, other than spaces, will be deleted.",
             "deleteAllCommentsBtn": "By clicking this button, all HTML, CSS, and JavaScript comments will be removed. Note that this function isn’t perfect, and some code may be misidentified as a comment.",
             "clearclipboardbtn": "Clear the in-editor clipboard.",
