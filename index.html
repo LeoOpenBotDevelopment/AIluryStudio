@@ -3003,7 +3003,7 @@
         .testregexcontainer input:focus, .testregexcontainer textarea:focus, .replacecontainer input:focus {
             outline: none;
         }
-        .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn, .codefunctionssettingscontainer #clearpasttoundobtn {
+        .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn, .codefunctionssettingscontainer #clearpasttoundobtn, .codefunctionssettingscontainer #applyNewIndentSizesBtn {
             padding: 12px 20px;
             font-size: 16px;
             color: var(--contrast-color);
@@ -4660,7 +4660,7 @@
             align-items: center;
             flex-direction: column;
         }
-        .undolimitnum {
+        .dropDownOpCon {
             padding: 10px;
             font-size: 1.1em;
             color: var(--contrast-color);
@@ -5249,7 +5249,7 @@
                         <label class="switch">
                             <input type="checkbox" class="syntaxspaceienabledtoggleswitch" onchange="toggleClass('.divcodeeditor-container', 'syntaxspaceienabled')">
                             <span class="slider"></span>
-                        </label> space indentation
+                        </label> <div class="symbolspancontainer"> space indentation <button class="cldeeditfunctionsettings" onclick="openfunctionsettings('spaceindentation')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -5898,6 +5898,12 @@
                             </label>
                             <span class="cfscscswitchdesname">Suggest unique values</span>
                         </div>
+                        <select name="spaceindentationnum" class="cfscscspaceindentation cfscscf spaceindentationnum dropDownOpCon" oninput="updateIndentSizes()">
+                            <option value="2">2 space indent</option>
+                            <option value="3">3 space indent</option>
+                            <option value="4" selected>4 space indent</option>
+                        </select>
+                        <button class="cfscscspaceindentation cfscscf applyNewIndentSizesBtn" id="applyNewIndentSizesBtn" onclick="applyNewIndentSizes()" style="justify-content: center;">Apply new indent size</button>
                         <div class="cfscscundo cfscscf undolimit">
                             <label class="switch">
                                 <input type="checkbox" data-checked="undolimit" checked>
@@ -5905,7 +5911,7 @@
                             </label>
                             <span class="cfscscswitchdesname">undo limit</span>
                         </div>
-                        <select name="undolimitnum" class="cfscscundo cfscscf undolimitnum">
+                        <select name="undolimitnum" class="cfscscundo cfscscf undolimitnum dropDownOpCon">
                             <option value="5">5× limit</option>
                             <option value="10">10× limit</option>
                             <option value="20">20× limit</option>
@@ -7324,6 +7330,10 @@
             "suggestions": {
                 title: "suggestions",
                 description: "Get word suggestions, when typing."
+            },
+            "spaceindentation": {
+                title: "space indentation",
+                description: "Highlight the edge of indents in the the code."
             }
         };
         
@@ -8354,13 +8364,14 @@
                     continueSpaces = false;
                 }
             }
+            const indentSize = parseInt(document.querySelector(".spaceindentationnum").value);
             if (celine.text.trim().endsWith('<style>') || celine.text.trim().startsWith('<style>')) {
                 extraspacesadded = true;
-                spaces += "\u00A0\u00A0\u00A0\u00A0";
+                spaces += "\u00A0".repeat(indentSize);
             } else if (celine.text.trim().endsWith('<body>') || celine.text.trim().startsWith('<body>')) {
-                spaces += "\u00A0\u00A0\u00A0\u00A0";
+                spaces += "\u00A0".repeat(indentSize);
             } else if (celine.text.trim().endsWith('<script>') || celine.text.trim().startsWith('<body>')) {
-                spaces += "\u00A0\u00A0\u00A0\u00A0";
+                spaces += "\u00A0".repeat(indentSize);
             }
             let lines = additionalCode.split(/\r\n|\n|\r/);
             
@@ -8394,7 +8405,7 @@
                 adjustedLin2 = lines[0].slice(firstLineLeadingSpacesCount);
             }
             celine.text += convertToNonBreakingSpaces(adjustedLin2);
-            let longspaces = spaces + "\u00A0\u00A0\u00A0\u00A0";
+            let longspaces = spaces + "\u00A0".repeat(indentSize);
             
             let startwithscriptorstyle = additionalCode.trim().startsWith('<style>') || additionalCode.trim().startsWith('<script>');
             
@@ -9673,13 +9684,13 @@
                 { percent: 25, text: 'Creating environment' },
                 { percent: 50, text: 'Linking' },
                 { percent: 75, text: 'Formatting' },
-                { percent: 100, text: 'Loading complete' },
+                { percent: 100, text: 'Loading complete' }
             ];
             startLoadingThis(steps, 'Analyzing');
         }
         
         
-        function startLoadingThis(steps, initialtext) {
+        function startLoadingThis(steps, initialtext, times = 400) {
             const overlay = document.getElementById('overlay');
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
@@ -9705,7 +9716,7 @@
                     }
 
                     stepIndex++;
-                    setTimeout(updateStep, 400);
+                    setTimeout(updateStep, times);
                 } else {
                     setTimeout(() => {
                         overlay.classList.remove('active');
@@ -9719,7 +9730,7 @@
             const steps = [
                 { percent: 0, text: 'Processing' },
                 { percent: 50, text: 'Adding' },
-                { percent: 100, text: 'Merge complete' },
+                { percent: 100, text: 'Merge complete' }
             ];
             startLoadingThis(steps, 'Receiving');
         }
@@ -9730,7 +9741,7 @@
             const steps = [
                 { percent: 0, text: 'Processing' },
                 { percent: 50, text: 'Adding' },
-                { percent: 100, text: 'Loading complete' },
+                { percent: 100, text: 'Loading complete' }
             ];
 
             startLoadingThis(steps, 'Receiving');
@@ -9741,10 +9752,34 @@
                 { percent: 25, text: 'Creating environment' },
                 { percent: 50, text: 'Linking' },
                 { percent: 75, text: 'Formatting' },
-                { percent: 100, text: 'Loading complete' },
+                { percent: 100, text: 'Loading complete' }
             ];
 
             startLoadingThis(steps, 'Analyzing files');
+        }
+        function startLoadingImages() {
+            const steps = [
+                { percent: 0, text: 'Processing' },
+                { percent: 50, text: 'Adding' },
+                { percent: 100, text: 'Loading complete' }
+            ];
+
+            startLoadingThis(steps, 'Receiving');
+        }
+        function startLoadingIndentSizeUpdate() {
+            const steps = [
+                { percent: 0, text: 'Fetching' },
+                { percent: 12, text: 'Seperating' },
+                { percent: 25, text: 'Joining' },
+                { percent: 37, text: 'Editing' },
+                { percent: 50, text: 'Splitting' },
+                { percent: 62, text: 'Merging' },
+                { percent: 75, text: 'Integrating' },
+                { percent: 87, text: 'Updating' },
+                { percent: 100, text: 'Loading complete' }
+            ];
+
+            startLoadingThis(steps, 'Initiating...', 200);
         }
         function hidecodesearchresults() {
             setTimeout(() => {
@@ -10148,6 +10183,8 @@
                 });
             }
             
+            optionalText = standardizeIndentation(optionalText);
+            
             
             const randomNewSecName = createRandomFileId();
             
@@ -10261,7 +10298,7 @@
             
             lines.forEach((lineText) => {
                 correntids += 1;
-                const line = { id: correntids, classes: ['code-editor-line'], text: lineText };
+                const line = { id: correntids, classes: ['code-editor-line'], text: replaceNormalSpaces(lineText) };
                 newEditorFiles.push(line);
             });
             editorFiles[randomNewSecName] = newEditorFiles;
@@ -10323,7 +10360,10 @@
             const allFileNames = Array.from(document.querySelectorAll('.filedot .filePathInput'))
                 .filter(input => input !== inputField)
                 .map(input => input.value);
-
+            if (inputField.value == "") {
+                inputField.value = "PlaceholderFileName";
+                handleFileNameInputChange(inputField.parentElement);
+            }
             if (allFileNames.includes(inputField.value)) {
                 let baseName = inputField.value;
                 let counter = 1;
@@ -10347,6 +10387,7 @@
                     handleFileNameInputChange(inputField.parentElement);
                 }
             }
+            refreshEditorLines(inputDiv, editorIndex, 0);
         }
         
         function truncateText(text, maxLength) {
@@ -13341,6 +13382,41 @@
             pastevents[lasteventsparentsection.id].push(newpast);
             enablepastbtn();
         }
+        function applyNewIndentSizes() {
+            startLoadingIndentSizeUpdate();
+            lasteventsparentsection = section;
+            
+            let newpast = [{
+                type: "alldelete",
+                content: [...editorFiles[editorIndex]],
+                index: editorFiles[editorIndex].length - 1
+            }];
+            
+            const fileText = editorFiles[editorIndex]
+                .map(line => normalizeSpaces(line.text))
+                .join("\n");
+            
+            const updatedText = standardizeIndentation(fileText);
+            const selerateText = updatedText.split("\n");
+            
+            editorFiles[editorIndex] = selerateText.map(text => {
+                correntids++;
+                return {
+                    id: correntids,
+                    classes: ["code-editor-line"],
+                    text: replaceNormalSpaces(text || "")
+                };
+            });
+            
+            refreshEditorLines(inputDiv, editorIndex, 0);
+            
+            updateSelectedClasses();
+            resolvePendingPast();
+            pasteventPrep();
+            futureevents[lasteventsparentsection.id] = [];
+            pastevents[lasteventsparentsection.id].push(newpast);
+            enablepastbtn();
+        }
 
         function importantselectedlines() {
             const allselectedlines1 = section.querySelectorAll(".code-editor-line.selected");
@@ -14633,6 +14709,50 @@
         
             return Array.from(matches);
         }
+        function standardizeIndentation(codeText) {
+            const lines = codeText.split('\n');
+            const indentSize = parseInt(document.querySelector(".spaceindentationnum").value) || 4;
+            const indentStack = [""];
+            const formattedLines = [];
+            
+            for (const line of lines) {
+                if (line.trim().length === 0) {
+                    formattedLines.push("");
+                    continue;
+                }
+                const match = line.match(/^[ \t]*/);
+                const leadingWhitespace = match ? match[0] : "";
+                const currentTop = indentStack[indentStack.length - 1];
+                if (leadingWhitespace.startsWith(currentTop) && leadingWhitespace.length > currentTop.length) {
+                    indentStack.push(leadingWhitespace);
+                }
+                else if (leadingWhitespace.length < currentTop.length) {
+                    while (indentStack.length > 0 && indentStack[indentStack.length - 1].length > leadingWhitespace.length) {
+                        indentStack.pop();
+                    }
+                    
+                    if (indentStack.length > 0 && indentStack[indentStack.length - 1] !== leadingWhitespace) {
+                        indentStack.push(leadingWhitespace);
+                    }
+                    
+                    if (indentStack.length === 0) {
+                        indentStack.push("");
+                    }
+                }
+                else if (leadingWhitespace.length === currentTop.length && leadingWhitespace !== currentTop) {
+                    indentStack[indentStack.length - 1] = leadingWhitespace;
+                }
+                const logicalLevel = indentStack.length - 1;
+                const strippedLine = line.trimStart();
+                
+                const newLine = " ".repeat(indentSize * logicalLevel) + strippedLine;
+                formattedLines.push(newLine);
+            }
+            
+            return formattedLines.join('\n');
+        }
+
+        
         let cPasting = false;
         async function handlePaste(event) {
             const allLines = editorFiles[editorIndex];
@@ -14661,8 +14781,10 @@
                 return;
             }
             
-            const pasteText = (event.clipboardData || window.clipboardData).getData('text');
+            let pasteText = (event.clipboardData || window.clipboardData).getData('text');
             if (!pasteText) return;
+            
+            pasteText = standardizeIndentation(pasteText);
             
             const selection = window.getSelection();
             if (!selection?.rangeCount) return;
@@ -15031,7 +15153,9 @@
                 highlightedElement.classList.remove('highlighted');
             });
         }
-        
+        function updateIndentSizes() {
+            refreshEditorLines(inputDiv, editorIndex, 0);
+        }
         function addJsSyntaxHighlighting(div) {
             if (!div || div.tagName != "DIV") {
                 return;
@@ -15058,8 +15182,10 @@
                 ")",
                 "g"
             );
+            const indentSize = parseInt(document.querySelector(".spaceindentationnum").value);
+            const indentSizeRegex = new RegExp(`(?<=^\\s*)[\\s \\u00A0]{${indentSize}}`, "g");
             let commentPatterns = [
-                { regex: /(?<=^\s*)[\s \u00A0]{4}/g, className: "syntaxspace" },
+                { regex: indentSizeRegex, className: "syntaxspace" },
                 { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
                 { regex: /(?<=rgba\(\s*)\d+\s*,\s*\d+\s*,\s*\d+,/, className: "syntaxrgb syntaxrgba" },
                 { regex: /(?<=rgb\(\s*)\d+\s*,\s*\d+\s*,\s*\d+(?=\s*\))/, className: "syntaxrgb" },
@@ -15081,7 +15207,7 @@
             
             let spatterns = [
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
-                { regex: /(?<=^\s*)[\s \u00A0]{4}/g, className: "syntaxspace" },
+                { regex: indentSizeRegex, className: "syntaxspace" },
                 { regex: /<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, className: "syntaxhtmlcomment" },
                 { regex: /\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, className: "syntaxcomment" },
                 { regex: /\/\/.*/g, className: "syntaxcomment" },
@@ -15670,7 +15796,7 @@
             lasteventsparentsectionfornewpast = rlasteventsparentsection;
             currentPendingPast = setTimeout(() => {
                 if (pendingPasts.length > 0) {
-                    pasteventPrep(lasteventsparentsectionfornewpast);
+                    pasteventPrep(lasteventsparentsectionfornewpast.id);
                     pastevents[lasteventsparentsectionfornewpast.id].push([...pendingPasts]);
                     enablepastbtn(lasteventsparentsectionfornewpast);
                     currentPendingPast = null;
@@ -15681,7 +15807,7 @@
         function resolvePendingPast() {
             if (currentPendingPast) clearTimeout(currentPendingPast);
             if (pendingPasts.length > 0) {
-                pasteventPrep(lasteventsparentsectionfornewpast);
+                pasteventPrep(lasteventsparentsectionfornewpast.id);
                 pastevents[lasteventsparentsectionfornewpast.id].push([...pendingPasts]);
                 enablepastbtn(lasteventsparentsectionfornewpast);
                 currentPendingPast = null;
@@ -15878,10 +16004,10 @@
                 const openingsignsincssandjavascript = ["{", "[", "(", ":"];
                 const clisingsignsincssandjavascript = ["}", "]", ")", "\""];
                 
-                
+                const indentSize = parseInt(document.querySelector(".spaceindentationnum").value);
                 const openTagMatch = celine.textContent.trim().match(/<(\w+)([^>]*)>$/);
                 if (openingsignsincssandjavascript.includes(lastsignincelineelement) || (openTagMatch && !SELF_CLOSING_TAGS.has(openTagMatch[1]))) {
-                    spaces += "\u00A0\u00A0\u00A0\u00A0";
+                    spaces += "\u00A0".repeat(indentSize);
                 }
                 
                 const newline = {id:newid,classes:["code-editor-line"],text:""};
@@ -16183,12 +16309,12 @@
 
         const undolimitnum = document.querySelector('.undolimitnum');
         const undolimit = document.querySelector('.undolimit input[type="checkbox"]');
-        function pasteventPrep(lepsalternative = lasteventsparentsection) {
-            if (!pastevents[lepsalternative.id]) {
-                pastevents[lepsalternative.id] = [];
+        function pasteventPrep(lepsalternative = lasteventsparentsection.id) {
+            if (!pastevents[lepsalternative]) {
+                pastevents[lepsalternative] = [];
             }
-            if (undolimit.checked == true && pastevents[lepsalternative.id].length > parseInt(undolimitnum.value)) {
-                pastevents[lepsalternative.id] = pastevents[lepsalternative.id].slice(-(parseInt(undolimitnum.value) - 1));
+            if (undolimit.checked == true && pastevents[lepsalternative].length > parseInt(undolimitnum.value)) {
+                pastevents[lepsalternative] = pastevents[lepsalternative].slice(-(parseInt(undolimitnum.value) - 1));
             }
         }
         
