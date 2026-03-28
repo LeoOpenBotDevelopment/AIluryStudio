@@ -5256,7 +5256,7 @@
                             <span class="consoletitle">console</span>
                             <div class="consolebtncontainer">
                                 <button class="consolebtn" id="clearconsole" onclick="clearconsole();changedeletebtn(this)">⌧</button>
-                                <button class="consolebtn" id="closeconsole" onclick="hideelement('class', 'consoleconteiner', event)">×</button>
+                                <button class="consolebtn" id="closeconsole" onclick="hideOverlay('.consoleconteiner')">×</button>
                             </div>
                         </div>
                         <div class="console">
@@ -11069,32 +11069,7 @@
             if (event.target !== event.currentTarget) {
                 return;
             }
-            
-            if (type == 'class'){
-                const ewcname = document.querySelector('.' + name);
-                ewcname.style.animation = "none";
-                void ewcname.offsetWidth;
-                if (transitionanimation != "none") {
-                    ewcname.style.animation = transitionanimation + "out 0.5s ease-out";
-                    setTimeout(() => {
-                        ewcname.style.display = 'none';
-                    }, 500);
-                }else {
-                    ewcname.style.display = 'none';
-                }
-            }else if (type == 'id'){
-                const ewidname = document.getElementById(name);
-                ewidname.style.animation = "none";
-                void ewidname.offsetWidth;
-                if (transitionanimation != "none") {
-                    ewidname.style.animation = transitionanimation + "out 0.5s ease-out";
-                    setTimeout(() => {
-                        ewidname.style.display = 'none';
-                    }, 500);
-                } else {
-                    ewidname.style.display = 'none';
-                }
-            }
+            hideOverlay(`${type == "class" ? "." : "#"}${name}`);
         }
         
         const navBar = document.getElementById('nav-bar');
