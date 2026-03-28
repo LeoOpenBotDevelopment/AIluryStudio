@@ -1653,7 +1653,17 @@
             border-left: 1px solid var(--bg-color);
             font-size: 0.8em;
         }
-        
+        .viewthisfileExpanded {
+            animation: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 1111;
+        }
+        .sidebarenabled .viewthisfileExpanded {
+            left: var(--sidebar-width);
+        }
         .top-bar, .top5-bar {
             padding: 0;
         }
@@ -2509,7 +2519,7 @@
             position: fixed;
             left: 0;
             top: 0;
-            z-index: 7;
+            z-index: 19;
             width: 100vw;
             transition: 0.5s
         }
@@ -3532,13 +3542,19 @@
             background: transparent;
             border: none;
             border-radius: 50%;
+            z-index: 10;
         }
         #sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77, #s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52, #forview{
             display: none;
         }
         @media(max-width: 700px){
             .showconsolebtn{
-                top: 60px;
+                top: 50px;
+                right: 6px;
+                background: var(--bg-color);
+                border: 1px solid var(--border-color);
+                border-radius: 5px;
+                padding: 10px;
             }
             .safari-buttons{
                 opacity: 0;
@@ -4564,6 +4580,9 @@
                 max-width: none;
                 max-height: none;
             }
+            .viewthisfileExpanded .mobile-container {
+                height: 100dvh;
+            }
             .line-number-input:focus{
                 position: fixed;
                 top: 0;
@@ -4900,7 +4919,7 @@
             position: absolute;
             top: 5px;
             left: 10px;
-            z-index: 100;
+            z-index: 10;
         }
         #AIluryIcon {
             height: 25px;
@@ -4939,6 +4958,163 @@
             background: var(--switchcheckedbackground-color);
             border-radius: inherit;
             margin: 2px;
+        }
+        
+        .inspector-dropdown {
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            border-radius: 10px;
+            width: 100vw;
+            max-width: 320px;
+            margin: 0;
+            padding: 10px;
+            position: fixed;
+            z-index: 15;
+            color: var(--contrast-color);
+            max-height: 420px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            align-items: flex-start;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-family: sans-serif;
+            box-sizing: border-box;
+            display: none;
+            right: 50px;
+            animation: optionContainerPopinAnimation 0.2s ease;
+        }
+        
+        .inspector-movement-point {
+            padding: 0;
+            margin: 0;
+            height: 10px;
+            width: 50px;
+            background: var(--lightgrey-color);
+            border: none;
+            border-radius: 10px;
+            position: absolute;
+            top: 5px;
+            z-index: 20;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: move;
+        }
+        
+        .inspector-close-btn {
+            padding: 0;
+            margin: 0;
+            color: var(--contrast-color);
+            border: none;
+            border-radius: 3px;
+            font-size: 1.5em;
+            background: transparent;
+            position: absolute;
+            font-weight: normal;
+            top: 2px;
+            z-index: 20;
+            right: 8px;
+            cursor: pointer;
+        }
+        
+        .inspector-input {
+            width: 100%;
+            padding: 10px;
+            margin: 0;
+            color: var(--contrast-color);
+            border: none;
+            border-bottom: 1px solid var(--half-transparent-border-color);
+            border-radius: 0;
+            font-size: 0.9em;
+            background: transparent;
+            outline: none;
+            position: relative;
+            box-sizing: border-box;
+        }
+        
+        .inspector-options {
+            width: 100%;
+            padding: 0;
+            margin: 10px 0 0 0;
+            color: var(--contrast-color);
+            border: none;
+            border-radius: 3px;
+            background: transparent;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .inspector-btn {
+            width: 47%;
+            padding: 10px;
+            margin: 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9em;
+            outline: none;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .inspector-btn.active {
+            background: var(--switchcheckedbackground-color);
+            color: var(--bg-color);
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .inspector-btn.inactive {
+            background: var(--lightgrey-color);
+            color: var(--contrast-color);
+        }
+        
+        .inspector-content-list {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 0 0;
+            max-height: 295px;
+            color: var(--contrast-color);
+            border: 1px solid var(--half-transparent-border-color);
+            border-radius: 3px;
+            font-size: 13px;
+            background: transparent;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+        
+        .inspector-list-item {
+            width: 100%;
+            padding: 5px 0;
+            margin: 0;
+            color: var(--contrast-color);
+            border: none;
+            border-radius: 0;
+            font-size: 13px;
+            background: transparent;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .hl-prop { color: var(--syntaxcommand-color); }
+        .hl-punc { color: var(--syntaxsign-color); }
+        .hl-val { color: var(--syntaxkeyword-color); }
+        
+        .hl-pre {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            color: var(--syntaxstring-color);
+            margin: 2px 0 0 0;
+            font-family: inherit;
+        }
+        
+        .niceBorder {
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
@@ -5016,6 +5192,22 @@
                     <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
                     <button class="showconsolebtn" onclick="showOverlay('.consoleconteiner')">▷</button>
                     <button class="togglesidebarbuttonatview" onclick="togglesidebarbuttonfunction()">☰</button>
+                    <div class="inspector-dropdown">
+                        <button class="inspector-movement-point"></button>
+                        <button class="inspector-close-btn">&times;</button>
+                        
+                        <input type="text" class="inspector-input" placeholder="search for value...">
+                        
+                        <div class="inspector-options">
+                            <button class="inspector-btn active">CSS</button>
+                            <button class="inspector-btn inactive">HTML</button>
+                        </div>
+                        
+                        <div class="inspector-content-list">
+                            
+                        </div>
+                    </div>
+
                     <div class="swipe-container">
                         <div class="view">
                             <div class="mobile-container">
@@ -6021,6 +6213,72 @@
         <div class="explanationContainer"></div>
     </div>
     <script>
+        function makeDraggable(handleClass, parentClass) {
+            const handle = document.querySelector(`.${handleClass}`);
+            const parent = document.querySelector(`.${parentClass}`);
+            
+            let isDragging = false;
+            
+            let startX = 0;
+            let startY = 0;
+            
+            let initialRight = 0;
+            let initialTop = 0;
+            
+            const getCoords = (e) => {
+                if (e.touches && e.touches.length > 0) {
+                    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+                return { x: e.clientX, y: e.clientY };
+            };
+            
+            const onDragStart = (e) => {
+                isDragging = true;
+                
+                if (e.cancelable) e.preventDefault();
+                
+                const coords = getCoords(e);
+                startX = coords.x;
+                startY = coords.y;
+                
+                const computedStyle = window.getComputedStyle(parent);
+                
+                initialRight = parseFloat(computedStyle.right) || 0;
+                initialTop = parseFloat(computedStyle.top) || 0;
+                
+                parent.style.position = 'absolute';
+            };
+            
+            const onDragMove = (e) => {
+                if (!isDragging) return;
+                
+                if (e.cancelable) e.preventDefault();
+                
+                const coords = getCoords(e);
+                
+                const deltaX = coords.x - startX;
+                const deltaY = coords.y - startY;
+                parent.style.top = `${initialTop + deltaY}px`;
+                parent.style.right = `${initialRight - deltaX}px`;
+            };
+            
+            const onDragEnd = () => {
+                isDragging = false;
+            };
+            
+            handle.addEventListener('mousedown', onDragStart);
+            handle.addEventListener('mousemove', onDragMove);
+            handle.addEventListener('mouseup', onDragEnd);
+            handle.addEventListener('mouseleave', onDragEnd);
+            
+            handle.addEventListener('touchstart', onDragStart, { passive: false });
+            handle.addEventListener('touchmove', onDragMove, { passive: false });
+            handle.addEventListener('touchend', onDragEnd);
+            handle.addEventListener('touchcancel', onDragEnd);
+        }
+        
+        makeDraggable("inspector-movement-point", "inspector-dropdown");
+        
         function updatedPoliciesCheck() {
             const updatedPolicies = document.getElementById("updatedPolicies");
             const userregulationsandconditions = document.querySelector(".userregulationsandconditions");
@@ -7654,10 +7912,122 @@
         
         let consolegroups = {};
         let openconsolegroups = {};
+        function closeInspectorDropdown() {
+            const container = document.querySelector('.inspector-dropdown');
+            if (container) {
+                container.style.display = 'none';
+            }
+        }
+        function updateElementInfos(htmlData, cssData) {
+            const container = document.querySelector('.inspector-dropdown');
+            const contentList = document.querySelector('.inspector-content-list');
+            const searchInput = document.querySelector('.inspector-input');
+            const btnCss = document.querySelectorAll('.inspector-btn')[0];
+            const btnHtml = document.querySelectorAll('.inspector-btn')[1];
+            const btnClose = document.querySelector('.inspector-close-btn');
         
+            if (!container) return;
+            
+            container.style.display = 'block';
+            
+            let isOnFirstSection = btnCss.classList.contains('active');
+            let cssAttrElList = [];
+        
+            function addCssAttrList() {
+                cssAttrElList = [];
+                contentList.innerHTML = "";
+                
+                for (const prop in cssData) {
+                    const listItemEl = document.createElement('div');
+                    listItemEl.className = 'inspector-list-item';
+                    listItemEl.innerHTML = `<span class="hl-prop">${prop}</span><span class="hl-punc">:</span> <span class="hl-val">${cssData[prop]}</span><span class="hl-punc">;</span>`;
+                    contentList.appendChild(listItemEl);
+                    cssAttrElList.push(listItemEl);
+                }
+            }
+        
+            function addHTMLValuesList() {
+                cssAttrElList = [];
+                contentList.innerHTML = "";
+                
+                for (const objItem in htmlData) {
+                    const listItemEl = document.createElement('div');
+                    listItemEl.className = 'inspector-list-item';
+                    listItemEl.innerHTML = `<span class="hl-prop">${objItem}</span><span class="hl-punc">:</span> `;
+                    
+                    const pre = document.createElement('pre');
+                    pre.className = 'hl-pre';
+                    pre.innerHTML = htmlData[objItem];
+                    
+                    listItemEl.appendChild(pre);
+                    contentList.appendChild(listItemEl);
+                    
+                    let prehidden = false;
+                    listItemEl.onclick = () => {
+                        if (prehidden) {
+                            prehidden = false;
+                            pre.innerHTML = htmlData[objItem];
+                            pre.style.color = "#0051A8";
+                        } else {
+                            prehidden = true;
+                            pre.innerHTML = "hidden...";
+                            pre.style.color = "red";
+                        }
+                    };
+                    cssAttrElList.push(listItemEl);
+                }
+            }
+        
+            function searchForValue() {
+                const searchTerm = searchInput.value.toLowerCase();
+                cssAttrElList.forEach(el => {
+                    if (el.textContent.toLowerCase().includes(searchTerm)) {
+                        el.style.display = "block";
+                    } else {
+                        el.style.display = "none";
+                    }
+                });
+            }
+            
+            btnCss.onclick = () => {
+                btnCss.className = 'inspector-btn active';
+                btnHtml.className = 'inspector-btn inactive';
+                addCssAttrList();
+                searchForValue();
+            };
+            
+            btnHtml.onclick = () => {
+                btnHtml.className = 'inspector-btn active';
+                btnCss.className = 'inspector-btn inactive';
+                addHTMLValuesList();
+                searchForValue();
+            };
+            
+            searchInput.oninput = () => {
+                searchForValue();
+            };
+            
+            btnClose.onclick = () => {
+                closeInspectorDropdown();
+            };
+            
+            if (btnHtml.classList.contains('active')) {
+                btnHtml.onclick();
+            } else {
+                btnCss.onclick();
+            }
+        }
         
         window.addEventListener('message', (event) => {
+            if (event.data.logId && document.getElementById(event.data.logId)) return;
             const eds = event.data.status;
+            if (event.data.type && event.data.type == "elementInfo") {
+                updateElementInfos(event.data.html, event.data.css);
+                return;
+            } else if (event.data.type && event.data.type == "closeInspectorDropDown") {
+                closeInspectorDropdown();
+                return;
+            }
             const consol = document.querySelector('.console');
             const messagecontainer = document.createElement('div');
             const icon = document.createElement('button');
@@ -7667,6 +8037,7 @@
             messagecontainer.classList.add('consolestatus' + event.data.status);
             message.textContent = event.data.message;
             message.className = "consolemessage";
+            message.id = event.data.logId;
             icon.className = "consolemessageicon";
             topCon.appendChild(icon);
             topCon.appendChild(message);
@@ -7875,12 +8246,25 @@
             return { hours, minutes };
         }
         
+        let currenttextcontainerid = null;
+        let currentiframeid = null;
+        let iframeNotEmpty = false;
+        let notifyTimeout = null;
+        
         function togglePreviewElementInfo(el) {
             el.classList.toggle("Active");
             if (el.classList.contains('Active')) {
+                const inspectorcontainer = document.querySelector('.inspector-dropdown');
+                inspectorcontainer.style.top = "50px";
+                inspectorcontainer.style.right = "20px";
                 shortNotificationmessageelement("Info on elements in the preview window will be shown.");
             } else {
                 shortNotificationmessageelement("Info on elements in the preview window won't be shown.");
+            }
+            if (iframeNotEmpty == true) {
+                notify("refresh viewport", "refresh", () => {
+                    textCode(currenttextcontainerid, currentiframeid);
+                });
             }
         }
         function toggleConsole(thiselementwasclicked, showNotification = true){
@@ -7896,6 +8280,11 @@
                 if (showNotification) {
                     shortNotificationmessageelement("The console has been disabled");
                 }
+            }
+            if (iframeNotEmpty == true) {
+                notify("refresh viewport", "refresh", () => {
+                    textCode(currenttextcontainerid, currentiframeid);
+                });
             }
         }
         
@@ -8011,9 +8400,11 @@
                 }
             }
         });
-        
-        
         function notify(message, buttontext, callback){
+            if (notifyTimeout) {
+                clearTimeout(notifyTimeout);
+                notifyTimeout = null;
+            }
             document.querySelector('.notificationmessage .messagespan').textContent = message;
             document.querySelector('.notificationmessage .confirmationbtn').textContent = buttontext;
             shownotificationmessage();
@@ -8022,10 +8413,15 @@
                 if (document.querySelector('.notificationmessage').style.animation != "hidenotifucationmessageanimation 0.5s ease-out") {
                     hidenotificationmessage();
                 }
+                if (notifyTimeout) {
+                    clearTimeout(notifyTimeout);
+                    notifyTimeout = null;
+                }
             };
-            setTimeout(() => {
+            notifyTimeout = setTimeout(() => {
                 if (document.querySelector('.notificationmessage').style.animation != "hidenotifucationmessageanimation 0.5s ease-out") {
                     hidenotificationmessage();
+                    notifyTimeout = null;
                 }
             }, 5000);
         }
@@ -10074,7 +10470,7 @@
                 }
                 
                 activePointer = true;
-                
+                const sidebarbardivforscrolltop = document.querySelector(".smallNavBar .sidebarbardiv");
                 document.body.style.userSelect = "none";
                 startY = getClientY(e);
                 dragElementParent = el.parentElement;
@@ -10095,7 +10491,7 @@
                     
                     el.style.width = rect.width + "px";
                     el.style.left = rect.left + "px";
-                    el.style.top = rect.top + "px";
+                    el.style.top = sidebarbardivforscrolltop ? rect.top + sidebarbardivforscrolltop.scrollTop + "px" : rect.top + "px";
                     el.classList.add("draggingEl");
                     
                     resetIdleTimer();
@@ -10114,11 +10510,11 @@
                 if (!isDragging) return;
                 
                 e.preventDefault();
-                
+                const sidebarbardivforscrolltop = document.querySelector(".smallNavBar .sidebarbardiv");
                 currentY = getClientY(e);
                 const newY = currentY - offsetY;
                 
-                el.style.top = newY + "px";
+                el.style.top = sidebarbardivforscrolltop ? newY + sidebarbardivforscrolltop.scrollTop + "px" : newY + "px";
                 
                 resetIdleTimer();
             }
@@ -10338,6 +10734,7 @@
 
             let content = checkiffile(name);
             if (!content) {
+                shortNotificationmessageelement("The code was not found!");
                 return;
             }
 
@@ -11916,19 +12313,8 @@
             if (!viewcontainer) return;
             
             section.style.display = "none";
-            
-            viewcontainer.style.animation = "none";
-            viewcontainer.style.position = "fixed";
-            viewcontainer.style.top = "0";
-            viewcontainer.style.left = "0";
-            viewcontainer.style.bottom = "0";
-            viewcontainer.style.zIndex = "1111";
             viewcontainer.style.display = "flex";
-            
-            const sidebarContainer = document.querySelector('.sidebarenabled .viewcontainer');
-            if (sidebarContainer) {
-                sidebarContainer.style.left = "var(--sidebar-width)";
-            }
+            viewcontainer.classList.add("viewthisfileExpanded");
             
             const filepath =
                 document.querySelector('.navdot' + editorIndex + ' input[type="text"]')?.value || "";
@@ -11947,6 +12333,8 @@
             if (!viewcontainer) return;
             
             section.style.display = "flex";
+            
+            viewcontainer.classList.remove("viewthisfileExpanded");
             
             Object.assign(viewcontainer.style, initialState);
             
@@ -11980,7 +12368,7 @@
         }
         
         function checkiffile(filename) {
-            let fileContent = "";
+            let fileContent = null;
             document.querySelectorAll('.filedot').forEach(fd => {
                 let filePathInputva = fd.querySelector('.filePathInput');
                 if (filePathInputva && filePathInputva.value == filename) {
@@ -11988,6 +12376,7 @@
                     if (!sectionv) return;
                     const allLines = editorFiles[sectionv];
                     if (allLines && allLines != undefined) {
+                        fileContent = "";
                         allLines.forEach(line => {
                             fileContent += normalizeSpaces(line.text) + "\n";
                         });
@@ -11998,26 +12387,49 @@
             
             return fileContent;
         }
-        
         function replaceLinksAndScripts(values) {
             let htmlString = checkiffile(values);
+            if (!htmlString) return htmlString;
             const fileCache = new Map();
 
             const getFileContent = (filename) => {
                 if (!fileCache.has(filename)) {
-                    fileCache.set(filename, checkiffile(filename));
+                    const fileContent = checkiffile(filename);
+                    fileCache.set(filename, fileContent ? fileContent : "");
                 }
                 return fileCache.get(filename);
+            };
+            
+            // Helper function to find the best syntactical insertion point
+            const safeInject = (html, code) => {
+                if (/<\/script>(?![\s\S]*<\/script>)/i.test(html)) {
+                    return html.replace(/<\/script>(?![\s\S]*<\/script>)/i, code);
+                }
+                // Strip the leading <\/script> from the payload if falling back to other tags
+                const cleanCode = code.replace(/^\s*<\/script>/i, '');
+                
+                if (/<\/body>/i.test(html)) {
+                    return html.replace(/<\/body>/i, '\n' + cleanCode + '\n</body>');
+                }
+                if (/<\/head>/i.test(html)) {
+                    return html.replace(/<\/head>/i, '\n' + cleanCode + '\n</head>');
+                }
+                if (/<\/html>/i.test(html)) {
+                    return html.replace(/<\/html>/i, '\n' + cleanCode + '\n</html>');
+                }
+                
+                // Fallback to just appending it at the very end
+                return html + '\n' + cleanCode;
             };
 
             htmlString = htmlString.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/g, (match, href) => {
                 const fileContent = checkiffile(href);
-                return fileContent ? `<style>\n${fileContent}\n</style>` : match;
+                return fileContent ? `<style>\n${fileContent ? fileContent : ""}\n</style>` : match;
             });
 
             htmlString = htmlString.replace(/<script\s+[^>]*src=["']([^"']+)["'][^>]*><\/script>/g, (match, src) => {
                 const fileContent = checkiffile(src);
-                return fileContent ? `<script>\n${fileContent}\n<\/script>` : match;
+                return fileContent ? `<script>\n${fileContent ? fileContent : ""}\n<\/script>` : match;
             });
             let filerequests = `
     <\/script>
@@ -12070,429 +12482,169 @@
             `;
             if (document.querySelector('.showElementInfo').classList.contains('Active')) {
                     filerequests += `
-<script>
-    (function () {
-        const overlayElsid = 'overlay-' + crypto.randomUUID();
-        let target = null;
-        let elOverlay = null;
-        let dropdownDiv = null;
-        let searchvalue = "";
-        let isOnFirstSection = true;
-        document.addEventListener('click', (e) => {
-            showElInfo = false;
-            if (!e) return;
-            if (e.target == target) showElInfo = true;
-            target = e.target;
-            if (!(target instanceof Element)) return;
-            if (target.classList.contains(overlayElsid)) return;
-            function closeDropDown() {
-                if (elOverlay) {
-                    elOverlay.remove();
-                }
-                if (dropdownDiv) {
-                    dropdownDiv.remove();
-                }
-                elOverlay = null;
-                dropdownDiv = null;
-            }
-            closeDropDown();
-            if (target == document.body) return;
+    <script>
+        (function () {
+            const overlayElsid = 'overlay-' + crypto.randomUUID();
+            let target = null;
+            let elOverlay = null;
             
-            function getBlackOrWhite(el) {
-                let node = el;
-              
-                while (node && node !== document.documentElement) {
-                    const style = getComputedStyle(node);
-                    if (style.backgroundImage && style.backgroundImage !== 'none') {
-                        return '#000000';
-                    }
+            document.addEventListener('click', (e) => {
+                let showElInfo = false;
+                if (!e) return;
+                if (e.target == target) showElInfo = true;
+                target = e.target;
                 
-                    const bg = style.backgroundColor;
+                if (!(target instanceof Element)) return;
+                if (target.classList.contains(overlayElsid)) return;
+                
+                function closeOverlay() {
+                    if (elOverlay) {
+                        elOverlay.remove();
+                    }
+                    elOverlay = null;
+                }
+                closeOverlay();
+                window.parent.postMessage({
+                    type: 'closeInspectorDropDown'
+                }, '*');
+                if (target == document.body) return;
+                
+                function getBlackOrWhite(el) {
+                    let node = el;
+                  
+                    while (node && node !== document.documentElement) {
+                        const style = getComputedStyle(node);
+                        if (style.backgroundImage && style.backgroundImage !== 'none') {
+                            return '#000000';
+                        }
                     
-                    if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
-                        node = node.parentElement;
-                        continue;
+                        const bg = style.backgroundColor;
+                        
+                        if (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') {
+                            node = node.parentElement;
+                            continue;
+                        }
+                        const tmp = document.createElement('div');
+                        tmp.style.color = bg;
+                        document.body.appendChild(tmp);
+                    
+                        const rgb = getComputedStyle(tmp).color;
+                        document.body.removeChild(tmp);
+                    
+                        const m = rgb.match(/\d+/g);
+                        if (!m) return '#000000';
+                    
+                        const r = +m[0], g = +m[1], b = +m[2];
+                    
+                        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                    
+                        return luminance < 140 ? '#ffffff' : '#000000';
                     }
-                    const tmp = document.createElement('div');
-                    tmp.style.color = bg;
-                    document.body.appendChild(tmp);
-                
-                    const rgb = getComputedStyle(tmp).color;
-                    document.body.removeChild(tmp);
-                
-                    const m = rgb.match(/\d+/g);
-                    if (!m) return '#000000';
-                
-                    const r = +m[0], g = +m[1], b = +m[2];
-                
-                    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                
-                    return luminance < 140 ? '#ffffff' : '#000000';
+                  
+                    return '#000000';
                 }
-              
-                return '#000000';
-            }
-            const rect = target.getBoundingClientRect();
-            elOverlay = document.createElement('div');
-            document.body.appendChild(elOverlay);
-            const elOverlayStyles = {
-                border: '2px dashed' + getBlackOrWhite(target),
-                borderRadius: '2px',
-                background: 'transparent',
-                width: rect.width + 'px',
-                height: rect.height + 'px',
-                margin: '0',
-                padding: '0',
-                position: 'absolute',
-                top: rect.top + window.scrollY + 'px',
-                left: rect.left + window.scrollX + 'px',
-                pointerEvents: 'none',
-                zIndex: '9999'
-            };
-            for (const key in elOverlayStyles) {
-                elOverlay.style[key] = elOverlayStyles[key];
-            }
-            if (showElInfo == true) {
-                dropdownDiv = document.createElement('div');
                 
-                const dropdownContentList = document.createElement('div');
+                const rect = target.getBoundingClientRect();
+                elOverlay = document.createElement('div');
+                elOverlay.className = overlayElsid; // Ensure the overlay has the class so it's ignored on click
+                document.body.appendChild(elOverlay);
                 
-                const dropdownOptions = document.createElement('div');
-                const dropdownCloseBtn = document.createElement('button');
-                
-                const dropdownOptionsBtn1 = document.createElement('button');
-                const dropdownOptionsBtn2 = document.createElement('button');
-                
-                const dropdownInput = document.createElement('input');
-                
-                const elsStyles = {
-                    dropdownDiv: {
-                        el: dropdownDiv,
-                        style: {
-                            border: '1px solid rgba(255, 255, 255, 0.7)',
-                            borderRadius: '5px',
-                            background: 'rgba(255, 255, 255, 0.5)',
-                            width: '320px',
-                            margin: '0',
-                            padding: '10px',
-                            position: 'absolute',
-                            //top: rect.top + rect.height + window.scrollY + 10 + 'px',
-                            left: rect.left + window.scrollX + 'px',
-                            zIndex: '9999',
-                            color: 'black',
-                            maxHeight: "420px",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                            overflow: "hidden",
-                            alignItems: "flex-start",
-                            backdropFilter: "blur(10px)",
-                            webkitBackdropFilter: "blur(10px)"
-                        }
-                    },
-                    dropdownInput: {
-                        el: dropdownInput,
-                        style: {
-                            width: "100%",
-                            padding: "10px",
-                            margin: "0",
-                            color: "black",
-                            border: "none",
-                            borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
-                            borderRadius: "0",
-                            fontSize: "13px",
-                            background: "transparent",
-                            outline: "none",
-                            position: "relative"
-                        }
-                    },
-                    dropdownContentList: {
-                        el: dropdownContentList,
-                        style: {
-                            width: "100%",
-                            padding: "10px",
-                            margin: "0",
-                            maxHeight: "295px",
-                            color: "black",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            borderRadius: "3px",
-                            fontSize: "13px",
-                            background: "transparent",
-                            marginTop: "10px",
-                            position: "relative",
-                            overflow: "hidden",
-                            alignItems: "flex-start",
-                            overflowY: "auto"
-                        }
-                    },
-                    dropdownCloseBtn: {
-                        el: dropdownCloseBtn,
-                        style: {
-                            padding: "0",
-                            margin: "0",
-                            color: "black",
-                            border: "none",
-                            borderRadius: "3px",
-                            fontSize: "17px",
-                            background: "transparent",
-                            position: "absolute",
-                            fontWeight: "bold",
-                            top: "2px",
-                            right: "4px"
-                        }
-                    },
-                    dropdownOptions: {
-                        el: dropdownOptions,
-                        style: {
-                            width: "100%",
-                            padding: "0",
-                            margin: "0",
-                            marginTop: "10px",
-                            color: "black",
-                            border: "none",
-                            borderRadius: "3px",
-                            background: "transparent",
-                            display: "flex",
-                            justifyContent: "space-between"
-                        }
-                    },
-                    dropdownOptionsBtn1: {
-                        el: dropdownOptionsBtn1,
-                        style: {
-                            width: "47%",
-                            padding: "10px",
-                            margin: "0",
-                            color: "white",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            borderRadius: "10px",
-                            fontSize: "13px",
-                            background: "black",
-                            outline: "none",
-                            position: "relative",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                            display: "inline-block"
-                        }
-                    },
-                    dropdownOptionsBtn2: {
-                        el: dropdownOptionsBtn2,
-                        style: {
-                            width: "47%",
-                            padding: "10px",
-                            margin: "0",
-                            color: "black",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            borderRadius: "10px",
-                            fontSize: "13px",
-                            background: "white",
-                            outline: "none",
-                            position: "relative",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                            display: "inline-block"
-                        }
-                    }
-                }
-                const listItemCSS = {
-                    width: "100%",
-                    padding: "0",
-                    margin: "0",
-                    color: "black",
-                    border: "none",
-                    borderRadius: "0",
-                    fontSize: "13px",
-                    background: "transparent",
-                    paddingBottom: "5px",
-                    fontWeight: "bold",
-                    paddingTop: "5px",
-                    overflowWrap: "break-word",
-                    wordWrap: "break-word"
+                const elOverlayStyles = {
+                    border: '2px dashed ' + getBlackOrWhite(target),
+                    borderRadius: '2px',
+                    background: 'transparent',
+                    width: rect.width + 'px',
+                    height: rect.height + 'px',
+                    margin: '0',
+                    padding: '0',
+                    position: 'absolute',
+                    top: rect.top + window.scrollY + 'px',
+                    left: rect.left + window.scrollX + 'px',
+                    pointerEvents: 'none',
+                    zIndex: '999999'
                 };
-                for (const key in elsStyles) {
-                    const { el, style } = elsStyles[key];
-                    
-                    for (const prop in style) {
-                        el.style[prop] = style[prop];
-                    }
-                    el.className = overlayElsid;
+                
+                for (const key in elOverlayStyles) {
+                    elOverlay.style[key] = elOverlayStyles[key];
                 }
                 
-                function getFullCSSList(el) {
-                    const styles = getComputedStyle(el);
-                    let css = [];
-                    
-                    for (const prop of styles) {
-                        css.push(\`<span style="color: #FF8C00" class="\${overlayElsid}">\${prop}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> <span style="color: #0051A8" class="\${overlayElsid}">\${styles.getPropertyValue(prop)}</span><span style="color: #a0a0a0" class="\${overlayElsid}">;</span>\\n\`);
-                    }
-                    
-                    return css;
-                }
-                
-                document.body.appendChild(dropdownDiv);
-                
-                dropdownDiv.appendChild(dropdownInput);
-                dropdownDiv.appendChild(dropdownOptions);
-                dropdownDiv.appendChild(dropdownContentList);
-                
-                dropdownDiv.appendChild(dropdownCloseBtn);
-                dropdownCloseBtn.textContent = "×";
-                
-                dropdownOptions.appendChild(dropdownOptionsBtn1);
-                dropdownOptions.appendChild(dropdownOptionsBtn2);
-                dropdownOptionsBtn1.textContent = "CSS";
-                dropdownOptionsBtn2.textContent = "HTML";
-                
-                dropdownInput.value = searchvalue;
-                dropdownInput.placeholder = "search for value...";
-                
-                const escaped = str => str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
-                const cssAttrList = getFullCSSList(target);
-                //const htmlValuesList = target.attributes;
-                const htmlFullValuesList = {
-                    ".className": target.className.split(/\s+/).join(", "),
-                    ".textContent": target.textContent,
-                    ".innerHTML": escaped(target.innerHTML),
-                    ".value": target.value,
-                    ".disabled": target.disabled,
-                    ".checked": target.checked,
-                    ".readonly": target.readOnly,
-                    ".required": target.required,
-                    ".selected": target.selected,
-                    ".multiple": target.multiple,
-                    ".hidden": target.hidden,
-                    ".autofocus": target.autofocus,
-                    ".type": target.type,
-                    ".name": target.name,
-                    ".placeholder": target.placeholder,
-                    ".min": target.min,
-                    ".max": target.max,
-                    ".step": target.step,
-                    ".pattern": target.pattern,
-                    ".size": target.size,
-                    ".maxLength": target.maxLength,
-                    ".id": target.id,
-                    ".style": target.style.cssText,
-                    ".title": target.title,
-                    ".lang": target.lang,
-                    ".dir": target.dir,
-                    ".tabIndex": target.tabIndex,
-                    ".draggable": target.draggable,
-                    ".contentEditable": target.contentEditable,
-                    ".spellcheck": target.spellcheck,
-                    ".role": target.getAttribute("role"),
-                    ".dataset": JSON.stringify(target.dataset)
-                    //...htmlValuesList
-                };
-                let cssAttrElList = [];
-                dropdownContentList.innerHTML = "";
-        
-                function addCssAttrList() {
-                    cssAttrElList = [];
-                    dropdownContentList.innerHTML = "";
-                    cssAttrList.forEach(listItem => {
-                        const listItemEl = document.createElement('div');
-                        for (const key in listItemCSS) {
-                            listItemEl.style[key] = listItemCSS[key];
+                if (showElInfo == true) {
+                    // Build a raw object of CSS properties instead of HTML strings
+                    function getFullCSSList(el) {
+                        const styles = getComputedStyle(el);
+                        let css = {};
+                        for (const prop of styles) {
+                            css[prop] = styles.getPropertyValue(prop);
                         }
-                        listItemEl.innerHTML = listItem;
-                        listItemEl.className = overlayElsid;
-                        dropdownContentList.appendChild(listItemEl);
-                        cssAttrElList.push(listItemEl);
-                    });
-                    dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
-                }
-                function addHTMLValuesList() {
-                    cssAttrElList = [];
-                    dropdownContentList.innerHTML = "";
-                    for (const objItem in htmlFullValuesList) {
-                        const listItemEl = document.createElement('div');
-                        for (const key in listItemCSS) {
-                            listItemEl.style[key] = listItemCSS[key];
-                        }
-                        listItemEl.innerHTML = \`<span style="color: #FF8C00" class="\${overlayElsid}">\${objItem}</span><span style="color: #a0a0a0" class="\${overlayElsid}">:</span> \`;
-                        const pre = document.createElement('pre');
-                        pre.innerHTML = htmlFullValuesList[objItem];
-                        pre.style.overflowWrap = "break-word";
-                        pre.style.wordWrap = "break-word";
-                        pre.style.whiteSpace = "pre-wrap";
-                        pre.style.color = "#0051A8";
-                        pre.className = overlayElsid;
-                        listItemEl.className = overlayElsid;
-                        dropdownContentList.appendChild(listItemEl);
-                        listItemEl.appendChild(pre);
-                        let prehidden = false;
-                        listItemEl.onclick = () => {
-                            if (prehidden == true) {
-                                prehidden = false;
-                                pre.innerHTML = htmlFullValuesList[objItem];
-                                pre.style.color = "#0051A8";
-                            } else {
-                                prehidden = true;
-                                pre.innerHTML = "hidden...";
-                                pre.style.color = "red";
-                            }
-                        };
-                        cssAttrElList.push(listItemEl);
+                        return css;
+                    }
+                    
+                    const escaped = str => str ? str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) : "";
+                    const cssAttrList = getFullCSSList(target);
+                    
+                    // Build a raw object of HTML attributes (removed leading dots for standard JSON keys)
+                    const htmlFullValuesList = {
+                        "className": target.className.split(/\s+/).join(", "),
+                        "textContent": target.textContent,
+                        "innerHTML": escaped(target.innerHTML),
+                        "value": target.value,
+                        "disabled": target.disabled,
+                        "checked": target.checked,
+                        "readonly": target.readOnly,
+                        "required": target.required,
+                        "selected": target.selected,
+                        "multiple": target.multiple,
+                        "hidden": target.hidden,
+                        "autofocus": target.autofocus,
+                        "type": target.type,
+                        "name": target.name,
+                        "placeholder": target.placeholder,
+                        "min": target.min,
+                        "max": target.max,
+                        "step": target.step,
+                        "pattern": target.pattern,
+                        "size": target.size,
+                        "maxLength": target.maxLength,
+                        "id": target.id,
+                        "style": target.style.cssText,
+                        "title": target.title,
+                        "lang": target.lang,
+                        "dir": target.dir,
+                        "tabIndex": target.tabIndex,
+                        "draggable": target.draggable,
+                        "contentEditable": target.contentEditable,
+                        "spellcheck": target.spellcheck,
+                        "role": target.getAttribute("role"),
+                        "dataset": JSON.stringify(target.dataset)
                     };
-                    dropdownDiv.style.top = Math.max(0, Math.min(rect.bottom + 10, window.innerHeight - dropdownDiv.offsetHeight)) + window.scrollY + 'px';
+                    
+                    // Post the values to the parent window
+                    if (window.parent) {
+                        window.parent.postMessage({
+                            type: 'elementInfo',
+                            css: cssAttrList,
+                            html: htmlFullValuesList
+                        }, '*'); 
+                        // Note: Change '*' to your specific parent domain (e.g., 'https://yourdomain.com') for better security in production.
+                    }
                 }
-                function searchForValue() {
-                    cssAttrElList.forEach(el => {
-                        if (el.textContent.toLowerCase().includes(dropdownInput.value.toLowerCase())) {
-                            el.style.display = "block";
-                        } else {
-                            el.style.display = "none";
-                        }
-                    });
+            });
+            
+            window.addEventListener('resize', () => {
+                if (target && elOverlay && (elOverlay instanceof Element)) {
+                    const rect = target.getBoundingClientRect();
+                    elOverlay.style.width = rect.width + 'px';
+                    elOverlay.style.height = rect.height + 'px';
+                    elOverlay.style.top = rect.top + window.scrollY + 'px';
+                    elOverlay.style.left = rect.left + window.scrollX + 'px';
                 }
-                addCssAttrList();
-                dropdownOptionsBtn1.onclick = () => {
-                    addCssAttrList();
-                    searchForValue();
-                    dropdownOptionsBtn1.style.background = "black";
-                    dropdownOptionsBtn1.style.color = "white";
-                    dropdownOptionsBtn2.style.background = "white";
-                    dropdownOptionsBtn2.style.color = "black";
-                    isOnFirstSection = true;
-                };
-                dropdownOptionsBtn2.onclick = () => {
-                    addHTMLValuesList();
-                    searchForValue();
-                    dropdownOptionsBtn2.style.background = "black";
-                    dropdownOptionsBtn2.style.color = "white";
-                    dropdownOptionsBtn1.style.background = "white";
-                    dropdownOptionsBtn1.style.color = "black";
-                    isOnFirstSection = false;
-                };
-                if (isOnFirstSection == false) {
-                    dropdownOptionsBtn2.click();
-                }
-                
-                searchForValue();
-                
-                dropdownCloseBtn.onclick = () => closeDropDown();
-                
-                dropdownInput.oninput = () => {
-                    searchvalue = dropdownInput.value;
-                    searchForValue();
-                };
+            });
+    
+        })();
+    <\/script>`;
             }
-        });
-        window.addEventListener('resize', () => {
-            if (target && elOverlay && (elOverlay instanceof Element) && (elOverlay instanceof Element)) {
-                const rect = target.getBoundingClientRect();
-                elOverlay.style.width = rect.width + 'px';
-                elOverlay.style.height = rect.height + 'px';
-                elOverlay.style.top = rect.top + window.scrollY + 'px';
-                elOverlay.style.left = rect.left + window.scrollX + 'px';
-            }
-            if (target && dropdownDiv && (elOverlay instanceof Element) && (dropdownDiv instanceof Element)) {
-                const rect = target.getBoundingClientRect();
-                dropdownDiv.style.width = rect.width + 'px';
-                dropdownDiv.style.top = rect.top + window.scrollY + 'px';
-                dropdownDiv.style.left = rect.top + rect.height + window.scrollY + 'px';
-            }
-        });
-    })();
-<\/script>`;
-            }
-            htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, filerequests);
+            htmlString = safeInject(htmlString, filerequests);
+            
             if (document.querySelector('.consoletogglebtn').classList.contains('Active')){
                 let extracode = `
     <\/script>
@@ -12513,10 +12665,10 @@
     <\/script>`;
                 
                 htmlString = htmlString.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
-                    return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
+                    return `<script>\ntry {\n` + code + `\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message, logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\`, logId: '${"consoleMessageId" + crypto.randomUUID()}' }, '*');\n}\n}\n<\/script>`;
                 });
-                htmlString = htmlString.replace(/<\/script>(?![\s\S]*<\/script>)/, extracode);
                 
+                htmlString = safeInject(htmlString, extracode);
                 
                 htmlString = htmlString.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
                     const keys = [
@@ -12539,28 +12691,30 @@
                         "countReset"
                     ];
                     if (!keys.includes(type)){
-                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}' }, '*');\nconsole.${type}(${message});`;
+                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}', logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\nconsole.${type}(${message});`;
                     }
                     let messagetouse = message;
                     if (messagetouse == ""){
-                        return `parent.postMessage({ status: '${type}', message: "default" }, '*');`;
+                        return `parent.postMessage({ status: '${type}', message: "default", logId: 'consoleMessageId' + crypto.randomUUID() }, '*');`;
                     }
-                    return `parent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
+                    return `parent.postMessage({ status: '${type}', message: [${messagetouse}], logId: 'consoleMessageId' + crypto.randomUUID() }, '*');`;
                 });
             }
             
             return htmlString;
         }
 
-        let currentiframeid = null;
+        
         function cleariframe(iframeid) {
             if (!iframeid || currentiframeid != iframeid) {
                 return;
             }
-            
+            if (document.querySelector('.notificationmessage').style.display != "none") {
+                hidenotificationmessage();
+            }
+            iframeNotEmpty = false;
             currentiframeid = null;
             document.querySelector('.console').innerHTML = "";
-            document.querySelector('#' + iframeid).srcdoc = "";
             document.querySelector('#' + iframeid).srcdoc = "";
             document.querySelector('#' + iframeid).parentElement.style.backgroundColor = "var(--browseriframebackgroundcolor-color)";
             timers = {};
@@ -12572,8 +12726,10 @@
             if (!iframeid){
                 return;
             }
+            closeInspectorDropdown();
             document.querySelector('.console').innerHTML = "";
             currentiframeid = iframeid;
+            currenttextcontainerid = textcontainerid;
             document.querySelector('#computer-frame').srcdoc = "";
             document.querySelector('#mobile-frame').srcdoc = "";
             document.querySelectorAll('.iframe-container').forEach(iframe => {
@@ -12584,24 +12740,30 @@
             consolegroups = {};
             openconsolegroups = {};
             let code = "";
+            const iframe = document.getElementById(iframeid);
             const requestedfilename = document.getElementById(textcontainerid).value;
-            if (requestedfilename.endsWith(".tsx")){
+            if (requestedfilename.endsWith(".tsx") || requestedfilename.endsWith(".jsx")){
                 code = checkiffile(requestedfilename);
-                document.getElementById(iframeid).srcdoc = code;
-            }else if (requestedfilename.endsWith(".jsx")) {
-                code = checkiffile(requestedfilename);
-                document.getElementById(iframeid).srcdoc = code;
-            } else if (requestedfilename.endsWith(".html")){
+                if (code) {
+                    iframe.srcdoc = code;
+                }
+            } else if (requestedfilename.endsWith(".html") || requestedfilename.endsWith(".htm")){
                 code = replaceLinksAndScripts(requestedfilename);
-                document.getElementById(iframeid).srcdoc = code;
-            } else if (requestedfilename.endsWith(".htm")){
-                code = replaceLinksAndScripts(requestedfilename);
-                document.getElementById(iframeid).srcdoc = code;
+                if (code) {
+                    iframe.srcdoc = code;
+                }
             } else {
                 code = checkiffile(requestedfilename);
-                document.getElementById(iframeid).srcdoc = "<pre><code>" + escapeHTML(code) + "</code></pre>";
+                if (code) {
+                    iframe.srcdoc = "<pre><code>" + escapeHTML(code) + "</code></pre>";
+                }
             }
-            document.getElementById(iframeid).parentElement.style.background = "white";
+            if (code == null) {
+                iframe.removeAttribute("srcdoc");
+                iframe.src = "PageNotFound.html";
+            }
+            iframe.parentElement.style.background = "white";
+            iframeNotEmpty = true;
             function escapeHTML(str) {
                 return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             }
@@ -12611,7 +12773,7 @@
             if (event.key == "Enter" && currentiframeid){
                 let texttorun = inputfield.value;
                 texttorun = texttorun.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
-                    return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\` }, '*');\n}\n}\n<\/script>";
+                    return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message, logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\`, logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\n}\n}\n<\/script>";
                 });
                 texttorun = texttorun.replaceAll(/console\.(\w+)\((.*?)\);/g, (match, type, message) => {
                     const keys = [
@@ -12634,13 +12796,13 @@
                         "countReset"
                     ];
                     if (!keys.includes(type)) {
-                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}' }, '*');\nconsole.${type}(${message});`;
+                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}', logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\nconsole.${type}(${message});`;
                     }
                     let messagetouse = message;
                     if (messagetouse == "") {
-                        return `parent.postMessage({ status: '${type}', message: "default" }, '*');`;
+                        return `parent.postMessage({ status: '${type}', message: "default", logId: 'consoleMessageId' + crypto.randomUUID() }, '*');`;
                     }
-                    return `parent.postMessage({ status: '${type}', message: [${messagetouse}] }, '*');`;
+                    return `parent.postMessage({ status: '${type}', message: [${messagetouse}], logId: 'consoleMessageId' + crypto.randomUUID() }, '*');`;
                 });
                 document.getElementById(currentiframeid).contentWindow.postMessage('run: ' + texttorun, '*');
                 inputfield.value = "";
