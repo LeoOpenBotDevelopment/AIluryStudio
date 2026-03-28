@@ -7957,7 +7957,7 @@
                     
                     const pre = document.createElement('pre');
                     pre.className = 'hl-pre';
-                    pre.textContent = htmlData[objItem];
+                    pre.innerHTML = htmlData[objItem];
                     
                     listItemEl.appendChild(pre);
                     contentList.appendChild(listItemEl);
@@ -7966,11 +7966,11 @@
                     listItemEl.onclick = () => {
                         if (prehidden) {
                             prehidden = false;
-                            pre.textContent = htmlData[objItem];
+                            pre.innerHTML = htmlData[objItem];
                             pre.style.color = "var(--syntaxstring-color)";
                         } else {
                             prehidden = true;
-                            pre.textContent = "hidden...";
+                            pre.innerHTML = "hidden...";
                             pre.style.color = "red";
                         }
                     };
