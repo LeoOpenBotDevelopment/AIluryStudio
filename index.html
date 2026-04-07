@@ -162,7 +162,7 @@
             overflow-x: hidden;
             transition: transform 0.5s ease-in-out;
             transition: 0.5s;
-
+            position: relative;
         }
 
         .sidebarenabled .container{
@@ -347,6 +347,7 @@
             align-items: center;
             cursor: pointer;
             scroll-snap-align: center;
+            scroll-snap-stop: always;
             border-radius: 10px 10px 0 0;
             position: relative;
             overflow: hidden;
@@ -468,7 +469,7 @@
         .input-field:focus {
             outline: none;
         }
-        .switch {
+        .switch, .cuswitch {
             position: relative;
             display: inline-block;
             width: 51px;
@@ -478,15 +479,22 @@
             transition: var(--tr);
             cursor: pointer;
         }
+        
+        .cuswitch {
+            width: 41px;
+            min-width: 41px;
+            height: 21px;
+            min-height: 21px;
+        }
 
-        .switch input {
+        .switch input, .cuswitch input {
             opacity: 0;
             width: 0;
             height: 0;
             transition: var(--tr);
         }
 
-        .slider {
+        .slider, .cuslider {
             position: absolute;
             cursor: pointer;
             top: 0;
@@ -498,7 +506,7 @@
             transition: var(--tr);
         }
 
-        .slider:before {
+        .slider:before, .cuslider:before {
             position: absolute;
             content: "";
             height: 23px;
@@ -509,12 +517,19 @@
             border-radius: 50%;
             transition: var(--tr);
         }
+        
+        .cuslider:before {
+            left: 2px;
+            bottom: 2px;
+            height: 17px;
+            width: 17px;
+        }
 
-        input:checked + .slider {
+        input:checked + .slider, input:checked + .cuslider {
             background: var(--switchcheckedbackground-color);
         }
 
-        input:checked + .slider:before {
+        input:checked + .slider:before, input:checked + .cuslider:before {
             transform: translateX(20px);
             transition: var(--tr);
         }
@@ -2014,7 +2029,7 @@
             position: absolute;
             top: 2px;
             left: 0;
-            z-index: 150;
+            z-index: 15;
             font-size: 1.5em;
             transition: var(--tr);
         }
@@ -2510,6 +2525,7 @@
             padding-bottom: 55px;
             border-radius: 0;
             z-index: 4;
+            position: relative;
         }
         .sidebarenabled .sidebarbardiv{
             display: flex;
@@ -3187,12 +3203,13 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            width: 200px;
+            width: fit-content;
+            max-width: 500px;
             color: var(--contrast-color);
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: 5px;
-            z-index: 15;
+            z-index: 10000;
         }
         .notificationmessage .messagespan{
             font-size: 1em;
@@ -3331,6 +3348,7 @@
         .userregulationsandconditions p{
             margin-left: 5px;
             margin-top: 20px;
+            color: var(--contrast-color);
         }
         
         .userregulationsandconditions h2 {
@@ -3342,6 +3360,7 @@
             width: 100%;
             background: linear-gradient(0deg, transparent, var(--bg-color));
             font-size: 1.5em;
+            z-index: 20;
         }
         
         @media(max-width: 700px) {
@@ -3364,7 +3383,7 @@
             }
         }
         
-        .userregulationsandconditions #acceptBtn {
+        .userregulationsandconditions #acceptBtn, .userregulationsandconditions #startCodingBtn {
             margin-top: 30px;
             margin-bottom: 20px;
             background: var(--switchcheckedbackground-color);
@@ -3377,6 +3396,8 @@
             align-self: center;
             width: 100%;
             max-width: 500px;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .consoleconteiner{
             display: none;
@@ -4067,14 +4088,6 @@
             z-index: 5;
             transition: var(--tr);
         }
-        .sidebarenabled .sidebarbardiv {
-            /*padding-top: 80px;*/
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        /*.sidebarenabled .sidebarbardiv h1 {
-            width: calc(var(--sibebar-width) - 2px);
-        }*/
         @media(max-width: 750px){
             .sidebarbardiv h1 {
                 display: none;
@@ -4159,6 +4172,23 @@
             user-select: none;
             -webkit-user-select: none;
         }
+        #loadingCodeSidebarOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--sibebar-width);
+            z-index: 700;
+            background: var(--full-opacity-bg-color);
+            color: var(--contrast-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .smallsidebarenabled #loadingCodeSidebarOverlay {
+            width: 100vw;
+        }
         @media(max-width: 700px) {
             .resizesidebarbar {
                 display: none;
@@ -4168,7 +4198,9 @@
                 backdrop-filter: blur(5px);
                 -webkit-backdrop-filter: blur(5px);
             }
-            
+            #loadingCodeSidebarOverlay {
+                max-width: 250px;
+            }
         }
         .ceefbrlbd {
             --ceefbrlb: 0;
@@ -4817,6 +4849,173 @@
             width: calc(100% - 40px);
             pointer-events: none;
         }
+        
+        #policiesAndConSec {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        #projectSec {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+        }
+        #projectNameInput {
+            margin-top: 20px;
+            font-size: 1em;
+            color: var(--contrast-color);
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            overflow: hidden;
+            overflow-x: auto;
+            gap: 10px;
+        }
+        #projectNameInput input {
+            color: var(--contrast-color);
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1em;
+            margin-left: 5px;
+            width: 200px;
+            display: inline-block;
+        }
+        #projectNameInput label {
+            font-weight: normal;
+            font-size: 1em;
+            white-space: nowrap;
+        }
+        #projectNameInput input:focus {
+            outline: none;
+            border: 2px solid var(--border-color);
+        }
+        .cancelActionBtn {
+            position: sticky;
+            z-index: 30;
+            display: none;
+            padding: 0;
+            top: 10px;
+            left: 10px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            color: var(--switchcheckedbackground-color);
+            font-weight: bold;
+            background: transparent;
+        }
+        #projectConSec {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            width: 100%;
+            overflow-x: auto;
+        }
+        #togglePrivacyPoliciesAndUserRegulations {
+            font-weight: bold;
+            font-size: 1em;
+            margin: 20px 0 0 20px;
+        }
+        #togglePPaURArrow {
+            transform: rotate(225deg);
+            border: 1px solid transparent;
+            border-top: 1px solid var(--contrast-color);
+            border-left: 1px solid var(--contrast-color);
+            height: 10px;
+            width: 10px;
+            margin-left: 10px;
+            margin-bottom: 2px;
+            display: inline-block;
+            transition: 0.5s;
+        }
+        .openedPPaURSec #togglePPaURArrow {
+            transform: rotate(45deg);
+            margin-bottom: -2px;
+        }
+        #defaultNewProjectCon {
+            height: 200px;
+            min-width: 270px;
+            width: 100%;
+            max-width: 360px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: normal;
+            color: var(--contrast-color);
+            font-size: 3em;
+            border-radius: 5px;
+            z-index: 10;
+            transition: 0.5s;
+        }
+        #projectConSec, .editor-selected-line-btns, .code-editor-btns, .sidebarenabled .sidebarbardiv, .nav-bar, #projectNameInput {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        #projectConSec::-webkit-scrollbar, .editor-selected-line-btns::-webkit-scrollbar, .code-editor-btns::-webkit-scrollbar, .sidebarenabled .sidebarbardiv::-webkit-scrollbar, .nav-bar::-webkit-scrollbar {
+            display: none;
+        }
+        .projectCon {
+            height: 200px;
+            min-width: 270px;
+            width: 100%;
+            max-width: 370px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            transition: 0.5s;
+        }
+        .deleteProjectConBtn {
+            font-size: 1em;
+            padding: 10px;
+            z-index: 20;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: transparent;
+            border: none;
+            color: var(--lightgrey-color);
+            font-weight: bold;
+            text-shadow: 0 0 20px var(--bg-color);
+            transition: 0.3s;
+        }
+        #blockOfText {
+            padding-left: 10px;
+            border-left: 3px solid var(--switchcheckedbackground-color);
+        }
+        #policiesAndConSec {
+            flex-direction: column;
+        }
+        .projectCon.currentProjectOp, #defaultNewProjectCon.currentProjectOp {
+            border: 3px solid var(--switchcheckedbackground-color);
+        }
+        .projectCon .projectName {
+            font-weight: bold;
+            color: var(--lightgrey-color);
+            font-size: 1.1em;
+            padding: 5px;
+            z-index: 20;
+            text-shadow: 0 0 20px var(--bg-color);
+            pointer-events: none;
+            transition: 0.3s;
+        }
+        .projectCon .projectIframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: 0.5s;
+        }
         .leftToggleContainer {
             width: 40px;
             height: 22px;
@@ -5116,18 +5315,137 @@
         .niceBorder {
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
+        @keyframes loadingFadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(40);
+            }
+        }
+        #codeLoadingSpinner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--full-opacity-bg-color);
+            color: var(--contrast-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            border-right: 0;
+            z-index: 700;
+            transition: var(--tr);
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes codeLoadingSpinnerAnimation1 {
+            0% {
+                transform: rotate(0deg);
+            }
+            10% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes codeLoadingSpinnerAnimation2 {
+            0% {
+                transform: rotate(0deg);
+            }
+            5% {
+                transform: rotate(0deg);
+            }
+            95% {
+                transform: rotate(360deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes codeLoadingSpinnerAnimation3 {
+            0% {
+                transform: rotate(0deg);
+            }
+            90% {
+                transform: rotate(360deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .codeLoadingSpinnerSpinner {
+            height: 150px;
+            width: 150px;
+            border: 5px solid transparent;
+            border-radius: 50%;
+            position: absolute;
+            transition: 0.5s;
+            top: calc(50% - 75px);
+            left: calc(50% - 75px);
+        }
+        #bigCodeLoadingSpinner {
+            border-top: 5px solid var(--loadingbarloadedbackground-color);
+            border-left: 5px solid var(--loadingbarloadedbackground-color);
+            border-bottom: 5px solid var(--loadingbarloadedbackground-color);
+            animation: codeLoadingSpinnerAnimation1 0.8s ease infinite;
+            opacity: 0.4;
+        }
+        #mediumCodeLoadingSpinner {
+            border-top: 5px solid var(--loadingbarloadedbackground-color);
+            border-left: 5px solid var(--loadingbarloadedbackground-color);
+            animation: codeLoadingSpinnerAnimation2 0.8s ease infinite;
+            opacity: 0.6;
+        }
+        #smallCodeLoadingSpinner {
+            border-top: 5px solid var(--loadingbarloadedbackground-color);
+            animation: codeLoadingSpinnerAnimation3 0.8s ease infinite;
+            opacity: 1;
+        }
+        #ailuryStudioCodeLoadingSpinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 125px;
+            width: 125px;
+            
+            display: flex;
+            margin: 0;
+            margin-bottom: -3px;
+            margin-right: 10px;
+            background: var(--switchcheckedbackground-color);
+            
+            mask-image: url(AIluryAppLogo196x196.png);
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            
+            transition: 1s;
+            
+            -webkit-mask-image: url(AIluryAppLogo196x196.png);
+        }
     </style>
 </head>
 <body>
   <!-- ☼ -->
     <div class="divcodeeditor-container sidebarenabled ceefbrlbd">
         <div class="sidebarbardiv">
+            <div id="loadingCodeSidebarOverlay">
+                loading...
+            </div>
             <h1><div id="AIluryIcon"></div>AIlury</h1>
             <button id="closemenuforsmallscreen" onclick="togglesidebarbuttonfunction()">← close Menu</button>
-            <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarlooksbtnssection')"><</span> look</h3>
-            <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
+            <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebardiscoverbtnssection')"><</span> discover</h3>
+            <div class="sidebarbardivbuttondiv sidebardiscoverbtnssection">
+                <button id="showProjectsOverlayBtn" onclick="showOverlay('.userregulationsandconditionsoverlay')">projects</button>
                 <button id="scrollviewintoviewbtn" onclick="scrollviewintoview()">view</button>
             </div>
+            <h3><span class="closefilesection" onclick="togglesidebarsec(this, 'sidebarlooksbtnssection')"><</span> look</h3>
             <div class="sidebarbardivbuttondiv sidebarlooksbtnssection">
                 <button id="togglethemecontainerbtn" onclick="showOverlay('.theme-overlay', 'theme')">theme<span class="openedSign">↗</span></button>
                 <button id="toggleanimationcontainerbtn" onclick="showOverlay('.chooseanimationoverlay', 'animation')">animations<span class="openedSign">↗</span></button>
@@ -5159,34 +5477,11 @@
         <div class="sidebarwidthdisplay">30vw</div>
         <div class="allcontainer">
             <div class="container" id="container">
-                <div class="section" id="c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11">
-                    <div class="editor-selected-line-btns">
-                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
-                    <div class="code-editor-container" id="linenumberingon">
-                    </div>
-                    <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
-                    </div>
-                </div>
-                <div class="section" id="sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77">
-                    <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
-                    </div>
-                    <div class="code-editor-container" id="linenumberingon">
-                    </div>
-                    <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
-                    </div>
-        
-                </div>
-                <div class="section" id="s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52">
-                    <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
-                    <div class="code-editor-container" id="linenumberingon">
-                    </div>
-                    <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
-                    </div>
+                <div id="codeLoadingSpinner">
+                    <div class="codeLoadingSpinnerSpinner" id="bigCodeLoadingSpinner"></div>
+                    <div class="codeLoadingSpinnerSpinner" id="mediumCodeLoadingSpinner"></div>
+                    <div class="codeLoadingSpinnerSpinner" id="smallCodeLoadingSpinner"></div>
+                    <div id="ailuryStudioCodeLoadingSpinner"></div>
                 </div>
                 <div class="section viewcontainer" id="forview">
                     <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
@@ -5207,7 +5502,7 @@
                             
                         </div>
                     </div>
-
+                    
                     <div class="swipe-container">
                         <div class="view">
                             <div class="mobile-container">
@@ -5268,6 +5563,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="section" id="c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11">
+                    <div class="editor-selected-line-btns">
+                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                    <div class="code-editor-container" id="linenumberingon">
+                    </div>
+                    <div class="code-editor-btns">
+                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                    </div>
+                </div>
+                <div class="section" id="sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77">
+                    <div class="editor-selected-line-btns">
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
+                    </div>
+                    <div class="code-editor-container" id="linenumberingon">
+                    </div>
+                    <div class="code-editor-btns">
+                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                    </div>
+        
+                </div>
+                <div class="section" id="s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52">
+                    <div class="editor-selected-line-btns">
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                    <div class="code-editor-container" id="linenumberingon">
+                    </div>
+                    <div class="code-editor-btns">
+                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                    </div>
+                </div>
             </div>
         
             <div class="codesearchresults">
@@ -5282,6 +5606,9 @@
         
             <!-- Navigation Bar -->
             <div class="nav-bar" id="nav-bar">
+                <div data-index="forview" class="nav-dot navdotforview" id="view-nav-dot" onclick="dotonclick()">
+                    <input class="filePathInput" type="text" value="view" maxlength="20" oninput="viewbottominputoninput(this)">
+                </div>
                 <div data-index="c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" class="nav-dot filedot navdotc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" onclick="dotonclick()">
                     <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="index.html">
                 </div>
@@ -5290,9 +5617,6 @@
                 </div>
                 <div data-index="s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" class="nav-dot filedot navdots4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" onclick="dotonclick()">
                     <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="script.js">
-                </div>
-                <div data-index="forview" class="nav-dot navdotforview" id="view-nav-dot" onclick="dotonclick()">
-                    <input class="filePathInput" type="text" value="view" maxlength="20" oninput="viewbottominputoninput(this)">
                 </div>
             </div>
             <div id="timeline-container">
@@ -6166,45 +6490,65 @@
         <span class="messagespan" onclick="hidenotificationmessage()">message</span><button class="confirmationbtn">ok</button>
     </div>
     <div class="userregulationsandconditionsoverlay">
-        <div class="userregulationsandconditions" data-update-code="#ppatacu1">
-            <div id="updatedPolicies">Has Been Updated</div>
-            <div class="startSections termsAndConditionsSection">
-                <h2>Terms and Conditions of Use for AIlury Studio</h2>
+        <div class="userregulationsandconditions" data-update-code="#ppatacu3">
+            <div id="projectSec">
+                <button class="cancelActionBtn" id="projectsclosesecbtn" onclick="cancelProjectSelect()">Cancel</button>
                 
-                <div class="definitionOfYaW"><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool. All actions, whether manual or automated, are fully attributed to you, and you are solely responsible for any resulting consequences. Indirect use does not exempt you from compliance with these terms.</div>
-                <p>By using AIlury Studio, you agree to the following terms and conditions:</p>
-                <ul>
-                    <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform or any part of the website.</li>
-                    <li><strong>No Exploiting Bugs:</strong> You must not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
-                    <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
-                    <li><strong>No Malicious Activity:</strong> Uploading, writing, pasting, creating, or running malicious code, scripts, or programs that may harm or disrupt the platform is strictly prohibited.</li>
-                    <li><strong>Responsibility:</strong> You are fully responsible for any code you create, paste, upload, write, or run using this website.</li>
-                </ul>
+                <h2>projects</h2>
+                <div id="projectConSec">
+                    <div id="defaultNewProjectCon" class="currentProjectOp" onclick="newProjectSelectOp(this)">NEW</div>
+                </div>
+                <div id="projectNameInput">
+                    <label for="projectNameInputEl" id="projectNameInputElLabel">Project name:</label>
+                    <input type="text" id="projectNameInputEl" placeholder="My New Project" oninput="enterProjectNameInputEvent(this)" onkeydown="projectNameKeydown(this, event)" maxlength="20">
+                    <label for="cuswitchbox">casual use: </label>
+                    <label class="cuswitch">
+                        <input id="cuswitchbox" type="checkbox" class="cuswitchbox" onchange="toggleCasualUse(this)">
+                        <span class="cuslider"></span>
+                    </label>
+                </div>
             </div>
-            <div class="startSections privacyPolicySection">
-                <h2>Privacy Policy for AIlury Studio</h2>
-                
-                <div class="definitionOfYaW"><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio, and “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool.</div>
-                </ul>
-                
-                <p>By using AIlury Studio, you agree to the following privacy policies:</p>
-                
-                <ul>
-                    <li><strong>No Data Collection:</strong> AIlury Studio does not collect, record, track, or analyze personal data, usage data, identifiers, analytics, or metadata.</li>
-                    <li><strong>Runtime-Only Data Handling:</strong> Any code or content entered into the editor exists only temporarily during the active runtime of the website and becomes inaccessible once the page is refreshed or closed.</li>
-                    <li><strong>No Server Storage:</strong> AIlury Studio does not store user code or content on any servers, databases, or external systems.</li>
-                    <li><strong>No Data Sharing:</strong> AIlury Studio does not share, sell, transmit, or communicate user data or code to third parties or external services.</li>
-                    <li><strong>Local Storage (Future Feature):</strong> If local storage functionality is introduced, any saved data will be stored exclusively within the user’s own browser environment and will not be uploaded, transmitted, or accessible outside of the user’s device.</li>
-                    <li><strong>No Accounts or Authentication:</strong> AIlury Studio does not offer login, registration, or account-based features and does not associate data with user identities.</li>
-                    <li><strong>No Payments:</strong> AIlury Studio does not process payments and does not request billing or financial information.</li>
-                </ul>
+            <div id="policiesAndConSec">
+                <div id="updatedPolicies">Has Been Updated</div>
+                <div class="startSections termsAndConditionsSection">
+                    <h2>Terms and Conditions of Use for AIlury Studio</h2>
+                    
+                    <div class="definitionOfYaW"><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio. “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool. All actions, whether manual or automated, are fully attributed to you, and you are solely responsible for any resulting consequences. Indirect use does not exempt you from compliance with these terms.</div>
+                    <p>By using AIlury Studio, you agree to the following terms and conditions:</p>
+                    <ul>
+                        <li><strong>No Hacking:</strong> You are prohibited from attempting to hack or gain unauthorized access to the platform or any part of the website.</li>
+                        <li><strong>No Exploiting Bugs:</strong> You must not exploit any bugs, vulnerabilities, or weaknesses in the platform for personal gain or to disrupt the service.</li>
+                        <li><strong>No Accessing Source Code:</strong> You are not allowed to access, modify, or attempt to reverse-engineer the platform’s source code.</li>
+                        <li><strong>No Malicious Activity:</strong> Uploading, writing, pasting, creating, or running malicious code, scripts, or programs that may harm or disrupt the platform is strictly prohibited.</li>
+                        <li><strong>Responsibility:</strong> You are fully responsible for any code you create, paste, upload, write, or run using this website.</li>
+                    </ul>
+                </div>
+                <div class="startSections privacyPolicySection">
+                    <h2>Privacy Policy for AIlury Studio</h2>
+                    
+                    <div class="definitionOfYaW"><strong>Definition of “You” and “We”:</strong> “We” refers to the operators and owners of AIlury Studio, and “You” refers to any individual or entity accessing, using, or interacting with this service, whether directly or indirectly, including through another service, program, automated system, or third-party tool.</div>
+                    </ul>
+                    
+                    <p>By using AIlury Studio, you agree to the following privacy policies:</p>
+                    
+                    <ul>
+                        <li><strong>No Data Collection:</strong> AIlury Studio does not collect, record, track, or analyze personal data, usage data, identifiers, or analytics. The application may process file metadata locally within the user’s browser (e.g., for Local Storage functionality), but this information is not transmitted to or stored on any servers under our control.</li>
+                        <li><strong>Runtime-Only Data Handling:</strong> If you turn on "casual mode" any code or content entered into the editor exists only temporarily during the active runtime of the website and becomes inaccessible once the page is refreshed or closed.</li>
+                        <li><strong>No Server Storage:</strong> AIlury Studio does not store user code or content on any remote servers, databases, or external systems. All data is stored locally in the user’s browser (Local Storage). While the application can access this data within the user’s browser environment to function properly, it is not transmitted to or stored on servers under our control.</li>
+                        <li><strong>No Data Sharing:</strong> AIlury Studio does not share, sell, transmit, or communicate user data or code to third parties or external services.</li>
+                        <li><strong>Local Storage:</strong> Any saved data will be stored exclusively within the user’s own browser environment and will not be uploaded, transmitted, or accessible outside of the user’s browser*s.</li>
+                        <li><strong>No Accounts or Authentication:</strong> AIlury Studio does not offer login, registration, or account-based features and does not associate data with user identities.</li>
+                        <li><strong>No Payments:</strong> AIlury Studio does not process payments and does not request billing or financial information.</li>
+                    </ul>
+                </div>
+                <div id="termsandconditionstoprivacypolicyNavBar">
+                    <button id="toTermsandconditions" class="selectedSection" onclick="showTermsAndConditions(this)">terms and conditions</button>
+                    <button id="toPrivacypolicy" onclick="showPrivacyPolicies(this)">privacy policy</button>
+                </div>
             </div>
-            <div id="termsandconditionstoprivacypolicyNavBar">
-                <button id="toTermsandconditions" class="selectedSection" onclick="showTermsAndConditions(this)">terms and conditions</button>
-                <button id="toPrivacypolicy" onclick="showPrivacyPolicies(this)">privacy policy</button>
-            </div>
-            <p>Do you accept all terms, conditions, and privacy policies? By using the code editor, you accept them by default. Accessing or manipulating this platform through a separate program also constitutes acceptance of the terms, conditions, and privacy policies. <br> You can also check out the source code of this service/website on GitHub: <a class="aWithHref" href="https://github.com/LeoOpenBotDevelopment/AIluryStudio">/AIluryStudio</a></p>
-            <button id="acceptBtn" onclick="hideelement('class', 'userregulationsandconditionsoverlay', event)">I understand and accept</button>
+            <div id="togglePrivacyPoliciesAndUserRegulations" onclick="togglePPaURArrow(this)">Privacy Policy and User Regulations <div id="togglePPaURArrow"></div></div>
+            <p id="blockOfText">Do you accept all terms, conditions, and privacy policies? By using the code editor, you accept them by default. Accessing or manipulating this platform through a separate program also constitutes acceptance of the terms, conditions, and privacy policies. <br> You can also check out the source code of this service/website on GitHub: <a class="aWithHref" href="https://github.com/LeoOpenBotDevelopment/AIluryStudio">/AIluryStudio</a></p>
+            <button id="acceptBtn" class="acceptOrOpenOrCreateBtn" onclick="startCoding(event, this)">I understand and accept</button>
         </div>
     </div>
     <div class="importantnotificationmessageelement"></div>
@@ -6213,6 +6557,9 @@
         <div class="explanationContainer"></div>
     </div>
     <script>
+        const theNavBarForScrollAmount = document.getElementById("nav-bar");
+        theNavBarForScrollAmount.scrollLeft = theNavBarForScrollAmount.getBoundingClientRect().width;
+        let currentHoveredElement = null;
         function makeDraggable(handleClass, parentClass) {
             const handle = document.querySelector(`.${handleClass}`);
             const parent = document.querySelector(`.${parentClass}`);
@@ -6324,7 +6671,6 @@
         const templateObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !entry.target.classList.contains('set')) {
-                    //templateObserver.disconnect(entry.target);
                     fetch('templates/' + entry.target.getAttribute('filePath').replace(/^\/+/, ''))
                         .then(response => {
                             if (!response.ok) console.log(`Error while loading ${templateFilePath}`);
@@ -6418,7 +6764,7 @@
             { regex: />=/g, rt: ">=", wt: "≥" },
             { regex: /!==/g, rt: "!==", wt: "≢" },
             { regex: /!=/g, rt: "!=", wt: "≠" },
-            { regex: /=>/g, rt: "=>", wt: "⇒" },
+            /*{ regex: /=>/g, rt: "=>", wt: "⇒" },*/
             
             /*{ regex: /<>/g, rt: "<>", wt: "≶" },
             { regex: /></g, rt: "><", wt: "≷" },*/
@@ -6436,7 +6782,6 @@
         ];
         const allRegexWt = allRegex.map(obj => obj.wt);
         let selectedTextToHighlight = null;
-        let correntids = 0;
         let editorFiles = {
             "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": [],
             "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": [],
@@ -6466,7 +6811,12 @@
     height: 100vh;
     width: 100vw;
 }`;
+        
         let sec2text = `console.log('Hello World');\n`;
+        let projectName = "My New Project";
+        let projectId = "projectId" + crypto.randomUUID();
+        let isInnitialProject = true;
+        
         function addstartercodetofiles() {
             const vAIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
             const vAIluryStudioPendingFileContent = localStorage.getItem("AIluryStudioPendingFileContent");
@@ -6531,14 +6881,14 @@
             const allsectionstext = [sec0lines, sec1lines, sec2lines];
             allsectionstext.forEach((text, index) => {
                 text.forEach(line => {
-                    correntids += 1;
-                    const newline = {id:correntids,classes:["code-editor-line"],text:replaceNormalSpaces(line)};
+                    const newline = {id:createCodeEditorLineId(),classes:["code-editor-line"],text:replaceNormalSpaces(line)};
                     editorFiles[Object.keys(editorFiles)[index]].push(newline);
                 });
             });
         }
         
         addstartercodetofiles();
+        
         
         function addAbbreviations(text) {
             if (typeof text != 'string') return text;
@@ -6997,6 +7347,7 @@
         });
         
         window.addEventListener('mousemove', (e) => {
+            currentHoveredElement = document.elementFromPoint(e.clientX, e.clientY);
             if (!isResizingSidebar) return;
             const viewportWidth = document.documentElement.clientWidth;
             const vw = (e.clientX / viewportWidth) * 100;
@@ -8522,9 +8873,9 @@
         let futureevents = {};
         
         
-        function disablepastbtn() {
-            if (lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn') && !lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn').classList.contains('disabled')){
-                lasteventsparentsection.querySelector('.editor-selected-line-btns #pastbtn').classList.add('disabled');
+        function disablepastbtn(lepsalternative = lasteventsparentsection) {
+            if (lepsalternative.querySelector('.editor-selected-line-btns #pastbtn') && !lepsalternative.querySelector('.editor-selected-line-btns #pastbtn').classList.contains('disabled')){
+                lepsalternative.querySelector('.editor-selected-line-btns #pastbtn').classList.add('disabled');
             }
         }
         
@@ -8642,6 +8993,7 @@
             }
             
             checkifselectedlines();
+            updateSaveFile();
         }
         
         
@@ -8815,8 +9167,7 @@
             let startwithscriptorstyle = additionalCode.trim().startsWith('<style>') || additionalCode.trim().startsWith('<script>');
             
             for (let i = 1; i < lines.length; i++) {
-                correntids += 1;
-                const newline = { id: correntids, classes: ["code-editor-line"], text: "" };
+                const newline = { id: createCodeEditorLineId(), classes: ["code-editor-line"], text: "" };
                 let lineSpacesCount = 0;
                 let continueLineSpaces = true;
                 
@@ -8864,6 +9215,7 @@
                 pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                updateSaveFile();
             }
         }
         
@@ -9050,7 +9402,6 @@
                 if (thisfilenameinput) {
                     thisfilepath = thisfilenameinput.value;
                 }
-                //const fileEditorIndex = viewcontainerEl && number > getElementIndexInParent(viewcontainerEl) ? number - 1 : number;
                 if (option.text == "Delete") {
                     optionItem.onclick = () => {
                         overlay.remove();
@@ -9819,7 +10170,6 @@
             hideOverlay('.codefunctionssettingsoverlay');
             hideOverlay('.chooseanimationoverlay', 'animation');
             hideOverlay('.commandsoverlay-container');
-            closeviewthisfile();
             hideOverlay('.overlay-container', 'files');
             hideOverlay('.overlay5-container', 'templates');
             closesidebaronsmallscreensizes();
@@ -9827,6 +10177,7 @@
             hideOverlay('.theme-overlay', 'theme');
             hideOverlay('.replaceoverlay');
             hideOverlay('.chooseceebtnposoverlay', 'layout');
+            closeviewthisfile();
             if (document.querySelector('.notificationmessage').style.display != "none") {
                 hidenotificationmessage();
             }
@@ -10396,202 +10747,219 @@
             return addFileQueue;
         }
         
+        let projectNames = {
+            "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": "index.html",
+            "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": "styles.css",
+            "s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52": "script.js"
+        };
+        
         const innitialdragelementParent = document.querySelector(".sidebarbardivbuttondiv1");
+
+        let currentDraggingElement = null;
+        
+        document.addEventListener("mousemove", (e) => {
+            if (currentDraggingElement) currentDraggingElement.moveDrag(e);
+        });
+        document.addEventListener("mouseup", (e) => {
+            if (currentDraggingElement) currentDraggingElement.endDrag(e);
+        });
+        document.addEventListener("touchmove", (e) => {
+            if (currentDraggingElement) currentDraggingElement.moveDrag(e);
+        }, { passive: false });
+        document.addEventListener("touchend", (e) => {
+            if (currentDraggingElement) currentDraggingElement.endDrag(e);
+        });
+        document.addEventListener("touchcancel", () => {
+            if (currentDraggingElement) currentDraggingElement.forceReset();
+        });
+        window.addEventListener("blur", () => {
+            if (currentDraggingElement) currentDraggingElement.forceReset();
+        });
+        
         function draganddropFile(el) {
             let dragstarttimeout = null;
-            
             let startY = 0;
             let currentY = 0;
             let offsetY = 0;
-            
             let initialStyles = {};
             let isDragging = false;
             let dragElementParent = null;
-            
             let activePointer = false;
             let safetyInterval = null;
             let idleTimeout = null;
-            
+        
             function getClientY(e) {
                 if (e.touches && e.touches.length) return e.touches[0].clientY;
                 if (e.changedTouches && e.changedTouches.length) return e.changedTouches[0].clientY;
                 return e.clientY;
             }
-            
+        
             function getClientX(e) {
                 if (e.touches && e.touches.length) return e.touches[0].clientX;
                 if (e.changedTouches && e.changedTouches.length) return e.changedTouches[0].clientX;
                 return e.clientX;
             }
-            
+        
             function resetIdleTimer() {
                 if (idleTimeout) clearTimeout(idleTimeout);
-                
                 idleTimeout = setTimeout(() => {
                     if (isDragging) {
                         forceReset();
                     }
                 }, 2000);
             }
-            
+        
             function forceReset() {
                 isDragging = false;
                 clearTimeout(dragstarttimeout);
                 clearTimeout(idleTimeout);
-                
                 document.body.style.userSelect = "";
-                
                 el.classList.remove("draggingEl");
-                
                 el.style.pointerEvents = "auto";
                 el.style.width = initialStyles.width || "100%";
                 el.style.top = initialStyles.top || "auto";
                 el.style.left = initialStyles.left || "auto";
-                
+        
                 if (!el.parentNode && dragElementParent) {
                     dragElementParent.appendChild(el);
                 }
-                
+        
                 startY = 0;
                 currentY = 0;
                 offsetY = 0;
-                
                 activePointer = false;
-                
+        
                 if (safetyInterval) {
                     clearInterval(safetyInterval);
                     safetyInterval = null;
                 }
+                
+                if (currentDraggingElement?.el === el) {
+                    currentDraggingElement = null;
+                }
             }
-            
+        
             function startDrag(e) {
                 if (isDragging) {
                     forceReset();
                 }
-                
+        
                 activePointer = true;
-                const sidebarbardivforscrolltop = document.querySelector(".smallNavBar .sidebarbardiv");
+                
+                currentDraggingElement = { el, moveDrag, endDrag, forceReset };
+        
+                const sidebarbardivforscrolltop = document.querySelector(".sidebarbardiv");
                 document.body.style.userSelect = "none";
                 startY = getClientY(e);
                 dragElementParent = el.parentElement;
-                
+        
                 dragstarttimeout = setTimeout(() => {
                     if (!activePointer || isDragging) return;
-                    
                     isDragging = true;
-                    
                     const rect = el.getBoundingClientRect();
                     offsetY = startY - rect.top;
-                    
                     initialStyles = {
                         top: el.style.top,
                         left: el.style.left,
                         width: el.style.width
                     };
-                    
                     el.style.width = rect.width + "px";
                     el.style.left = rect.left + "px";
                     el.style.top = sidebarbardivforscrolltop ? rect.top + sidebarbardivforscrolltop.scrollTop + "px" : rect.top + "px";
                     el.classList.add("draggingEl");
-                    
                     resetIdleTimer();
-                    
                     safetyInterval = setInterval(() => {
                         if (!activePointer || !isDragging) {
                             forceReset();
                         }
                     }, 100);
-                    
                     dragstarttimeout = null;
                 }, 700);
             }
-            
+        
             function moveDrag(e) {
                 if (!isDragging) return;
-                
                 e.preventDefault();
-                const sidebarbardivforscrolltop = document.querySelector(".smallNavBar .sidebarbardiv");
+                const sidebarbardivforscrolltop = document.querySelector(".sidebarbardiv");
                 currentY = getClientY(e);
                 const newY = currentY - offsetY;
-                
                 el.style.top = sidebarbardivforscrolltop ? newY + sidebarbardivforscrolltop.scrollTop + "px" : newY + "px";
-                
                 resetIdleTimer();
             }
-            
+        
             function endDrag(e) {
                 activePointer = false;
-                
                 document.body.style.userSelect = "";
                 clearTimeout(dragstarttimeout);
                 clearTimeout(idleTimeout);
-                
+        
                 if (!isDragging) {
                     forceReset();
                     return;
                 }
-                
+        
                 isDragging = false;
-                
                 const clientX = getClientX(e);
                 const clientY = getClientY(e);
-                
                 el.style.pointerEvents = "none";
-                
+        
                 let target = document.elementFromPoint(clientX, clientY);
                 let dropTarget = target?.closest(".sidebarfilelinklink");
-                
+        
                 if (!dropTarget) {
                     const all = document.querySelectorAll(".sidebarfilelinklink");
                     if (all.length) {
                         dropTarget = all[all.length - 1];
                     }
                 }
-                
+        
                 if (dropTarget && dropTarget !== el && dropTarget.parentNode) {
                     dropTarget.parentNode.insertBefore(el, dropTarget);
                 } else if (!el.parentNode && dragElementParent) {
                     dragElementParent.appendChild(el);
                 }
-                
+        
                 forceReset();
             }
-            
             el.addEventListener("mousedown", startDrag);
-            document.addEventListener("mousemove", moveDrag);
-            document.addEventListener("mouseup", endDrag);
-            
             el.addEventListener("touchstart", startDrag, { passive: true });
-            document.addEventListener("touchmove", moveDrag, { passive: false });
-            document.addEventListener("touchend", endDrag);
-            document.addEventListener("touchcancel", forceReset);
-            
-            window.addEventListener("blur", forceReset);
         }
+
         document.querySelectorAll(".sidebarfilelinklink").forEach(el => {
             draganddropFile(el);
         });
-        
-        async function createNewFile(filename, optionalText = '', file = null) {
+        function createCodeEditorLineId() {
+            return (
+                "codeEditorLineId" +
+                Date.now().toString(36) +
+                Math.floor(performance.now() * 1000).toString(36) +
+                Math.random().toString(36).slice(2) +
+                Math.random().toString(36).slice(2)
+            );
+        }
+        async function createNewFile(filename, optionalText = '', file = null, fileId = null, isalist = false) {
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
             if (allfilenames.includes(filename)) {
                 showAlert('you have a file with the name ' + filename + ' please change the file name and try again');
                 return;
             }
-            
-            if (file) {
-                optionalText = await new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.onerror = (e) => reject(e);
-                    reader.readAsText(file);
-                });
+            if (isalist == false) {
+                if (file) {
+                    optionalText = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.onerror = (e) => reject(e);
+                        reader.readAsText(file);
+                    });
+                }
+                
+                optionalText = standardizeIndentation(optionalText);
             }
             
-            optionalText = standardizeIndentation(optionalText);
             
+            const randomNewSecName = fileId || createRandomFileId();
             
-            const randomNewSecName = createRandomFileId();
+            projectNames[randomNewSecName] = filename;
             
             const container = document.getElementById('container');
             const navBar = document.getElementById('nav-bar');
@@ -10695,22 +11063,20 @@
             sidebarfilelink.setAttribute('onclick', `editthisfile('${randomNewSecName}', event)`);
 
             document.querySelector('.sidebarbardivbuttondiv1').appendChild(sidebarfilelink);
-
-            const lines = optionalText.split('\n');
+            
             const editorContainer = newSection.querySelector('.code-editor-container');
             
             let newEditorFiles = [];
-            
-            lines.forEach((lineText) => {
-                correntids += 1;
-                const line = { id: correntids, classes: ['code-editor-line'], text: replaceNormalSpaces(lineText) };
-                newEditorFiles.push(line);
-            });
+            if (isalist == true) {
+                newEditorFiles = optionalText;
+            } else {
+                const lines = optionalText.split('\n');
+                lines.forEach((lineText) => {
+                    const line = { id: createCodeEditorLineId(), classes: ['code-editor-line'], text: replaceNormalSpaces(lineText) };
+                    newEditorFiles.push(line);
+                });
+            }
             editorFiles[randomNewSecName] = newEditorFiles;
-            
-            editorContainer.querySelectorAll('.code-editor-line').forEach(line => {
-                addJsSyntaxHighlighting(line)
-            });
             newSection.onclick = () => {
                 if (document.querySelector('.suggestioncontainer')) {
                     document.querySelector('.suggestioncontainer').remove();
@@ -10726,6 +11092,18 @@
             closeseccontainer();
             sidebarfilelink.click();
             draganddropFile(sidebarfilelink);
+            if (fileId) {
+                updateSaveFile();
+            }
+            if (isalist == true) {
+                updateSelectedClasses();
+            }
+            
+            if (pastevents[randomNewSecName] && pastevents[randomNewSecName].length > 0) {
+                enablepastbtn(newSection);
+            } else {
+                disablepastbtn(newSection);
+            }
         }
 
         function downloadFile(name) {
@@ -10826,9 +11204,12 @@
             if (!newValue) {
                 return;
             }
+            
+            projectNames[dataIndex] = newValue;
             if (filePathInput.value != newValue) {
                 filePathInput.value = newValue;
             }
+            
             let newValueSplit = newValue.split('/').filter(value => {
                 return value.trim().replace(/\W/g, '') != "";
             });
@@ -11011,6 +11392,7 @@
             if (downloadBtn){
                 downloadBtn.onclick = () => downloadFile(safeValue);
             }
+            updateSaveFile();
         }
         
         document.querySelectorAll('.filedot .filePathInput').forEach(rect => {
@@ -11065,8 +11447,8 @@
             }
         });
         
-        function hideelement(type, name, event){
-            if (event.target !== event.currentTarget) {
+        function hideelement(type, name, event = null){
+            if (event && event.target !== event.currentTarget) {
                 return;
             }
             hideOverlay(`${type == "class" ? "." : "#"}${name}`);
@@ -11080,6 +11462,37 @@
         let sectionindex = 0;
         let editorIndex = "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11";
         let inputDiv = section.querySelector('.code-editor-container');
+        let previousCasualUse = false;
+        let casualUse = false;
+        let curfentTargetProject = document.getElementById("defaultNewProjectCon");
+        let result = {};
+        
+        const projectConObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('setProjectCon')) {
+                    entry.target.classList.add('setProjectCon');
+                    let conId = entry.target.id;
+                    let foundWantedFile = false;
+                    let wantedFileId = "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11";
+                    let projectFileNames = projectsObj[conId]["fileNames"];
+                    
+                    if (projectFileNames) {
+                        for (let key in projectFileNames) {
+                            if (projectFileNames[key].endsWith(".html") && foundWantedFile == false) {
+                                wantedFileId = key;
+                                foundWantedFile = true;
+                            }
+                        }
+                    }
+                    
+                    let fileContent = projectsObj[conId] && projectsObj[conId]["files"] && projectsObj[conId]["files"][wantedFileId] ? projectsObj[conId]["files"][wantedFileId].map(el => normalizeSpaces(el.text)).join("\n") : "";
+                    entry.target.querySelector("iframe").srcdoc = fileContent;
+                } else {
+                    entry.target.querySelector("iframe").srcdoc = "";
+                    entry.target.classList.remove('setProjectCon');
+                }
+            });
+        }, { threshold: 0.1 });
         
         function updateAttribute(line, wantededitorIndex = editorIndex) {
             if (line && line.getAttribute('line-index') != null && editorFiles[wantededitorIndex]){
@@ -11093,6 +11506,517 @@
                 }
             }
         }
+        
+        
+        const innitialEditorFiles = {...editorFiles};
+        
+        const jsonProjectObj = localStorage.getItem("AIluryStudioProjectsObj");
+        
+        function isPlainObject(value) {
+            return Object.prototype.toString.call(value) === "[object Object]";
+        }
+        
+        let projectsObj = jsonProjectObj && isPlainObject(JSON.parse(jsonProjectObj)) 
+            ? JSON.parse(jsonProjectObj) 
+            : { [projectId]: { "name": projectName, "files": {...editorFiles}, "fileNames": {...projectNames}, "past": {...pastevents}, "future": {...futureevents}, "foldedElements": {...result} } };
+        
+        const saveProjects = (() => {
+            let chain = Promise.resolve();
+            
+            return function() {
+                if (casualUse) return;
+                
+                chain = chain.then(() => {
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            try {
+                                localStorage.setItem(
+                                    "AIluryStudioProjectsObj",
+                                    JSON.stringify(projectsObj)
+                                );
+                            } catch (e) {
+                                console.warn("Save failed:", e);
+                                showAlert("You reached the Local Storage Limit. We are unable to save anything from this point farward. Please refresh and Delete unnecessary files, clear files history, and/or unfold code blocks.");
+                            }
+                            resolve();
+                        }, 10);
+                    });
+                });
+            };
+        })();
+        
+        let currentSelectedProject = projectId;
+        
+        function updateSaveFile() {
+            if (casualUse == true || !projectsObj[projectId] || currentSelectedProject != projectId) return;
+            
+            projectsObj[projectId] = { 
+                "name": projectName, 
+                "files": {...editorFiles}, 
+                "fileNames": {...projectNames}, 
+                "past": {...pastevents}, 
+                "future": {...futureevents}, 
+                "foldedElements": {...result}
+            };
+            saveProjects();
+        }
+        
+        function startLoadingContents() {
+            const loadingCodeSidebarOverlay = document.getElementById('loadingCodeSidebarOverlay');
+            const codeLoadingSpinner = document.getElementById('codeLoadingSpinner');
+            if (loadingCodeSidebarOverlay.style.display != "none" || codeLoadingSpinner.style.display != "none") return;
+            
+            const startLoadingCodeFadeOuts = {
+                "loadingCodeSidebarOverlay": "fadeIn 0.3s ease",
+                "codeLoadingSpinner": "fadeIn 0.3s ease",
+                "bigCodeLoadingSpinner": "codeLoadingSpinnerAnimation1 0.8s ease infinite",
+                "mediumCodeLoadingSpinner": "codeLoadingSpinnerAnimation2 0.8s ease infinite",
+                "smallCodeLoadingSpinner": "codeLoadingSpinnerAnimation3 0.8s ease infinite"
+            };
+            
+            for (let elid in startLoadingCodeFadeOuts) {
+                const el = document.getElementById(elid);
+                el.style.display = "flex";
+                el.style.animation = "none";
+                void el.offsetWidth;
+                const startLoadingCodeFadeOutsValue = startLoadingCodeFadeOuts[elid];
+                if (startLoadingCodeFadeOutsValue) {
+                    el.style.animation = startLoadingCodeFadeOutsValue;
+                } else {
+                    el.style.display = "none";
+                }
+            }
+        }
+        function stopLoadingContents() {
+            const startLoadingCodeFadeOuts = {
+                "loadingCodeSidebarOverlay": {
+                    animation: "fadeOut",
+                    duration: 300,
+                    animationStyle: "ease"
+                },
+                "codeLoadingSpinner": {
+                    animation: "loadingFadeOut",
+                    duration: 300,
+                    animationStyle: "ease"
+                },
+                "bigCodeLoadingSpinner": {
+                    animation: "fadeOut",
+                    duration: 50,
+                    animationStyle: "ease"
+                },
+                "mediumCodeLoadingSpinner": {
+                    animation: "fadeOut",
+                    duration: 50,
+                    animationStyle: "ease"
+                },
+                "smallCodeLoadingSpinner": {
+                    animation: "fadeOut",
+                    duration: 50,
+                    animationStyle: "ease"
+                }
+            };
+            
+            for (let elid in startLoadingCodeFadeOuts) {
+                const el = document.getElementById(elid);
+                el.style.animation = "none";
+                void el.offsetWidth;
+                const startLoadingCodeFadeOutsValue = startLoadingCodeFadeOuts[elid];
+                if (startLoadingCodeFadeOutsValue) {
+                    el.style.animation = `${startLoadingCodeFadeOutsValue.animation} ${startLoadingCodeFadeOutsValue.duration / 1000}s ${startLoadingCodeFadeOutsValue.animationStyle}`;
+                } else {
+                    el.style.display = "none";
+                }
+                setTimeout(() => {
+                    el.style.display = "none";
+                }, startLoadingCodeFadeOutsValue ? startLoadingCodeFadeOutsValue.duration : 300);
+            }
+        }
+        
+        function createProjectCon(conId, conName) {
+            const projectConSec = document.querySelector("#projectConSec");
+            if (!projectConSec) return;
+            const newProjectCon = document.createElement("div");
+            newProjectCon.className = "projectCon";
+            const newProjectIframe = document.createElement("iframe");
+            newProjectIframe.className = "projectIframe";
+            newProjectIframe.style.pointerEvents = "none";
+            const newDeleteProjectConBtn = document.createElement("button");
+            newDeleteProjectConBtn.className = "deleteProjectConBtn";
+            newDeleteProjectConBtn.textContent = "⌧";
+            const newProjectName = document.createElement("span");
+            newProjectName.className = "projectName";
+            newProjectName.textContent = conName;
+            
+            newProjectCon.appendChild(newProjectName);
+            newProjectCon.appendChild(newProjectIframe);
+            newProjectCon.appendChild(newDeleteProjectConBtn);
+            
+            newProjectCon.id = conId;
+            const defaultNewProjectCon = document.getElementById("defaultNewProjectCon");
+            defaultNewProjectCon.insertAdjacentElement("afterend", newProjectCon);
+            projectConObserver.observe(newProjectCon);
+            
+            newDeleteProjectConBtn.onclick = () => {
+                const ifCurrentProjectIsOpen = newProjectCon.classList.contains("currentProjectOp");
+                if (ifCurrentProjectIsOpen) {
+                    document.querySelectorAll(".currentProjectOp").forEach(proj => proj.classList.remove("currentProjectOp"));
+                    defaultNewProjectCon.click();
+                    curfentTargetProject = defaultNewProjectCon;
+                }
+                projectConObserver.unobserve(newProjectCon);
+                newProjectCon.remove();
+                const thisProjectCopy = {...projectsObj[conId]};
+                delete projectsObj[conId];
+                saveProjects();
+                notify("Project successfully deleted", "undo", () => {
+                    projectsObj[conId] = thisProjectCopy;
+                    defaultNewProjectCon.insertAdjacentElement("afterend", newProjectCon);
+                    projectConObserver.observe(newProjectCon);
+                    saveProjects();
+                    if (ifCurrentProjectIsOpen) {
+                        newProjectCon.click();
+                        curfentTargetProject = newProjectCon;
+                    }
+                });
+            };
+            newProjectCon.onclick = (event) => {
+                if (event && event.target == event.currentTarget) {
+                    clickNewProject(conId, conName, newProjectCon);
+                }
+            };
+        }
+        
+        function clickNewProject(rProjectId, rProjectName, theEl) {
+            if (theEl.classList.contains("currentProjectOp")) return;
+            currentSelectedProject = rProjectId;
+            document.querySelectorAll(".currentProjectOp").forEach(proj => proj.classList.remove("currentProjectOp"));
+            const projectNameInputEl = document.getElementById("projectNameInputEl");
+            projectNameInputEl.placeholder = rProjectName;
+            projectNameInputEl.value = "";
+            theEl.classList.add("currentProjectOp");
+        }
+        
+        function newProjectSelectOp(theEl) {
+            const projectNameInputEl = document.getElementById("projectNameInputEl");
+            const createProjectIdValue = createProjectId();
+            projectNameInputEl.value = "My Project";
+            clickNewProject(createProjectIdValue, projectNameInputEl.value, theEl);
+        }
+        
+        let addProjectFileQueue = Promise.resolve();
+        async function addNewFilesForRefresh(rfileName, rfileContent, rfileId) {
+            addProjectFileQueue = addProjectFileQueue.then(async () => {
+                try {
+                    await createNewFile(rfileName, rfileContent, undefined, rfileId, true);
+                } catch (error) {
+                    showAlert("Error Adding File");
+                    console.warn("Error adding file:", error);
+                }
+            });
+            return addProjectFileQueue;
+        }
+        
+        let addProjectConQueue = Promise.resolve();
+        async function addNewProjectCon(rProjectId, rProjectName) {
+            addProjectConQueue = addProjectConQueue.then(async () => {
+                try {
+                    await createProjectCon(rProjectId, rProjectName);
+                } catch (error) {
+                    showAlert("Error Adding Project Container");
+                    console.warn("Error Adding Project Container:", error);
+                }
+            });
+            return addProjectConQueue;
+        }
+        
+        let deleteAAllFilesQueue = Promise.resolve();
+        async function deleteExcessFile(rFileId, noDeleteEffects) {
+            deleteAAllFilesQueue = deleteAAllFilesQueue.then(async () => {
+                try {
+                    await deletethisfile(rFileId, noDeleteEffects, true);
+                } catch (error) {
+                    showAlert("Error removing existing files");
+                    console.warn("Error removing existing files:", error);
+                }
+            });
+            return deleteAAllFilesQueue;
+        }
+        
+        for (let key in projectsObj) {
+            if (key != projectId && !key.startsWith("casual_temp_")) {
+                addNewProjectCon(key, projectsObj[key]["name"]);
+            }
+        }
+        
+        function createProjectId() {
+            let newProjectId = "projectId" + crypto.randomUUID();
+            while (projectsObj[newProjectId]) {
+                newProjectId = "projectId" + crypto.randomUUID();
+            }
+            return newProjectId;
+        }
+        
+        function createNewProject() {
+            let newProjectId = createProjectId();
+            const projectNameInputEl = document.getElementById("projectNameInputEl");
+            let newProjectName = projectNameInputEl && projectNameInputEl.value != "" ? projectNameInputEl.value : "My New Project";
+            projectNames = {
+                "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": "index.html",
+                "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": "styles.css",
+                "s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52": "script.js"
+            };
+            projectsObj[newProjectId] = {
+                "name": newProjectName,
+                "files": {...innitialEditorFiles},
+                "fileNames": {...projectNames},
+                "past": {},
+                "future": {},
+                "foldedElements": {}
+            };
+            projectId = newProjectId;
+            projectName = newProjectName;
+            currentSelectedProject = newProjectId;
+            projectNameInputEl.placeholder = newProjectName;
+            projectNameInputEl.value = "";
+            createProjectCon(newProjectId, newProjectName);
+            document.querySelectorAll(".currentProjectOp").forEach(proj => proj.classList.remove("currentProjectOp"));
+            const newProjectRepCon = document.getElementById(newProjectId);
+            if (newProjectRepCon) {
+                newProjectRepCon.classList.add("currentProjectOp");
+            }
+            refreshAbdAdjustFiles();
+            curfentTargetProject = document.getElementById(newProjectId);
+        }
+        
+        function togglePPaURArrow(togglePPaURArrowEl) {
+            togglePPaURArrowEl.classList.toggle("openedPPaURSec");
+            const policiesAndConSec = document.getElementById("policiesAndConSec");
+            const projectSec = document.getElementById("projectSec");
+            
+            if (togglePPaURArrowEl.classList.contains("openedPPaURSec")) {
+                policiesAndConSec.style.display = "flex";
+                projectSec.style.display = "none";
+            } else {
+                projectSec.style.display = "flex";
+                policiesAndConSec.style.display = "none";
+            }
+        }
+        
+        function toggleCasualUse(theSwitch) {
+            casualUse = theSwitch.checked;
+            const projectConSec = document.getElementById("projectConSec");
+            const projectSecH2 = document.querySelector("#projectSec h2");
+            const projectNameInputElLabel = document.getElementById("projectNameInputElLabel");
+            const projectNameInputEl = document.getElementById("projectNameInputEl");
+            if (casualUse) {
+                projectConSec.style.display = "none";
+                projectSecH2.style.display = "none";
+                projectNameInputElLabel.style.display = "none";
+                projectNameInputEl.style.display = "none";
+            } else {    
+                projectConSec.style.display = "flex";
+                projectSecH2.style.display = "block";
+                projectNameInputElLabel.style.display = "inline-block";
+                projectNameInputEl.style.display = "inline-block";
+            }
+        }
+        
+        async function refreshAbdAdjustFiles() {
+            await startLoadingContents();
+            const firstFileId = "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11";
+            const innitualProjectObj = {...projectsObj[projectId]["files"]};
+            const innitialProjectNames = {...projectsObj[projectId]["fileNames"]};
+            pastevents = {...projectsObj[projectId]["past"]};
+            futureevents = {...projectsObj[projectId]["future"]};
+            result = {...projectsObj[projectId]["foldedElements"]};
+            
+            const sections = document.querySelectorAll(".section:not(.viewcontainer)");
+            for (const el of sections) {
+                if (el.id != firstFileId) {
+                    await deleteExcessFile(el.id, true);
+                }
+            }
+            
+            editorFiles = innitualProjectObj;
+            projectNames = innitialProjectNames;
+            
+            for (let fileId in innitualProjectObj) {
+                if (fileId == firstFileId) {
+                    await refreshEditorLines(inputDiv, firstFileId, 0);
+                    
+                    const navdot0input = document.querySelector('.navdotc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11 .filePathInput');
+                    const firstCESection = document.getElementById(firstFileId);
+                    
+                    if(navdot0input) {
+                        navdot0input.value = projectNames[fileId];
+                        await handleFileNameInputChange(navdot0input.parentElement);
+                    }
+                    
+                    if (pastevents[firstFileId] && pastevents[firstFileId].length > 0) {
+                        await enablepastbtn(firstCESection);
+                    } else {
+                        await disablepastbtn(firstCESection);
+                    }
+                } else {
+                    let fileName = projectNames[fileId] || "My New Project";
+                    await addNewFilesForRefresh(fileName, innitualProjectObj[fileId], fileId);
+                }
+            }
+            
+            await saveProjects();
+            setTimeout(() => {
+                stopLoadingContents();
+            }, 900);
+        }
+
+        
+        function enterProjectNameInputEvent(inputEl) {
+            projectName = inputEl.value;
+        }
+        
+        const projectsclosesecbtn = document.getElementById("projectsclosesecbtn");
+        const togglePrivacyPoliciesAndUserRegulations = document.getElementById("togglePrivacyPoliciesAndUserRegulations");
+        const blockOfText = document.getElementById("blockOfText");
+        const cancelActionBtn = document.querySelector(".cancelActionBtn");
+        
+        function cancelProjectSelect() {
+            const cuswitchbox = document.getElementById("cuswitchbox");
+            const projectNameInputEl = document.getElementById("projectNameInputEl");
+            
+            if (casualUse !== previousCasualUse) {
+                if (cuswitchbox) cuswitchbox.checked = previousCasualUse;
+                toggleCasualUse(cuswitchbox || { checked: previousCasualUse });
+            }
+            
+            document.querySelectorAll(".currentProjectOp").forEach(proj => proj.classList.remove("currentProjectOp"));
+            
+            if (projectNameInputEl) projectNameInputEl.value = "";
+            
+            if (curfentTargetProject) {
+                curfentTargetProject.classList.add("currentProjectOp");
+                
+                if (curfentTargetProject.id != "defaultNewProjectCon") {
+                    currentSelectedProject = curfentTargetProject.id;
+                    if (projectNameInputEl) {
+                        projectNameInputEl.placeholder = projectsObj[currentSelectedProject] ? projectsObj[currentSelectedProject]["name"] : (projectName || "My Project");
+                    }
+                } else if (projectNameInputEl && casualUse == false) {
+                    projectNameInputEl.placeholder = "My Project";
+                    const defaultNewProjectCon = document.getElementById("defaultNewProjectCon");
+                    if (defaultNewProjectCon) defaultNewProjectCon.classList.add("currentProjectOp");
+                    if (projectNameInputEl) projectNameInputEl.placeholder = "My Project";
+                    document.querySelector(".acceptOrOpenOrCreateBtn").click();
+                    hidenotificationmessage();
+                    return;
+                }
+            } else if (casualUse == false) {
+                const defaultNewProjectCon = document.getElementById("defaultNewProjectCon");
+                if (defaultNewProjectCon) defaultNewProjectCon.classList.add("currentProjectOp");
+                if (projectNameInputEl) projectNameInputEl.placeholder = "My Project";
+                document.querySelector(".acceptOrOpenOrCreateBtn").click();
+                hidenotificationmessage();
+                return;
+            }
+            
+            hidenotificationmessage();
+            hideelement('class', 'userregulationsandconditionsoverlay');
+        }
+        
+        let startCodingB = true;
+        
+        function startCoding(event, thisBtn) {
+            resolvePendingPast();
+            hidenotificationmessage();
+            previousCasualUse = casualUse;
+            
+            if (startCodingB) {
+                startCodingB = false;
+                projectsclosesecbtn.style.display = "flex";
+                togglePrivacyPoliciesAndUserRegulations.style.display = "none";
+                blockOfText.style.display = "none";
+                thisBtn.textContent = "Open Selected Project";
+                cancelActionBtn.style.display = "flex";
+                thisBtn.id = "startCodingBtn";
+            }
+            
+            const projectNameInputEl = document.getElementById("projectNameInputEl");
+            hideelement('class', 'userregulationsandconditionsoverlay', event);
+            
+            if (casualUse == true) {
+                let newProjectId = "casual_temp_" + crypto.randomUUID(); 
+                let newProjectName = "Casual Mode Workspace";
+                projectNames = {
+                    "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": "index.html",
+                    "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": "styles.css",
+                    "s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52": "script.js"
+                };
+                
+                projectsObj[newProjectId] = {
+                    "name": newProjectName,
+                    "files": {...innitialEditorFiles},
+                    "fileNames": {...projectNames},
+                    "past": {},
+                    "future": {},
+                    "foldedElements": {}
+                };
+                
+                projectNameInputEl.value = newProjectName;
+                const defaultNewProjectCon = document.getElementById("defaultNewProjectCon");
+                defaultNewProjectCon.click();
+                curfentTargetProject = defaultNewProjectCon;
+                projectId = newProjectId;
+                projectName = newProjectName;
+                currentSelectedProject = newProjectId;
+                refreshAbdAdjustFiles();
+            } else {
+                for (let key in projectsObj) {
+                    if (key.startsWith("casual_temp_")) {
+                        delete projectsObj[key];
+                    }
+                }
+                
+                if (currentSelectedProject && projectsObj[currentSelectedProject]) {
+                    projectId = currentSelectedProject;
+                    projectName = projectsObj[projectId]["name"];
+                    editorFiles = {...projectsObj[projectId]["files"]};
+                    projectNames = {...projectsObj[projectId]["fileNames"]};
+                    
+                    curfentTargetProject = document.getElementById(projectId);
+                    
+                    if (projectNameInputEl) projectNameInputEl.placeholder = projectName;
+                    
+                    refreshAbdAdjustFiles();
+                } else {
+                    createNewProject();
+                }
+            }
+        }
+        
+        function projectNameKeydown(inputEl, event) {
+            if (event.key != "Enter") return;
+            if (inputEl.value != "") {
+                inputEl.placeholder = inputEl.value;
+            } else {
+                inputEl.placeholder = "My New Project";
+            }
+            const currentProjectOpText = document.querySelector(".currentProjectOp .projectName");
+            if (currentProjectOpText) {
+                currentProjectOpText.textContent = inputEl.value;
+            }
+            const currentProjectOpEl = document.querySelector(".currentProjectOp");
+            if (currentProjectOpEl) {
+                const currentProjectOpElId = currentProjectOpEl.id;
+                if (currentProjectOpElId != undefined && projectsObj[currentProjectOpElId]) {
+                    projectsObj[currentProjectOpElId]["name"] = inputEl.value;
+                    saveProjects();
+                }
+            }
+            
+            inputEl.value = "";
+        }
+        
+        
+        
         let targetElementv = null;
         let currentLineOpTargetIndex = null;
         let noSelectTime = false;
@@ -11801,6 +12725,7 @@
             }
             hideOverlay('.replaceoverlay');
             updateSelectedClasses();
+            updateSaveFile();
         }
 
         
@@ -11857,7 +12782,7 @@
             }
         }
 
-        function deletethisfile(number) {
+        function deletethisfile(number, withoutEffects = false, dontsavedeletion = false) {
             if (!number) return;
             
             let sid = document.getElementById(number)?.id;
@@ -11869,9 +12794,19 @@
             if (editorFiles[number]) {
                 delete editorFiles[number];
             }
+            if (projectNames[number]) {
+                delete projectNames[number];
+            }
+            if (dontsavedeletion == false) {
+                updateSaveFile();
+            }
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
-                dissolve(rectangleToDelete, 250);
+                if (withoutEffects == true) {
+                    rectangleToDelete.remove();
+                } else {
+                    dissolve(rectangleToDelete, 250);
+                }
             }
 
             let navBar = document.getElementById('nav-bar');
@@ -11899,7 +12834,11 @@
             let sidebarfilelinklink = document.getElementById("sidebarfilelinklink" + number);
             if (sidebarfilelinklink) {
                 sidebarfilelinklink.className = "sidebarfilelinklink";
-                dissolve(sidebarfilelinklink, 150);
+                if (withoutEffects == true) {
+                    sidebarfilelinklink.remove();
+                } else {
+                    dissolve(sidebarfilelinklink, 150);
+                }
             }
             
             let deletethissection = document.getElementById(number);
@@ -11918,8 +12857,11 @@
                     fold.querySelector('span').click();
                 }
             });
-            if (deletedFileName && deletedFileName.textContent != "") {
+            if (deletedFileName && deletedFileName.textContent != "" && withoutEffects == false) {
                 shortNotificationmessageelement(deletedFileName + " successfully deleted");
+            }
+            if (withoutEffects == true) {
+                updateSaveFile();
             }
         }
         function editthisfile(specfileid, event = null){
@@ -12012,6 +12954,7 @@
                 shortNotificationmessageelement('we successfully deleted all empty lines');
             }
             updateSelectedClasses();
+            updateSaveFile();
         }
         function deleteAllCommentsInLines() {
             const allLines = editorFiles[editorIndex];
@@ -12074,6 +13017,7 @@
                 updateFileInfoStats();
             }
             updateSelectedClasses();
+            updateSaveFile();
         }
 
         function positionElementAbove(elementToPosition, referenceElement) {
@@ -12224,6 +13168,7 @@
             }
             updateSelectedClasses();
             checkifselectedlines();
+            updateSaveFile();
         }
         function swipethislineright() {
             const allLines = editorFiles[editorIndex];
@@ -12270,6 +13215,7 @@
             }
             updateSelectedClasses();
             checkifselectedlines();
+            updateSaveFile();
         }
         const viewcontainer = document.querySelector('.viewcontainer');
 
@@ -12285,11 +13231,13 @@
         };
         
         function viewthisfile() {
-            if (!viewcontainer) return;
+            if (!viewcontainer && !viewcontainer.classList.contains("viewthisfileExpanded")) return;
+            closeeverything();
             
             section.style.display = "none";
             viewcontainer.style.display = "flex";
             viewcontainer.classList.add("viewthisfileExpanded");
+            document.querySelector(".nav-bar").style.overflow = "hidden";
             
             const filepath =
                 document.querySelector('.navdot' + editorIndex + ' input[type="text"]')?.value || "";
@@ -12305,11 +13253,12 @@
         }
         
         function closeviewthisfile() {
-            if (!viewcontainer) return;
+            if (!viewcontainer && viewcontainer.classList.contains("viewthisfileExpanded")) return;
             
             section.style.display = "flex";
             
             viewcontainer.classList.remove("viewthisfileExpanded");
+            document.querySelector(".nav-bar").style.overflowX = "scroll";
             
             Object.assign(viewcontainer.style, initialState);
             
@@ -12375,12 +13324,10 @@
                 return fileCache.get(filename);
             };
             
-            // Helper function to find the best syntactical insertion point
             const safeInject = (html, code) => {
                 if (/<\/script>(?![\s\S]*<\/script>)/i.test(html)) {
                     return html.replace(/<\/script>(?![\s\S]*<\/script>)/i, code);
                 }
-                // Strip the leading <\/script> from the payload if falling back to other tags
                 const cleanCode = code.replace(/^\s*<\/script>/i, '');
                 
                 if (/<\/body>/i.test(html)) {
@@ -12393,7 +13340,6 @@
                     return html.replace(/<\/html>/i, '\n' + cleanCode + '\n</html>');
                 }
                 
-                // Fallback to just appending it at the very end
                 return html + '\n' + cleanCode;
             };
 
@@ -12415,17 +13361,14 @@
             if ('fetch' in window) {
               const originalFetch = window.fetch;
               window.fetch = function(url, options) {
-                // Bestimme die URL, egal ob als String oder Request-Objekt übergeben
                 let requestUrl = (typeof url === 'string') ? url : url.url;
                 const urlObj = new URL(requestUrl, location.href);
                 const fileName = urlObj.pathname.split("/").pop();
-            
-                // Falls ein Ersatz für den angefragten Dateinamen existiert, leite den Request um
+                
                 if (fileReplacements[fileName]) {
                   return originalFetch(fileReplacements[fileName], options);
                 }
-            
-                // Andernfalls führe den ursprünglichen Request aus
+                
                 return originalFetch(url, options);
               };
             }
@@ -12442,10 +13385,8 @@
               });
             });
             
-            // Beobachtet das ganze Dokument nach <img>-Änderungen
             observer.observe(document, { attributes: true, subtree: true, attributeFilter: ["src"] });
             
-            // Bereits existierende <img>-Tags direkt ersetzen
             document.querySelectorAll("img").forEach((img) => {
               const fileName = img.src.split("/").pop();
               if (fileReplacements[fileName]) {
@@ -12544,7 +13485,6 @@
                 }
                 
                 if (showElInfo == true) {
-                    // Build a raw object of CSS properties instead of HTML strings
                     function getFullCSSList(el) {
                         const styles = getComputedStyle(el);
                         let css = {};
@@ -12557,7 +13497,6 @@
                     const escaped = str => str ? str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) : "";
                     const cssAttrList = getFullCSSList(target);
                     
-                    // Build a raw object of HTML attributes (removed leading dots for standard JSON keys)
                     const htmlFullValuesList = {
                         "className": target.className.split(/\s+/).join(", "),
                         "textContent": target.textContent,
@@ -12593,14 +13532,12 @@
                         "dataset": JSON.stringify(target.dataset)
                     };
                     
-                    // Post the values to the parent window
                     if (window.parent) {
                         window.parent.postMessage({
                             type: 'elementInfo',
                             css: cssAttrList,
                             html: htmlFullValuesList
                         }, '*'); 
-                        // Note: Change '*' to your specific parent domain (e.g., 'https://yourdomain.com') for better security in production.
                     }
                 }
             });
@@ -13320,18 +14257,21 @@
             document.querySelectorAll('.isviewing').forEach(viewel => {
                 viewel.classList.remove("isviewing");
             });
+            const showfilesettingsbtnEl = document.querySelector('.showfilesettingsbtn');
+            const sidebarfilelinklinkCurrent = document.querySelector('.sidebarfilelinklink.currentfile');
             if (section.classList.contains('viewcontainer')) {
-                document.querySelector('.showfilesettingsbtn').classList.add('disabledbtn');
+                showfilesettingsbtnEl.classList.add('disabledbtn');
                 document.getElementById('scrollviewintoviewbtn').classList.add('isviewing');
             }else {
-                document.querySelector('.showfilesettingsbtn').classList.remove('disabledbtn');
+                showfilesettingsbtnEl.classList.remove('disabledbtn');
             }
-            if (document.querySelector('.sidebarfilelinklink.currentfile')){
-                document.querySelector('.sidebarfilelinklink.currentfile').classList.remove('currentfile');
+            if (sidebarfilelinklinkCurrent){
+                sidebarfilelinklinkCurrent.classList.remove('currentfile');
             }
             const newstsection = Array.from(document.querySelectorAll('.section'))[index];
-            if (document.querySelector('#sidebarfilelinklink' + newstsection.id)) {
-                document.querySelector('#sidebarfilelinklink' + newstsection.id).classList.add('currentfile');
+            const newsectionsidebarfilelinklink = document.querySelector('#sidebarfilelinklink' + newstsection.id);
+            if (newsectionsidebarfilelinklink) {
+                newsectionsidebarfilelinklink.classList.add('currentfile');
             }
             
             if (transitionanimation != "none") {
@@ -13341,6 +14281,7 @@
                     void newstsection.offsetWidth;
                     newstsection.style.animation = transitionanimation + "in 0.3s ease-out";
                     refreshEditorLines(inputDiv, editorIndex, 0);
+                    checkifselectedlines();
                 }, 300);
             } else {
                 newstsection.style.display = 'flex';
@@ -13367,10 +14308,10 @@
                 previoussectionfsts = section;
                 sectionindex = index;
                 let newsection = Array.from(document.querySelectorAll('.section'))[index];
-                editorIndex = newsection.id;
                 if (!newsection) {
                     return;
                 }
+                editorIndex = newsection.id;
                 closeseccontainer();
                 section = newsection;
                 resolvePendingPast();
@@ -13509,6 +14450,7 @@
                 futureevents[lasteventsparentsection.id] = [];
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                updateSaveFile();
             }
         }
 
@@ -13519,14 +14461,14 @@
                 content: [...editorFiles[editorIndex]],
                 index: editorFiles[editorIndex].length - 1
             }];
-            correntids++;
-            editorFiles[editorIndex] = [{id:correntids,classes:["code-editor-line"],text:""}];
+            editorFiles[editorIndex] = [{id:createCodeEditorLineId(),classes:["code-editor-line"],text:""}];
             updateSelectedClasses();
             resolvePendingPast();
             pasteventPrep();
             futureevents[lasteventsparentsection.id] = [];
             pastevents[lasteventsparentsection.id].push(newpast);
             enablepastbtn();
+            updateSaveFile();
         }
         function applyNewIndentSizes() {
             startLoadingIndentSizeUpdate();
@@ -13546,9 +14488,8 @@
             const selerateText = updatedText.split("\n");
             
             editorFiles[editorIndex] = selerateText.map(text => {
-                correntids++;
                 return {
-                    id: correntids,
+                    id: createCodeEditorLineId(),
                     classes: ["code-editor-line"],
                     text: replaceNormalSpaces(text || "")
                 };
@@ -13562,6 +14503,7 @@
             futureevents[lasteventsparentsection.id] = [];
             pastevents[lasteventsparentsection.id].push(newpast);
             enablepastbtn();
+            updateSaveFile();
         }
 
         function importantselectedlines() {
@@ -13590,6 +14532,7 @@
             }
             checkifselectedlines();
             updateSelectedClasses();
+            updateSaveFile();
         }
 
         function unselectalllines() {
@@ -13610,6 +14553,7 @@
             }
             updateSelectedClasses();
             checkifselectedlines();
+            updateSaveFile();
         }
 
         function unfoldalllines() {
@@ -13651,6 +14595,7 @@
             }
             updateSelectedClasses();
             checkifselectedlines();
+            updateSaveFile();
         }
 
         function moveselectedlineup() {
@@ -13691,6 +14636,7 @@
                     futureevents[lasteventsparentsection.id] = [];
                     pastevents[lasteventsparentsection.id].push(newpast);
                     enablepastbtn();
+                    updateSaveFile();
                 }
             }
         }
@@ -13734,6 +14680,7 @@
                     futureevents[lasteventsparentsection.id] = [];
                     pastevents[lasteventsparentsection.id].push(newpast);
                     enablepastbtn();
+                    updateSaveFile();
                 }
             }
         }
@@ -13762,6 +14709,7 @@
                     }
                 });
                 checkifselectedlines();
+                updateSaveFile();
             }
         }
 
@@ -13780,6 +14728,7 @@
                         theElement.classes.splice(theElement.classes.indexOf('disableline'), 1);
                     }
                 });
+                updateSaveFile();
             }
         }
 
@@ -13860,6 +14809,7 @@
                 pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                updateSaveFile();
             }
         }
         
@@ -13899,6 +14849,7 @@
                 pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                updateSaveFile();
             }
         }
         
@@ -13942,6 +14893,7 @@
                 pasteventPrep();
                 pastevents[lasteventsparentsection.id].push(newpast);
                 enablepastbtn();
+                updateSaveFile();
             }
         }
         
@@ -14377,6 +15329,7 @@
                 }
                 updateSelectedClasses();
                 checkifselectedlines();
+                updateSaveFile();
             };
             
             leidresultbtn2.onclick = () => {
@@ -14597,8 +15550,10 @@
             "deleteAllCommentsBtn": "By clicking this button, all HTML, CSS, and JavaScript comments will be removed. Note that this function isn’t perfect, and some code may be misidentified as a comment.",
             "clearclipboardbtn": "Clear the in-editor clipboard.",
             "addcommandbtn": "Add custom /COMMANDS to the commands list.",
-            "addshortcutbtn": "Add custom /:shortcuts to the shortcuts list."
-            
+            "addshortcutbtn": "Add custom /:shortcuts to the shortcuts list.",
+            "projectNameInputEl": "Type in the name of the project that you want to create and click the button at the bottom to start using the editor. Make sure you have read and agreed to the User Regulations and Privacy Policies before you do. If you simply want to edit the name of a project, select the project that you want to change the name of, type in the new name here, and click the \"Enter\" key.",
+            "acceptBtn": "By clicking this button, you agree and accept the User Regulations and the Privacy Policies. After you click, it will close this section that is currently overlaying the editor and you will be able to start a new project or edit an old one.",
+            "startCodingBtn": "By clicking this button you will close this section that is currently overlaying the editor and a new project will be created, if you selected the new project option, or the selected project will be opened for you to be able to edit it."
         };
         let savedSelection = {
             hadSelection: false,
@@ -14606,6 +15561,32 @@
         };
         
         let setTimeForInfo = null;
+        function showIfoCon(targetEl = currentHoveredElement) {
+            if (targetEl) {
+                if (targetEl && elementsWithInfos[targetEl.id.trim().replaceAll("-", "_")] != undefined) {
+                    setTimeForInfo = setTimeout(() => {
+                        if (!targetEl) return;
+                        targetEl.classList.add("inFocusForInfo");
+                        
+                        setTimeForInfo = null;
+                        const infoContainer = document.querySelector('.explanationContainer');
+                        infoContainer.textContent = elementsWithInfos[targetEl.id.trim().replaceAll("-", "_")];
+                        const targetElBCR = targetEl.getBoundingClientRect();
+                        infoOverlayContainer.style.display = "block";
+                        const infoContainerBCR = infoContainer.getBoundingClientRect();
+                        const newElStyle = {
+                            width: targetElBCR.width - 5 + "px",
+                            top: (window.innerHeight / 2) > targetElBCR.top ? (targetElBCR.top + targetElBCR.height + 10) + "px" : (targetElBCR.top - (infoContainerBCR.height + 10)) + "px",
+                            left: (window.innerWidth / 2) > targetElBCR.left ? targetElBCR.left + "px" : (targetElBCR.left - infoContainerBCR.width + targetElBCR.width) + "px"
+                        };
+                        
+                        for (let key in newElStyle) {
+                            infoContainer.style[key] = newElStyle[key];
+                        }
+                    }, 700);
+                }
+            }
+        }
         document.addEventListener('touchstart', function(event) {
             let target = event.target.closest('.code-editor-line');
             if (target) {
@@ -14613,28 +15594,7 @@
                 startLine = target;
             }
             let targetEl = event.target;
-            if (targetEl && elementsWithInfos[targetEl.id.trim().replaceAll("-", "_")] != undefined) {
-                setTimeForInfo = setTimeout(() => {
-                    if (!targetEl) return;
-                    targetEl.classList.add("inFocusForInfo");
-                    
-                    setTimeForInfo = null;
-                    const infoContainer = document.querySelector('.explanationContainer');
-                    infoContainer.textContent = elementsWithInfos[targetEl.id.trim().replaceAll("-", "_")];
-                    const targetElBCR = targetEl.getBoundingClientRect();
-                    infoOverlayContainer.style.display = "block";
-                    const infoContainerBCR = infoContainer.getBoundingClientRect();
-                    const newElStyle = {
-                        width: targetElBCR.width - 5 + "px",
-                        top: (window.innerHeight / 2) > targetElBCR.top ? (targetElBCR.top + targetElBCR.height + 10) + "px" : (targetElBCR.top - (infoContainerBCR.height + 10)) + "px",
-                        left: (window.innerWidth / 2) > targetElBCR.left ? targetElBCR.left + "px" : (targetElBCR.left - infoContainerBCR.width + targetElBCR.width) + "px"
-                    };
-                    
-                    for (let key in newElStyle) {
-                        infoContainer.style[key] = newElStyle[key];
-                    }
-                }, 700);
-            }
+            showIfoCon(targetEl);
         });
         function closeElInfo() {
             if (setTimeForInfo) {
@@ -14654,7 +15614,6 @@
                 closeElInfo();
             }
         };
-        let result = {};
         function highlightSelectedText() {
             const wordselectswitch = document.querySelector('.wordselectswitch');
             if (wordselectswitch && wordselectswitch.checked) {
@@ -15031,6 +15990,7 @@
                             pasteventPrep();
                             pastevents[lasteventsparentsection.id].push(newpast2);
                             enablepastbtn();
+                            updateSaveFile();
                         }
                         
                         preserveCursorAndHighlight(celine);
@@ -15044,9 +16004,8 @@
             
             const newLines = new Array(lineCount - 1);
             for (let i = 1; i < lineCount; i++) {
-                correntids++;
                 const newline = {
-                    id: correntids,
+                    id: createCodeEditorLineId(),
                     classes: ['code-editor-line'],
                     text: spaces + processedLines[i]
                 };
@@ -15077,8 +16036,8 @@
                         pasteventPrep();
                         pastevents[lasteventsparentsection.id].push(newpast2);
                         enablepastbtn();
+                        updateSaveFile();
                     }
-                    
                     preserveCursorAndHighlight(theNewCeline);
                 });
             });
@@ -15222,6 +16181,7 @@
                     pasteventPrep();
                     pastevents[lasteventsparentsection.id].push(newpast2);
                     enablepastbtn();
+                    updateSaveFile();
                 }
                 
                 let textBefore = text.slice(0, index);
@@ -15881,6 +16841,7 @@
             if (cursor !== undefined) e.cursor = cursor;
             if (index !== undefined) e.index = index;
             arr.push(e);
+            updateSaveFile();
         }
         
         function cursorOffsetInElement(element, selRange) {
@@ -15950,6 +16911,7 @@
                     pastevents[lasteventsparentsectionfornewpast.id].push([...pendingPasts]);
                     enablepastbtn(lasteventsparentsectionfornewpast);
                     currentPendingPast = null;
+                    updateSaveFile();
                 }
                 pendingPasts = [];
             }, 1000);
@@ -15961,6 +16923,7 @@
                 pastevents[lasteventsparentsectionfornewpast.id].push([...pendingPasts]);
                 enablepastbtn(lasteventsparentsectionfornewpast);
                 currentPendingPast = null;
+                updateSaveFile();
             }
             pendingPasts = [];
         }
@@ -15979,8 +16942,8 @@
             }
             if ((event && event.key == "ArrowLeft") || (isCmdOrCtrl && event.key == "f")) {
                 const fceline = section.querySelector('.code-editor-line:focus');
-                const hceline = section.querySelector('.code-editor-line:hover');
-                let celine = fceline ? fceline : hceline;
+                const hceline = currentHoveredElement && currentHoveredElement.classList.contains("code-editor-line");
+                let celine = hceline ? currentHoveredElement : fceline;
                 if (celine) {
                     targetElementv = celine;
                     swipethislineleft();
@@ -15992,6 +16955,17 @@
                 gobacktolastpastevent();
                 event.preventDefault();
                 return;
+            }
+            if (isCmdOrCtrl && event.key == "z") {
+                notify("To undo changes in a file, use Ctrl/Cmd + u");
+            }
+            if (isCmdOrCtrl && event.key == "y") {
+                showIfoCon(currentHoveredElement);
+                event.preventDefault();
+                return;
+            }
+            if (isCmdOrCtrl && event.key == "i") {
+                notify("To get information about elements, use Ctrl/Cmd + y");
             }
             removeAllHighlightedTexts();
             const notif = document.querySelector('.notificationmessage');
@@ -16131,8 +17105,7 @@
                     showHiddenElements(celine);
                 }
                 
-                correntids += 1;
-                const newid = correntids;
+                const newid = createCodeEditorLineId();
                 lasteventsparentsection = section;
                 pushPastTo(newpast, { element: {...allLines[lineIndex]}, type: "text", index: lineIndex, text: celine.textContent, cursor: cursorPosition });
                 
@@ -16189,9 +17162,8 @@
                 pushPastTo(newpast, { element: {...newline}, type: "create", index: allLines.indexOf(newline), cursor: 0 });
                 let offset = -1;
                 if (clisingsignsincssandjavascript.includes(firstsignintextbehindcursor) || closingTagMatch) {
-                    correntids++;
                     const newline2text = firstspaces + textBehindCursor;
-                    const newline2 = {id:correntids,classes:["code-editor-line"],text:newline2text};
+                    const newline2 = {id:createCodeEditorLineId(),classes:["code-editor-line"],text:newline2text};
                     if (allLines[allLines.indexOf(newline) + 1]) {
                         allLines.splice(allLines.indexOf(newline) + 1, 0, newline2);
                     } else {
@@ -16472,6 +17444,7 @@
             setTimeout(() => {
                 updateimportantpinClasses();
                 const lines = editorFiles[editorIndex];
+                if (!lines) return;
     
                 let allselectedlines = lines.filter(el => el.classes.includes('selected'));
     
@@ -16519,6 +17492,7 @@
         function updateimportantpinClasses() {
             setTimeout(() => {
                 const lines = editorFiles[editorIndex];
+                if (!lines) return;
                 
                 let allselectedlines = lines.filter(el => el.classes.includes('importantpin'));
                 
@@ -17897,6 +18871,7 @@
                             replaceCommandsWithSymbols(inputElement);
                             preserveCursorAndHighlight(inputElement);
                         }
+                        updateSaveFile();
                     });
 
                     container.appendChild(option);
