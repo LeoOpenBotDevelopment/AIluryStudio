@@ -11518,7 +11518,7 @@
         
         let projectsObj = jsonProjectObj && isPlainObject(JSON.parse(jsonProjectObj)) 
             ? JSON.parse(jsonProjectObj) 
-            : { [projectId]: { "name": projectName, "files": {...editorFiles}, "fileNames": {...projectNames}, "past": {...pastevents}, "future": {...futureevents}, "foldedElements": {...result} } };
+            : {};
         
         const saveProjects = (() => {
             let chain = Promise.resolve();
@@ -16951,20 +16951,20 @@
                 }
                 return;
             }
-            if (isCmdOrCtrl && event.key == "u") {
+            if (isCmdOrCtrl && event.key.toLowerCase() == "u") {
                 gobacktolastpastevent();
                 event.preventDefault();
                 return;
             }
-            if (isCmdOrCtrl && event.key == "z") {
+            if (isCmdOrCtrl && event.key.toLowerCase() == "z") {
                 notify("To undo changes in a file, use Ctrl/Cmd + u");
             }
-            if (isCmdOrCtrl && event.key == "y") {
+            if (isCmdOrCtrl && event.key.toLowerCase() == "y") {
                 showIfoCon(currentHoveredElement);
                 event.preventDefault();
                 return;
             }
-            if (isCmdOrCtrl && event.key == "i") {
+            if (isCmdOrCtrl && event.key.toLowerCase() == "i") {
                 notify("To get information about elements, use Ctrl/Cmd + y");
             }
             removeAllHighlightedTexts();
