@@ -4982,7 +4982,7 @@
             left: 0;
             background: transparent;
             border: none;
-            color: var(--lightgrey-color);
+            color: var(--switchcheckedbackground-color);
             font-weight: bold;
             text-shadow: 0 0 20px var(--bg-color);
             transition: 0.3s;
@@ -4999,7 +4999,7 @@
         }
         .projectCon .projectName {
             font-weight: bold;
-            color: var(--lightgrey-color);
+            color: var(--switchcheckedbackground-color);
             font-size: 1.1em;
             padding: 5px;
             z-index: 20;
@@ -11808,16 +11808,19 @@
             const projectSecH2 = document.querySelector("#projectSec h2");
             const projectNameInputElLabel = document.getElementById("projectNameInputElLabel");
             const projectNameInputEl = document.getElementById("projectNameInputEl");
+            const projectNameInput = document.getElementById("projectNameInput");
             if (casualUse) {
                 projectConSec.style.display = "none";
                 projectSecH2.style.display = "none";
                 projectNameInputElLabel.style.display = "none";
                 projectNameInputEl.style.display = "none";
+                projectNameInput.style.justifyContent = "center";
             } else {    
                 projectConSec.style.display = "flex";
                 projectSecH2.style.display = "block";
                 projectNameInputElLabel.style.display = "inline-block";
                 projectNameInputEl.style.display = "inline-block";
+                projectNameInput.style.justifyContent = "left";
             }
         }
         
