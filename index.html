@@ -11562,10 +11562,7 @@
         }
         
         function startLoadingContents() {
-            const loadingCodeSidebarOverlay = document.getElementById('loadingCodeSidebarOverlay');
-            const codeLoadingSpinner = document.getElementById('codeLoadingSpinner');
-            if (loadingCodeSidebarOverlay.style.display != "none" || codeLoadingSpinner.style.display != "none") return;
-            
+            if (document.getElementById('loadingCodeSidebarOverlay').style.display == "flex") return;
             const startLoadingCodeFadeOuts = {
                 "loadingCodeSidebarOverlay": "fadeIn 0.3s ease",
                 "codeLoadingSpinner": "fadeIn 0.3s ease",
@@ -11627,6 +11624,8 @@
                     el.style.display = "none";
                 }
                 setTimeout(() => {
+                    el.style.animation = "none";
+                    void el.offsetWidth;
                     el.style.display = "none";
                 }, startLoadingCodeFadeOutsValue ? startLoadingCodeFadeOutsValue.duration : 300);
             }
