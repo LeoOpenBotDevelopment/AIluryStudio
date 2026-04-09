@@ -3566,7 +3566,7 @@
             border-radius: 50%;
             z-index: 10;
         }
-        #sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77, #s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52, #forview{
+        #forview{
             display: none;
         }
         @media(max-width: 700px){
@@ -5470,8 +5470,6 @@
                 <h3 id="filesh3" class="maximizetogglebtn" onclick="hideexternalsidebar(this)"><span class="closefilesection">></span> <span id="toggleexternalsidebartext">maximize</span></h3>
                 <button id="runCodeBtn" onclick="scrollviewintoview()">◀</button>
                 <button id="sidebarfilelinklinkc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" class="sidebarfilelinklink currentfile" onclick="editthisfile('c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11', event)">index.html<div class="threedots">⋮</div></button>
-                <button id="sidebarfilelinklinksd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77" class="sidebarfilelinklink" onclick="editthisfile('sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77', event)">styles.css<div class="threedots">⋮</div></button>
-                <button id="sidebarfilelinklinks4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" class="sidebarfilelinklink" onclick="editthisfile('s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52', event)">script.js<div class="threedots">⋮</div></button>
             </div>
         </div>
         <div class="resizesidebarbar">></div>
@@ -5515,8 +5513,6 @@
                                         <input type="text" id="mobile-url-input" placeholder="FileName.html" list="filenameoptions">
                                         <datalist id="filenameoptions">
                                             <option id="optionc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" value="index.html"></option>
-                                            <option id="optionsd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77" value="styles.css"></option>
-                                            <option id="options4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" value="script.js"></option>
                                         </datalist>
                                     </div>
                                     <div class="action-btn" onclick="textCode('mobile-url-input', 'mobile-frame');createConfetti()">⌕</div>
@@ -5573,26 +5569,6 @@
                         <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
                 </div>
-                <div class="section" id="sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77">
-                    <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
-                    </div>
-                    <div class="code-editor-container" id="linenumberingon">
-                    </div>
-                    <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
-                    </div>
-        
-                </div>
-                <div class="section" id="s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52">
-                    <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changedeletebtn(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changedeletebtn(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
-                    <div class="code-editor-container" id="linenumberingon">
-                    </div>
-                    <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changedeletebtn(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changedeletebtn(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('.commandsoverlay-container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
-                    </div>
-                </div>
             </div>
         
             <div class="codesearchresults">
@@ -5612,12 +5588,6 @@
                 </div>
                 <div data-index="c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" class="nav-dot filedot navdotc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" onclick="dotonclick()">
                     <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="index.html">
-                </div>
-                <div data-index="sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77" class="nav-dot filedot navdotsd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77" onclick="dotonclick()">
-                    <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="styles.css">
-                </div>
-                <div data-index="s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" class="nav-dot filedot navdots4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" onclick="dotonclick()">
-                    <input class="filePathInput" type="text" maxlength="250" onblur="onfilepathinputblur(this)" value="script.js">
                 </div>
             </div>
             <div id="timeline-container">
@@ -5927,20 +5897,6 @@
         
                     <div class="rectangle" id="rectanglec3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" onclick="editthisfile('c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11', event)">
                         <span class="notclickable">index.html</span>
-                        <div class="rectangle-buttons">
-                            <button class="edit-btn">≡</button>
-                        </div>
-                        <button class="close">×</button>
-                    </div>
-                    <div class="rectangle" id="rectanglesd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77" onclick="editthisfile('sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77', event)">
-                        <span class="notclickable">styles.css</span>
-                        <div class="rectangle-buttons">
-                            <button class="edit-btn">≡</button>
-                        </div>
-                        <button class="close">×</button>
-                    </div>
-                    <div class="rectangle" id="rectangles4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52" onclick="editthisfile('s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52', event)">
-                        <span class="notclickable">script.js</span>
                         <div class="rectangle-buttons">
                             <button class="edit-btn">≡</button>
                         </div>
@@ -6788,6 +6744,11 @@
             "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": [],
             "s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52": []
         };
+        let projectNames = {
+            "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": "index.html",
+            "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": "styles.css",
+            "s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52": "script.js"
+        };
         function createRandomFileId() {
             let returnval = "s" + crypto.randomUUID().replace(/[^a-zA-Z0-9]/g, "_");
             while (editorFiles[returnval]) {
@@ -6822,70 +6783,41 @@
             const vAIluryStudioPendingFileName = localStorage.getItem("AIluryStudioPendingFileName");
             const vAIluryStudioPendingFileContent = localStorage.getItem("AIluryStudioPendingFileContent");
             const vAIluryStudioPendingFileRun = localStorage.getItem("AIluryStudioPendingFileRun");
-            const vAIluryStudioPendingFileType = localStorage.getItem("AIluryStudioPendingFileType");
             if (vAIluryStudioPendingFileName && vAIluryStudioPendingFileContent && vAIluryStudioPendingFileRun && vAIluryStudioPendingFileType) {
-                const sidebarfilelinklink0 = document.getElementById('sidebarfilelinklinkc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11');
-                const sidebarfilelinklink1 = document.getElementById('sidebarfilelinklinksd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77');
-                const sidebarfilelinklink2 = document.getElementById('sidebarfilelinklinks4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52');
-                const navdot0input = document.querySelector('.navdotc3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11 .filePathInput');
-                const navdot1input = document.querySelector('.navdotsd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77 .filePathInput');
-                const navdot2input = document.querySelector('.navdots4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52 .filePathInput');
-                if (sidebarfilelinklink0 && sidebarfilelinklink1 && sidebarfilelinklink2 && navdot0input && navdot1input && navdot2input) {
-                    if (vAIluryStudioPendingFileType == "html") {
-                        sec0text = vAIluryStudioPendingFileContent;
-                        navdot0input.value = vAIluryStudioPendingFileName;
-                        handleFileNameInputChange(navdot0input.parentElement);
-                        const cvinput = document.getElementById("computer-url-input");
-                        const mvinput = document.getElementById("mobile-url-input");
-                        if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
-                            cvinput.value = vAIluryStudioPendingFileName;
-                            mvinput.value = vAIluryStudioPendingFileName;
-                            scrollviewintoview();
-                        }
-                    } else if (vAIluryStudioPendingFileType == "css") {
-                        sec1text = vAIluryStudioPendingFileContent;
-                        navdot1input.value = vAIluryStudioPendingFileName;
-                        handleFileNameInputChange(navdot1input.parentElement);
-                        const cvinput = document.getElementById("computer-url-input");
-                        const mvinput = document.getElementById("mobile-url-input");
-                        if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
-                            cvinput.value = vAIluryStudioPendingFileName;
-                            mvinput.value = vAIluryStudioPendingFileName;
-                            scrollviewintoview();
-                        } else {
-                            sidebarfilelinklink1.click();
-                        }
-                    } else if (vAIluryStudioPendingFileType == "js") {
-                        sec2text = vAIluryStudioPendingFileContent;
-                        navdot2input.value = vAIluryStudioPendingFileName;
-                        handleFileNameInputChange(navdot2input.parentElement);
-                        const cvinput = document.getElementById("computer-url-input");
-                        const mvinput = document.getElementById("mobile-url-input");
-                        if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
-                            cvinput.value = vAIluryStudioPendingFileName;
-                            mvinput.value = vAIluryStudioPendingFileName;
-                            scrollviewintoview();
-                        } else {
-                            sidebarfilelinklink2.click();
-                        }
-                    }
+                let rFileContent = [];
+                const rFileContentSplit = vAIluryStudioPendingFileContent.split('\n');
+                rFileContentSplit.forEach(line => {
+                    const newline = { id: createCodeEditorLineId(), classes: ["code-editor-line"], text: replaceNormalSpaces(line) };
+                    rFileContent.push(newline);
+                });
+                editorFiles = {
+                    "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": rFileContent
+                };
+                projectNames = {
+                    "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": vAIluryStudioPendingFileName
+                };
+                const cvinput = document.getElementById("computer-url-input");
+                const mvinput = document.getElementById("mobile-url-input");
+                if (vAIluryStudioPendingFileRun == "true" && cvinput && mvinput) {
+                    cvinput.value = vAIluryStudioPendingFileName;
+                    mvinput.value = vAIluryStudioPendingFileName;
+                    scrollviewintoview();
                 }
                 localStorage.removeItem("AIluryStudioPendingFileName");
                 localStorage.removeItem("AIluryStudioPendingFileContent");
                 localStorage.removeItem("AIluryStudioPendingFileRun");
-                localStorage.removeItem("AIluryStudioPendingFileType");
-            }
-            
-            const sec0lines = sec0text.split('\n');
-            const sec1lines = sec1text.split('\n');
-            const sec2lines = sec2text.split('\n');
-            const allsectionstext = [sec0lines, sec1lines, sec2lines];
-            allsectionstext.forEach((text, index) => {
-                text.forEach(line => {
-                    const newline = {id:createCodeEditorLineId(),classes:["code-editor-line"],text:replaceNormalSpaces(line)};
-                    editorFiles[Object.keys(editorFiles)[index]].push(newline);
+            } else {
+                const sec0lines = sec0text.split('\n');
+                const sec1lines = sec1text.split('\n');
+                const sec2lines = sec2text.split('\n');
+                const allsectionstext = [sec0lines, sec1lines, sec2lines];
+                allsectionstext.forEach((text, index) => {
+                    text.forEach(line => {
+                        const newline = { id: createCodeEditorLineId(), classes: ["code-editor-line"], text: replaceNormalSpaces(line) };
+                        editorFiles[Object.keys(editorFiles)[index]].push(newline);
+                    });
                 });
-            });
+            }
         }
         
         addstartercodetofiles();
@@ -10747,12 +10679,6 @@
             
             return addFileQueue;
         }
-        
-        let projectNames = {
-            "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": "index.html",
-            "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": "styles.css",
-            "s4f7d2e19_1c9b_4d5a_8a63_2e6c9f0b3a52": "script.js"
-        };
         
         const innitialdragelementParent = document.querySelector(".sidebarbardivbuttondiv1");
 
