@@ -6517,6 +6517,7 @@
         const theNavBarForScrollAmount = document.getElementById("nav-bar");
         theNavBarForScrollAmount.scrollLeft = theNavBarForScrollAmount.getBoundingClientRect().width;
         let currentHoveredElement = null;
+        let waitingForUpdateSaveFiles = null;
         function makeDraggable(handleClass, parentClass) {
             const handle = document.querySelector(`.${handleClass}`);
             const parent = document.querySelector(`.${parentClass}`);
@@ -11474,7 +11475,31 @@
         
         let currentSelectedProject = projectId;
         
-        function updateSaveFile() {
+        function updateSaveFile(rlasteventsparentsection, newpast) {
+            if (waitingForUpdateSaveFiles) clearTimeout(waitingForUpdateSaveFiles);
+            waitingForUpdateSaveFiles = setTimeout(() => {
+                updateSaveFileNow();
+            }, 1000);
+        }
+        function resolveUpdateSaveFile(noUsualSave = false) {
+            if (waitingForUpdateSaveFiles) {
+                clearTimeout(waitingForUpdateSaveFiles);
+                updateSaveFileNow(noUsualSave);
+            }
+        }
+        let unloadHandled = false;
+
+        function handleUnload() {
+            if (unloadHandled == false) return;
+            unloadHandled = true;
+            
+            resolvePendingPast();
+            resolveUpdateSaveFile(true);
+        }
+        
+        window.addEventListener("beforeunload", handleUnload);
+        window.addEventListener("pagehide", handleUnload);
+        function updateSaveFileNow(noUsualSave = false) {
             if (casualUse == true || !projectsObj[projectId] || currentSelectedProject != projectId) return;
             
             projectsObj[projectId] = { 
@@ -11485,7 +11510,18 @@
                 "future": {...futureevents}, 
                 "foldedElements": {...result}
             };
-            saveProjects();
+            if (noUsualSave == false) {
+                saveProjects();
+            } else {
+                try {
+                    localStorage.setItem(
+                        "AIluryStudioProjectsObj",
+                        JSON.stringify(projectsObj)
+                    );
+                } catch (e) {
+                    console.warn("Save failed:", e);
+                }
+            }
         }
         
         function startLoadingContents() {
@@ -11685,7 +11721,7 @@
         function createNewProject() {
             let newProjectId = createProjectId();
             const projectNameInputEl = document.getElementById("projectNameInputEl");
-            let newProjectName = projectNameInputEl && projectNameInputEl.value != "" ? projectNameInputEl.value : "My New Project";
+            let newProjectName = projectNameInputEl && projectNameInputEl.value.trim() != "" ? projectNameInputEl.value : "My New Project";
             projectNames = {
                 "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11": "index.html",
                 "sd2b5c44_3a91_4f68_8c3a_6e5f1b2d0c77": "styles.css",
@@ -11752,6 +11788,7 @@
         
         async function refreshAbdAdjustFiles() {
             await startLoadingContents();
+            await new Promise(resolve => setTimeout(resolve, 300));
             const firstFileId = "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11";
             const innitualProjectObj = {...projectsObj[projectId]["files"]};
             const innitialProjectNames = {...projectsObj[projectId]["fileNames"]};
@@ -11800,7 +11837,8 @@
 
         
         function enterProjectNameInputEvent(inputEl) {
-            projectName = inputEl.value;
+            const inputElVal = inputEl.value;
+            projectName = inputElVal.trim() != "" ? inputElVal : "My New Project";
         }
         
         const projectsclosesecbtn = document.getElementById("projectsclosesecbtn");
@@ -11855,6 +11893,7 @@
         
         function startCoding(event, thisBtn) {
             resolvePendingPast();
+            resolveUpdateSaveFile();
             hidenotificationmessage();
             previousCasualUse = casualUse;
             
@@ -11889,7 +11928,7 @@
                     "foldedElements": {}
                 };
                 
-                projectNameInputEl.value = newProjectName;
+                projectNameInputEl.value = "";
                 const defaultNewProjectCon = document.getElementById("defaultNewProjectCon");
                 defaultNewProjectCon.click();
                 curfentTargetProject = defaultNewProjectCon;
@@ -11911,8 +11950,15 @@
                     projectNames = {...projectsObj[projectId]["fileNames"]};
                     
                     curfentTargetProject = document.getElementById(projectId);
-                    
-                    if (projectNameInputEl) projectNameInputEl.placeholder = projectName;
+                    if (projectNameInputEl) {
+                        projectName = projectNameInputEl.value.trim() != "" ? projectNameInputEl.value : projectName;
+                        projectNameInputEl.placeholder = projectName;
+                        projectNameInputEl.value = "";
+                        const currentProjectOpText = document.querySelector(".currentProjectOp .projectName");
+                        if (currentProjectOpText) {
+                            currentProjectOpText.textContent = projectName;
+                        }
+                    }
                     
                     refreshAbdAdjustFiles();
                 } else {
@@ -11923,20 +11969,20 @@
         
         function projectNameKeydown(inputEl, event) {
             if (event.key != "Enter") return;
-            if (inputEl.value != "") {
-                inputEl.placeholder = inputEl.value;
-            } else {
-                inputEl.placeholder = "My New Project";
+            let inputElValue = inputEl.value;
+            if (inputElValue.trim() == "") {
+                inputElValue = "My New Project";
             }
+            inputEl.placeholder = inputElValue;
             const currentProjectOpText = document.querySelector(".currentProjectOp .projectName");
             if (currentProjectOpText) {
-                currentProjectOpText.textContent = inputEl.value;
+                currentProjectOpText.textContent = inputElValue;
             }
             const currentProjectOpEl = document.querySelector(".currentProjectOp");
             if (currentProjectOpEl) {
                 const currentProjectOpElId = currentProjectOpEl.id;
                 if (currentProjectOpElId != undefined && projectsObj[currentProjectOpElId]) {
-                    projectsObj[currentProjectOpElId]["name"] = inputEl.value;
+                    projectsObj[currentProjectOpElId]["name"] = inputElValue;
                     saveProjects();
                 }
             }
@@ -14244,6 +14290,7 @@
                 closeseccontainer();
                 section = newsection;
                 resolvePendingPast();
+                resolveUpdateSaveFile();
                 
                 if (section && !section.classList.contains('viewcontainer')){
                     inputDiv = section.querySelector('.code-editor-container');
@@ -14284,6 +14331,7 @@
             navBar.scrollLeft = index * window.innerWidth;
             section = Array.from(document.querySelectorAll('.section'))[index];
             resolvePendingPast();
+            resolveUpdateSaveFile();
             lasteventsparentsection = section;
             if (!section.classList.contains('viewcontainer')){
                 inputDiv = section.querySelector('.code-editor-container');
@@ -16829,7 +16877,6 @@
         let pendingPasts = [];
         let lasteventsparentsectionfornewpast = lasteventsparentsection;
         let currentPendingPast = null;
-        
         function pendNewPast(rlasteventsparentsection, newpast) {
             pendingPasts.push(...newpast);
             if (currentPendingPast) clearTimeout(currentPendingPast);
@@ -18766,7 +18813,7 @@
                         };
                         newpast2.push(pastelement2);
                         if (newpast2.length > 0) {
-                            resolvePendingPast()
+                            resolvePendingPast();
                             pasteventPrep();
                             pastevents[lasteventsparentsection.id].push(newpast2);
                             enablepastbtn();
