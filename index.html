@@ -4162,7 +4162,7 @@
             width: 50px;
             z-index: 6;
             text-align: center;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
@@ -4172,6 +4172,9 @@
             cursor: ew-resize;
             user-select: none;
             -webkit-user-select: none;
+        }
+        .sidebarenabled .resizesidebarbar {
+            display: flex;
         }
         #loadingCodeSidebarOverlay {
             position: fixed;
