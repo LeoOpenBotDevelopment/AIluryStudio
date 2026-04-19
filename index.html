@@ -11623,9 +11623,13 @@
             
             newDeleteProjectConBtn.onclick = () => {
                 const ifCurrentProjectIsOpen = newProjectCon.classList.contains("currentProjectOp");
+                const ifCurrentElTheCurrent = curfentTargetProject && curfentTargetProject.id == conId;
+                const oldcurfentTargetProject = curfentTargetProject;
                 if (ifCurrentProjectIsOpen) {
                     document.querySelectorAll(".currentProjectOp").forEach(proj => proj.classList.remove("currentProjectOp"));
                     defaultNewProjectCon.click();
+                }
+                if (ifCurrentElTheCurrent) {
                     curfentTargetProject = defaultNewProjectCon;
                 }
                 projectConObserver.unobserve(newProjectCon);
@@ -11639,8 +11643,8 @@
                     projectConObserver.observe(newProjectCon);
                     saveProjects();
                     if (ifCurrentProjectIsOpen) {
-                        newProjectCon.click();
-                        curfentTargetProject = newProjectCon;
+                        oldcurfentTargetProject.click();
+                        curfentTargetProject = oldcurfentTargetProject;
                     }
                 });
             };
