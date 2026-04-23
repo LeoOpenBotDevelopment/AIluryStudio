@@ -2890,7 +2890,8 @@
         .options-container {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            border-radius: 10px;
+            corner-shape: squircle;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
@@ -3366,13 +3367,13 @@
         
         @media(max-width: 700px) {
             .definitionOfYaW {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
             .userregulationsandconditions {
                 padding: 10px;
             }
             .userregulationsandconditions > p {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
             .userregulationsandconditions ul {
                 list-style-type: none;
@@ -4950,7 +4951,7 @@
             font-weight: normal;
             color: var(--contrast-color);
             font-size: 3em;
-            border-radius: 5px;
+            border-radius: 10px;
             z-index: 10;
             transition: 0.5s;
         }
@@ -4974,13 +4975,13 @@
             justify-content: flex-end;
             position: relative;
             overflow: hidden;
-            border-radius: 5px;
+            border-radius: 10px;
             transition: 0.5s;
         }
         .deleteProjectConBtn {
             font-size: 1em;
             padding: 10px;
-            z-index: 20;
+            z-index: 10;
             position: absolute;
             top: 0;
             left: 0;
@@ -5006,7 +5007,7 @@
             color: var(--switchcheckedbackground-color);
             font-size: 1.1em;
             padding: 5px;
-            z-index: 20;
+            z-index: 10;
             text-shadow: 0 0 20px var(--bg-color);
             pointer-events: none;
             transition: 0.3s;
