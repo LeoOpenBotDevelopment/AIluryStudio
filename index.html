@@ -11915,6 +11915,10 @@
                 thisBtn.textContent = "Open Selected Project";
                 cancelActionBtn.style.display = "flex";
                 thisBtn.id = "startCodingBtn";
+                const openedPPaURSec = document.querySelector(".openedPPaURSec");
+                if (openedPPaURSec) {
+                    togglePPaURArrow(openedPPaURSec);
+                }
             }
             
             const projectNameInputEl = document.getElementById("projectNameInputEl");
