@@ -142,6 +142,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: color 0.2s, background 0.2s;
         }
 
         body {
@@ -739,6 +740,7 @@
             color: var(--leftarrow-color);
             font-size: 1.2em;
             transition: var(--aftr);
+            font-family: system-ui;
         }
 
         .editor-selected-line-btns{
@@ -816,6 +818,10 @@
         }
         .hiddenlinesparent{
             transform: translateX(-1.5em);
+        }
+        #linenumberingon .code-editor-line.hiddenlinesparent:before {
+            content: "→";
+            font-family: system-ui;
         }
         
         @keyframes Hide {
@@ -2214,6 +2220,8 @@
             text-align: center;
             position: relative;
             animation: fadeInDialog 0.4s ease-in-out;
+            transition: all 0.3s, transform 0s;
+            overflow: hidden;
         }
         
         #prompt-options {
@@ -2648,8 +2656,25 @@
             margin-bottom: 5px;
             transition: var(--tr);
             overflow: hidden;
-            justify-content: left;
+            justify-content: flex-start;
             cursor: pointer;
+            position: relative;
+        }
+        .deleteThemeOp {
+            position: absolute;
+            color: var(--lightgrey-color);
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            top: 50%;
+            right: 15px;
+            font-size: 1.1em;
+            transform: translateY(-50%);
+        }
+        .theme-option-container > .themeoption:hover .deleteThemeOp {
+            color: red;
         }
         .theme-option-container > .themeoption {
             background: linear-gradient(90deg, var(--lightgrey-color), var(--bg-color), var(--bg-color));
@@ -2658,7 +2683,13 @@
             display: flex;
             margin-left: 50%;
             transform: translateX(-50%);
-            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+            transition: all 0.3s, width 0s;
+        }
+        .theme-option-container > .themeoption:not(.currentTheme):hover {
+            border: 2px dashed var(--border-color);
+            font-weight: bold;
         }
         .themeoption2 button {
             display: flex;
@@ -2899,7 +2930,8 @@
             padding: 10px;
             width: 200px;
             color: var(--contrast-color);
-            animation: optionContainerPopinAnimation 0.2s ease-in;
+            animation: optionContainerPopinAnimation 0.3s ease-in;
+            overflow: hidden;
         }
 
         .option-item {
@@ -3037,7 +3069,7 @@
         .testregexcontainer input:focus, .testregexcontainer textarea:focus, .replacecontainer input:focus {
             outline: none;
         }
-        .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn, .codefunctionssettingscontainer #clearpasttoundobtn, .codefunctionssettingscontainer #applyNewIndentSizesBtn {
+        .replacecontainer #replacebtn, .codefunctionssettingscontainer #clearclipboardbtn, .codefunctionssettingscontainer #addcommandbtn, .codefunctionssettingscontainer #addshortcutbtn, .codefunctionssettingscontainer #clearpasttoundobtn, .codefunctionssettingscontainer #applyNewIndentSizesBtn, #equalizeIndentSizeBtn {
             padding: 12px 20px;
             font-size: 16px;
             color: var(--contrast-color);
@@ -3399,6 +3431,7 @@
             width: 100%;
             max-width: 500px;
             user-select: none;
+            transition: transform 0.5s;
             -webkit-user-select: none;
         }
         .consoleconteiner{
@@ -3627,7 +3660,7 @@
             border-radius: 10%;
             opacity: 1;
             animation: dissolve 2s forwards;
-            z-index: 1000;
+            z-index: 1100;
             box-shadow: 0px 0px 10px var(--bg-color), 0px 0px 40px var(--contrast-color);
         }
 
@@ -3745,6 +3778,14 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+        }
+        .cfscsc > p {
+            border: none;
+            margin: 10px;
+            margin-bottom: 0;
+            margin-top: 15px;
+            padding: 0;
+            color: var(--overlaycolor-color);
         }
         h3.cfsch3 {
             color: var(--switchcheckedbackground-color);
@@ -5089,6 +5130,9 @@
         .currentTheme {
             border: 2px solid var(--switchcheckedbackground-color);
         }
+        .themeoption.currentTheme {
+            font-weight: bold;
+        }
         #updatedPolicies {
             font-size: 1em;
             padding: 10px;
@@ -5431,8 +5475,48 @@
             mask-position: center;
             
             transition: 1s;
-            
+            z-index: 1000;
             -webkit-mask-image: url(AIluryAppLogo196x196.png);
+        }
+        #hover {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
+        
+            width: 1000px;
+            height: 1000px;
+        
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 1) 0%,
+                transparent 50%
+            );
+            
+            transition: opacity 0.3s, left 0s, right 0s;
+            
+            transform: translate(-50%, -50%);
+        }
+        #hover.visibleOp {
+            opacity: 0.08;
+        }
+        /*.options-container .hover {
+            width: 450px;
+            height: 450px;
+        }
+        .options-container .hover.visibleOp, .explanationContainer .hover.visibleOp {
+            opacity: 0.1;
+        }*/
+        #hoverCon {
+            background: transparent;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000000;
         }
     </style>
 </head>
@@ -5575,7 +5659,7 @@
                 </div>
             </div>
         
-            <div class="codesearchresults">
+            <div class="codesearchresults transformAllowed">
                 no results
             </div>
         
@@ -5930,65 +6014,80 @@
             <div id="theme-overlay" class="theme-overlay anOverlay" onclick="hideOverlay('.theme-overlay', 'theme', event)">
                 <div class="theme-option-container">
                     <button class="closecommandoverlaybtn" onclick="hideOverlay('.theme-overlay', 'theme')">× close</button>
+                    <button class="closecommandoverlaybtn" style="right: 5px; left: auto;" onclick="reverseAllThemeDeletion()">↺ delete</button>
                     <h3>theme</h3>
                     <br>
                     <div class="themeoption currentTheme defaultThemeOp" onclick="removeallthemes()">
                         <span class="switchtothememaincolorspan" style="background: linear-gradient(to right, #F2F2F7, #0d1117);"></span>
                         <span class="switchtothemetitlespan">none</span>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('enhanceddefaultdark-theme', this)">
+                    <div class="themeoption" id="enhancedDarkThemeOp" onclick="switchtotheme('enhanceddefaultdark-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: linear-gradient(to right, #0156CD, #020615);"></span>
                         <span class="switchtothemetitlespan">enhanced dark</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('enhancedDarkThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('dark-theme', this)"><span class="switchtothememaincolorspan" style="background: #011D57"></span><span class="switchtothemetitlespan">dark</span>
+                    <div class="themeoption" id="darkThemeOp" onclick="switchtotheme('dark-theme', this, event)"><span class="switchtothememaincolorspan" style="background: #011D57"></span><span class="switchtothemetitlespan">dark</span>
+                    <button class="deleteThemeOp" onclick="deleteThemeOp('darkThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('light-theme', this)">
+                    <div class="themeoption" id="lightThemeOp" onclick="switchtotheme('light-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: #E8EAEE"></span>
                         <span class="switchtothemetitlespan">light</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('lightThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('gray-theme', this)">
+                    <div class="themeoption" id="grayThemeOp" onclick="switchtotheme('gray-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: #393A43"></span>
                         <span class="switchtothemetitlespan">gray</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('grayThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('vintage-theme', this)">
+                    <div class="themeoption" id="vintageThemeOp" onclick="switchtotheme('vintage-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: gray"></span>
                         <span class="switchtothemetitlespan">vintage</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('vintageThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('candy-theme', this)">
+                    <div class="themeoption" id="candyThemeOp" onclick="switchtotheme('candy-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: lightpink"></span>
                         <span class="switchtothemetitlespan">candy</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('candyThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('green-theme', this)">
+                    <div class="themeoption" id="greenThemeOp" onclick="switchtotheme('green-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: green"></span>
                         <span class="switchtothemetitlespan">green</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('greenThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('red-theme', this)">
+                    <div class="themeoption" id="redThemeOp" onclick="switchtotheme('red-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: red"></span>
                         <span class="switchtothemetitlespan">red</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('redThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('lightblue-theme', this)">
+                    <div class="themeoption" id="lightBlueThemeOp" onclick="switchtotheme('lightblue-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: #508FCD"></span>
                         <span class="switchtothemetitlespan">light blue</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('lightBlueThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('deeplightblue-theme', this)">
+                    <div class="themeoption" id="deepLightBlueThemeOp" onclick="switchtotheme('deeplightblue-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: lightblue"></span>
                         <span class="switchtothemetitlespan">deep light blue</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('deepLightBlueThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('darkpurple-theme', this)">
+                    <div class="themeoption" id="darkPurpleThemeOp" onclick="switchtotheme('darkpurple-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: #5C2D91"></span>
                         <span class="switchtothemetitlespan">dark purple</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('darkPurpleThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('lightyellow-theme', this)">
+                    <div class="themeoption" id="lightYellowThemeOp" onclick="switchtotheme('lightyellow-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: yellow"></span>
                         <span class="switchtothemetitlespan">light yellow</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('lightYellowThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('lightgreen-theme', this)">
+                    <div class="themeoption" id="lightGreenThemeOp" onclick="switchtotheme('lightgreen-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: #00B600"></span>
                         <span class="switchtothemetitlespan">light green</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('lightGreenThemeOp')">⌧</button>
                     </div>
-                    <div class="themeoption" onclick="switchtotheme('blackboard-theme', this)">
+                    <div class="themeoption" id="blackBoardThemeOp" onclick="switchtotheme('blackboard-theme', this, event)">
                         <span class="switchtothememaincolorspan" style="background: #acc3af"></span>
                         <span class="switchtothemetitlespan">blackboard</span>
+                        <button class="deleteThemeOp" onclick="deleteThemeOp('blackBoardThemeOp')">⌧</button>
                     </div>
                     <div class="themeoption2" id="customthemeoption" onclick="switchtotheme('custom-theme', this)">
                         <div class="themeoption customtextthemeoption">
@@ -6390,6 +6489,8 @@
                             <option value="4" selected>4 space indent</option>
                         </select>
                         <button class="cfscscspaceindentation cfscscf applyNewIndentSizesBtn" id="applyNewIndentSizesBtn" onclick="applyNewIndentSizes()" style="justify-content: center;">Apply new indent size</button>
+                        <p class="cfscscspaceindentation cfscscf">Prevent unexpected indent highlight interruptions</p>
+                        <button class="cfscscspaceindentation cfscscf equalizeIndentSizeBtn" id="equalizeIndentSizeBtn" onclick="equalizeIndentSize()" style="justify-content: center;">Equalize Indent Size</button>
                         <div class="cfscscundo cfscscf undolimit">
                             <label class="switch">
                                 <input type="checkbox" data-checked="undolimit" checked>
@@ -6414,7 +6515,7 @@
                 </div>
             </div>
             <div id="custom-overlay" style="display: none;">
-                <div id="custom-dialog">
+                <div id="custom-dialog" class="transformAllowed">
                     <span id="close-dialog">&times;</span>
                     <p id="custom-message"></p>
                     <div id="prompt-input-container" style="display: none;">
@@ -6426,7 +6527,7 @@
                 </div>
             </div>
             <div class="timeinputoverlay" style="display: none;">
-                <div class="timeinputcontainer">
+                <div class="timeinputcontainer transformAllowed">
                     <span id="closetimeinputoverlay" onclick="closetimeinputoverlay()">&times;</span>
                     <p id="timeinputdtext" class="timeinputdtext"></p>
                     <div class="Tscontainer">
@@ -6451,7 +6552,7 @@
         <span class="messagespan" onclick="hidenotificationmessage()">message</span><button class="confirmationbtn">ok</button>
     </div>
     <div class="userregulationsandconditionsoverlay">
-        <div class="userregulationsandconditions" data-update-code="#ppatacu3">
+        <div class="userregulationsandconditions transformAllowed" data-update-code="#ppatacu3">
             <div id="projectSec">
                 <button class="cancelActionBtn" id="projectsclosesecbtn" onclick="cancelProjectSelect()">Cancel</button>
                 
@@ -6515,9 +6616,283 @@
     <div class="importantnotificationmessageelement"></div>
     <div class="shortNotification"></div>
     <div class="explanationOverlayContainer">
-        <div class="explanationContainer"></div>
+        <div class="explanationContainer transformAllowed"></div>
+    </div>
+    <div id="hoverCon">
+        <div id="hover"></div>
     </div>
     <script>
+        let allSavedThemes = {};
+        const localStorageSavedThemes = localStorage.getItem("allSavedThemes");
+        function saveThemes() {
+            localStorage.setItem("allSavedThemes", JSON.stringify(allSavedThemes));
+        }
+        let hoverEls = [".sidebarbardiv", "#custom-dialog", ".timeinputcontainer", ".userregulationsandconditions", ".cffuncinfo", ".codesearchresults"];
+        const positionElementAtCursorInstances = new WeakMap();
+        const elementContainer = document.querySelector('#hoverCon');
+        const thehoverel = elementContainer.querySelector('#hover');
+        
+        function positionElementAtCursor(container) {
+            const existing = positionElementAtCursorInstances.get(container);
+            
+            if (existing) {
+                existing.destroy();
+                positionElementAtCursorInstances.delete(container);
+            }
+            
+            let isDragging = false;
+            
+            let startX = 0;
+            let startY = 0;
+            
+            let currentX = 0;
+            let currentY = 0;
+            
+            let targetOffsetX = 0;
+            let targetOffsetY = 0;
+            
+            let offsetX = 0;
+            let offsetY = 0;
+            
+            let animationFrame = null;
+            
+            const MAX_DRAG = 10;
+            const FOLLOW_SMOOTHNESS = 0.12;
+            const RETURN_SMOOTHNESS = 0.08;
+            const DRAG_THRESHOLD = 8;
+            
+            const originalTransform =
+                getComputedStyle(container).transform === 'none' ?
+                '' :
+                getComputedStyle(container).transform;
+            
+            function shouldTransform() {
+                return container.classList.contains('transformAllowed');
+            }
+            
+            function getPoint(e) {
+                if (e.touches && e.touches.length > 0) return e.touches[0];
+                if (e.changedTouches && e.changedTouches.length > 0) return e.changedTouches[0];
+                
+                return e;
+            }
+            
+            function clamp(value, min, max) {
+                return Math.max(min, Math.min(max, value));
+            }
+            
+            function syncElementContainer() {
+                const rect = container.getBoundingClientRect();
+                
+                const styles = getComputedStyle(container);
+                
+                // Always fixed
+                elementContainer.style.position = 'fixed';
+                
+                // Match container position exactly
+                elementContainer.style.left = `${rect.left}px`;
+                elementContainer.style.top = `${rect.top}px`;
+                
+                // Match size exactly
+                elementContainer.style.width = `${rect.width}px`;
+                elementContainer.style.height = `${rect.height}px`;
+                
+                // Match border radius exactly
+                elementContainer.style.borderRadius = styles.borderRadius;
+                
+                // Make it behave like an invisible overlay replica
+                elementContainer.style.pointerEvents = 'none';
+                elementContainer.style.background = 'transparent';
+                
+                // Make sure transforms behave correctly
+                elementContainer.style.margin = '0';
+                
+                // Force same transform origin
+                elementContainer.style.transformOrigin = styles.transformOrigin;
+            }
+            
+            function applyTransform() {
+                if (!shouldTransform()) {
+                    container.style.transform = originalTransform;
+                    
+                    
+                    return;
+                }
+                
+                const transform =
+                    `${originalTransform} translate3d(${offsetX}px, ${offsetY}px, 0)`;
+                
+                // Apply to BOTH
+                container.style.transform = transform;
+                
+            }
+            
+            function animate() {
+                const smoothing =
+                    isDragging ?
+                    FOLLOW_SMOOTHNESS :
+                    RETURN_SMOOTHNESS;
+                
+                offsetX += (targetOffsetX - offsetX) * smoothing;
+                offsetY += (targetOffsetY - offsetY) * smoothing;
+                
+                if (!isDragging) {
+                    if (Math.abs(offsetX) < 0.01) offsetX = 0;
+                    if (Math.abs(offsetY) < 0.01) offsetY = 0;
+                }
+                
+                applyTransform();
+                
+                animationFrame = requestAnimationFrame(animate);
+            }
+            
+            function move(e) {
+                syncElementContainer();
+                const point = getPoint(e);
+                
+                currentX = point.clientX;
+                currentY = point.clientY;
+                
+                const rect = container.getBoundingClientRect();
+                
+                // Relative to container ONLY.
+                // No scroll offsets involved anymore.
+                const x = currentX - rect.left;
+                const y = currentY - rect.top;
+                
+                thehoverel.style.left = `${x}px`;
+                thehoverel.style.top = `${y}px`;
+                
+                const dx = currentX - startX;
+                const dy = currentY - startY;
+                
+                const distance = Math.hypot(dx, dy);
+                
+                if (!isDragging && distance > DRAG_THRESHOLD) {
+                    isDragging = true;
+                    
+                    container.style.willChange =
+                        shouldTransform() ?
+                        'transform' :
+                        '';
+                    
+                    elementContainer.style.willChange =
+                        shouldTransform() ?
+                        'transform' :
+                        '';
+                }
+                
+                if (!isDragging) return;
+                
+                const resistance = 1 / (1 + distance * 0.02);
+                
+                targetOffsetX = clamp(
+                    dx * 0.15 * resistance,
+                    -MAX_DRAG,
+                    MAX_DRAG
+                );
+                
+                targetOffsetY = clamp(
+                    dy * 0.15 * resistance,
+                    -MAX_DRAG,
+                    MAX_DRAG
+                );
+            }
+                
+            function start(e) {
+                // Re-position overlay container
+                // every interaction start
+                syncElementContainer();
+                
+                const point = getPoint(e);
+                
+                startX = point.clientX;
+                startY = point.clientY;
+                
+                currentX = startX;
+                currentY = startY;
+                
+                isDragging = false;
+                
+                thehoverel.classList.add('visibleOp');
+                
+                window.addEventListener('mousemove', move, true);
+                window.addEventListener('mouseup', end, true);
+                
+                window.addEventListener('touchmove', move, {
+                    passive: true,
+                    capture: true
+                });
+                
+                window.addEventListener('touchend', end, true);
+                window.addEventListener('touchcancel', end, true);
+            }
+            
+            function end() {
+                thehoverel.classList.remove('visibleOp');
+                
+                isDragging = false;
+                
+                targetOffsetX = 0;
+                targetOffsetY = 0;
+                
+                container.style.willChange = '';
+                elementContainer.style.willChange = '';
+                
+                window.removeEventListener('mousemove', move, true);
+                window.removeEventListener('mouseup', end, true);
+                
+                window.removeEventListener('touchmove', move, true);
+                window.removeEventListener('touchend', end, true);
+                window.removeEventListener('touchcancel', end, true);
+            }
+            
+            // Initial sync
+            syncElementContainer();
+            
+            animate();
+            
+            container.addEventListener('mousedown', start);
+            container.addEventListener('touchstart', start, {
+                passive: true
+            });
+            
+            container.addEventListener('mousemove', move);
+            
+            function destroy() {
+                cancelAnimationFrame(animationFrame);
+                
+                container.style.transform = originalTransform;
+                
+                
+                
+                container.style.willChange = '';
+                elementContainer.style.willChange = '';
+                
+                container.removeEventListener('mousedown', start);
+                
+                container.removeEventListener('touchstart', start);
+                
+                container.removeEventListener('mousemove', move);
+                
+                window.removeEventListener('mousemove', move, true);
+                window.removeEventListener('mouseup', end, true);
+                
+                window.removeEventListener('touchmove', move, true);
+                window.removeEventListener('touchend', end, true);
+                window.removeEventListener('touchcancel', end, true);
+            }
+            
+            positionElementAtCursorInstances.set(container, {
+                destroy
+            });
+            
+            return destroy;
+        }
+        hoverEls.forEach(elIdentifier => {
+            const el = document.querySelector(elIdentifier);
+            positionElementAtCursor(el);
+        });
         const theNavBarForScrollAmount = document.getElementById("nav-bar");
         theNavBarForScrollAmount.scrollLeft = theNavBarForScrollAmount.getBoundingClientRect().width;
         let currentHoveredElement = null;
@@ -8061,12 +8436,38 @@
         }
         timeinputsetup();
         
-        
+        function isElementVisuallyVisible(el) {
+            const rect = el.getBoundingClientRect();
+            
+            if (
+                rect.bottom <= 0 ||
+                rect.right <= 0 ||
+                rect.top >= window.innerHeight ||
+                rect.left >= window.innerWidth
+            ) {
+                return false;
+            }
+            
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            const topElement = document.elementFromPoint(x, y);
+            
+            return el === topElement || el.contains(topElement);
+        }
         function dissolve(element, numParticles) {
             if (!element) {
                 return;
             }
             if (!element.parentElement) {
+                return;
+            }
+            if (!isElementVisuallyVisible(element)) {
+                if (element.classList.contains('themeoption')) {
+                    element.style.display = "none";
+                } else {
+                    element.remove();
+                }
                 return;
             }
             if (element.classList.contains('sidebarfilelinklink')){
@@ -8080,7 +8481,11 @@
             let rect = element.getBoundingClientRect();
 
             if (rect.width === 0 || rect.height === 0) {
-                element.remove();
+                if (element.classList.contains('themeoption')) {
+                    element.style.display = "none";
+                } else {
+                    element.remove();
+                }
                 return;
             }
             
@@ -8091,6 +8496,7 @@
             element.style.fontSize = "0";
             element.style.padding = "0";
             element.style.margin = "0";
+            
             element.style.filter = "blur(5px)";
             
             
@@ -8119,7 +8525,11 @@
             }
             element.style.visibility = "hidden";
             setTimeout(() => {
-                element.remove();
+                if (element.classList.contains('themeoption')) {
+                    element.style.display = "none";
+                } else {
+                    element.remove();
+                }
             }, 2000);
         }
         
@@ -9229,7 +9639,8 @@
             overlay.className = "overlay";
         
             const container = document.createElement("div");
-            container.className = "options-container";
+            container.className = "options-container transformAllowed";
+            positionElementAtCursor(container);
             overlay.appendChild(container);
         
             options.forEach((option) => {
@@ -9973,72 +10384,124 @@
         };
 
         let lastchosentheme = "none";
-        function addcustomthemetoallthemes() {
-            showPrompt('enter the themes name', (inputedname) => {
-                let name = inputedname.replace(/[^a-zA-Z]/g, '');
-                const value = document.querySelector('.customthemecodeinput').value;
-                if (name.trim() == "") {
-                    showAlert("you did not enter a theme name");
-                    return;
-                }
-                if (alldefaultthemes[name]) {
-                    showAlert("you already have a file with the name: " + name);
-                    return;
-                }
-                if (value == "") {
-                    showAlert("make a theme, to save it");
-                    return;
-                }
-                alldefaultthemes[name] = value;
-                const div = document.createElement('div');
-                div.className = "themeoption";
-                const span = document.createElement('span');
-                span.className = "switchtothememaincolorspan";
+        function addNewThemeToSavedThemes(receivedVal, themeVal = null, rspanColor = null, idVal = null) {
+            let name = idVal || receivedVal.replace(/[^a-zA-Z]/g, '');
+            const value = themeVal || document.querySelector('.customthemecodeinput').value;
+            if (name.trim() == "") {
+                showAlert("you did not enter a theme name or an acceptable theme name.");
+                return;
+            }
+            if (alldefaultthemes[name]) {
+                showAlert("you already have a theme with the compressed name: " + name);
+                return;
+            }
+            if (value == "") {
+                showAlert("make a theme, to save it");
+                return;
+            }
+            alldefaultthemes[name] = value;
+            const div = document.createElement('div');
+            div.className = "themeoption";
+            div.id = name + "ThemeOp";
+            const span = document.createElement('span');
+            span.className = "switchtothememaincolorspan";
+            const button = document.createElement("button");
+            button.className = "deleteThemeOp";
+            button.textContent = "⌧";
+            button.onclick = () => deleteThemeOp(div.id, true);
+            
+            if (!rspanColor) {
                 const scinput = document.getElementById('switchCheckedBackgroundColor');
                 if (scinput) {
                     span.style.background = scinput.value;
                 } else {
                     span.style.background = "var(--secondary-color)";
                 }
-                const span2 = document.createElement('span');
-                span2.className = "switchtothemetitlespan";
-                span2.textContent = name;
-                div.onclick = () => {
-                    if (lastchosentheme != name){
-                        switchtotheme(name, div);
-                    } else {
-                        showPrompt('want to rename? enter the new theme name', (newinputedthemename) => {
-                            const newthemename = newinputedthemename.replace(/[^a-zA-Z]/g, '');
-                            
-                            if (newthemename.trim() === "") {
-                                showAlert("Theme rename unsuccessful: name was empty.");
-                                return;
-                            }
-                            
-                            if (alldefaultthemes[newthemename]) {
-                                showAlert("A theme with that name already exists.");
-                                return;
-                            }
-
-                            if (!alldefaultthemes[name]){
-                                showAlert("theme rename unsuccessful");
-                                return;
-                            }
-                            
-                            alldefaultthemes[newthemename] = alldefaultthemes[name];
-                            delete alldefaultthemes[name];
-                            span2.textContent = newthemename;
-                            name = newthemename;
-                        });
-                    }
-                };
-                div.appendChild(span);
-                div.appendChild(span2);
-                document.querySelector('.themeoption2').insertAdjacentElement('beforebegin', div);
+                allSavedThemes[name + "ThemeOp"] = { value: value, spanColor: scinput.value, name: receivedVal };
+            } else {
+                span.style.background = rspanColor;
+                allSavedThemes[name + "ThemeOp"] = { value: value, spanColor: rspanColor, name: receivedVal};
+            }
+            
+            const span2 = document.createElement('span');
+            span2.className = "switchtothemetitlespan";
+            span2.textContent = receivedVal;
+            div.onclick = (e) => {
+                if (e && e.target.classList.contains("deleteThemeOp")) return;
+                if (lastchosentheme != name) {
+                    switchtotheme(name, div, e);
+                } else {
+                    showPrompt('want to rename? enter the new theme name', (newinputedthemename) => {
+                        const newthemename = newinputedthemename.replace(/[^a-zA-Z]/g, '');
+                        
+                        if (newthemename.trim() === "") {
+                            showAlert("Theme rename unsuccessful: name was empty.");
+                            return;
+                        }
+                        
+                        if (alldefaultthemes[newthemename]) {
+                            showAlert("A theme with that name already exists.");
+                            return;
+                        }
+                        
+                        if (!alldefaultthemes[name]) {
+                            showAlert("theme rename unsuccessful");
+                            return;
+                        }
+                        div.id = newthemename + "ThemeOp";
+                        button.onclick = () => deleteThemeOp(div.id);
+                        alldefaultthemes[newthemename] = alldefaultthemes[name];
+                        allSavedThemes[newthemename + "ThemeOp"].spanColor = allSavedThemes[name + "ThemeOp"].spanColor;
+                        allSavedThemes[newthemename + "ThemeOp"].name = newinputedthemename;
+                        delete allSavedThemes[name + "ThemeOp"];
+                        delete alldefaultthemes[name];
+                        span2.textContent = newthemename;
+                        name = newthemename;
+                        saveThemes();
+                    });
+                }
+            };
+            div.appendChild(span);
+            div.appendChild(span2);
+            div.appendChild(button);
+            saveThemes();
+            document.querySelector('.themeoption2').insertAdjacentElement('beforebegin', div);
+        }
+        function addcustomthemetoallthemes() {
+            showPrompt('enter the themes name', (inputedname) => {
+                addNewThemeToSavedThemes(inputedname);
             });
         }
-        
-        function switchtotheme(theme, el = null) {
+        if (localStorageSavedThemes) {
+            allSavedThemes = JSON.parse(localStorageSavedThemes);
+            Object.keys(allSavedThemes).forEach(key => {
+                addNewThemeToSavedThemes(allSavedThemes[key].name, allSavedThemes[key].value, allSavedThemes[key].spanColor, key.replace(/ThemeOp$/, ""));
+            });
+        }
+        let deletedCreatedThemes = {};
+        function deleteThemeOp(themeOpId, isCreated = false) {
+            const themeOpEl = document.getElementById(themeOpId);
+            if (isCreated) {
+                deletedCreatedThemes[themeOpId] = allSavedThemes[themeOpId];
+                delete allSavedThemes[themeOpId];
+            }
+            saveThemes();
+            dissolve(themeOpEl, 250);
+        }
+        function reverseAllThemeDeletion() {
+            document.querySelectorAll(".theme-option-container .themeoption").forEach(op => {
+                op.removeAttribute("style");
+                op.style.cssText = "";
+                if (deletedCreatedThemes[op.id]) {
+                    allSavedThemes[op.id] = deletedCreatedThemes[op.id];
+                    delete deletedCreatedThemes[op.id];
+                }
+                saveThemes();
+                shortNotificationmessageelement("All themes have been restored.");
+            });
+        }
+        function switchtotheme(theme, el = null, event = null) {
+            if (event && event.target.classList.contains("deleteThemeOp")) return;
             document.querySelectorAll(".currentTheme").forEach(themeOp => themeOp.classList.remove("currentTheme"));
             if (el) {
                 el.classList.add("currentTheme");
@@ -10473,6 +10936,17 @@
                 { percent: 100, text: 'Loading complete' }
             ];
 
+            startLoadingThis(steps, 'Initiating...', 200);
+        }
+        function startLoadingIndentEqualizationUpdate() {
+            const steps = [
+                { percent: 0, text: 'Fetching' },
+                { percent: 25, text: 'Analyzing' },
+                { percent: 50, text: 'Applying' },
+                { percent: 75, text: 'Updating' },
+                { percent: 100, text: 'Loading complete' }
+            ];
+            
             startLoadingThis(steps, 'Initiating...', 200);
         }
         function hidecodesearchresults() {
@@ -14560,6 +15034,47 @@
             enablepastbtn();
             updateSaveFile();
         }
+        
+        function equalizeIndentSize() {
+            startLoadingIndentEqualizationUpdate();
+            lasteventsparentsection = section;
+            
+            let newpast = [];
+            let lastSpaceCount = 0;
+            editorFiles[editorIndex].forEach((line, index) => {
+                let newLastSpaceCount = 0;
+                for (let i = 0; i < line.text.length; i++) {
+                    const char = line.text[i];
+                    if (char === " " || char === "\u00A0") {
+                        newLastSpaceCount++;
+                    } else {
+                        break;
+                    }
+                }
+                if (line.text.trim() == "" && lastSpaceCount > newLastSpaceCount) {
+                    let pastelement = {
+                        element: { ...line },
+                        type: "text",
+                        text: line.text,
+                        index: index
+                    };
+                    newpast.push(pastelement);
+                    line.text = "\u00A0".repeat(lastSpaceCount) + line.text;
+                    newLastSpaceCount = lastSpaceCount;
+                }
+                lastSpaceCount = newLastSpaceCount;
+            });
+            
+            refreshEditorLines(inputDiv, editorIndex, 0);
+            
+            updateSelectedClasses();
+            resolvePendingPast();
+            pasteventPrep();
+            futureevents[lasteventsparentsection.id] = [];
+            pastevents[lasteventsparentsection.id].push(newpast);
+            enablepastbtn();
+            updateSaveFile();
+        }
 
         function importantselectedlines() {
             const allselectedlines1 = section.querySelectorAll(".code-editor-line.selected");
@@ -15598,6 +16113,7 @@
             "leftbtn": "This button unselects all selected lines.",
             "clearpasttoundobtn": "This button clears this files history. Other files history are not removed, only this files history.",
             "applyNewIndentSizesBtn": "This button will apply the new indent size to the file.",
+            "equalizeIndentSizeBtn": "This button will add spaces to all lines with no characters other than spaces, to give them the same indent sizes as the lines before them. This makes sure that the indent highlighter lines are not unnecessarily interrupted by empty lines.",
             "reduceBarsSpanTextForInfo": "This switch makes the sidebar smaller when overlaying windows are closed, and makes the file navigation bar at the bottom smaller, and makes some other minor adjustments to the UI.",
             "bordersSpanTextForInfo": "This switch makes the borders of the tool bars visible.",
             "islandsBarsSpanTextForInfo": "This switch makes the tool bars smaller, adds a rounded border to the tool bars, and depending on the position of the tool bar, makes it semi transparent and overlays it partially over the code container.",
@@ -15625,7 +16141,9 @@
                         
                         setTimeForInfo = null;
                         const infoContainer = document.querySelector('.explanationContainer');
+                        infoContainer.innerHTML = "";
                         infoContainer.textContent = elementsWithInfos[targetEl.id.trim().replaceAll("-", "_")];
+                        positionElementAtCursor(infoContainer);
                         const targetElBCR = targetEl.getBoundingClientRect();
                         infoOverlayContainer.style.display = "block";
                         const infoContainerBCR = infoContainer.getBoundingClientRect();
@@ -18855,13 +19373,13 @@
             }
 
             function createSuggestionsContainer() {
-                let container = document.querySelector(".options-container");
+                let container = document.querySelector(".suggestioncontainer");
                 if (!container) {
                     container = document.createElement("div");
-                    container.className = "options-container";
-                    container.classList.add('suggestioncontainer');
+                    container.className = "options-container suggestioncontainer transformAllowed";
                     container.style.maxHeight = "200px";
                     container.style.overflowY = "scroll";
+                    positionElementAtCursor(container);
                     document.body.appendChild(container);
                 }
                 return container;
@@ -18881,6 +19399,7 @@
                 const container = createSuggestionsContainer();
 
                 container.innerHTML = "";
+                
                 performLongPressAction(inputElement);
 
                 suggestions.forEach(suggestion => {
