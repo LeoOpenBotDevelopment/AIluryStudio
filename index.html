@@ -17345,10 +17345,10 @@
             if (allselectedlines.length) {
                 allselectedlines.forEach(selectedline => {
                     const theElement = allLines[allLines.indexOf(selectedline)];
-                    if (theElement.classes.contains('selected')) {
+                    if (theElement.classes.includes('selected')) {
                         theElement.classes.splice(theElement.classes.indexOf('selected'), 1);
                     }
-                    if (theElement.classes.contains('superselected')) {
+                    if (theElement.classes.includes('superselected')) {
                         theElement.classes.splice(theElement.classes.indexOf('superselected'), 1);
                     }
                 });
