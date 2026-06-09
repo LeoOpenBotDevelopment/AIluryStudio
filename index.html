@@ -6375,10 +6375,70 @@
             border-color: red;
             color: white;
         }
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000000;
+        }
+        
+        #logo-loader {
+            width: 13vw;
+            height: 13vw;
+            min-width: 100px;
+            min-height: 100px;
+            position: relative;
+        
+            mask-image: url("AIluryAppLogo196x196.png");
+            -webkit-mask-image: url("AIluryAppLogo196x196.png");
+        
+            mask-size: contain;
+            -webkit-mask-size: contain;
+        
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+        
+            mask-position: center;
+            -webkit-mask-position: center;
+        
+            background:
+                linear-gradient(
+                    135deg,
+                    transparent,
+                    #0CC0DF,
+                    transparent
+                );
+            background-size: 250% 250%;
+        
+            animation: silverFlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes silverFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+        
+            50% {
+                background-position: 100% 50%;
+            }
+        
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        #logo-loader {
+            filter: blur(.2px);
+        }
     </style>
 </head>
 <body>
-  <!-- ☼ -->
+    <!-- ☼ -->
+    <div id="loading-screen">
+        <div id="logo-loader"></div>
+    </div>
     <div class="divcodeeditor-container sidebarenabled ceefbrlbd">
         <div class="sidebarbardiv">
             <div id="loadingCodeSidebarOverlay">
@@ -7609,6 +7669,17 @@
         <div id="hover"></div>
     </div>
     <script>
+        window.addEventListener("load", () => {
+            const loadingScreen = document.getElementById("loading-screen");
+            setTimeout(() => {
+                loadingScreen.style.animation = "none";
+                void loadingScreen.offsetWidth;
+                loadingScreen.style.animation = "fadeOut 0.5s ease-out";
+                setTimeout(() => {
+                    loadingScreen.style.display = "none";
+                }, 500);
+            }, 1000);
+        });
         function openSearchFiles() {
             const divcodeeditorContainer = document.querySelector(".divcodeeditor-container");
             const searchAllInput = document.getElementById("searchAllInput");
