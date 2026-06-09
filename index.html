@@ -7669,10 +7669,14 @@
     <script>
         window.addEventListener("load", () => {
             const loadingScreen = document.getElementById("loading-screen");
+            if (typeof switchtotheme === "function") {
+                switchtotheme('light-theme');
+            }
             setTimeout(() => {
                 loadingScreen.style.animation = "none";
                 void loadingScreen.offsetWidth;
                 loadingScreen.style.animation = "fadeOut 0.5s ease-out";
+                removeallthemes();
                 setTimeout(() => {
                     loadingScreen.style.display = "none";
                 }, 500);
