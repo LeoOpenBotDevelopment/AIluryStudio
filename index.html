@@ -6609,7 +6609,7 @@
                 no results
             </div>
         
-            <div class="lineoptions">
+            <div class="lineoptions transformAllowed">
                 <button onclick="swipethislineleft()">←</button>
                 <button onclick="closelineoptionscontainer()">×</button>
                 <button onclick="swipethislineright()">→</button>
@@ -7743,7 +7743,7 @@
                 showAlert("You may have run out of local storage. Unable to save themes.");
             }
         }
-        let hoverEls = [".sidebarbardiv", "#custom-dialog", ".timeinputcontainer", ".userregulationsandconditions", ".cffuncinfo", ".codesearchresults", ".noteTitleInputCon", "#noteDescriptionInput", "#noteDescriptionInputOnCreate", "#testregexresults", "#testregexshowresults", "#expandedNotesCon"];
+        let hoverEls = [".sidebarbardiv", "#custom-dialog", ".timeinputcontainer", ".userregulationsandconditions", ".cffuncinfo", ".codesearchresults", ".noteTitleInputCon", "#noteDescriptionInput", "#noteDescriptionInputOnCreate", "#testregexresults", "#testregexshowresults", "#expandedNotesCon", ".lineoptions"];
         let allNotes = {};
         let allProjectNotes = {};
         const positionElementAtCursorInstances = new WeakMap();
