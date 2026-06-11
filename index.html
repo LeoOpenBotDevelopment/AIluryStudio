@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="icons/AIluryAppLogo196x196.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
     <title>AIlury</title>
     <link rel="canonical" href="https://ailury.com/">
     <style>
@@ -3444,7 +3444,7 @@
             transition: transform 0.5s;
             -webkit-user-select: none;
         }
-        .consoleconteiner{
+        #consoleconteiner, #pythonConsole{
             display: none;
             flex-direction: column;
             background: var(--bg-color);
@@ -3458,21 +3458,24 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
         }
-        .consoletopbar{
+        
+        #consoletopbar, #py_consoletopbar{
             display: flex;
             width: 100%;
             border-bottom: 1px solid var(--border-color);
             justify-content: space-between;
         }
-        .console{
+        #console, #py_console {
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             overflow-y: auto;
             align-items: center;
             gap: 10px;
             padding: 10px;
+            flex-shrink: 0;
         }
-        .consoletitle{
+        #consoletitle, #py_consoletitle{
             font-size: 1em;
             color: var(--contrast-color);
             padding: 10px;
@@ -3485,7 +3488,7 @@
             border: none;
             border-radius: 50%;
         }
-        .sidebarenabled .consoleconteiner{
+        .sidebarenabled #consoleconteiner, .sidebarenabled #pythonConsole{
             width: calc(100vw - var(--sibebar-width));
             right: 0;
             left: var(--sibebar-width);
@@ -3493,7 +3496,7 @@
             border-bottom: none;
             border-left: none;
         }
-        .consolebtncontainer {
+        #consolebtncontainer, #py_consolebtncontainer {
             margin-right: 20px;
         }
         .consolemessagecontainer {
@@ -6417,6 +6420,74 @@
             animation: silverFlow 3s ease-in-out infinite;
         }
         
+        #runPyBtn {
+            padding: 3px 6px;
+            background: var(--switchcheckedbackground-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        #runPyBtn:disabled {
+            opacity: 0.5;
+            background: var(--lightgrey-color);
+            color: var(--contrast-color);
+        }
+        .pythonConsoleLine {
+            display: flex;
+            width: 100%;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            flex-wrap: wrap;
+            gap: 4px;
+            color: var(--contrast-color);
+            overflow: hidden;
+            overflow-x: auto;
+            padding: 3px;
+            font-size: 1em;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+        }
+        .terminal-input-field, .terminal-input-replace-span {
+            display: inline;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--contrast-color);
+            font-size: 1em;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            padding: 0;
+            margin: 0 0 0 4px;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            flex-wrap: wrap;
+            min-width: 100px;
+            caret-color: var(--caret-color);
+        }
+        #pythonConsole {
+            overflow: hidden;
+            overflow-y: auto;
+            height: calc(51dvh - 50px);
+        }
+        .terminal-input-field {
+            color: var(--switchcheckedbackground-color);
+        }
+        .terminal-input-field * {
+            font: inherit;
+            color: inherit;
+            text-decoration: inherit;
+            font-weight: inherit;
+            font-style: inherit;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            font-size: 1em;
+        }
+        #py_consoletopbar {
+            position: sticky;
+            background: linear-gradient(0deg, var(--half-transparent-bg-color), var(--bg-color));
+            z-index: 10;
+            top: -1px;
+            margin: 0;
+        }
         @keyframes silverFlow {
             0% {
                 background-position: 0% 50%;
@@ -6505,7 +6576,7 @@
                 </div>
                 <div class="section viewcontainer" id="forview">
                     <div class="closeviewthisfilebtn" onclick="closeviewthisfile()">×</div>
-                    <button class="showconsolebtn" onclick="showOverlay('.consoleconteiner')">▷</button>
+                    <button class="showconsolebtn" onclick="showOverlay('#consoleconteiner')">▷</button>
                     <button class="togglesidebarbuttonatview" onclick="togglesidebarbuttonfunction()">☰</button>
                     <div class="inspector-dropdown">
                         <button class="inspector-movement-point"></button>
@@ -6564,15 +6635,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="consoleconteiner">
-                        <div class="consoletopbar">
-                            <span class="consoletitle">console</span>
-                            <div class="consolebtncontainer">
+                    <div id="consoleconteiner">
+                        <div id="consoletopbar">
+                            <span id="consoletitle">console</span>
+                            <div id="consolebtncontainer">
                                 <button class="consolebtn" id="clearconsole" onclick="clearconsole();changeBtnTextOnClick(this)">⌧</button>
-                                <button class="consolebtn" id="closeconsole" onclick="hideOverlay('.consoleconteiner')">×</button>
+                                <button class="consolebtn" id="closeconsole" onclick="hideOverlay('#consoleconteiner')">×</button>
                             </div>
                         </div>
-                        <div class="console">
+                        <div id="console">
                             
                         </div>
                         <div class="consoleinputcontainer">
@@ -6583,7 +6654,7 @@
                 </div>
                 <div class="section" id="c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11">
                     <div class="editor-selected-line-btns">
-                          <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changeBtnTextOnClick(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changeBtnTextOnClick(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changeBtnTextOnClick(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changeBtnTextOnClick(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
                     <div class="code-editor-container" id="linenumberingon">
                     </div>
                     <div class="fileSpecificNoteCon">
@@ -6600,11 +6671,25 @@
                         </div>
                     </div>
                     <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
                 </div>
             </div>
-        
+            
+            <div id="pythonConsole">
+                <div id="py_consoletopbar">
+                    <span id="py_consoletitle">Status: <span id="status">Inactive</span></span>
+                    <div id="py_consolebtncontainer">
+                        <button id="runPyBtn" onclick="executePython()">Run</button>
+                        <button class="consolebtn" id="clearpyconsole" onclick="clearAndStopTerminal();changeBtnTextOnClick(this)">⌧</button>
+                        <button class="consolebtn" id="closepyconsole" onclick="hideOverlay('#pythonConsole')">×</button>
+                    </div>
+                </div>
+                <div id="py_console">
+                    
+                </div>
+            </div>
+            
             <div class="codesearchresults transformAllowed">
                 no results
             </div>
@@ -7798,7 +7883,7 @@
             }
             
             let isDragging = false;
-            let lastTouchTime = 0; // Track touch timestamps to prevent ghost pointer events
+            let lastTouchTime = 0;
             
             let startX = 0;
             let startY = 0;
@@ -7917,7 +8002,6 @@
                     lastTouchTime = Date.now();
                 }
                 
-                // If a mouseenter fires within 1 second of a touch event, it's a ghost event—ignore it!
                 if (e.type === 'mouseenter' && Date.now() - lastTouchTime < 1000) {
                     return;
                 }
@@ -7946,7 +8030,6 @@
             }
             
             function end(e) {
-                // Update the timestamp on touchend to block the subsequent emulated mouseenter
                 if (e && (e.type === 'touchend' || e.type === 'touchcancel')) {
                     lastTouchTime = Date.now();
                 }
@@ -9771,7 +9854,7 @@
         
         
         function clearconsole() {
-            const consol = document.querySelector('.console');
+            const consol = document.getElementById('console');
             consol.innerHTML = "";
         }
         
@@ -9946,7 +10029,7 @@
                 closeInspectorDropdown();
                 return;
             }
-            const consol = document.querySelector('.console');
+            const consol = document.getElementById('console');
             const messagecontainer = document.createElement('div');
             const icon = document.createElement('button');
             const message = document.createElement('span');
@@ -10064,7 +10147,7 @@
                     infoCo.appendChild(dateTypeText);
                     messagecontainer.appendChild(infoCo);
                     
-                    dateInfoText.textContent = "date: " + new Date().toLocaleDateString("en-GB");
+                    dateInfoText.textContent = "time: " + new Date().toLocaleTimeString("en-GB");
                     dateTypeText.textContent = "type: " + eds;
                     messageNumInfoText.textContent = "number: " + Array.from(document.querySelectorAll(".consolemessage")).length;
                 } else {
@@ -10101,7 +10184,7 @@
             if (eds in allicons){
                 icon.textContent = allicons[eds];
             }
-            if (eds == "error" && document.querySelector('.consoleconteiner').style.display == "none") {
+            if (eds == "error" && document.getElementById('consoleconteiner').style.display == "none") {
                 importantnotificationmessageelement(message.textContent);
             }
         });
@@ -10194,7 +10277,7 @@
                 }
             }else {
                 document.querySelector('.showconsolebtn').style.display = "none";
-                hideOverlay('.consoleconteiner');
+                hideOverlay('#consoleconteiner');
                 if (showNotification) {
                     shortNotificationmessageelement("The console has been disabled");
                 }
@@ -10937,15 +11020,17 @@
         }
         
         function disablepastbtn(lepsalternative = lasteventsparentsection) {
-            if (lepsalternative.querySelector('.editor-selected-line-btns #pastbtn') && !lepsalternative.querySelector('.editor-selected-line-btns #pastbtn').classList.contains('disabled')){
-                lepsalternative.querySelector('.editor-selected-line-btns #pastbtn').classList.add('disabled');
+            const secPastBtn = lepsalternative.querySelector("#pastbtn");
+            if (secPastBtn && !secPastBtn.classList.contains('disabled')){
+                secPastBtn.classList.add('disabled');
             }
         }
         
         
         function enablepastbtn(lepsalternative = lasteventsparentsection) {
-            if (lepsalternative.querySelector('.editor-selected-line-btns #pastbtn') && lepsalternative.querySelector('.editor-selected-line-btns #pastbtn').classList.contains('disabled')) {
-                lepsalternative.querySelector('.editor-selected-line-btns #pastbtn').classList.remove('disabled');
+            const secPastBtn = lepsalternative.querySelector("#pastbtn");
+            if (secPastBtn && secPastBtn.classList.contains('disabled')) {
+                secPastBtn.classList.remove('disabled');
             }
         }
         
@@ -11079,7 +11164,6 @@
             createkonfetti = false;
         }
         let focuslinetimeout = null;
-        // Store which file index the currently ticking timeout belongs to
         let focuslineFileIndex = null; 
         
         function removeAllFocusedLines(targetedInnum = editorIndex) {
@@ -11089,24 +11173,21 @@
                 focuslineFileIndex = null;
             }
             
-            // Clear out visual DOM elements safely
             document.querySelectorAll('.code-editor-line.focusedline').forEach(el => {
                 el.classList.remove('focusedline');
                 if (typeof updateAttribute === 'function') updateAttribute(el);
             });
-        
-            // Use the explicitly targeted file index 
+            
             const allLines = editorFiles[targetedInnum];
             if (!allLines || !Array.isArray(allLines)) return;
-        
-            // Clean up the data array strictly and safely without using destructive .filter() or .indexOf() splices
+            
             allLines.forEach(lineItem => {
                 if (!lineItem || !lineItem.classes) return;
         
                 if (Array.isArray(lineItem.classes)) {
                     const idx = lineItem.classes.indexOf('focusedline');
                     if (idx > -1) {
-                        lineItem.classes.splice(idx, 1); // Only splices if explicitly found!
+                        lineItem.classes.splice(idx, 1);
                     }
                 } else if (typeof lineItem.classes === 'string') {
                     if (lineItem.classes.includes('focusedline')) {
@@ -11122,23 +11203,18 @@
         function focuseceline(celine) {
             if (!celine) return;
             
-            // 1. Clean up any existing focus states before setting a new one
             removeAllFocusedLines(editorIndex);
             
-            // 2. Highlight the active DOM node
             celine.classList.add('focusedline');
             if (typeof updateAttribute === 'function') updateAttribute(celine);
             
-            // 3. Record which file index this highlight belongs to
             const boundIndex = editorIndex;
             focuslineFileIndex = boundIndex;
         
             focuslinetimeout = setTimeout(() => {
-                // 4. CRITICAL: Only clear the focus if the user hasn't switched away from this file!
                 if (editorIndex === boundIndex && !fileTransitionRN) {
                     removeAllFocusedLines(boundIndex);
                 } else {
-                    // If they did switch files, just clear the reference variables without touching data arrays
                     focuslinetimeout = null;
                     focuslineFileIndex = null;
                 }
@@ -13176,7 +13252,7 @@
                 <p class="specificDescription">Note Description Placeholder</p>
             </div>
         </div>
-        <div class="code-editor-btns"><button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
+        <div class="code-editor-btns"><button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
             const newNavDot = document.createElement('div');
             newNavDot.classList.add('nav-dot', 'filedot');
@@ -13297,7 +13373,7 @@
             } else {
                 const lines = optionalText.split('\n');
                 lines.forEach((lineText) => {
-                    const line = { id: createCodeEditorLineId(), classes: ['code-editor-line'], text: replaceNormalSpaces(lineText) };
+                    const line = { id: createCodeEditorLineId(), classes: ['code-editor-line'], text: addAbbreviations(replaceNormalSpaces(normalizeQuotes(lineText))) };
                     newEditorFiles.push(line);
                 });
             }
@@ -13317,8 +13393,8 @@
             closeseccontainer();
             sidebarfilelink.click();
             draganddropFile(sidebarfilelink);
-            if (fileId) {
-                updateSaveFile();
+            if (!fileId) {
+                updateSaveFileNow();
             }
             if (isalist == true) {
                 updateSelectedClasses();
@@ -13428,12 +13504,16 @@
                 return;
             }
 
-            const newValue = filePathInput.value.trim();
+            const newValue = filePathInput.value.trim().replace(' ', '');
             if (!newValue) {
                 return;
             }
             
             projectNames[dataIndex] = newValue;
+            
+            if (!newValue.endsWith(".py")) {
+                hideOverlay("#pythonConsole");
+            }
             if (filePathInput.value != newValue) {
                 filePathInput.value = newValue;
             }
@@ -13610,7 +13690,8 @@
                         "json": "JavaScript Object Notation (limited support)",
                         "txt": "Text File",
                         "js": "JavaScript",
-                        "htm": "HyperText Markup"
+                        "htm": "HyperText Markup",
+                        "py": "Python"
                     };
                 
                     let extension = filetype.value.split('.').pop();
@@ -13785,7 +13866,7 @@
         
         let currentSelectedProject = projectId;
         
-        function updateSaveFile(rlasteventsparentsection, newpast) {
+        function updateSaveFile() {
             if (waitingForUpdateSaveFiles) clearTimeout(waitingForUpdateSaveFiles);
             waitingForUpdateSaveFiles = setTimeout(() => {
                 updateSaveFileNow();
@@ -14413,7 +14494,7 @@
             if (!editor) throw new Error('addLoadingAbility: editor DOM element required');
             const safePerformLongPressAction = typeof performLongPressAction === 'function' ? performLongPressAction : () => {};
             const safeCloseLineOptionsContainer = typeof closelineoptionscontainer === 'function' ? closelineoptionscontainer : () => {};
-            const safeAddJsSyntaxHighlighting = typeof addJsSyntaxHighlighting === 'function' ? addJsSyntaxHighlighting : () => {};
+            const safe_highlightSyntax = typeof _highlightSyntax === 'function' ? _highlightSyntax : () => {};
             const safeAdjustElementPositionleft = typeof adjustElementPositionleft === 'function' ? adjustElementPositionleft : () => {};
             const safeFocuseceLine = typeof focuseceline === 'function' ? focuseceline : (el => { try { if (el && el.focus) el.focus(); } catch(e){} });
             
@@ -14542,7 +14623,7 @@
                     node.style.removeProperty('--selectedLineNumber');
                 }
         
-                safeAddJsSyntaxHighlighting(node);
+                safe_highlightSyntax(node);
                 node.style.display = '';
                 const classes = data.classes;
                 const isHidden = !!(classes && ((Array.isArray(classes) && classes.includes('hidden')) || (typeof classes === 'string' && classes.split(/\s+/).includes('hidden'))));
@@ -14604,7 +14685,7 @@
                             console.warn(e);
                         }
                         line.textContent = data.text || '';
-                        safeAddJsSyntaxHighlighting(line);
+                        safe_highlightSyntax(line);
                         line.style.display = '';
                         const classes = data.classes;
                         const isHidden = !!(classes && ((Array.isArray(classes) && classes.includes('hidden')) || (typeof classes === 'string' && classes.split(/\s+/).includes('hidden'))));
@@ -14813,18 +14894,12 @@
             editor._loadingState.getVisibleIndexMap = buildVisibleIndexMap;
             render(0);
         }
-        // Track the latest requested render session globally
         let globalRefreshTaskId = 0;
         
         async function refreshEditorLines(editor, innum, offsetVisible = 0, callback = null, isTrue = false) {
-            // Increment the global ID, and capture this specific task's ID locally
             globalRefreshTaskId++;
             const myTaskId = globalRefreshTaskId;
-        
-            // We wrap the internal execution block in a promise to allow external awaiting,
-            // ensuring locks release correctly inside the macro/microtask queues.
             return new Promise((resolve) => {
-                // Shared cleanup handler to clear states gracefully
                 const cleanQuit = () => {
                     if (callback) callback();
                     resolve();
@@ -14840,8 +14915,7 @@
                     if (!state) {
                         return cleanQuit();
                     }
-        
-                    // --- CHECKPOINT 1: Verify file consistency and task freshness before processing ---
+                    
                     if (fileTransitionRN || editorIndex !== innum || globalRefreshTaskId !== myTaskId) {
                         return cleanQuit();
                     }
@@ -14891,7 +14965,6 @@
                         state.spacerBottom.style.height = `${Math.max(0, (state.cumulativeHeights[all.length] || 0) - (state.cumulativeHeights[lastAllExclusive] || 0))}px`;
         
                         for (let i = 0; i < state.visibleLines; i++) {
-                            // --- CHECKPOINT 2: Defensive check within high-frequency DOM recycling loops ---
                             if (fileTransitionRN || editorIndex !== innum || globalRefreshTaskId !== myTaskId) {
                                 return cleanQuit();
                             }
@@ -14914,9 +14987,8 @@
                                     node.style.removeProperty('--selectedLineNumber');
                                 }
                                 
-                                if (typeof addJsSyntaxHighlighting === 'function') {
-                                    addJsSyntaxHighlighting(node);
-                                    // Abort immediately if syntax generation forced a mutation mismatch
+                                if (typeof _highlightSyntax === 'function') {
+                                    _highlightSyntax(node);
                                     if (fileTransitionRN || editorIndex !== innum || globalRefreshTaskId !== myTaskId) {
                                         return cleanQuit();
                                     }
@@ -14934,12 +15006,11 @@
                         }
                         state.recomputeCumulativeHeights();
                     }
-        
-                    // --- CHECKPOINT 3: Validate boundaries before modifying caret focuses ---
+                    
                     if (fileTransitionRN || editorIndex !== innum || globalRefreshTaskId !== myTaskId) {
                         return cleanQuit();
                     }
-        
+                    
                     if (activeLineIndex !== null) {
                         let targetNode = null;
                         if (state.lineNodes) {
@@ -14983,11 +15054,9 @@
                             selection.addRange(range);
                         }
                     }
-        
-                    // --- CHECKPOINT 4: Ensure the animation callback maps cleanly ---
+                    
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
-                            // Critical catch: Check if a subsequent click has overridden this execution context 
                             if (fileTransitionRN || editorIndex !== innum || globalRefreshTaskId !== myTaskId) {
                                 return cleanQuit();
                             }
@@ -15005,12 +15074,9 @@
             });
         }
         
-                
-                // Track the latest requested scroll instance globally
         let globalScrollTaskId = 0;
         
         async function scrolltolinenumber(targetIndex, editor = inputDiv, opts = {}, callback) {
-            // Increment the global task sequence, and capture this instance's ID locally
             globalScrollTaskId++;
             const myScrollTaskId = globalScrollTaskId;
         
@@ -15070,10 +15136,9 @@
                     if (allIdx < targetIndex) sumRenderedAbove += (state.lineHeights[allIdx] || 24);
                 }
                 desired = Math.max(0, Math.min(totalH - editor.clientHeight, desired - sumRenderedAbove));
-            
+                
                 editor.scrollTop = desired;
-            
-                // --- CHECKPOINT 1 ---
+                
                 await new Promise(r => setTimeout(r, 50));
                 if (fileTransitionRN || editorIndex !== innum || globalScrollTaskId !== myScrollTaskId) {
                     return false;
@@ -15087,14 +15152,11 @@
                         if (visibleMap[v] == targetIndex) { targetVisible = v; break; }
                     }
                     
-                    // --- CHECKPOINT 2 ---
-                    // Await execution safely
                     await refreshEditorLines(editor, innum, targetVisible, undefined, true);
                     if (fileTransitionRN || editorIndex !== innum || globalScrollTaskId !== myScrollTaskId) {
                         return false;
                     }
-            
-                    // --- CHECKPOINT 3 ---
+                    
                     await new Promise(r => setTimeout(r, 30));
                     if (fileTransitionRN || editorIndex !== innum || globalScrollTaskId !== myScrollTaskId) {
                         return false; 
@@ -15107,7 +15169,6 @@
                     try { rendered.scrollIntoView({ block: 'center', inline: 'nearest' }); } catch (e) {}
                     try { (typeof focuseceline == 'function' ? focuseceline : (el => el && el.focus))(rendered); } catch (e) {}
                     
-                    // --- CHECKPOINT 4 ---
                     await new Promise(r => setTimeout(r, settleDelay));
                     if (fileTransitionRN || editorIndex !== innum || globalScrollTaskId !== myScrollTaskId) {
                         return false; 
@@ -15125,9 +15186,8 @@
                 }
                 return false;
             } finally {
-                // Only allow resetting if no newer scroll task has superseded this one
-                if (globalScrollTaskId === myScrollTaskId) {
-                    // Safe cleanup space
+                if (globalScrollTaskId === myScrollTaskId && callback) {
+                    callback();
                 }
             }
         }
@@ -15299,9 +15359,9 @@
             if (projectNames[number]) {
                 delete projectNames[number];
             }
-            if (dontsavedeletion == false) {
+            /*if (dontsavedeletion == false) {
                 updateSaveFile();
-            }
+            }*/
             let rectangleToDelete = document.getElementById('rectangle' + number);
             if (rectangleToDelete) {
                 if (withoutEffects == true) {
@@ -15391,7 +15451,7 @@
             if (deletedFileName && deletedFileName.textContent != "" && withoutEffects == false) {
                 shortNotificationmessageelement(deletedFileName + " successfully deleted");
             }
-            if (withoutEffects == true) {
+            if (dontsavedeletion == false) {
                 updateSaveFile();
             }
         }
@@ -15764,7 +15824,9 @@
             if (!viewcontainer && !viewcontainer.classList.contains("viewthisfileExpanded")) return;
             closeeverything();
             
-            section.style.display = "none";
+            if (section) {
+                section.style.display = "none";
+            }
             viewcontainer.style.display = "flex";
             viewcontainer.classList.add("viewthisfileExpanded");
             document.querySelector(".nav-bar").style.overflow = "hidden";
@@ -15782,6 +15844,19 @@
             viewcontainer.style.animation = transitionanimation + "in 0.3s ease-out";
         }
         
+        function _viewcode() {
+            if (!section) {
+                viewthisfile();
+                return;
+            }
+            const fileName = projectNames[section.id];
+            if (fileName.endsWith(".py")) {
+                showOverlay("#pythonConsole");
+            } else {
+                viewthisfile();
+            }
+        }
+        
         function closeviewthisfile() {
             if (!viewcontainer && viewcontainer.classList.contains("viewthisfileExpanded")) return;
             
@@ -15794,7 +15869,8 @@
             
             document.querySelector('.closeviewthisfilebtn').style.display = "none";
             
-            hideOverlay('.consoleconteiner');
+            hideOverlay('#consoleconteiner');
+            hideOverlay("#pythonConsole");
         }
         
         function normalizeSpaces(text) {
@@ -16093,14 +16169,55 @@
     <script>
         window.addEventListener('message', (event) => {
             if (typeof event.data === 'string' && event.data.startsWith('run: ')) {
-                try {
-                    const func = new Function(event.data.slice(5).trim());
-                    const result = func();
-                } catch (error) {
-                    parent.postMessage({ 
-                        status: 'error', 
-                        message: error.name + ': ' + error.message 
-                    }, '*');
+                const dataText = event.data.slice(5).trim();
+                if (dataText.startsWith(".") || dataText.startsWith("#")) {
+                    try {
+                        const retrievedElements = document.querySelectorAll(dataText);
+                        if (Array.from(retrievedElements).length == 0) {
+                            parent.postMessage({
+                                status: 'error',
+                                message: \`no element found under that \${dataText.startsWith(".") ? "class" : "id"}\`,
+                                logId: 'consoleMessageId' + crypto.randomUUID()
+                            }, '*');
+                            return;
+                        }
+                        parent.postMessage({
+                            status: 'groupCollapsed',
+                            message: dataText,
+                            logId: 'consoleMessageId' + crypto.randomUUID()
+                        }, '*');
+                        retrievedElements.forEach(el => {
+                            const returnText = el.innerHTML;
+                            parent.postMessage({
+                                status: 'log',
+                                message: returnText.trim() != "" ? returnText : "(empty element)",
+                                logId: 'consoleMessageId' + crypto.randomUUID()
+                            }, '*');
+                        });
+                        parent.postMessage({
+                            status: 'groupEnd',
+                            message: '',
+                            logId: 'consoleMessageId' + crypto.randomUUID()
+                        }, '*');
+                    } catch (error) {
+                        parent.postMessage({
+                            status: 'error',
+                            message: error.name + ': ' + error.message,
+                            logId: 'consoleMessageId' + crypto.randomUUID()
+                        }, '*');
+                    }
+                }
+                else {
+                    try {
+                        const func = new Function(dataText);
+                        const result = func();
+                    } catch (error) {
+                        parent.postMessage({ 
+                            status: 'error', 
+                            message: error.name + ': ' + error.message,
+                            logId: 'consoleMessageId' + crypto.randomUUID()
+                        }, '*');
+                    }
                 }
             }
         });
@@ -16156,7 +16273,7 @@
             }
             iframeNotEmpty = false;
             currentiframeid = null;
-            document.querySelector('.console').innerHTML = "";
+            document.getElementById('console').innerHTML = "";
             document.querySelector('#' + iframeid).srcdoc = "";
             document.querySelector('#' + iframeid).parentElement.style.backgroundColor = "var(--browseriframebackgroundcolor-color)";
             timers = {};
@@ -16169,7 +16286,7 @@
                 return;
             }
             closeInspectorDropdown();
-            document.querySelector('.console').innerHTML = "";
+            document.getElementById('console').innerHTML = "";
             currentiframeid = iframeid;
             currenttextcontainerid = textcontainerid;
             document.querySelector('#computer-frame').srcdoc = "";
@@ -16208,6 +16325,187 @@
             iframeNotEmpty = true;
             function escapeHTML(str) {
                 return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
+        }
+        function appendConsoleLine(text) {
+            const terminal = document.getElementById('py_console');
+            if (!terminal) return;
+        
+            const lines = text.split('\n');
+            lines.forEach((lineText, index) => {
+                if (index === lines.length - 1 && lineText === '') return;
+        
+                const lineEl = document.createElement('div');
+                lineEl.className = 'pythonConsoleLine';
+                lineEl.textContent = lineText;
+                terminal.appendChild(lineEl);
+            });
+        
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+        
+        window.askForInlineInput = function(promptMsg) {
+            const terminal = document.getElementById('py_console');
+            if (!terminal) return Promise.resolve("");
+            
+            const lineEl = document.createElement('div');
+            lineEl.className = 'pythonConsoleLine';
+        
+            if (promptMsg) {
+                const promptSpan = document.createElement('span');
+                promptSpan.textContent = promptMsg;
+                lineEl.appendChild(promptSpan);
+            }
+            
+            const inputEl = document.createElement('span');
+            inputEl.className = 'terminal-input-field';
+            inputEl.contentEditable = "true";
+            //inputEl.autocomplete = 'off';
+            
+            lineEl.appendChild(inputEl);
+            terminal.appendChild(lineEl);
+            
+            terminal.scrollTop = terminal.scrollHeight;
+            inputEl.focus();
+            
+            return new Promise((resolve) => {
+                inputEl.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        const value = inputEl.textContent;
+                        
+                        const valueSpan = document.createElement('span');
+                        valueSpan.className = "terminal-input-replace-span";
+                        valueSpan.textContent = value;
+                        lineEl.replaceChild(valueSpan, inputEl);
+                        
+                        terminal.scrollTop = terminal.scrollHeight;
+                        resolve(value);
+                    }
+                });
+            });
+        };
+        
+        let pyodide = null;
+        let isInitializing = false;
+        
+        async function mainPy() {
+            const status = document.getElementById('status');
+            if (isInitializing) return;
+            isInitializing = true;
+        
+            try {
+                pyodide = await loadPyodide({
+                    stdout: (text) => {
+                        appendConsoleLine(text);
+                    },
+                    stderr: (text) => {
+                        appendConsoleLine("[Error] " + text);
+                    }
+                });
+                
+                await pyodide.runPythonAsync(`
+import ast
+import js
+
+class PythonAsyncifier(ast.NodeTransformer):
+    def __init__(self):
+        self.async_functions = set()
+
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == 'input':
+            return ast.Await(
+                value=ast.Call(
+                    func=ast.Name(id='__js_async_input', ctx=ast.Load()),
+                    args=node.args,
+                    keywords=node.keywords
+                )
+            )
+        if isinstance(node.func, ast.Name) and node.func.id in self.async_functions:
+            return ast.Await(value=node)
+        return node
+
+    def visit_FunctionDef(self, node):
+        self.generic_visit(node)
+        has_await = any(isinstance(child, ast.Await) for child in ast.walk(node))
+        if has_await:
+            self.async_functions.add(node.name)
+            return ast.AsyncFunctionDef(
+                name=node.name, args=node.args, body=node.body,
+                decorator_list=node.decorator_list, returns=node.returns
+            )
+        return node
+
+async def __js_async_input(prompt_msg=""):
+    return await js.window.askForInlineInput(str(prompt_msg))
+
+def transpiler_engine(user_code):
+    try:
+        tree = ast.parse(user_code)
+        transformer = PythonAsyncifier()
+        tree = transformer.visit(tree)
+        ast.fix_missing_locations(tree)
+        return ast.unparse(tree)
+    except Exception as e:
+        return f"# ERROR: {e}"
+                `);
+        
+                if (status) status.textContent = "Ready to execute!";
+            } catch (error) {
+                if (status) status.textContent = "Initialization failed.";
+                appendConsoleLine(String(error));
+            } finally {
+                isInitializing = false;
+            }
+        }
+        
+        async function executePython() {
+            const terminal = document.getElementById('py_console');
+            const status = document.getElementById('status');
+            
+            if (!terminal || !status) return;
+        
+            if (!pyodide) {
+                status.textContent = "Initializing Environment...";
+                await mainPy();
+                if (!pyodide) return; 
+            }
+            
+            terminal.innerHTML = ""; 
+            status.textContent = "Executing program...";
+            
+            if (typeof section === 'undefined' || !section) return;
+            
+            const userRawCode = checkiffile(projectNames[section.id]);
+        
+            pyodide.globals.set("raw_user_code", userRawCode);
+            const transformedCode = pyodide.runPython("transpiler_engine(raw_user_code)");
+        
+            if (transformedCode.startsWith("# ERROR:")) {
+                appendConsoleLine("[Syntax Error parsing script]:\n" + transformedCode);
+                status.textContent = "Syntax Error.";
+                return;
+            }
+        
+            try {
+                await pyodide.runPythonAsync(transformedCode);
+                status.textContent = "Finished successfully.";
+            } catch (err) {
+                appendConsoleLine("\n[Runtime Traceback Exception]:\n" + err);
+                status.textContent = "Stopped due to error.";
+            }
+        }
+        
+        function clearAndStopTerminal() {
+            const terminal = document.getElementById('py_console');
+            const status = document.getElementById('status');
+        
+            if (terminal) {
+                terminal.innerHTML = "";
+                appendConsoleLine("Console cleared. Ready for code input.");
+            }
+            if (status) {
+                status.textContent = "Console cleared.";
             }
         }
         
@@ -16457,8 +16755,13 @@
             el.textContent = "";
             el.appendChild(fragment);
         }
+        function normalizeQuotes(text) {
+            return text
+                .replace(/[“”„]/g, '"')
+                .replace(/[‘’']/g, "'");
+        }
         function searchAllCode(inputEl) {
-            const searchValue = inputEl.value;
+            const searchValue = normalizeQuotes(inputEl.value);
             const searchAllResults = document.getElementById("searchAllResults");
             searchAllResults.innerHTML = "";
             if (searchValue.trim() == "") return;
@@ -16553,7 +16856,7 @@
             const codesearchresults = document.querySelector('.codesearchresults');
             positionElementBelow(codesearchresults, thiselementhasthevalue);
             
-            const inputvalue = thiselementhasthevalue.value.trim().toLowerCase();
+            const inputvalue = normalizeQuotes(thiselementhasthevalue.value.trim().toLowerCase());
             codesearchresults.style.display = inputvalue ? "flex" : "none";
             codesearchresults.innerHTML = "";
     
@@ -16958,7 +17261,8 @@
                         "json": "JavaScript Object Notation",
                         "txt": "Text File",
                         "js": "JavaScript",
-                        "htm": "HyperText Markup"
+                        "htm": "HyperText Markup",
+                        "py": "Python"
                     };
                     
                     let extension = filetype.value.split('.').pop();
@@ -17136,9 +17440,10 @@
                 
                 if (section && !section.classList.contains('viewcontainer')){
                     inputDiv = section.querySelector('.code-editor-container');
-                    hideOverlay('.consoleconteiner');
+                    hideOverlay('#consoleconteiner');
                     checkboxupdatefunction();
                 }
+                hideOverlay("#pythonConsole");
                 scrollToSection(index);
                 highlightDot(index);
                 currentIndex = index;
@@ -17671,7 +17976,7 @@
                     if (theEl) {
                         theEl.textContent = theNewText;
                         if (!theEl.classList.contains('syntaxhtmlcomment') && !theEl.classList.contains('syntaxcomment') && !theEl.classList.contains('syntaxstring')) {
-                            addJsSyntaxHighlighting(theEl);
+                            _highlightSyntax(theEl);
                         }
                     }
                     
@@ -17711,7 +18016,7 @@
                     if (theEl) {
                         theEl.textContent = theNewText;
                         if (!theEl.classList.contains('syntaxhtmlcomment') && !theEl.classList.contains('syntaxcomment') && !theEl.classList.contains('syntaxstring')) {
-                            addJsSyntaxHighlighting(theEl);
+                            _highlightSyntax(theEl);
                         }
                     }
                     
@@ -17752,7 +18057,7 @@
                                 if (theEl) {
                                     theEl.textContent = theNewText;
                                     if (!theEl.classList.contains('syntaxhtmlcomment') && !theEl.classList.contains('syntaxcomment') && !theEl.classList.contains('syntaxstring')) {
-                                        addJsSyntaxHighlighting(theEl);
+                                        _highlightSyntax(theEl);
                                     }
                                 }
                             }
@@ -18651,7 +18956,7 @@
             text = beforeCursor + afterCursor;
             celine.textContent = text;
             
-            addJsSyntaxHighlighting(celine);
+            _highlightSyntax(celine);
             
             setCursorPosition(celine, cursorShift);
         }
@@ -18870,7 +19175,7 @@
             const processedLines = new Array(lines.length);
             for (let i = 0; i < lines.length; i++) {
                 const trimmedLine = lines[i].slice(minIndent);
-                processedLines[i] = addAbbreviations(replaceNormalSpaces(convertToNonBreakingSpaces(trimmedLine)));
+                processedLines[i] = addAbbreviations(replaceNormalSpaces(convertToNonBreakingSpaces(normalizeQuotes(trimmedLine))));
             }
             
             lasteventsparentsection = section;
@@ -19173,7 +19478,7 @@
         function updateIndentSizes() {
             refreshEditorLines(inputDiv, editorIndex, 0);
         }
-        function addJsSyntaxHighlighting(div) {
+        function _highlightSyntax(div) {
             if (!div || div.tagName != "DIV") {
                 return;
             }
@@ -19234,8 +19539,8 @@
                 { regex: /(?<=rgb\(\s*)\d+\s*,\s*\d+\s*,\s*\d+(?=\s*\))/, className: "syntaxrgb syntaxnumber" },
                 { regex: /\/(?!\/)(?=\S)(.*?)(\/[gimsuy]*)/g, className: "syntaxregex" },
 
-                { regex: /\b(?<=^|[:()[\]{}.\s])(@charset|@namespace|@viewport|@counter-style|await|break|const|continue|debugger|delete|false|in|instanceof|new|null|return|super|this|throw|true|typeof|var|void|yield|let|static|undefined|NaN|Infinity|eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|BigInt|Math|Date|String|RegExp|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|Map|Set|WeakMap|WeakSet|ArrayBuffer|SharedArrayBuffer|Atomics|DataView|JSON|Promise|Generator|Reflect|Proxy|Intl|WebAssembly|solid|dashed|dotted|double|groove|ridge|inset|outset)\b(?=$|[:()[\]{}.\s])/g, className: "syntaxkeyword" },
-                { regex: /\b(case|catch|class(?!=)|default|do|else|enum|export|extends|finally|for|function|if|import|switch|try|while|with|implements|interface|package|private|protected|public|async|GeneratorFunction|AsyncFunction)\b/g, className: "syntaxblock" },
+                { regex: /\b(?<=^|[:()[\]{}.\s])(@charset|@namespace|@viewport|@counter-style|await|break|const|continue|debugger|delete|false|in|instanceof|new|null|return|super|this|throw|true|typeof|var|void|yield|let|static|undefined|NaN|Infinity|eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|BigInt|Math|Date|String|RegExp|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|Map|Set|WeakMap|WeakSet|ArrayBuffer|SharedArrayBuffer|Atomics|DataView|JSON|Promise|Generator|Reflect|Proxy|Intl|WebAssembly|solid|dashed|dotted|double|groove|ridge|inset|outset|False|None|True|and|as|assert|del|from|global|is|lambda|nonlocal|not|or|pass|raise)\b(?=$|[:()[\]{}.\s])/g, className: "syntaxkeyword" },
+                { regex: /\b(case|catch|class(?!=)|default|do|else|enum|export|extends|finally|def|function|if|elif|import|switch|try|while|with|implements|interface|package|private|protected|public|async|GeneratorFunction|AsyncFunction|for|match|except)\b/g, className: "syntaxblock" },
                 { regex: /@(container|page|supports|keyframes|import|font-face|media|document)\b/g, className: "syntaxkeyword" },
                 { regex: /\-\-[\w-]+(?=\:)/g, className: "syntaxvariable", goto: "def" },
                 { regex: /(?<=var\()\-\-[\w-]+(?=\))/g, className: "syntaxvariable", goto: "true" },
@@ -20344,12 +20649,10 @@
         }
         
         function updateSelectedClasses(offset, callback) {
-            // 1. Capture the exact file state synchronously BEFORE jumping onto the async queue
             const capturedEditorIndex = editorIndex;
             const capturedInputDiv = inputDiv;
         
             setTimeout(() => {
-                // 2. CRITICAL GATE: If the user switched files while we were waiting, abort immediately!
                 if (fileTransitionRN || editorIndex !== capturedEditorIndex || inputDiv !== capturedInputDiv) {
                     if (callback) callback();
                     return;
@@ -20360,16 +20663,14 @@
                     if (callback) callback();
                     return;
                 }
-        
-                // Clean up structural border tags safely on data array
+                
                 lines.forEach(line => {
                     if (!line || !line.classes || !Array.isArray(line.classes)) return;
                     
                     const classesToRemove = ['topSelected', 'bottomSelected', 'middleSelected', 'singleSelected'];
                     line.classes = line.classes.filter(c => !classesToRemove.includes(c));
                 });
-        
-                // Safe evaluation of selection borders
+                
                 let allselectedlines = lines.filter(el => el && el.classes && el.classes.includes('selected'));
         
                 allselectedlines.forEach(line => {
@@ -20393,8 +20694,7 @@
                         }
                     }
                 });
-        
-                // 3. Final safety check immediately before pushing updates to your visible DOM virtual lists
+                
                 if (!fileTransitionRN && editorIndex === capturedEditorIndex && inputDiv === capturedInputDiv) {
                     if (typeof refreshEditorLines === 'function') {
                         if (callback) {
@@ -21794,7 +22094,7 @@
                         container.remove();
                         if (!document.querySelector('.commandsswitch')?.checked || !commandsice.includes(suggestion)) {
                             if (inputElement){
-                                addJsSyntaxHighlighting(inputElement);
+                                _highlightSyntax(inputElement);
                                 inputElement.focus();
                             }
                         }
