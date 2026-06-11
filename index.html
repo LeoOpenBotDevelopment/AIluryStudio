@@ -3027,7 +3027,7 @@
         .syntaxsign { color: var(--syntaxsign-color); }
         .syntaxstring { color: var(--syntaxstring-color); }
         .syntaxnumber { color: var(--syntaxnumber-color); }
-        .syntaxcomment, .syntaxcomment .syntaxvariable, .syntaxcomment .syntaxregex, .syntaxcomment .syntaxhex { color: var(--syntaxcomment-color); }
+        .syntaxcomment, .syntaxcomment .syntaxvariable, .syntaxcomment .syntaxregex, .syntaxcomment .syntaxhex, .syntaxpycomment, .syntaxpycomment .syntaxvariable, .syntaxpycomment .syntaxregex, .syntaxpycomment .syntaxhex, .syntaxpycomment .syntaxpyregex { color: var(--syntaxcomment-color); }
         .syntaxvariable { color: var(--syntaxvariable-color); }
         .syntaxcommand { color: var(--syntaxcommand-color); }
         .syntaxkeyword { color: var(--syntaxkeyword-color); }
@@ -3036,7 +3036,7 @@
             color: var(--filepathinput-color);
             text-decoration: underline;
         }
-        .syntaxregex { color: var(--syntaxregex-color); }
+        .syntaxregex, .syntaxpyregex { color: var(--syntaxregex-color); }
         .syntaxhtmltagcontent { color: var(--syntaxhtmltagcontent-color); }
         .syntaxspaceienabled .code-editor-line:not(.hiddenlinesparent, .selected) .syntaxspace:before {
             position: absolute;
@@ -3473,7 +3473,6 @@
             align-items: center;
             gap: 10px;
             padding: 10px;
-            flex-shrink: 0;
         }
         #consoletitle, #py_consoletitle{
             font-size: 1em;
@@ -3568,7 +3567,7 @@
         .consolestatusdebug .consolemessageicon{
             color: green;
         }
-        .consoleinputcontainer{
+        #consoleinputcontainer, #py_consoleinputcontainer {
             width: 100%;
             font-size: 1em;
             background: var(--bg-color);
@@ -3580,7 +3579,7 @@
             left: 0;
             border-top: 1px solid var(--border-color);
         }
-        .consoleinputcontainer .consoletextarea{
+        #consoleinputcontainer #consoletextarea, #py_consoleinputcontainer #py_consoletextarea {
             background: transparent;
             overflow-y: auto;
             font-size: 1em;
@@ -3590,7 +3589,7 @@
             margin-left: 10px;
             width: 100%;
         }
-        .consoleinputcontainer .consoletextarea:focus{
+        #consoleinputcontainer #consoletextarea:focus, #py_consoleinputcontainer #py_consoletextarea:focus {
             outline: none;
         }
         .consoletextarealabelbtn{
@@ -6444,9 +6443,24 @@
             color: var(--contrast-color);
             overflow: hidden;
             overflow-x: auto;
-            padding: 3px;
+            padding: 2px 5px;
             font-size: 1em;
             font-family: "Fira Code", "JetBrains Mono", monospace;
+            flex-shrink: 0;
+        }
+        .pythonConsoleLine.errorPyConsoleLine {
+            background: rgba(255, 0, 0, 0.3);
+            color: red;
+        }
+        .pythonConsoleLine.topErrorPyConsoleLine {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin-top: 3px;
+        }
+        .pythonConsoleLine.bottomErrorPyConsoleLine {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            margin-bottom: 3px;
         }
         .terminal-input-field, .terminal-input-replace-span {
             display: inline;
@@ -6465,8 +6479,8 @@
             caret-color: var(--caret-color);
         }
         #pythonConsole {
-            overflow: hidden;
-            overflow-y: auto;
+            /*overflow: hidden;
+            overflow-y: auto;*/
             height: calc(51dvh - 50px);
         }
         .terminal-input-field {
@@ -6482,12 +6496,19 @@
             font-size: 1em;
         }
         #py_consoletopbar {
-            position: sticky;
+            position: absolute;
             background: linear-gradient(0deg, var(--half-transparent-bg-color), var(--bg-color));
             z-index: 10;
-            top: -1px;
+            top: 0;
             margin: 0;
         }
+        #py_console {
+            overflow: hidden;
+            overflow-y: auto;
+            padding-top: 50px;
+            gap: 0;
+        }
+        
         @keyframes silverFlow {
             0% {
                 background-position: 0% 50%;
@@ -6646,7 +6667,7 @@
                         <div id="console">
                             
                         </div>
-                        <div class="consoleinputcontainer">
+                        <div id="consoleinputcontainer">
                             <label for="consoletextarea"><button class="consoletextarealabelbtn">▷</button></label>
                             <textarea class="consoletextarea" id="consoletextarea" name="consoletextarea" rows="1" cols="10" onkeydown="runcodeincurrentiframe(this, event)"></textarea>
                         </div>
@@ -6687,6 +6708,10 @@
                 </div>
                 <div id="py_console">
                     
+                </div>
+                <div id="py_consoleinputcontainer">
+                    <label for="py_consoletextarea"><button class="consoletextarealabelbtn">▷</button></label>
+                    <textarea class="py_consoletextarea" id="py_consoletextarea" name="py_consoletextarea" rows="1" cols="10" onkeydown="runExtraPython(this, event)"></textarea>
                 </div>
             </div>
             
@@ -10020,7 +10045,7 @@
         }
         
         window.addEventListener('message', (event) => {
-            if (event.data.logId && document.getElementById(event.data.logId)) return;
+            if (event.data.logId && document.getElementById(event.data.logId) || event.data.status == undefined) return;
             const eds = event.data.status;
             if (event.data.type && event.data.type == "elementInfo") {
                 updateElementInfos(event.data.html, event.data.css);
@@ -14032,7 +14057,6 @@
                 } catch (err) {
                     showAlert("something went wrong while saving note deletion.");
                 }
-                console.log(allProjectNotes);
                 notify("Project successfully deleted", "undo", () => {
                     projectsObj[conId] = thisProjectCopy;
                     allProjectNotes[conId] = thisProjectsNotes;
@@ -16327,26 +16351,160 @@
                 return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             }
         }
-        function appendConsoleLine(text) {
+        
+        function parseAnsiToHtml(text) {
+            const matches = [...text.matchAll(/\x1b\[([0-9;]*)m/g)];
+            const parts = text.split(/\x1b\[[0-9;]*m/);
+            
+            const container = document.createDocumentFragment();
+            let currentStyle = {};
+            
+            const fgColors = {
+                '30': '#1e1e1e', '31': '#ff6b6b', '32': '#51cf66', '33': '#fcc419',
+                '34': '#339af0', '35': '#cc5de8', '36': '#20c997', '37': '#f1f3f5',
+                '90': '#868e96', '91': '#ff8787', '92': '#8ce99a', '93': '#ffe066',
+                '94': '#74c0fc', '95': '#da77f2', '96': '#63e6be', '97': '#ffffff'
+            };
+            
+            const bgColors = {
+                '40': '#212529', '41': '#c92a2a', '42': '#2b8a3e', '43': '#e67700',
+                '44': '#1864ab', '45': '#862e9c', '46': '#0c8599', '47': '#ced4da',
+                '100': '#495057', '101': '#fa5252', '102': '#40c057', '103': '#fab005',
+                '104': '#228be6', '105': '#be4bdb', '106': '#15aabf', '107': '#f8f9fa'
+            };
+        
+            parts.forEach((part, index) => {
+                if (part) {
+                    const span = document.createElement('span');
+                    span.textContent = part;
+                    
+                    let fg = currentStyle.color || '';
+                    let bg = currentStyle.bgColor || '';
+                    
+                    if (currentStyle.invert) {
+                        let temp = fg || '#ffffff';
+                        fg = bg || '#111111';
+                        bg = temp;
+                    }
+                    
+                    if (fg) span.style.color = fg;
+                    if (bg) span.style.backgroundColor = bg;
+                    if (currentStyle.bold) span.style.fontWeight = 'bold';
+                    if (currentStyle.dim) span.style.opacity = '0.5';
+                    if (currentStyle.italic) span.style.fontStyle = 'italic';
+                    
+                    let decorations = [];
+                    if (currentStyle.underline) decorations.push('underline');
+                    if (currentStyle.strikethrough) decorations.push('line-through');
+                    if (decorations.length > 0) {
+                        span.style.textDecoration = decorations.join(' ');
+                    }
+                    
+                    container.appendChild(span);
+                }
+                
+                if (index < matches.length) {
+                    const codes = matches[index][1].split(';');
+                    codes.forEach(code => {
+                        if (code === '0' || code === '') {
+                            currentStyle = {};
+                        } else if (code === '1') {
+                            currentStyle.bold = true;
+                        } else if (code === '2') {
+                            currentStyle.dim = true;
+                        } else if (code === '3') {
+                            currentStyle.italic = true;
+                        } else if (code === '4') {
+                            currentStyle.underline = true;
+                        } else if (code === '7') {
+                            currentStyle.invert = true;
+                        } else if (code === '9') {
+                            currentStyle.strikethrough = true;
+                        } else if (fgColors[code]) {
+                            currentStyle.color = fgColors[code];
+                        } else if (bgColors[code]) {
+                            currentStyle.bgColor = bgColors[code];
+                        }
+                    });
+                }
+            });
+            return container;
+        }
+        
+        function appendConsoleLine(text, error = false) {
             const terminal = document.getElementById('py_console');
             if (!terminal) return;
         
             const lines = text.split('\n');
+            let lastEl;
             lines.forEach((lineText, index) => {
-                if (index === lines.length - 1 && lineText === '') return;
-        
+                if (index == lines.length - 1 && lineText.trim() == '') {
+                    if (lastEl && error) {
+                        lastEl.classList.add("bottomErrorPyConsoleLine");
+                    }
+                    return;
+                }
+                
                 const lineEl = document.createElement('div');
                 lineEl.className = 'pythonConsoleLine';
-                lineEl.textContent = lineText;
+                if (error) {
+                    lineEl.classList.add("errorPyConsoleLine");
+                    if (index == 0) {
+                        lineEl.classList.add("topErrorPyConsoleLine");
+                    }
+                    if (index == lines.length - 1) {
+                        lineEl.classList.add("bottomErrorPyConsoleLine");
+                    }
+                }
+                
+                if (lineText.includes('\x1b') || lineText.includes('\033')) {
+                    lineEl.appendChild(parseAnsiToHtml(lineText));
+                } else {
+                    lineEl.textContent = lineText;
+                }
+                
                 terminal.appendChild(lineEl);
+                lastEl = lineEl;
             });
         
             terminal.scrollTop = terminal.scrollHeight;
         }
         
+        window.clearConsoleFromPython = function() {
+            const terminal = document.getElementById('py_console');
+            if (terminal) {
+                terminal.innerHTML = "";
+            }
+        };
+        
+        let accumulatedPythonCode = "";
+        let inputCache = [];
+        let inputCacheIndex = 0;
+        
         window.askForInlineInput = function(promptMsg) {
             const terminal = document.getElementById('py_console');
             if (!terminal) return Promise.resolve("");
+            
+            if (inputCacheIndex < inputCache.length) {
+                const cachedValue = inputCache[inputCacheIndex];
+                inputCacheIndex++;
+                
+                const lineEl = document.createElement('div');
+                lineEl.className = 'pythonConsoleLine';
+                if (promptMsg) {
+                    const promptSpan = document.createElement('span');
+                    promptSpan.textContent = promptMsg;
+                    lineEl.appendChild(promptSpan);
+                }
+                const valueSpan = document.createElement('span');
+                valueSpan.className = "terminal-input-replace-span";
+                valueSpan.textContent = cachedValue;
+                lineEl.appendChild(valueSpan);
+                terminal.appendChild(lineEl);
+                terminal.scrollTop = terminal.scrollHeight;
+        
+                return Promise.resolve(cachedValue);
+            }
             
             const lineEl = document.createElement('div');
             lineEl.className = 'pythonConsoleLine';
@@ -16360,7 +16518,6 @@
             const inputEl = document.createElement('span');
             inputEl.className = 'terminal-input-field';
             inputEl.contentEditable = "true";
-            //inputEl.autocomplete = 'off';
             
             lineEl.appendChild(inputEl);
             terminal.appendChild(lineEl);
@@ -16371,7 +16528,11 @@
             return new Promise((resolve) => {
                 inputEl.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
+                        e.preventDefault();
                         const value = inputEl.textContent;
+                        
+                        inputCache.push(value);
+                        inputCacheIndex++;
                         
                         const valueSpan = document.createElement('span');
                         valueSpan.className = "terminal-input-replace-span";
@@ -16399,13 +16560,15 @@
                         appendConsoleLine(text);
                     },
                     stderr: (text) => {
-                        appendConsoleLine("[Error] " + text);
+                        appendConsoleLine("[Error] " + text, true);
                     }
                 });
                 
                 await pyodide.runPythonAsync(`
 import ast
 import js
+import builtins
+import os
 
 class PythonAsyncifier(ast.NodeTransformer):
     def __init__(self):
@@ -16448,12 +16611,19 @@ def transpiler_engine(user_code):
         return ast.unparse(tree)
     except Exception as e:
         return f"# ERROR: {e}"
+
+def fallback_clear_engine(command=None):
+    js.window.clearConsoleFromPython()
+    return 0
+
+builtins.clear = fallback_clear_engine
+os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls'] else 0
                 `);
-        
+                
                 if (status) status.textContent = "Ready to execute!";
             } catch (error) {
                 if (status) status.textContent = "Initialization failed.";
-                appendConsoleLine(String(error));
+                appendConsoleLine(String(error), true);
             } finally {
                 isInitializing = false;
             }
@@ -16471,18 +16641,22 @@ def transpiler_engine(user_code):
                 if (!pyodide) return; 
             }
             
-            terminal.innerHTML = ""; 
-            status.textContent = "Executing program...";
+            inputCache = [];
+            inputCacheIndex = 0;
             
             if (typeof section === 'undefined' || !section) return;
             
             const userRawCode = checkiffile(projectNames[section.id]);
+            accumulatedPythonCode = userRawCode; 
         
-            pyodide.globals.set("raw_user_code", userRawCode);
+            terminal.innerHTML = ""; 
+            status.textContent = "Executing program...";
+            
+            pyodide.globals.set("raw_user_code", accumulatedPythonCode);
             const transformedCode = pyodide.runPython("transpiler_engine(raw_user_code)");
         
             if (transformedCode.startsWith("# ERROR:")) {
-                appendConsoleLine("[Syntax Error parsing script]:\n" + transformedCode);
+                appendConsoleLine("[Syntax Error parsing script]:\n" + transformedCode, true);
                 status.textContent = "Syntax Error.";
                 return;
             }
@@ -16491,14 +16665,65 @@ def transpiler_engine(user_code):
                 await pyodide.runPythonAsync(transformedCode);
                 status.textContent = "Finished successfully.";
             } catch (err) {
-                appendConsoleLine("\n[Runtime Traceback Exception]:\n" + err);
+                appendConsoleLine("\n[Runtime Traceback Exception]:\n" + err, true);
                 status.textContent = "Stopped due to error.";
+            }
+        }
+        
+        function runExtraPython(textArea, event) {
+            if (event && event.key == "Enter" && textArea) {
+                executeAdditionalCode(textArea);
+            }
+        }
+        
+        async function executeAdditionalCode(textareaElement) {
+            if (!textareaElement) return;
+            
+            const userRawCode = normalizeQuotes(textareaElement.value);
+            textareaElement.value = "";
+            if (!userRawCode.trim()) return;
+            
+            const terminal = document.getElementById('py_console');
+            const status = document.getElementById('status');
+            
+            if (!terminal || !status) return;
+        
+            if (!pyodide) {
+                if (status) status.textContent = "Initializing Environment...";
+                await mainPy();
+                if (!pyodide) return; 
+            }
+            
+            inputCacheIndex = 0;
+            accumulatedPythonCode += "\n" + userRawCode;
+            
+            terminal.innerHTML = "";
+            if (status) status.textContent = "Executing additional code...";
+            
+            pyodide.globals.set("raw_user_code", accumulatedPythonCode);
+            const transformedCode = pyodide.runPython("transpiler_engine(raw_user_code)");
+            
+            if (transformedCode.startsWith("# ERROR:")) {
+                appendConsoleLine("[Syntax Error parsing additional code]:\n" + transformedCode, true);
+                if (status) status.textContent = "Syntax Error.";
+                return;
+            }
+            try {
+                await pyodide.runPythonAsync(transformedCode);
+                if (status) status.textContent = "Additional code executed successfully.";
+            } catch (err) {
+                appendConsoleLine("\n[Runtime Traceback Exception inside additional code]:\n" + err, true);
+                if (status) status.textContent = "Stopped due to error.";
             }
         }
         
         function clearAndStopTerminal() {
             const terminal = document.getElementById('py_console');
             const status = document.getElementById('status');
+            
+            accumulatedPythonCode = "";
+            inputCache = [];
+            inputCacheIndex = 0;
         
             if (terminal) {
                 terminal.innerHTML = "";
@@ -16510,8 +16735,8 @@ def transpiler_engine(user_code):
         }
         
         function runcodeincurrentiframe(inputfield, event){
-            if (event.key == "Enter" && currentiframeid){
-                let texttorun = inputfield.value;
+            if (inputfield && event.key == "Enter" && currentiframeid){
+                let texttorun = normalizeQuotes(inputfield.value);
                 texttorun = texttorun.replaceAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, (match, code) => {
                     return "<script>\ntry {\n" + code + "\n} catch (error) {\nif (error.type){\nparent.postMessage({ status: 'error', message: error.type + ': ' + error.message, logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\n}else {\nparent.postMessage({ status: 'error', message: 'Error: ' +  \`\${error.message}\`, logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\n}\n}\n<\/script>";
                 });
@@ -19528,7 +19753,10 @@ def transpiler_engine(user_code):
             );
             
             let spatterns = [
+                { regex: /(?<=re\.(?:compile|search|match|fullmatch|findall|finditer|sub|subn|split)\s*\(\s*)(?:r|R)?(["'])(?:\\.|(?!\1).)*\1/g, className: "syntaxpyregex" },
+                { regex: /(?<![\w])(?:r|R)(["'])(?:\\.|(?!\1).)*\1/g, className: "syntaxpyregex" },
                 { regex: /(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, className: "syntaxstring" },
+                { regex: /#(?=[\s#]).*/g, className: "syntaxpycomment" },
                 { regex: indentSizeRegex, className: "syntaxspace" },
                 { regex: /<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, className: "syntaxhtmlcomment" },
                 { regex: /\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, className: "syntaxcomment" },
@@ -21955,7 +22183,9 @@ def transpiler_engine(user_code):
             "</progress>", "</meter>", "</canvas>", "</svg>", "</path>", "</g>", "</circle>", "</rect>", "</line>", "</polygon>",
             "</polyline>", "</text>", "</style>", "</link>", "</meta>", "</title>", "</base>", "<\/script>", "</noscript>", "</iframe>",
             "</audio>", "</video>", "</source>", "</track>", "</object>", "</param>", "</embed>", "</picture>", "</map>", "</area>",
-            "</use>",
+            "</use>"
+        ];
+        const openJsTags = [
             "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "blockquote", "body",
             "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del",
             "details", "dfn", "dialog", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer",
@@ -21966,6 +22196,147 @@ def transpiler_engine(user_code):
             "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time",
             "title", "tr", "track", "u", "ul", "var", "video", "wbr"
         ];
+        const pythonUniqueKeys = [
+            "False",
+            "None",
+            "True",
+            "assert",
+            "def",
+            "elif",
+            "except",
+            "global",
+            "lambda",
+            "nonlocal",
+            "pass",
+            "raise",
+            "aiter",
+            "anext",
+            "any",
+            "ascii",
+            "bin",
+            "bool",
+            "breakpoint",
+            "bytearray",
+            "bytes",
+            "callable",
+            "chr",
+            "classmethod",
+            "compile",
+            "complex",
+            "delattr",
+            "dict",
+            "divmod",
+            "enumerate",
+            "frozenset",
+            "getattr",
+            "globals",
+            "hasattr",
+            "hash",
+            "hex",
+            "int",
+            "isinstance",
+            "issubclass",
+            "iter",
+            "len",
+            "list",
+            "locals",
+            "memoryview",
+            "next",
+            "oct",
+            "ord",
+            "repr",
+            "setattr",
+            "sorted",
+            "staticmethod",
+            "sum",
+            "tuple",
+            "vars",
+            "zip",
+            "__import__",
+            "re",
+            "fullmatch",
+            "findall",
+            "finditer",
+            "subn",
+            "purge",
+            "IGNORECASE",
+            "LOCALE",
+            "MULTILINE",
+            "DOTALL",
+            "VERBOSE",
+            "UNICODE",
+            "comb",
+            "copysign",
+            "degrees",
+            "dist",
+            "erf",
+            "erfc",
+            "fabs",
+            "factorial",
+            "fmod",
+            "frexp",
+            "fsum",
+            "gamma",
+            "gcd",
+            "isclose",
+            "isinf",
+            "isqrt",
+            "lcm",
+            "ldexp",
+            "lgamma",
+            "modf",
+            "nextafter",
+            "perm",
+            "prod",
+            "radians",
+            "remainder",
+            "tau",
+            "ulp",
+            "seed",
+            "getstate",
+            "setstate",
+            "randbytes",
+            "randrange",
+            "randint",
+            "getrandbits",
+            "choice",
+            "choices",
+            "shuffle",
+            "sample",
+            "uniform",
+            "triangular",
+            "betavariate",
+            "expovariate",
+            "gammavariate",
+            "gauss",
+            "lognormvariate",
+            "normalvariate",
+            "vonmisesvariate",
+            "paretovariate",
+            "weibullvariate",
+            "sys",
+            "argv",
+            "byteorder",
+            "displayhook",
+            "excepthook",
+            "executable",
+            "hexversion",
+            "maxsize",
+            "maxunicode",
+            "stderr",
+            "stdin",
+            "stdout",
+            "version_info",
+            "os",
+            "chdir",
+            "getcwd",
+            "fsencode",
+            "fsdecode",
+            "getpid",
+            "getppid",
+            "getuid"
+        ];
+        
         function setupAutocomplete(inputElement) {
             if (!section || !section.classList.contains('autocompleteenabled') || !inputElement || !inputElement.parentElement || inputElement.textContent == ""){
                 return;
@@ -21997,8 +22368,11 @@ def transpiler_engine(user_code):
                 allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
             }
             
-            const suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywords, ...jsSyntax, ...htmlTags, ...csscolors, ...webkitProperties, ...allCssProperties, ...mozProperties, ...msProperties];
-            
+            let suggestionsList = [...allfilenames, ...uniquevalues, ...cssKeywords, ...jsSyntax, ...htmlTags, ...openJsTags, ...csscolors, ...webkitProperties, ...allCssProperties, ...mozProperties, ...msProperties];
+            const currentFileName = projectNames[section.id];
+            if (currentFileName && currentFileName.endsWith(".py")) {
+                suggestionsList.push(...pythonUniqueKeys);
+            }
             if (inputElement.textContent.includes('/') && document.querySelector('.commandsswitch')?.checked && document.querySelector('.commandassuggestion input[type="checkbox"]')?.checked) {
                 suggestionsList.push(...commandsice);
             }
