@@ -15599,6 +15599,10 @@
             const allsyntaxcommentsyntaxhtmlcommentsectionlines = [...allsyntaxcommentsectionlines, ...allsyntaxhtmlcommentsectionlines];
             
             allsyntaxcommentsyntaxhtmlcommentsectionlines.forEach(line => {
+                if (line.classes.includes("hiddenlinesparent")) {
+                    line.classes.splice(line.classes.indexOf('hiddenlinesparent'), 1);
+                    showHiddenElements(line);
+                }
                 let pastelement = {
                     element: {...line},
                     type: "delete",
