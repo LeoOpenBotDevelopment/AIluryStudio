@@ -7792,6 +7792,14 @@
                 }, 500);
             }, 1000);
         });
+        const mimeTypes = {
+            html: 'text/html',
+            htm: 'text/html',
+            css: 'text/css',
+            js: 'application/javascript',
+            txt: 'text/plain',
+            py: 'text/x-python'
+        };
         function openSearchFiles() {
             const divcodeeditorContainer = document.querySelector(".divcodeeditor-container");
             const searchAllInput = document.getElementById("searchAllInput");
@@ -10045,7 +10053,7 @@
         }
         
         window.addEventListener('message', (event) => {
-            if (event.data.logId && document.getElementById(event.data.logId) || event.data.status == undefined) return;
+            if ((event.data.logId && document.getElementById(event.data.logId)) || event.data.status == undefined) return;
             const eds = event.data.status;
             if (event.data.type && event.data.type == "elementInfo") {
                 updateElementInfos(event.data.html, event.data.css);
@@ -11582,10 +11590,7 @@
                         allfilenames.forEach(file => {
                             if (file.value !== filename) return;
                             
-                            const isEditBtn = targetElement.classList.contains('edit-btn');
-                            const parentText = isEditBtn ?
-                                targetElement.parentElement.parentElement.querySelector('.notclickable')?.textContent.trim() || '' :
-                                targetElement.parentElement.textContent.replace("⋮", "").trim();
+                            const parentText = projectNames[number];
                             
                             const fileValue = file.value.trim();
                             const fileExt = fileValue.split('.').pop();
@@ -11593,13 +11598,13 @@
                             
                             const modify = (index, type) => modifyHTML(index, editorFiles[index == number ? file.parentElement.getAttribute('data-index') : number], type);
                             
-                            if (targetExt == 'html' && fileExt == 'css') {
+                            if ((targetExt == 'html' || targetExt == 'htm') && fileExt == 'css') {
                                 modify(number, 'css');
-                            } else if (targetExt == 'html' && fileExt == 'js') {
+                            } else if ((targetExt == 'html' || targetExt == 'htm') && fileExt == 'js') {
                                 modify(number, 'js');
-                            } else if (fileExt == 'html' && targetExt == 'css') {
+                            } else if ((fileExt == 'html' || fileExt == 'htm') && targetExt == 'css') {
                                 modify(file.parentElement.getAttribute('data-index'), 'css');
-                            } else if (fileExt == 'html' && targetExt == 'js') {
+                            } else if ((fileExt == 'html' || fileExt == 'htm') && targetExt == 'js') {
                                 modify(file.parentElement.getAttribute('data-index'), 'js');
                             } else {
                                 showAlert('you can only merge javascript and css with html code');
@@ -11672,17 +11677,14 @@
                 if (number == "c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" && option.text == "Delete") {
                     return;
                 }
-        
-                if (targetElement.classList.contains('edit-btn') && targetElement.parentElement.parentElement.querySelector('.notclickable')) {
-                    if (option.text == "Merge" && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.html') && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.css') && !targetElement.parentElement.parentElement.querySelector('.notclickable').textContent.trim().endsWith('.js')) {
-                        return;
-                    }
-                } else {
-                    if (option.text == "Merge" && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.html') && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.js') && !targetElement.parentElement.textContent.replace("⋮", "").trim().endsWith('.css')) {
-                        return;
-                    }
+                if (!mimeTypes[projectNames[number].split(".").pop()] && option.text == "Download") {
+                    return;
                 }
-        
+                
+                if (option.text == "Merge" && !projectNames[number].endsWith('.htm') && !projectNames[number].endsWith('.html') && !projectNames[number].endsWith('.css') && !projectNames[number].endsWith('.js')) {
+                    return;
+                }
+                
                 optionItem.appendChild(icon);
                 optionItem.appendChild(text);
                 container.appendChild(optionItem);
@@ -13441,16 +13443,7 @@
                 shortNotificationmessageelement("The code was not found!");
                 return;
             }
-
-            const mimeTypes = {
-                html: 'text/html',
-                htm: 'text/html',
-                css: 'text/css',
-                js: 'application/javascript',
-                txt: 'text/plain',
-                py: 'text/x-python'
-            };
-
+            
             const mimeType = mimeTypes[type];
             if (!mimeType) {
                 return;
@@ -16303,20 +16296,19 @@
             }
             iframeNotEmpty = false;
             currentiframeid = null;
-            document.getElementById('console').innerHTML = "";
             document.querySelector('#' + iframeid).srcdoc = "";
             document.querySelector('#' + iframeid).parentElement.style.backgroundColor = "var(--browseriframebackgroundcolor-color)";
             timers = {};
             counts = {};
             consolegroups = {};
             openconsolegroups = {};
+            document.getElementById('console').innerHTML = "";
         }
         function textCode(textcontainerid, iframeid) {
-            if (!iframeid){
+            if (!iframeid || !textcontainerid){
                 return;
             }
             closeInspectorDropdown();
-            document.getElementById('console').innerHTML = "";
             currentiframeid = iframeid;
             currenttextcontainerid = textcontainerid;
             document.querySelector('#computer-frame').srcdoc = "";
@@ -16324,6 +16316,7 @@
             document.querySelectorAll('.iframe-container').forEach(iframe => {
                 iframe.style.backgroundColor = "var(--browseriframebackgroundcolor-color)";
             });
+            document.getElementById('console').innerHTML = "";
             timers = {};
             counts = {};
             consolegroups = {};
@@ -16800,7 +16793,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                         "countReset"
                     ];
                     if (!keys.includes(type)) {
-                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}', logId: 'consoleMessageId' + crypto.randomUUID() }, '*');\nconsole.${type}(${message});`;
+                        return `parent.postMessage({ status: 'error', message: 'unsupported console method: ${type}', logId: 'consoleMessageId' + crypto.randomUUID() }, '*');`;
                     }
                     let messagetouse = message;
                     if (messagetouse == "") {
