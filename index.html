@@ -13446,7 +13446,8 @@
                 html: 'text/html',
                 css: 'text/css',
                 js: 'application/javascript',
-                txt: 'text/plain'
+                txt: 'text/plain',
+                py: 'text/x-python'
             };
 
             const mimeType = mimeTypes[type];
@@ -15573,11 +15574,11 @@
         function deleteAllCommentsInLines() {
             const allLines = editorFiles[editorIndex];
             if (!allLines) {
-                showAlert('File not found');
+                showAlert('we did not find the file');
             }
             const sectionlinecontainer = section.querySelector(".code-editor-container");
             if (!sectionlinecontainer) {
-                showAlert('File content not found');
+                showAlert('we did not find the files content');
                 return;
             }
             
@@ -16569,10 +16570,37 @@ import ast
 import js
 import builtins
 import os
+import sys
 
-class PythonAsyncifier(ast.NodeTransformer):
+# Crucial to support heavy recursion in scripts like the chatbot loop
+sys.setrecursionlimit(10000)
+
+class AsyncFunctionFinder(ast.NodeVisitor):
     def __init__(self):
         self.async_functions = set()
+        self.changed = True
+
+    def find(self, tree):
+        while self.changed:
+            self.changed = False
+            self.visit(tree)
+        return self.async_functions
+
+    def visit_FunctionDef(self, node):
+        if node.name in self.async_functions:
+            return
+        # Scan child nodes for inputs or calls to known async functions
+        for child in ast.walk(node):
+            if isinstance(child, ast.Call) and isinstance(child.func, ast.Name):
+                if child.func.id == 'input' or child.func.id in self.async_functions:
+                    self.async_functions.add(node.name)
+                    self.changed = True
+                    break
+        self.generic_visit(node)
+
+class PythonAsyncifier(ast.NodeTransformer):
+    def __init__(self, async_funcs):
+        self.async_functions = async_funcs
 
     def visit_Call(self, node):
         self.generic_visit(node)
@@ -16584,15 +16612,14 @@ class PythonAsyncifier(ast.NodeTransformer):
                     keywords=node.keywords
                 )
             )
+        # Prefix registered functions with await to handle deep recursion
         if isinstance(node.func, ast.Name) and node.func.id in self.async_functions:
             return ast.Await(value=node)
         return node
 
     def visit_FunctionDef(self, node):
         self.generic_visit(node)
-        has_await = any(isinstance(child, ast.Await) for child in ast.walk(node))
-        if has_await:
-            self.async_functions.add(node.name)
+        if node.name in self.async_functions:
             return ast.AsyncFunctionDef(
                 name=node.name, args=node.args, body=node.body,
                 decorator_list=node.decorator_list, returns=node.returns
@@ -16605,9 +16632,16 @@ async def __js_async_input(prompt_msg=""):
 def transpiler_engine(user_code):
     try:
         tree = ast.parse(user_code)
-        transformer = PythonAsyncifier()
+        
+        # Pass 1: Map all functions recursively calling 'input()'
+        finder = AsyncFunctionFinder()
+        async_funcs = finder.find(tree)
+        
+        # Pass 2: Morph AST to append await prefixes intelligently
+        transformer = PythonAsyncifier(async_funcs)
         tree = transformer.visit(tree)
         ast.fix_missing_locations(tree)
+        
         return ast.unparse(tree)
     except Exception as e:
         return f"# ERROR: {e}"
@@ -16617,7 +16651,7 @@ def fallback_clear_engine(command=None):
     return 0
 
 builtins.clear = fallback_clear_engine
-os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls'] else 0
+os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls ' if os.name == 'nt' else 'clear'] else 0
                 `);
                 
                 if (status) status.textContent = "Ready to execute!";
