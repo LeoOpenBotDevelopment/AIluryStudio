@@ -15573,11 +15573,11 @@
         function deleteAllCommentsInLines() {
             const allLines = editorFiles[editorIndex];
             if (!allLines) {
-                showAlert('we did not find the file');
+                showAlert('File not found');
             }
             const sectionlinecontainer = section.querySelector(".code-editor-container");
             if (!sectionlinecontainer) {
-                showAlert('we did not find the files content');
+                showAlert('File content not found');
                 return;
             }
             
@@ -15618,7 +15618,7 @@
 
                 let text = line.text;
                 
-                text = text.replace(/<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, '').replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '').replace(/\/\/.*/g, '');
+                text = text.replace(/<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, '').replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '').replace(/\/\/.*/g, '').replace(/#(?=[\s#]).*/g, '');
                 line.text = text;
             });
 
