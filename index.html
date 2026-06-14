@@ -13234,7 +13234,8 @@
                 Math.random().toString(36).slice(2)
             );
         }
-        async function createNewFile(filename, optionalText = '', file = null, fileId = null, isalist = false) {
+        async function createNewFile(rFilename, optionalText = '', file = null, fileId = null, isalist = false) {
+            const filename = rFilename.trim().replace(' ', '');
             let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
             if (allfilenames.includes(filename)) {
                 showAlert('you have a file with the name ' + filename + ' please change the file name and try again');
