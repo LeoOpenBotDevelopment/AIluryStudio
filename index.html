@@ -144,7 +144,7 @@
             box-sizing: border-box;
             transition: color 0.2s, background 0.2s, border 0.2s;
         }
-
+        
         body {
             font-family: 'Arial', sans-serif;
             height: 100dvh;
@@ -1693,6 +1693,8 @@
             width: 100%;
             border-left: 1px solid var(--bg-color);
             font-size: 0.8em;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .viewthisfileExpanded {
             animation: none;
@@ -3487,6 +3489,9 @@
             padding: 10px;
             border: none;
             border-radius: 50%;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: var(--tr);
         }
         .sidebarenabled #consoleconteiner, .sidebarenabled #pythonConsole{
             width: calc(100vw - var(--sibebar-width));
@@ -6434,6 +6439,9 @@
             font-size: 0.8em;
             font-weight: bold;
             color: white;
+            transition: var(--tr);
+            user-select: none;
+            -webkit-user-select: none;
         }
         #runPyBtn:disabled {
             opacity: 0.5;
@@ -6699,7 +6707,7 @@
                         </div>
                     </div>
                     <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()" id="infilerunbtn">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
                 </div>
             </div>
@@ -6771,6 +6779,12 @@
                             <input type="checkbox" class="switchbox" data-checked="pastbtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
                         </label> <div class="symbolspancontainer"><span class="btnLabel">undo</span><button class="Symbol-Span">↺</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('undo')">></button></div>
+                    </div>
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="switchbox" data-checked="infilerunbtn" onchange="updatecheckboxed(this)" checked>
+                            <span class="slider"></span>
+                        </label> <div class="symbolspancontainer"><span class="btnLabel">run</span><button class="Symbol-Span">◁</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('run')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -7133,9 +7147,9 @@
                         <button class="overlay-back-btn" onclick="hideOverlay('#files_overlay', 'files')">×</button>
                         <button class="overlay-close-btn" onclick="hideOverlay('#files_overlay', 'files')">close</button>
                         <input type="file" id="fileInput" style="display: none;" accept=".txt, .css, .js, .html, image/*" multiple>
-                        <button onclick="clickthiselement('#fileInput')" class="upload-btn">upload</button>
-                        <button class="viewthisfile" onclick="viewthisfile()">view</button>
-                        <button class="create-file-btn" onclick="requestcreatenewfile()">+</button>
+                        <button onclick="clickthiselement('#fileInput')" class="upload-btn" id="uploadNewFilesBtn">upload</button>
+                        <button class="viewthisfile" onclick="viewthisfile()" id="viewThisFileFromFilesBtn">view</button>
+                        <button class="create-file-btn" onclick="requestcreatenewfile()" id="createNewFileBtn">+</button>
                     </div>
                     <div class="searchforafilename-container"><input type="text" oninput="searchforafile(this)" placeholder="search..." class="searchforafilename"><button class="searchforafilenamereadybtn" onclick="filesearchready(this)">ready</button></div>
         
@@ -7165,7 +7179,7 @@
                     <div id="template_op_bar">
                         <button class="overlay5-back-btn" onclick="hideOverlay('#template_overlay', 'templates')">×</button>
                         <button class="overlay5-close-btn" onclick="hideOverlay('#template_overlay', 'templates')">close</button>
-                        <button class="create-file-btn" onclick="requestcreatenewfile()">add file</button>
+                        <button class="create-file-btn" onclick="requestcreatenewfile()" id="createNewFileFromTemplatesBtn">add file</button>
                     </div>
                 </div>
             </div>
@@ -8479,7 +8493,7 @@
             return resultText;
         }
         
-        const supportedpl = [".js", ".css", ".html", ".htm"];
+        const supportedpl = [".js", ".css", ".html", ".htm", ".py"];
         function clampCssVarToMaxPx(cssVarName, maxPx) {
             const value = getComputedStyle(document.documentElement).getPropertyValue(cssVarName).trim();
             
@@ -9607,6 +9621,10 @@
             "spaceindentation": {
                 title: "space indentation",
                 description: "Highlight the edge of indents in the the code. This makes it easier to trace blocks."
+            },
+            "run": {
+                title: "run",
+                description: "Show a test window to test your files code instantly."
             }
         };
         
@@ -13287,7 +13305,7 @@
                 <p class="specificDescription">Note Description Placeholder</p>
             </div>
         </div>
-        <div class="code-editor-btns"><button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
+        <div class="code-editor-btns"><button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()" id="infilerunbtn">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
             container.appendChild(newSection);
             const newNavDot = document.createElement('div');
             newNavDot.classList.add('nav-dot', 'filedot');
@@ -13820,7 +13838,7 @@
                     
                     if (projectFileNames) {
                         for (let key in projectFileNames) {
-                            if (projectFileNames[key].endsWith(".html") && foundWantedFile == false) {
+                            if ((projectFileNames[key].endsWith(".html") || projectFileNames[key].endsWith(".htm")) && foundWantedFile == false) {
                                 wantedFileId = key;
                                 foundWantedFile = true;
                             }
@@ -18986,6 +19004,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
             "addspacesleftbtn": "This button adds indent spaces left. You can edit the indent size in the \"file settings\".",
             "replaceaslbtn": "You can replace text in your code with other text, with either a regex or normal text. This replaces text only in selected lines.",
             "replacealbtn": "You can replace text in your code with other text, with either a regex or normal text. This replaces text in all lines.",
+            "infilerunbtn": "When you click this button, a testing section will appear, that allows you to test the code in the file, to see what it's output is.",
             "code-search-input": "You can search your file with this. results will appear below this input field.",
             "showcommandlist-btn-element": "By clicking this you'll get a list of all existing commands and shortcuts. You can add commands and shortcuts in the \"file settings\".",
             "line-number-input": "You can enter a number here and when you click: 'Enter', you'll be teleported to the line at that index, if the index is out of range, you'll be teleported to the line closest to it.",
@@ -19008,7 +19027,14 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
             "startCodingBtn": "By clicking this button you will close this section that is currently overlaying the editor and a new project will be created, if you selected the new project option, or the selected project will be opened for you to be able to edit it.",
             "checklistBtn": "By clicking this button you will be met with a section that allows you to create a road map or checklist for yourself. This section acts as a note taking feature and comes with additional features that allow customization and enhance efficiency.",
             "deleteNoteBtn": "When you click this button, the note that you have expanded will be deleted indefinitely.",
-            "addListItemBtn": "This button reveals an overlay that lets you create notes."
+            "addListItemBtn": "This button reveals an overlay that lets you create notes.",
+            "runPyBtn": "By clicking this button you run the python code in this current file. The status is displayed to the left of this element and once the console is running you can use the code insert input bar at the bottom to run additional code during the run-time.",
+            "createNewFileFromTemplatesBtn": "When you click this button, you will be prompted to enter a unique file name and after submitting the file will be created with the name that you entered.",
+            "createNewFileBtn": "When you click this button, you will be prompted to enter a unique file name and after submitting the file will be created with the name that you entered.",
+            "viewThisFileFromFilesBtn": "When you click this button, a testing section will appear, that allows you to test the code in the file, to see what it's output is.",
+            "uploadNewFilesBtn": "When you click this button you will be given the option to upload files to this code editor. It's important to note that only text files are saved and image files are only available as long as this page is not refreshed or closed.",
+            "clearconsole": "When you click this button, the js console will be cleared.",
+            "clearpyconsole": "When you click this button, the python console will be cleared."
         };
         let savedSelection = {
             hadSelection: false,
