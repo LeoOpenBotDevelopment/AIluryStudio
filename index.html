@@ -2085,6 +2085,7 @@
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             transition: var(--tr);
+            cursor: default;
         }
         .codesearchresults .result:hover {
             background: rgba(150, 150, 150, 0.1);
@@ -3917,6 +3918,7 @@
             overflow: hidden;
             max-width: 500px;
             position: relative;
+            cursor: pointer;
         }
         .caexampleLabel {
             background: var(--bg-color);
@@ -4545,6 +4547,9 @@
         }
         .sidebarenabled.sidebarfilebtnssectionextexternalsidebarprev .sidebarbardivbuttondiv1 {
             width: var(--sibebar-width);
+        }
+        .maximizetogglebtn {
+            cursor: pointer;
         }
         .divcodeeditor-container:not(.sidebarfilebtnssectionextexternalsidebar) .maximizetogglebtn {
             background: var(--bg-color);
@@ -6102,6 +6107,7 @@
             gap: 0;
             width: 100%;
             margin-top: 5px;
+            cursor: default;
         }
         .searchAllResultCon {
             width: 100%;
@@ -6166,6 +6172,7 @@
             overflow-wrap: break-word;
             word-break: break-word;
             padding: 2px;
+            cursor: default;
         }
         .searchAllResultText {
             overflow-wrap: break-word;
@@ -18966,7 +18973,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
             "showalltemplatescontainerbtn": "Click this if you want to use some templates or get some inspiration. Make sure to read and agree to the licence before using any of the templates.",
             "toggleexternalsidebartext": "This button expands the files secion on this side-bar.",
             "pastbtn": "This is the undo button. You can edit its behavior in the \"file settings\".",
-            "pin_listitem_btn": "This is a toggle button. When this button is toggled on, this note will be put at the top of the notes list, both in the notes list section and file overlay (the list visible on the file when a note is pinned to a file.",
+            "pin-listitem-btn": "This is a toggle button. When this button is toggled on, this note will be put at the top of the notes list, both in the notes list section and file overlay (the list visible on the file when a note is pinned to a file.",
             "noteDisplayTimeSwitch": "This switch lets you decide if you want your file notes overlay to be permanently visible or only visible for a short amount of time after opening a file that has notes attached to it.",
             "deletebtn": "This is the delete button. You can delete lines in your code with this. You can undo this action any time. You can edit this button in the \"file settings\".",
             "importantPinbtn": "This is for pinning and unpinning. You can pin and unpin lines with this button. This button at the top is a toggle button, and this button at the bottom is a unpin all button. You can also unselect manually in the \"file settings\". You can also edit pinning behavior in the \"file settings\".",
@@ -18979,9 +18986,9 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
             "addspacesleftbtn": "This button adds indent spaces left. You can edit the indent size in the \"file settings\".",
             "replaceaslbtn": "You can replace text in your code with other text, with either a regex or normal text. This replaces text only in selected lines.",
             "replacealbtn": "You can replace text in your code with other text, with either a regex or normal text. This replaces text in all lines.",
-            "code_search_input": "You can search your file with this. results will appear below this input field.",
-            "showcommandlist_btn_element": "By clicking this you'll get a list of all existing commands and shortcuts. You can add commands and shortcuts in the \"file settings\".",
-            "line_number_input": "You can enter a number here and when you click: 'Enter', you'll be teleported to the line at that index, if the index is out of range, you'll be teleported to the line closest to it.",
+            "code-search-input": "You can search your file with this. results will appear below this input field.",
+            "showcommandlist-btn-element": "By clicking this you'll get a list of all existing commands and shortcuts. You can add commands and shortcuts in the \"file settings\".",
+            "line-number-input": "You can enter a number here and when you click: 'Enter', you'll be teleported to the line at that index, if the index is out of range, you'll be teleported to the line closest to it.",
             "unsleeplines": "This button enables all disabled lines. If you want to enable specific lines, go to \"file settings\" and enable specific lines there.",
             "rightbtn": "This button unfolds all folded code sections.",
             "leftbtn": "This button unselects all selected lines.",
@@ -19102,8 +19109,8 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 removeAllHighlightedTexts();
             }
         }
-        document.addEventListener('mouseup', function(event) {
-            highlightSelectedText();
+        document.addEventListener('mouseup', () => {
+            requestAnimationFrame(highlightSelectedText);
         });
         document.addEventListener('touchend', function(event) {
             if (setTimeForInfo) {
@@ -20281,7 +20288,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 const isCmdOrCtrl = event.metaKey || event.ctrlKey;
                 if ((event && event.key == "ArrowRight") || (isCmdOrCtrl && event.key == "q")) {
                     const fceline = section.querySelector('.code-editor-line:focus');
-                    const hceline = section.querySelector('.code-editor-line:hover');
+                    const hceline = section.querySelector('.code-editor-line:hover, .code-editor-line:has(*:hover)');
                     let celine = fceline ? fceline : hceline;
                     if (celine) {
                         targetElementv = celine;
