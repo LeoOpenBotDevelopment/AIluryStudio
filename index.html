@@ -13739,9 +13739,14 @@
                         "htm": "HyperText Markup",
                         "py": "Python"
                     };
-                
-                    let extension = filetype.value.split('.').pop();
-                
+                    const filetypeValue = filetype.value;
+                    let extension = filetypeValue.split('.').pop();
+                    const deleteAllCommentsBtn = document.getElementById("deleteAllCommentsBtn");
+                    if (!filetypeValue.endsWith(".html") && !filetypeValue.endsWith(".htm") && !filetypeValue.endsWith(".js") && !filetypeValue.endsWith(".css") && !filetypeValue.endsWith(".py")) {
+                        deleteAllCommentsBtn.style.display = "none";
+                    } else {
+                        deleteAllCommentsBtn.style.display = "flex";
+                    }
                     if (filetypes[extension]) {
                         seccontainer.querySelector('#fileinfofiletype').textContent = filetypes[extension];
                     } else {
@@ -15592,9 +15597,17 @@
             updateSaveFile();
         }
         function deleteAllCommentsInLines() {
+            if (!section) return;
             const allLines = editorFiles[editorIndex];
+            const currentFileName = projectNames[section.id];
+            if (!currentFileName) return;
+            if (!currentFileName.endsWith(".html") && !currentFileName.endsWith(".htm") && !currentFileName.endsWith(".js") && !currentFileName.endsWith(".css") && !currentFileName.endsWith(".py")) {
+                showAlert('This feature does not support the file type: ' + currentFileName.split(".").pop());
+                return;
+            }
             if (!allLines) {
                 showAlert('we did not find the file');
+                return;
             }
             const sectionlinecontainer = section.querySelector(".code-editor-container");
             if (!sectionlinecontainer) {
@@ -15616,21 +15629,25 @@
             let newpast = [];
             lasteventsparentsection = section;
             
-            const allsyntaxcommentsyntaxhtmlcommentsectionlines = [...allsyntaxcommentsectionlines, ...allsyntaxhtmlcommentsectionlines];
-            
-            allsyntaxcommentsyntaxhtmlcommentsectionlines.forEach(line => {
-                if (line.classes.includes("hiddenlinesparent")) {
-                    line.classes.splice(line.classes.indexOf('hiddenlinesparent'), 1);
-                    showHiddenElements(line);
+            if (currentFileName.endsWith(".html") || currentFileName.endsWith(".htm") || currentFileName.endsWith(".js") || currentFileName.endsWith(".css")) {
+                let allsyntaxcommentsyntaxhtmlcommentsectionlines = [...allsyntaxcommentsectionlines];
+                if (currentFileName.endsWith(".html") || currentFileName.endsWith(".htm")) {
+                    allsyntaxcommentsyntaxhtmlcommentsectionlines.push(...allsyntaxhtmlcommentsectionlines);
                 }
-                let pastelement = {
-                    element: {...line},
-                    type: "delete",
-                    index: allLines.indexOf(line)
-                };
-                newpast.push(pastelement);
-                allLines.splice(allLines.indexOf(line), 1);
-            });
+                allsyntaxcommentsyntaxhtmlcommentsectionlines.forEach(line => {
+                    if (line.classes.includes("hiddenlinesparent")) {
+                        line.classes.splice(line.classes.indexOf('hiddenlinesparent'), 1);
+                        showHiddenElements(line);
+                    }
+                    let pastelement = {
+                        element: {...line},
+                        type: "delete",
+                        index: allLines.indexOf(line)
+                    };
+                    newpast.push(pastelement);
+                    allLines.splice(allLines.indexOf(line), 1);
+                });
+            }
 
             allLines.forEach(line => {
                 let pastelement = {
@@ -15642,8 +15659,15 @@
                 newpast.push(pastelement);
 
                 let text = line.text;
-                
-                text = text.replace(/<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, '').replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '').replace(/\/\/.*/g, '').replace(/#(?=[\s#]).*/g, '');
+                if (currentFileName.endsWith(".html") || currentFileName.endsWith(".htm")) {
+                    text = text.replace(/<!--[\s\S]*?-->|((?:(?!<!--)[\s\S])*)-->|<!--[\s\S]*$/g, '').replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '').replace(/\/\/.*/g, '');
+                } else if (currentFileName.endsWith(".css")) {
+                    text = text.replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '');
+                } else if (currentFileName.endsWith(".js")) {
+                    text = text.replace(/\/\*[\s\S]*?\*\/|((?:(?!\/\*)[\s\S])*)\*\/|\/\*[\s\S]*$/g, '').replace(/\/\/.*/g, '');
+                } else if (currentFileName.endsWith(".py")) {
+                    text = text.replace(/#(?=[\s#]).*/g, '');
+                }
                 line.text = text;
             });
 
@@ -17547,9 +17571,14 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                         "htm": "HyperText Markup",
                         "py": "Python"
                     };
-                    
-                    let extension = filetype.value.split('.').pop();
-                    
+                    const filetypeValue = filetype.value;
+                    let extension = filetypeValue.split('.').pop();
+                    const deleteAllCommentsBtn = document.getElementById("deleteAllCommentsBtn");
+                    if (!filetypeValue.endsWith(".html") && !filetypeValue.endsWith(".htm") && !filetypeValue.endsWith(".js") && !filetypeValue.endsWith(".css") && !filetypeValue.endsWith(".py")) {
+                        deleteAllCommentsBtn.style.display = "none";
+                    } else {
+                        deleteAllCommentsBtn.style.display = "flex";
+                    }
                     if (filetypes[extension]) {
                         fileinfofiletype.textContent = filetypes[extension];
                     } else {
