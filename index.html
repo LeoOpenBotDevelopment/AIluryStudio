@@ -12573,6 +12573,7 @@
                 divcodeeditorcontainer.classList.toggle('sidebarenabled');
             }
             noWindowsOpen();
+            refreshSearchResultsInterval();
         }
         
         const mediaQuery = window.matchMedia('(max-width: 700px)');
@@ -17018,8 +17019,9 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
         function refreshSearchResultsInterval() {
             if (searchIngerval != null) return;
             searchIngerval = setInterval(() => {
-                const searchAllEnabled = document.querySelector(".searchAllEnabled");
-                if (Object.keys(allSearchResults).length > 0 && searchAllEnabled) {
+                const sidebarenabledSearchAllEnabled = document.querySelector(".sidebarenabled.searchAllEnabled");
+                const smallsidebarenabledSearchAllEnabled = document.querySelector(".smallsidebarenabled.searchAllEnabled");
+                if (Object.keys(allSearchResults).length > 0 && (sidebarenabledSearchAllEnabled || smallsidebarenabledSearchAllEnabled)) {
                     Object.keys(allSearchResults).forEach(key => {
                         if (!editorFiles[key]) {
                             const searchAllFileEl = document.getElementById("searchAllFileEl" + key);
