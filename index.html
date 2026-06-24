@@ -812,6 +812,7 @@
             font-size: 0.85em;
             margin-left: 1%;
             transition: var(--tr);
+            flex-shrink: 0;
             user-select: none;
             -webkit-user-select: none;
         }
@@ -1506,14 +1507,14 @@
         }
         .content-container, #template_container {
             border: 1px solid var(--border-color);
-            background-color: var(--bg-color);
+            background: var(--bg-color);
             padding: 20px;
             border-radius: 5px;
-            display: grid;
-            align-items: start;
-            justify-content: start;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
-            gap: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: column;
+            gap: 10px;
             width: 80vw;
             max-width: 1200px;
             margin-top: 20px;
@@ -1523,13 +1524,19 @@
             overflow-y: scroll;
             transition: var(--tr);
         }
-        #template_container {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+        
+        #filesFileContainer, #templateFilesContainer {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            height: fit-content;
+            width: 100%;
+            gap: 13px;
+            margin-top: 5px;
         }
-
+        
         .sidebarenabled .content-container, .sidebarenabled #template_container{
             width: calc(100vw - var(--sibebar-width));
-            grid-template-columns: repeat(2, 1fr);
             overflow-y: auto;
             right: 0;
             margin-top: 0;
@@ -1544,7 +1551,6 @@
             .sidebarenabled .content-container, .sidebarenabled #template_container {
                 width: calc(100vw - var(--sibebar-width));
                 height: 100dvh;
-                grid-template-columns: repeat(2, 1fr);
                 overflow-y: auto;
                 right: 0;
                 border: none;
@@ -1629,9 +1635,10 @@
             border-left: none;
             transition: var(--tr);
         }
-
+        .checklist-container {
+            height: 100dvh;
+        }
         #files_top_bar, #template_op_bar {
-            grid-column: 1 / -1;
             width: 100%;
             background-color: var(--bg-color);
             padding: 10px;
@@ -1642,7 +1649,6 @@
         }
 
         .searchforafilename-container {
-            grid-column: 1 / -1;
             width: 100%;
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
@@ -1755,8 +1761,11 @@
             text-overflow: ellipsis;
             transition: var(--tr);
             box-sizing: border-box;
-            margin-top: 10px;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 300px;
             animation: popslidein 1s ease;
+            flex-shrink: 0;
         }
         .rectangle:not(#image-rectangle), .rectanglep:not(#image-rectangle) {
             border-top-left-radius: 0;
@@ -1794,7 +1803,10 @@
             height: 70dvh;
             align-items: flex-end;
             justify-content: flex-end;
+            width: 100%;
+            max-width: 400px;
             padding: 10px;
+            flex-shrink: 0;
         }
         @keyframes spinAnimation {
             from {
@@ -2016,7 +2028,6 @@
                 width: 100vw;
                 height: 100dvh;
                 max-width: none;
-                grid-template-columns: repeat(2, 1fr);
                 overflow-y: auto;
             }
             .rectangle, .halfrectagle{
@@ -4723,7 +4734,6 @@
             .content-container, #template_container {
                 width: 100vw;
                 height: 100dvh;
-                grid-template-columns: repeat(1, 1fr);
                 overflow-y: auto;
             }
             .rectangle, .halfrectagle{
@@ -5870,6 +5880,7 @@
             font-size: 1em;
             border-radius: 10px;
             padding: 10px;
+            flex-shrink: 0;
         }
         #noteDescriptionInput:focus, #noteDescriptionInputOnCreate:focus {
             outline: none;
@@ -5968,7 +5979,7 @@
         }
         #createNoteContainer {
             width: 100%;
-            max-height: 100dvh;
+            max-height: 100%;
             position: relative;
             max-width: 500px;
             background: var(--bg-color);
@@ -6524,6 +6535,27 @@
             gap: 0;
         }
         
+        @keyframes moveupAnimation {
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        @keyframes movedownAnimation {
+            50% {
+                transform: translateY(10px);
+            }
+        }
+        @keyframes moveleftAnimation {
+            50% {
+                transform: translateX(-10px);
+            }
+        }
+        @keyframes moverightAnimation {
+            50% {
+                transform: translateX(10px);
+            }
+        }
+        
         @keyframes silverFlow {
             0% {
                 background-position: 0% 50%;
@@ -6690,7 +6722,20 @@
                 </div>
                 <div class="section" id="c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11">
                     <div class="editor-selected-line-btns">
-                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changeBtnTextOnClick(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changeBtnTextOnClick(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div>
+                        <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button>
+                        <button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changeBtnTextOnClick(this)">⌧</button>
+                        <button class="eslbtn disabled" id="commentbtn" onclick="commentallselectedlines();changebtnnotinsquare(this)">#</button>
+                        <button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button>
+                        <button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup();aAnimationFor(this, 'moveupAnimation', false);">↑</button>
+                        <button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown();aAnimationFor(this, 'movedownAnimation', false);">↓</button>
+                        <button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button>
+                        <button class="eslbtn disabled" id="copybtn" onclick="changeBtnTextOnClick(this);copyselectedlinetexts()">□</button>
+                        <button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button>
+                        <button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft();aAnimationFor(this, 'moveleftAnimation', false);">↤</button>
+                        <button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright();aAnimationFor(this, 'moverightAnimation', false);">↦</button>
+                        <button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button>
+                        <input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
+                    </div>
                     <div class="code-editor-container" id="linenumberingon">
                     </div>
                     <div class="fileSpecificNoteCon">
@@ -6707,7 +6752,17 @@
                         </div>
                     </div>
                     <div class="code-editor-btns">
-                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()" id="infilerunbtn">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+                        <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button>
+                        <button class="code-editor-btn" onclick="_viewcode()" id="infilerunbtn">◁</button>
+                        <button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button>
+                        <button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button>
+                        <button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button>
+                        <button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button>
+                        <button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button>
+                        <button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button>
+                        <button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button>
+                        <button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button>
+                        <input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
                     </div>
                 </div>
             </div>
@@ -6797,6 +6852,12 @@
                             <input type="checkbox" class="switchbox" data-checked="deletebtn" onchange="updatecheckboxed(this)" checked>
                             <span class="slider"></span>
                         </label> <div class="symbolspancontainer"><span class="btnLabel">delete</span><button class="Symbol-Span">⌧</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('delete')">></button></div>
+                    </div>
+                    <div class="seccontainer-line">
+                        <label class="switch">
+                            <input type="checkbox" class="switchbox" data-checked="commentbtn" onchange="updatecheckboxed(this)" checked>
+                            <span class="slider"></span>
+                        </label> <div class="symbolspancontainer"><span class="btnLabel">comment</span><button class="Symbol-Span">#</button><button class="cldeeditfunctionsettings" onclick="openfunctionsettings('comment')">></button></div>
                     </div>
                     <div class="seccontainer-line">
                         <label class="switch">
@@ -7017,7 +7078,7 @@
                             </select>
                         </div>
                         <div id="noteDisplayTimeSwitch">
-                            <span id="temporaryDisplayText">Temporarry display</span>
+                            <span id="temporaryDisplayText">Temporary display</span>
                             <label class="switch">
                                 <input type="checkbox" class="switchbox" onchange="updateNoteTemporraryDisplay(this)">
                                 <span class="slider"></span>
@@ -7152,23 +7213,22 @@
                         <button class="create-file-btn" onclick="requestcreatenewfile()" id="createNewFileBtn">+</button>
                     </div>
                     <div class="searchforafilename-container"><input type="text" oninput="searchforafile(this)" placeholder="search..." class="searchforafilename"><button class="searchforafilenamereadybtn" onclick="filesearchready(this)">ready</button></div>
-        
-                    <!-- Rechtecke (Inhalt) -->
-        
-                    <div class="rectangle" id="rectanglec3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" onclick="editthisfile('c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11', event)">
-                        <span class="notclickable">index.html</span>
-                        <div class="rectangle-buttons">
-                            <button class="edit-btn">≡</button>
+                    <div id="filesFileContainer">
+                        <div class="rectangle" id="rectanglec3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11" onclick="editthisfile('c3f8a1a6_7e42_4b9a_9b3a_1f7c2a5e9d11', event)">
+                            <span class="notclickable">index.html</span>
+                            <div class="rectangle-buttons">
+                                <button class="edit-btn">≡</button>
+                            </div>
+                            <button class="close">×</button>
                         </div>
-                        <button class="close">×</button>
-                    </div>
-                    <div class="rectangle" id="image-rectangle" data-name="Image" data-type="jpg" style="background-image: url(Image.jpg); background-size: cover; background-position: center;">
-                        <span class="image-name">Image.jpg</span>
-                        <div class="rectangle-buttons">
-                            <button class="download-btn">Download</button>
-                            <button class="delete-btn" onclick="deleteImage(this)">Delete</button>
+                        <div class="rectangle" id="image-rectangle" data-name="Image" data-type="jpg" style="background-image: url(Image.jpg); background-size: cover; background-position: center;">
+                            <span class="image-name">Image.jpg</span>
+                            <div class="rectangle-buttons">
+                                <button class="download-btn">Download</button>
+                                <button class="delete-btn" onclick="deleteImage(this)">Delete</button>
+                            </div>
+                            <button class="close">×</button>
                         </div>
-                        <button class="close">×</button>
                     </div>
                 </div>
             </div>
@@ -7181,6 +7241,7 @@
                         <button class="overlay5-close-btn" onclick="hideOverlay('#template_overlay', 'templates')">close</button>
                         <button class="create-file-btn" onclick="requestcreatenewfile()" id="createNewFileFromTemplatesBtn">add file</button>
                     </div>
+                    <div id="templateFilesContainer"></div>
                 </div>
             </div>
             <div id="theme-overlay" class="theme-overlay anOverlay" onclick="hideOverlay('.theme-overlay', 'theme', event)">
@@ -7813,6 +7874,19 @@
                 }, 500);
             }, 1000);
         });
+        function aAnimationFor(button, animation, disable = true) {
+            button.style.animation = "none";
+            void button.offsetWidth;
+            button.style.animation = animation + " 0.5s ease";
+            if (disable) {
+                button.disabled = true;
+            }
+            setTimeout(() => {
+                button.style.animation = "none";
+                void button.offsetWidth;
+                button.disabled = false;
+            }, 400);
+        }
         const mimeTypes = {
             html: 'text/html',
             htm: 'text/html',
@@ -7826,6 +7900,7 @@
             const searchAllInput = document.getElementById("searchAllInput");
             divcodeeditorContainer.classList.add("searchAllEnabled");
             searchAllInput.focus();
+            refreshSearchResultsInterval();
         }
         function updateNoteTemporraryDisplay(inputEl) {
             document.querySelectorAll(".fileSpecificNoteCon").forEach(fileSpecificNoteCon => {
@@ -8513,7 +8588,7 @@
             let name = filename.split('.');
             name.pop();
             name = name.join('.') + ".html";
-            const content5Container = document.getElementById('template_container');
+            const content5Container = document.getElementById('templateFilesContainer');
             
             const newRectangle = document.createElement('div');
             const newIFrame = document.createElement('iframe');
@@ -8537,7 +8612,7 @@
             newRectangleCopyBtn.className = "use-btn";
             newRectangleCloseBtn.className = "closetemplate";
             
-            newRectangleEnlargeBtn.textContent = "enlarged";
+            newRectangleEnlargeBtn.textContent = "enlarge";
             newRectangleAddBtn.textContent = "add";
             newRectangleCopyBtn.textContent = "copy";
             newRectangleCloseBtn.textContent = "×";
@@ -9613,6 +9688,10 @@
             "undo": {
                 title: "undo",
                 description: "Undo changes in your file. This feature allows you to undo your last edits of the file. Here you can clear the file history or set a limit to how much file history is stored. The limit applies to all files but the history deletion only applies to this file (if clicked)."
+            },
+            "comment": {
+                title: "comment",
+                description: "Comment selected lines in your file. This tool allows you to comment lines out without having to type the comments manually. This tool operates relatively to the programming language you apply it on."
             },
             "suggestions": {
                 title: "suggestions",
@@ -12954,7 +13033,7 @@
             
             const fileName = imagePath.split('/').pop();
 
-            const contentContainer = document.querySelector('.content-container');
+            const contentContainer = document.getElementById('#filesFileContainer');
 
             function getImageInfo(filePath) {
 
@@ -13290,7 +13369,21 @@
             const newSection = document.createElement('div');
             newSection.classList.add('section');
             newSection.id = randomNewSecName;
-            newSection.innerHTML = `<div class="editor-selected-line-btns"><button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button><button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changeBtnTextOnClick(this)">⌧</button><button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button><button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup()">↑</button><button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown()">↓</button><button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button><button class="eslbtn disabled" id="copybtn" onclick="changeBtnTextOnClick(this);copyselectedlinetexts()">□</button><button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button><button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft()">↤</button><button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright()">↦</button><button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button><input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search"></div></div>
+            newSection.innerHTML = `<div class="editor-selected-line-btns">
+            <button class="code-editor-btn disabled" id="pastbtn" onclick="gobackrotateanimation(this);gobacktolastpastevent()">↺</button>
+            <button class="eslbtn disabled" id="deletebtn" onclick="deleteSelectedLines();changeBtnTextOnClick(this)">⌧</button>
+            <button class="eslbtn disabled" id="commentbtn" onclick="commentallselectedlines();changebtnnotinsquare(this)">#</button>
+            <button class="eslbtn disabled" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantselectedlines()">⚠</button>
+            <button class="eslbtn disabled" id="upbtn" onclick="moveselectedlineup();aAnimationFor(this, 'moveupAnimation', false);">↑</button>
+            <button class="eslbtn disabled" id="downbtn" onclick="moveselectedlinedown();aAnimationFor(this, 'movedownAnimation', false);">↓</button>
+            <button class="eslbtn disabled" id="sleapbtn" onclick="changebtnnotinsquare(this);restselectedline()">☾</button>
+            <button class="eslbtn disabled" id="copybtn" onclick="changeBtnTextOnClick(this);copyselectedlinetexts()">□</button>
+            <button class="eslbtn disabled" id="trimbtn" onclick="changebtnnotinsquare(this);trimAllselectedlinetexts()">●</button>
+            <button class="eslbtn disabled" id="removespacesleftbtn" onclick="moveAllselectedlinetextsleft();aAnimationFor(this, 'moveleftAnimation', false);">↤</button>
+            <button class="eslbtn disabled" id="addspacesleftbtn" onclick="moveAllselectedlinetextsright();aAnimationFor(this, 'moverightAnimation', false);">↦</button>
+            <button class="eslbtn disabled" id="replaceaslbtn" onclick="replacetextinlines('allsl')">⤻</button>
+            <input type="text" class="code-search-input" id="code-search-input" oninput="searchcode(this)" onfocus="searchcode(this)" placeholder="⌕ search">
+        </div>
         <div class="code-editor-container" id="linenumberingon">
         </div>
         <div class="fileSpecificNoteCon">
@@ -13305,7 +13398,19 @@
                 <p class="specificDescription">Note Description Placeholder</p>
             </div>
         </div>
-        <div class="code-editor-btns"><button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button><button class="code-editor-btn" onclick="_viewcode()" id="infilerunbtn">◁</button><button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button><button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button><button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button><button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button><button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button><button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button><button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button><button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button><input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number"></div>`;
+        <div class="code-editor-btns">
+            <button class="code-editor-btn togglesidebarbutton" onclick="togglesidebarbuttonfunction()">☰</button>
+            <button class="code-editor-btn" onclick="_viewcode()" id="infilerunbtn">◁</button>
+            <button class="code-editor-btn" id="deletebtn" onclick="deleteAllLines();changeBtnTextOnClick(this)">⌧</button>
+            <button class="code-editor-btn" id="importantPinbtn" onclick="changebtnnotinsquare(this);importantalllines()">⚠</button>
+            <button class="code-editor-btn" id="leftbtn" onclick="changebtnnotinsquare(this);unselectalllines()">←</button>
+            <button class="code-editor-btn" id="rightbtn" onclick="changebtnnotinsquare(this);unfoldalllines()">→</button>
+            <button class="code-editor-btn" id="unsleeplines" onclick="changebtnnotinsquare(this);unsleepalllines()">○</button>
+            <button class="code-editor-btn" id="copybtn" onclick="changeBtnTextOnClick(this);copyalllinetexts()">□</button>
+            <button class="code-editor-btn" id="showcommandlist-btn-element" onclick="showOverlay('#commandsoverlay_container')">⌘</button>
+            <button class="code-editor-btn" id="replacealbtn" onclick="replacetextinlines('all')">⤻</button>
+            <input type="text" class="line-number-input" id="line-number-input" onkeydown="checkiflinenumberinputkeydownisenter(event)" placeholder="⌕ line number">
+        </div>`;
             container.appendChild(newSection);
             const newNavDot = document.createElement('div');
             newNavDot.classList.add('nav-dot', 'filedot');
@@ -13363,7 +13468,7 @@
             optionForFileSpecificSearch.id = `optionsa${newNavDotDataIndex}`;
             fileSpecificSearchSelect.appendChild(optionForFileSpecificSearch);
 
-            const overlayContainer = document.querySelector('#files_overlay .content-container');
+            const overlayContainer = document.querySelector('#files_overlay #filesFileContainer');
             const newRectangle = document.createElement('div');
             newRectangle.classList.add('rectangle');
             newRectangle.innerHTML = `<span class="notclickable">${filename}</span>
@@ -16022,12 +16127,12 @@
                 return html + '\n' + cleanCode;
             };
 
-            htmlString = htmlString.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/g, (match, href) => {
+            htmlString = htmlString.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi, (match, href) => {
                 const fileContent = checkiffile(href);
                 return fileContent ? `<style>\n${fileContent ? fileContent : ""}\n</style>` : match;
             });
 
-            htmlString = htmlString.replace(/<script\s+[^>]*src=["']([^"']+)["'][^>]*><\/script>/g, (match, src) => {
+            htmlString = htmlString.replace(/<script\s+[^>]*src=["']([^"']+)["'][^>]*><\/script>/gi, (match, src) => {
                 const fileContent = checkiffile(src);
                 return fileContent ? `<script>\n${fileContent ? fileContent : ""}\n<\/script>` : match;
             });
@@ -16900,7 +17005,90 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
             funcBtn.classList.toggle("appliedFunc");
             searchAllCode(document.getElementById("searchAllInput"));
         }
+        let currentSearchAllTerm = null;
+        function highlightSearchAllMatches(searchAllResultText) {
+            const caseToggle = document.getElementById("caseToggle");
+            const regexToggle = document.getElementById("regexToggle");
+            const caseToggleVal = caseToggle.classList.contains("appliedFunc");
+            const regexToggleVal = regexToggle.classList.contains("appliedFunc");
+            highlightSearchMatches(searchAllResultText, currentSearchAllTerm, regexToggleVal, caseToggleVal);
+        }
+        let allSearchResults = {};
+        let searchIngerval = null;
+        function refreshSearchResultsInterval() {
+            if (searchIngerval != null) return;
+            searchIngerval = setInterval(() => {
+                const searchAllEnabled = document.querySelector(".searchAllEnabled");
+                if (Object.keys(allSearchResults).length > 0 && searchAllEnabled) {
+                    Object.keys(allSearchResults).forEach(key => {
+                        if (!editorFiles[key]) {
+                            const searchAllFileEl = document.getElementById("searchAllFileEl" + key);
+                            delete allSearchResults[key];
+                            if (searchAllFileEl) {
+                                searchAllFileEl.remove();
+                            }
+                        } else {
+                            allSearchResults[key].forEach(line => {
+                                const theSavedEl = [...editorFiles[key]].find(eLine => eLine.id == line.id);
+                                const searchAllResult = document.querySelector("#searchAllResult" + line.id);
+                                if (!theSavedEl) {
+                                    allSearchResults[key].splice(allSearchResults[key].indexOf(line), 1);
+                                    if (searchAllResult) {
+                                        searchAllResult.remove();
+                                    }
+                                } else {
+                                    if (theSavedEl.text != line.text) {
+                                        const searchAllResultText = document.querySelector("#searchAllResult" + line.id + " .searchAllResultText");
+                                        if (searchAllResultText) {
+                                            searchAllResultText.textContent = theSavedEl.text.trim();
+                                            highlightSearchAllMatches(searchAllResultText);
+                                        }
+                                    }
+                                    if (searchAllResult) {
+                                        if (theSavedEl.classes.includes('importantpin') && !line.classes.includes('importantpin')) {
+                                            searchAllResult.classList.add("pinnedSearchResult");
+                                            if (searchAllResult.classList.contains("selectedSearchResult")) {
+                                                searchAllResult.classList.remove("selectedSearchResult");
+                                            }
+                                        } else if (theSavedEl.classes.includes('selected') && !line.classes.includes('selected')) {
+                                            searchAllResult.classList.add("selectedSearchResult");
+                                            if (searchAllResult.classList.contains("pinnedSearchResult")) {
+                                                searchAllResult.classList.remove("pinnedSearchResult");
+                                            }
+                                        } else if (!theSavedEl.classes.includes('importantpin') && line.classes.includes('importantpin')) {
+                                            if (searchAllResult.classList.contains("pinnedSearchResult")) {
+                                                searchAllResult.classList.remove("pinnedSearchResult");
+                                            }
+                                            if (theSavedEl.classes.includes('selected')) {
+                                                searchAllResult.classList.add("selectedSearchResult");
+                                            }
+                                        } else if (!theSavedEl.classes.includes('selected') && line.classes.includes('selected')) {
+                                            if (searchAllResult.classList.contains("selectedSearchResult")) {
+                                                searchAllResult.classList.remove("selectedSearchResult");
+                                            }
+                                        }
+                                    }
+                                    const searchAllResultNumber = document.querySelector("#searchAllResult" + line.id + " .searchAllResultLineIndex");
+                                    const realIndex = editorFiles[key].indexOf(theSavedEl) + 1 + ".";
+                                    const currentIndex = allSearchResults[key].indexOf(line);
+                                    allSearchResults[key].splice(currentIndex, 1);
+                                    allSearchResults[key].splice(currentIndex, 0, { ...theSavedEl });
+                                    if (searchAllResultNumber && realIndex != searchAllResultNumber.textContent) {
+                                        searchAllResultNumber.textContent = realIndex;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    clearInterval(searchIngerval);
+                    searchIngerval = null;
+                }
+            }, 1000);
+        }
         function returnSearchReslutsFor(wantedFileId, resultCon, searchTerm) {
+            currentSearchAllTerm = searchTerm;
+            allSearchResults[wantedFileId] = [];
             const wantedFile = editorFiles[wantedFileId];
             resultCon.innerHTML = "";
             let combinedList = wantedFile;
@@ -16923,11 +17111,13 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 }
             }
             function addLine(theLine) {
+                allSearchResults[wantedFileId].push({...theLine});
                 const searchAllResult = document.createElement("div");
                 searchAllResult.className = "searchAllResult";
                 const searchAllResultText = document.createElement("span");
                 searchAllResultText.className = "searchAllResultText";
                 searchAllResultText.textContent = theLine.text.trim();
+                searchAllResult.id = "searchAllResult" + theLine.id;
                 if (document.querySelector('.linenumberforsearchresult input[type="checkbox"]').checked) {
                     const searchAllResultLineIndex = document.createElement("span");
                     searchAllResultLineIndex.className = "searchAllResultLineIndex";
@@ -17068,6 +17258,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 .replace(/[‘’']/g, "'");
         }
         function searchAllCode(inputEl) {
+            allSearchResults = {};
             const searchValue = normalizeQuotes(inputEl.value);
             const searchAllResults = document.getElementById("searchAllResults");
             searchAllResults.innerHTML = "";
@@ -17099,6 +17290,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                         const fileName = document.querySelector(`.navdot${key} .filePathInput`)?.value || "name not found";
                         const fileRep = document.createElement("div");
                         fileRep.className = "fileRep";
+                        fileRep.id = "searchAllFileEl" + key;
                         const fileRepTop = document.createElement("div");
                         fileRepTop.className = "fileRepTop";
                         fileRep.appendChild(fileRepTop);
@@ -17114,14 +17306,18 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                         fileRep.appendChild(searchAllResultCon);
                         searchAllResults.appendChild(fileRep);
                         removeFileRep.onclick = () => {
+                            delete allSearchResults[key];
                             fileRep.remove();
                         };
-                        fileRepTop.onclick = () => {
+                        fileRepTop.onclick = (e) => {
+                            if (e.target.classList.contains("removeFileRep")) return;
                             fileRep.classList.toggle("showContent");
                             if (fileRep.classList.contains("showContent")) {
                                 returnSearchReslutsFor(key, searchAllResultCon, searchValue);
+                                refreshSearchResultsInterval();
                             } else {
                                 searchAllResultCon.innerHTML = "";
+                                delete allSearchResults[key];
                             }
                         }
                     }
@@ -17137,6 +17333,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                     const fileName = document.querySelector(`.navdot${fileSpecificSearchSelectValue} .filePathInput`)?.value || "name not found";
                     const fileRep = document.createElement("div");
                     fileRep.className = "fileRep showContent";
+                    fileRep.id = "searchAllFileEl" + fileSpecificSearchSelectValue;
                     const fileRepTop = document.createElement("div");
                     fileRepTop.className = "fileRepTop";
                     fileRep.appendChild(fileRepTop);
@@ -17148,6 +17345,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                     fileRep.appendChild(searchAllResultCon);
                     searchAllResults.appendChild(fileRep);
                     returnSearchReslutsFor(fileSpecificSearchSelectValue, searchAllResultCon, searchValue);
+                    refreshSearchResultsInterval();
                 }
             }
         }
@@ -18108,6 +18306,19 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                         minmaxednumber--;
                     }
                     if (allLines[minmaxednumber]) {
+                        const lineNextElementSibling = allLines[minmaxednumber - 1];
+                        if (lineNextElementSibling) {
+                            let indentLength = 0;
+                            for (let i = 0; i < lineNextElementSibling.text.length; i++) {
+                                const char = lineNextElementSibling.text[i];
+                                if (char === " " || char === "\u00A0") {
+                                    indentLength++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            selectedline.text = "\u00A0".repeat(indentLength) + selectedline.text.replace(/^\s+/g, "");
+                        }
                         allLines.splice(oldIndex, 1);
                         allLines.splice(minmaxednumber, 0, selectedline);
                         
@@ -18152,6 +18363,19 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                         minmaxednumber++;
                     }
                     if (allLines[minmaxednumber]) {
+                        const lineNextElementSibling = allLines[minmaxednumber];
+                        if (lineNextElementSibling) {
+                            let indentLength = 0;
+                            for (let i = 0; i < lineNextElementSibling.text.length; i++) {
+                                const char = lineNextElementSibling.text[i];
+                                if (char === " " || char === "\u00A0") {
+                                    indentLength++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            selectedline.text = "\u00A0".repeat(indentLength) + selectedline.text.replace(/^\s+/g, "");
+                        }
                         allLines.splice(oldIndex, 1);
                         allLines.splice(minmaxednumber, 0, selectedline);
                         
@@ -18266,7 +18490,74 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 }, 250);
             }, 1000);
         }
+        function commentallselectedlines() {
+            if (!section) return;
+            let newpast = [];
+            lasteventsparentsection = section;
+            const allLines = editorFiles[editorIndex];
+            const allselectedlines = allLines.filter(el => el.classes.includes('selected'));
+            if (allselectedlines.length) {
+                allselectedlines.forEach(selectedline => {
+                    const currentLineIndex = allLines.indexOf(selectedline);
+                    
+                    let pastelement = {
+                        element: { ...selectedline },
+                        type: "text",
+                        text: selectedline.text,
+                        index: currentLineIndex
+                    };
+                    newpast.push(pastelement);
+                    
+                    const theElement = allLines[currentLineIndex];
+                    let theNewText = selectedline.text;
+                    const fileName = projectNames[section.id];
+                    const cLineIndent = theNewText.match(/^\s*/)[0];
+                    const cleanText = theNewText.trimStart();
+                    if (fileName.endsWith(".html") || fileName.endsWith(".htm")) {
+                        let fileTextContent = allLines.slice(0, currentLineIndex).map(line => line.text).join("\n").toLowerCase();
+                        
+                        const amountOfScriptStarts = [...fileTextContent.matchAll(/<script\b([^>]*)>/g)].length;
+                        const amountOfScriptEnds = fileTextContent.split("<\/script>").length - 1;
+                        
+                        const amountOfStyleStarts = [...fileTextContent.matchAll(/<style\b([^>]*)>/g)].length;
+                        const amountOfStyleEnds = fileTextContent.split("</style>").length - 1;
+                        
+                        if (amountOfScriptStarts > amountOfScriptEnds) {
+                            theNewText = `${selectedline.classes.includes("topSelected") ? cLineIndent + "/* " : selectedline.classes.includes("singleSelected") ? "//" + cLineIndent : cLineIndent}${cleanText}${selectedline.classes.includes("bottomSelected") && !selectedline.classes.includes("singleSelected") ? " */" : ""}`;
+                        } else if (amountOfStyleStarts > amountOfStyleEnds) {
+                            theNewText = `${selectedline.classes.includes("topSelected") || selectedline.classes.includes("singleSelected") ? cLineIndent + "/* " : cLineIndent}${cleanText}${selectedline.classes.includes("bottomSelected") || selectedline.classes.includes("singleSelected") ? " */" : ""}`;
+                        } else {
+                            theNewText = `${selectedline.classes.includes("topSelected") || selectedline.classes.includes("singleSelected") ? cLineIndent + "<!-- " : cLineIndent}${cleanText}${selectedline.classes.includes("bottomSelected") || selectedline.classes.includes("singleSelected") ? " -->" : ""}`;
+                        }
+                    } else {
+                        theNewText = fileName.endsWith(".py") ? "# " + selectedline.text : 
+                            fileName.endsWith(".css") ? `${selectedline.classes.includes("topSelected") || selectedline.classes.includes("singleSelected") ? cLineIndent + "/* " : cLineIndent}${cleanText}${selectedline.classes.includes("bottomSelected") || selectedline.classes.includes("singleSelected") ? " */" : ""}` : fileName.endsWith(".js") ? `${selectedline.classes.includes("topSelected") ? cLineIndent + "/* " : selectedline.classes.includes("singleSelected") ? "//" + cLineIndent : cLineIndent}${cleanText}${selectedline.classes.includes("bottomSelected") && !selectedline.classes.includes("singleSelected") ? " */" : ""}` :
+                            "// " + selectedline.text;
+                    }
+                    
+                    theElement.text = theNewText;
+                    const theEl = section.querySelector(`.code-editor-line[line-index="${currentLineIndex}"]`);
+                    if (theEl) {
+                        theEl.textContent = theNewText;
+                        if (!theEl.classList.contains('syntaxhtmlcomment') && !theEl.classList.contains('syntaxcomment') && !theEl.classList.contains('syntaxstring')) {
+                            _highlightSyntax(theEl);
+                        }
+                    }
+                });
+                checkifselectedlines();
+            }
+            
+            if (newpast.length > 0) {
+                resolvePendingPast();
+                pasteventPrep();
+                pastevents[lasteventsparentsection.id].push(newpast);
+                enablepastbtn();
+                updateSaveFile();
+            }
+        }
+        
         function trimAllselectedlinetexts(){
+            if (!section) return;
             let newpast = [];
             lasteventsparentsection = section;
             const allLines = editorFiles[editorIndex];
@@ -19020,6 +19311,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
             "showalltemplatescontainerbtn": "Click this if you want to use some templates or get some inspiration. Make sure to read and agree to the licence before using any of the templates.",
             "toggleexternalsidebartext": "This button expands the files secion on this side-bar.",
             "pastbtn": "This is the undo button. You can edit its behavior in the \"file settings\".",
+            "commentbtn": "This button allows you to comment out code in selected lines. Depending on the supported programming language, it will comment the code out appropriately.",
             "pin-listitem-btn": "This is a toggle button. When this button is toggled on, this note will be put at the top of the notes list, both in the notes list section and file overlay (the list visible on the file when a note is pinned to a file.",
             "noteDisplayTimeSwitch": "This switch lets you decide if you want your file notes overlay to be permanently visible or only visible for a short amount of time after opening a file that has notes attached to it.",
             "deletebtn": "This is the delete button. You can delete lines in your code with this. You can undo this action any time. You can edit this button in the \"file settings\".",
@@ -19284,7 +19576,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
         function extractUniqueValues(code) {
             const matches = new Set();
             
-            const patterns = [
+            const jsAndHTMLAndCSSPatterns = [
                 { regex: /class="([^"]+)"/g, prefix: '.', split: true },
                 { regex: /id="([^"]+)"/g, prefix: '#' },
                 { regex: /function\s+([a-zA-Z0-9_$]+)\s*\(/g, prefix: '' },
@@ -19296,6 +19588,13 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 { regex: /\.id\s*=\s*['"]([^'"]+)['"]/g, prefix: '#' },
                 { regex: /(--[a-zA-Z0-9-_]+)/g, prefix: '--' }
             ];
+            const pyPatterns = [
+                { regex: /class\s+([a-zA-Z0-9_]+)\s*[:\(]/g, prefix: '' },
+                { regex: /def\s+([a-zA-Z0-9_]+)\s*\(/g, prefix: '' },
+                { regex: /([a-zA-Z0-9_]+)\s*=\s*/g, prefix: '' }
+            ];
+            
+            let patterns = section && projectNames[section.id].endsWith(".py") ? pyPatterns : jsAndHTMLAndCSSPatterns;
             
             patterns.forEach(({ regex, prefix, split }) => {
                 regex.lastIndex = 0;
