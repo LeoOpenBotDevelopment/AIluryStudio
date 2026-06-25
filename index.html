@@ -7209,7 +7209,7 @@
                     <div id="files_top_bar">
                         <button class="overlay-back-btn" onclick="hideOverlay('#files_overlay', 'files')">×</button>
                         <button class="overlay-close-btn" onclick="hideOverlay('#files_overlay', 'files')">close</button>
-                        <input type="file" id="fileInput" style="display: none;" accept=".txt, .css, .js, .html, image/*" multiple>
+                        <input type="file" id="fileInput" style="display: none;" accept=".txt, .css, .js, .html, .py, image/*" multiple>
                         <button onclick="clickthiselement('#fileInput')" class="upload-btn" id="uploadNewFilesBtn">upload</button>
                         <button class="viewthisfile" onclick="viewthisfile()" id="viewThisFileFromFilesBtn">view</button>
                         <button class="create-file-btn" onclick="requestcreatenewfile()" id="createNewFileBtn">+</button>
@@ -12962,6 +12962,7 @@
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const filePath = file.name;
+                const isPython = file.name.endsWith('.py');
                 if (file.type.startsWith('image/')) {
                     isloadingimages = true;
                     if (!allimages[filePath]) {
@@ -12970,7 +12971,7 @@
                         loadimageiffti = false;
                         failedfiles.push(filePath);
                     }
-                } else if (file.type === 'text/plain' || file.type === 'text/css' || file.type === 'application/javascript' || file.type === 'text/html') {
+                } else if (file.type === 'text/plain' || file.type === 'text/css' || file.type === 'application/javascript' || file.type === 'text/html' || isPython) {
                     let allfilenames = Array.from(document.querySelectorAll('.filedot .filePathInput')).map(input => input.value);
                     if (!allfilenames.includes(filePath)) {
                         isloadingfiles = true;
