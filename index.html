@@ -2575,6 +2575,33 @@
         .sidebarenabled .sidebarbardiv{
             display: flex;
         }
+        @keyframes sidebarAnimation {
+            from {
+                left: -100%;
+            }
+            to {
+                left: 0;
+            }
+        }
+        @keyframes sidebarCloseAnimation {
+            from {
+                left: 0;
+            }
+            to {
+                left: -100%;
+            }
+        }
+        .divcodeeditor-container:not(.sidebarenabled):not(.smallsidebarenabled) .sidebarbardiv {
+            animation: sidebarCloseAnimation 1s ease forwards;
+        }
+        @media (max-width: 700px) {
+            .sidebarbardiv {
+                display: flex;
+                position: fixed;
+                left: 0;
+                top: 0;
+            }
+        }
         .smallsidebarenabled .sidebarbardiv{
             display: flex;
             position: fixed;
@@ -2583,6 +2610,7 @@
             z-index: 19;
             width: 100vw;
             transition: var(--tr);
+            animation: sidebarAnimation 1s ease;
         }
         .sidebarbardiv h3{
             font-family: Arial, sans-serif;
@@ -4548,7 +4576,7 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
-        .sidebarfilebtnssectionextexternalsidebar .sidebarbardiv > *:not(.sidebarbardivbuttondiv1), .searchAllEnabled .sidebarbardiv > *:not(#searchAllCon):not(#closeSearchAllSec) {
+        .sidebarfilebtnssectionextexternalsidebar .sidebarbardiv > *:not(.sidebarbardivbuttondiv1):not(#closemenuforsmallscreen), .searchAllEnabled .sidebarbardiv > *:not(#searchAllCon):not(#closeSearchAllSec):not(#closemenuforsmallscreen) {
             display: none !important;
         }
         .sidebarfilebtnssectionextexternalsidebar .sidebarbardiv {
@@ -13919,6 +13947,8 @@
             rect.addEventListener('touchend', stopEnlarge);
             
             function startEnlarge(event) {
+                const aStartY = event.touches[0].clientY;
+                if (aStartY && aStartY >= window.innerHeight - 25) return;
                 timer = setTimeout(() => {
                     updateviewthisfilebtn();
                     showOverlay('#files_overlay', 'files', false);
@@ -17691,13 +17721,23 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
 
 
         navBar.addEventListener('mousedown', (e) => {
-            isDragging = true;
             startY = e.clientY;
+            if (startY >= window.innerHeight - 25) {
+                startY = null;
+                isDragging = false;
+            } else {
+                isDragging = true;
+            }
         });
 
         navBar.addEventListener('touchstart', (e) => {
-            isDragging = true;
             startY = e.touches[0].clientY;
+            if (startY >= window.innerHeight - 25) {
+                startY = null;
+                isDragging = false;
+            } else {
+                isDragging = true;
+            }
         });
 
         window.addEventListener('mousemove', (e) => {
@@ -17705,7 +17745,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 const deltaY = startY - e.clientY;
                 let newHeight = currentHeight + deltaY;
 
-                if (section.classList.contains('viewcontainer')){
+                if (section.classList.contains('viewcontainer') || startY >= window.innerHeight - 25){
                     return;
                 }
                 if (newHeight > 100) {
@@ -17727,7 +17767,7 @@ os.system = lambda cmd: fallback_clear_engine() if cmd in ['clear', 'cls', 'cls 
                 const deltaY = startY - e.touches[0].clientY;
                 let newHeight = currentHeight + deltaY;
 
-                if (section.classList.contains('viewcontainer')){
+                if (section.classList.contains('viewcontainer') || startY >= window.innerHeight - 20){
                     return;
                 }
                 if (newHeight > 100) {
