@@ -1817,6 +1817,11 @@
             padding: 10px;
             flex-shrink: 0;
         }
+        @media(max-width: 650px) {
+            .rectangle, .rectanglep {
+                max-width: none;
+            }
+        }
         @keyframes spinAnimation {
             from {
                 transform: translate(-50%, -50%) rotate(0);
